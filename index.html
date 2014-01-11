@@ -1,47 +1,70 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Test-Driven Development by grzesiek-galezowski</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Test-Driven Development : Extensive Tutorial" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Test-Driven Development</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Test-Driven Development</h1>
-          <h2>Extensive Tutorial</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/grzesiek-galezowski/tdd-ebook">View on GitHub</a>
+
+          <h1 id="project_title">Test-Driven Development</h1>
+          <h2 id="project_tagline">Extensive Tutorial</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/grzesiek-galezowski/tdd-ebook/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/grzesiek-galezowski/tdd-ebook/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/grzesiek-galezowski/tdd-ebook/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/grzesiek-galezowski/tdd-ebook/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/grzesiek-galezowski/tdd-ebook" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/cover-small.png" alt="Cover"></p>
 
-        <hr>
+<h3>
+<a name="book-download-links" class="anchor" href="#book-download-links"><span class="octicon octicon-link"></span></a>Book Download Links</h3>
 
-        <section id="main_content">
-          <p><img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/cover-small.png" alt="Cover"></p>
+<p><a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.epub">
+  <img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/document-epub.png">Epub
+</a>
+<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.mobi">
+  <img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/document-mobi.png">Mobi
+</a>
+<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.azw3">
+  <img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/document-mobi.png">AZW3
+</a>
+<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.pdf">
+  <img src="https://raw.github.com/grzesiek-galezowski/tdd-ebook/master/document-pdf.png">PDF
+</a></p>
+
+<h3>
+<a name="additional-links" class="anchor" href="#additional-links"><span class="octicon octicon-link"></span></a>Additional Links</h3>
+
+<p><a href="https://github.com/grzesiek-galezowski/tdd-toolkit">C# Toolkit</a> |
+<a href="https://plus.google.com/113457358555307974994" rel="publisher">Google+</a> |
+<a href="https://www.facebook.com/tddebook">Facebook</a></p>
+
+<h3>
+<a name="summary" class="anchor" href="#summary"><span class="octicon octicon-link"></span></a>Summary</h3>
 
 <p>This ebook is an attempt to create open-source extensive tutorial on Test-Driven Development. It's work in progress and any contribution is welcome.</p>
 
 <p>The main destination format is epub, conversion to mobi is done using calibre's 'ebook-convert' utility. Both formats are readily available for download, so please feel free to do so.</p>
 
-<p>Download: 
-<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.epub">Epub</a> |
-<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.mobi">Mobi</a> |
-<a href="https://dl.dropboxusercontent.com/u/220139/Test-Driven%20Development%20-%20Extensive%20Tutorial.pdf">Pdf</a> |
-<a href="https://github.com/grzesiek-galezowski/tdd-toolkit">C# Toolkit</a></p>
+<h3>
+<a name="table-of-content" class="anchor" href="#table-of-content"><span class="octicon octicon-link"></span></a>Table of Content</h3>
 
 <p>So far the following chapters are considered ready for reading:</p>
 
@@ -57,21 +80,32 @@
 <li>Developing TDD style and Constrained Non-Determinism</li>
 <li>What is the scope of a unit-level Statement in TDD?</li>
 <li>Specifying Boundaries and Conditions</li>
+<li>Triangulation</li>
 </ol><p>At least four or five more chapters are planned</p>
+
+<h3>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h3>
 
 <p>If you see a grammar error or a sentence that can be phrased better, or something that's not clear, please submit an issue. Also if you've got some questions, topic requests, would like to submit better exercises or correct the existing ones, please submit an issue as well.</p>
 
 <p>You are welcome to fork this ebook and make customized version for the programming language of your choice.</p>
 
-<p><a href="https://plus.google.com/113457358555307974994" rel="publisher">Google+</a></p>
-        </section>
+<h3>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
 
-        <footer>
-          Test-Driven Development is maintained by <a href="https://github.com/grzesiek-galezowski">grzesiek-galezowski</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+<p>(PDF, MOBI and EPUB download icons by <a href="http://smithsrus.com/e-book-download-icons/">Yusuke Kamiyamane and Doug Smith</a>, used under <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</a>.)</p>
+      </section>
+    </div>
 
-                  <script type="text/javascript">
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Test-Driven Development maintained by <a href="https://github.com/grzesiek-galezowski">grzesiek-galezowski</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -82,7 +116,6 @@
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
+
   </body>
 </html>
