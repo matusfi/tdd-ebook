@@ -774,7 +774,7 @@ var configuration = new XmlConfiguration(customFixture);
 </div>
 
 
-<div class="calibre4" id="calibre_link-19">
+<div class="calibre4" id="calibre_link-3">
   <h1 class="calibre1">Practicing what we already learned</h1>
 
   <blockquote class="calibre18">
@@ -1746,7 +1746,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 </div>
 
 
-<div class="calibre4" id="calibre_link-3">
+<div class="calibre4" id="calibre_link-19">
   <h1 class="calibre1">How to start?</h1>
 
   <p class="calibre2">Whenever I&nbsp;sat down with a&nbsp;person that was about to write their first code in a&nbsp;Statement-first manner, the person would first stare at the screen, then at me, then would say: “what now?”. It is easy to say: “You know how to write code, you know how to write a&nbsp;unit test for it, just this time start with the latter rather than the first”, but for many people, this is something that blocks them completely. If you are one of them, do not worry - you are not alone. I&nbsp;decided to dedicate this chapter solely to techniques for kicking off a&nbsp;Statement when there is no code.</p>
@@ -2106,7 +2106,7 @@ public void TODO()
 </div>
 
 
-<div class="calibre4" id="calibre_link-15">
+<div class="calibre4" id="calibre_link-1">
   <h1 class="calibre1">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</h1>
 
   <h2 id="calibre_link-37" class="calibre5">Is there really a&nbsp;commonality between analysis and TDD?</h2>
@@ -2943,7 +2943,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 
 <div class="calibre4" id="calibre_link-10">
   <div class="disclaimer">
-    The first occurence of the term triangulation I know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>.
+    The first occurence of the term triangulation I&nbsp;know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>.
   </div>
 
   <h1 class="calibre1">Triangulation</h1>
@@ -2964,7 +2964,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 
   <h2 class="calibre5">Type The Obvious Implementation</h2>
 
-  <p class="calibre2">The first of the three techniques is just writing an obvious implementation in response to a Statetement. If the implementation is simple, this approach makes a lot of sense. Let’s take a trivial example of adding two numbers:</p>
+  <p class="calibre2">The first of the three techniques is just writing an obvious implementation in response to a&nbsp;Statetement. If the implementation is simple, this approach makes a&nbsp;lot of sense. Let’s take a&nbsp;trivial example of adding two numbers:</p>
   <pre class="calibre10">[Fact] public void
 ShouldAddTwoNumbersTogether()
 {
@@ -2978,7 +2978,7 @@ ShouldAddTwoNumbersTogether()
   Assert.Equal(8, result);
 }</pre>
 
-  <p class="calibre2">You may remember I told you that usually we write the simplest production code that would make the Statement true. This rule would encourage us to just return 7 from the <code class="calibre11">Of</code> method, because it would be sufficient to make the Statement true. Instead, we can decide that the logic is so obvious, that we can just write it based on this one Statement:</p>
+  <p class="calibre2">You may remember I&nbsp;told you that usually we write the simplest production code that would make the Statement true. This rule would encourage us to just return 7 from the <code class="calibre11">Of</code> method, because it would be sufficient to make the Statement true. Instead, we can decide that the logic is so obvious, that we can just write it based on this one Statement:</p>
   <pre class="calibre10">public class Sum
 {
   public int Of(int a, int b)
@@ -2989,12 +2989,12 @@ ShouldAddTwoNumbersTogether()
 
   <p class="calibre2">and this is it.</p>
 
-  <p class="calibre2">Note that I didn’t use Constrained Non-Determinism here, because its use enforces using “Just write obvious implementation” technique. In fact, most (if not all) Statements we wrote so far in previous chapters, uses this approach because of this fact. Let’s take a look at how the above Statement would look if we used Constrained Non-Determinism:</p>
+  <p class="calibre2">Note that I&nbsp;didn’t use Constrained Non-Determinism here, because its use enforces using “Just write obvious implementation” technique. In fact, most (if not all) Statements we wrote so far in previous chapters, uses this approach because of this fact. Let’s take a&nbsp;look at how the above Statement would look if we used Constrained Non-Determinism:</p>
   <pre class="calibre10">[Fact] public void
 ShouldAddTwoNumbersTogether()
 {
   //GIVEN
-  var a = Any.Integer();
+  var a&nbsp;= Any.Integer();
   var b = Any.Integer();
   var sum = new Sum();
 
@@ -3009,17 +3009,17 @@ ShouldAddTwoNumbersTogether()
 
   <h2 class="calibre5">Fake It (‘Til You Make It)</h2>
 
-  <p class="calibre2">This technique is kind of funny. I do not recall myself ever using it, but it is so interesting I want to show it to you anyway. It is so simple you will not regret these few minutes even if just for broadening your horizons.</p>
+  <p class="calibre2">This technique is kind of funny. I&nbsp;do not recall myself ever using it, but it is so interesting I&nbsp;want to show it to you anyway. It is so simple you will not regret these few minutes even if just for broadening your horizons.</p>
 
   <p class="calibre2">There are two core things that we need to pay attention when using these technique:</p>
 
   <ol class="calibre12">
-    <li class="calibre13">Start with the simplest implementation possible (i.e. fake it), which usually is returning a literal constant. Then gradually transform the code of both Statement and implementation using variables</li>
+    <li class="calibre13">Start with the simplest implementation possible (i.e. fake it), which usually is returning a&nbsp;literal constant. Then gradually transform the code of both Statement and implementation using variables</li>
 
     <li class="calibre13">When doing it, rely on your sense of duplication between Statement and (fake) implementation</li>
   </ol>
 
-  <p class="calibre2">Let us apply Fake It to the same addition example as before (I promise, for triangulation, I will give you better one). The Statement looks the same as before:</p>
+  <p class="calibre2">Let us apply Fake It to the same addition example as before (I promise, for triangulation, I&nbsp;will give you better one). The Statement looks the same as before:</p>
   <pre class="calibre10">[Fact] public void
 ShouldAddTwoNumbersTogether()
 {
@@ -3033,7 +3033,7 @@ ShouldAddTwoNumbersTogether()
   Assert.Equal(8, result);
 }</pre>
 
-  <p class="calibre2">Only this time, we are going to use the simplest implementation possible. As I wrote, this simplest implementation is almost always to return a constant:</p>
+  <p class="calibre2">Only this time, we are going to use the simplest implementation possible. As I&nbsp;wrote, this simplest implementation is almost always to return a&nbsp;constant:</p>
   <pre class="calibre10">public class Sum
 {
   public int Of(int a, int b)
@@ -3044,7 +3044,7 @@ ShouldAddTwoNumbersTogether()
 
   <p class="calibre2">The Statement evaluates to true (green) now, though the implementation is obviously wrong. BUT, the TDD cycle is not over yet. Remember that as soon as the Statement is true, refactoring phase kicks in. This is something we were ignoring silently for now (and here we will only slightly lick it). We can use the refactoring phase to remove duplication between the Statement and the implementing code.</p>
 
-  <p class="calibre2">First, let us note that the number 8 is duplicated between Statement and implementation - the implementation returns it and the Statement asserts on it. To reduce this duplication, let us break the 8 in the implementation into a sum:</p>
+  <p class="calibre2">First, let us note that the number 8 is duplicated between Statement and implementation - the implementation returns it and the Statement asserts on it. To reduce this duplication, let us break the 8 in the implementation into a&nbsp;sum:</p>
   <pre class="calibre10">public class Sum
 {
   public int Of(int a, int b)
@@ -3053,12 +3053,12 @@ ShouldAddTwoNumbersTogether()
   }
 }</pre>
 
-  <p class="calibre2">Note the smart trick I did. I changed duplication between implementation and expected result to duplication between implementation and input values of the Statement. After all, 3 and 5 are the exact values I used in the Statement, right? This kind of duplication is different in that it can be removed using variables (this applies not only to input variables, but basically anything we have access to prior to triggering specified behavior - constructor parameters, fields etc. in contrast to result which we normally do not know until we invoke the behavior). The duplication of number 3 can be eliminated this way:</p>
+  <p class="calibre2">Note the smart trick I&nbsp;did. I&nbsp;changed duplication between implementation and expected result to duplication between implementation and input values of the Statement. After all, 3 and 5 are the exact values I&nbsp;used in the Statement, right? This kind of duplication is different in that it can be removed using variables (this applies not only to input variables, but basically anything we have access to prior to triggering specified behavior - constructor parameters, fields etc. in contrast to result which we normally do not know until we invoke the behavior). The duplication of number 3 can be eliminated this way:</p>
   <pre class="calibre10">public class Sum
 {
   public int Of(int a, int b)
   {
-    return a + 5;
+    return a&nbsp;+ 5;
   }
 }</pre>
 
@@ -3067,15 +3067,15 @@ ShouldAddTwoNumbersTogether()
 {
   public int Of(int a, int b)
   {
-    return a + b;
+    return a&nbsp;+ b;
   }
 }</pre>
 
-  <p class="calibre2">And that’s it. I used a trivial example, since I don’t want to spend too much time on this, but you can find more advanced ones in Kent Beck’s book if you like.</p>
+  <p class="calibre2">And that’s it. I&nbsp;used a&nbsp;trivial example, since I&nbsp;don’t want to spend too much time on this, but you can find more advanced ones in Kent Beck’s book if you like.</p>
 
   <h2 class="calibre5">Triangulation</h2>
 
-  <p class="calibre2">As I wrote, triangulation is the most conservative technique, because following it involves the tiniest possible steps to arrive at the right solution. The technique is called triangulation by analogy to <a href="http://encyclopedia2.thefreedictionary.com/radar+triangulation">radar triangulation</a> where outputs from at least two radars must be used to determine the position of a unit. Also, in radar triangulation, the position is measured indirectly, by combining the following data: range (not position!) between two radars, measurement done by each radar and the positions of the radars (which we know, because we are the ones who put the radars there). From this data, we can derive a triangle, so we can use trigonometry to calculate the position of the third point of the triangle, which is the desired position of the unit (two remaining points are the positions of radars). Such measurement is indirect in nature, because we do not measure the position directly, but calculate it from other helper measurements.</p>
+  <p class="calibre2">As I&nbsp;wrote, triangulation is the most conservative technique, because following it involves the tiniest possible steps to arrive at the right solution. The technique is called triangulation by analogy to <a href="http://encyclopedia2.thefreedictionary.com/radar+triangulation">radar triangulation</a> where outputs from at least two radars must be used to determine the position of a&nbsp;unit. Also, in radar triangulation, the position is measured indirectly, by combining the following data: range (not position!) between two radars, measurement done by each radar and the positions of the radars (which we know, because we are the ones who put the radars there). From this data, we can derive a&nbsp;triangle, so we can use trigonometry to calculate the position of the third point of the triangle, which is the desired position of the unit (two remaining points are the positions of radars). Such measurement is indirect in nature, because we do not measure the position directly, but calculate it from other helper measurements.</p>
 
   <p class="calibre2">These two characteristics: indirect measurement and using at least two sources of information are at the core of TDD triangulation. Basically, it says:</p>
 
@@ -3089,7 +3089,7 @@ ShouldAddTwoNumbersTogether()
 
   <h4 class="sigilnotintoc1">Example</h4>
 
-  <p class="calibre2">Suppose we want to write a logic that creates an aggregate sum of the list. Let’s assume that we have no idea how to design the internals of our custom list class so that it fulfills its responsibility. Thus, we start with the simplest example of calculating a sum of 0 elements:</p>
+  <p class="calibre2">Suppose we want to write a&nbsp;logic that creates an aggregate sum of the list. Let’s assume that we have no idea how to design the internals of our custom list class so that it fulfills its responsibility. Thus, we start with the simplest example of calculating a&nbsp;sum of 0 elements:</p>
   <pre class="calibre10">[Fact] public void 
 ShouldReturn0AsASumOfNoElements()
 {
@@ -3113,7 +3113,7 @@ ShouldReturn0AsASumOfNoElements()
   }
 }</pre>
 
-  <p class="calibre2">This is not yet the implementation we are happy with, which makes us add another Statement - this time for a single element:</p>
+  <p class="calibre2">This is not yet the implementation we are happy with, which makes us add another Statement - this time for a&nbsp;single element:</p>
   <pre class="calibre10">[Fact] public void 
 ShouldReturnTheSameElementAsASumOfSingleElement()
 {
@@ -3149,9 +3149,9 @@ ShouldReturnTheSameElementAsASumOfSingleElement()
   }
 }</pre>
 
-  <p class="calibre2">We have two examples, so let us check whether we can generalize now. We could try to get rid of the two constructors now, but let us wait just a little bit longer and see if this is the right path to go (after all, I told you that we need <strong class="calibre14">at least</strong> two examples).</p>
+  <p class="calibre2">We have two examples, so let us check whether we can generalize now. We could try to get rid of the two constructors now, but let us wait just a&nbsp;little bit longer and see if this is the right path to go (after all, I&nbsp;told you that we need <strong class="calibre14">at least</strong> two examples).</p>
 
-  <p class="calibre2">Let’s add third example then. What would be the next more complex one? Note that the choice of next example is not random. Triangulation is about considering the axes of variability. If you carefully read the last example, you probably noticed that we already skipped one axis of variability - the value of the element. We used <code class="calibre11">Any.Integer()</code> where we could use a literal value and add a second example with another value to make us turn it into variable. This time, however, I decided to <strong class="calibre14">type the obvious implementation</strong>. The second axis of variability is the number of elements. The third example will move us further along this axis - so it will use two elements instead of one or zero. This is how it looks like:</p>
+  <p class="calibre2">Let’s add third example then. What would be the next more complex one? Note that the choice of next example is not random. Triangulation is about considering the axes of variability. If you carefully read the last example, you probably noticed that we already skipped one axis of variability - the value of the element. We used <code class="calibre11">Any.Integer()</code> where we could use a&nbsp;literal value and add a&nbsp;second example with another value to make us turn it into variable. This time, however, I&nbsp;decided to <strong class="calibre14">type the obvious implementation</strong>. The second axis of variability is the number of elements. The third example will move us further along this axis - so it will use two elements instead of one or zero. This is how it looks like:</p>
   <pre class="calibre10">[Fact] public void 
 ShouldReturnSumOfTwoElementsAsASumWhenTwoElementsAreSupplied()
 {
@@ -3196,7 +3196,7 @@ ShouldReturnSumOfTwoElementsAsASumWhenTwoElementsAreSupplied()
   }
 }</pre>
 
-  <p class="calibre2">After adding and implementing the third example, the variability of elements count becomes obvious. Now that we have three examples, we see even more clearly that we have redundant constructors and redundant fields for each element in the list and if we added a fourth example for three elements, we’d have to add another constructor, another field and another element of the sum computation. Time to generalize!</p>
+  <p class="calibre2">After adding and implementing the third example, the variability of elements count becomes obvious. Now that we have three examples, we see even more clearly that we have redundant constructors and redundant fields for each element in the list and if we added a&nbsp;fourth example for three elements, we’d have to add another constructor, another field and another element of the sum computation. Time to generalize!</p>
 
   <p class="calibre2">How do we encapsulate the variability of the element count so that we can get rid of this redundancy? A collection! How do we generalize the addition of multiple elements? A&nbsp;foreach loop through the collection! Thankfully, C# supports <code class="calibre11">params</code> keyword, that let us use it to remove the redundant constructor like this:</p>
   <pre class="calibre10">public class ListWithAggregateOperations
@@ -3221,7 +3221,7 @@ ShouldReturnSumOfTwoElementsAsASumWhenTwoElementsAreSupplied()
   }
 }</pre>
 
-  <p class="calibre2">While the first Statement (“no elements”) seems like a special case, the remaining two - for one and two elements - seem to be just two variations of the same behavior (“some elements”). Thus, it is a good idea to make a more general Statement that describes this logic to replace the two examples. After all, we don’t want more than one failure for the same reason. So as the next step, I will write a Statement to replace these examples (I leave them in though, until I get this one to evaluate to true).</p>
+  <p class="calibre2">While the first Statement (“no elements”) seems like a&nbsp;special case, the remaining two - for one and two elements - seem to be just two variations of the same behavior (“some elements”). Thus, it is a&nbsp;good idea to make a&nbsp;more general Statement that describes this logic to replace the two examples. After all, we don’t want more than one failure for the same reason. So as the next step, I&nbsp;will write a&nbsp;Statement to replace these examples (I leave them in though, until I&nbsp;get this one to evaluate to true).</p>
   <pre class="calibre10">[Fact]
 public void 
 ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
@@ -3247,9 +3247,9 @@ ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
 }
 </pre>
 
-  <p class="calibre2">This Statement uses three values rather than zero, one or two as in the examples we had. When I need to use collections with deterministic size (and I do prefer to do it everywhere where using collection with non-deterministic size would force me to use a <code class="calibre11">for</code> loop in my Statement), I pick 3, which is the number I got from Mark Seemann and the rationale is that 3 is the smallest number that has distinct head, tail and middle element. One or two elements seem like a special case, while three sounds generic enough.</p>
+  <p class="calibre2">This Statement uses three values rather than zero, one or two as in the examples we had. When I&nbsp;need to use collections with deterministic size (and I&nbsp;do prefer to do it everywhere where using collection with non-deterministic size would force me to use a&nbsp;<code class="calibre11">for</code> loop in my Statement), I&nbsp;pick 3, which is the number I&nbsp;got from Mark Seemann and the rationale is that 3 is the smallest number that has distinct head, tail and middle element. One or two elements seem like a&nbsp;special case, while three sounds generic enough.</p>
 
-  <p class="calibre2">One more thing we can do is to ensure that we didn’t write a <strong class="calibre14">false positive</strong>, i.e. a Statement that is always true due to being badly written. In other words, we need to ensure that the Statement we just wrote will ever evaluate to false if the implementation is wrong. As we wrote it after the implementation is in place, we do not have this certainty.</p>
+  <p class="calibre2">One more thing we can do is to ensure that we didn’t write a&nbsp;<strong class="calibre14">false positive</strong>, i.e. a&nbsp;Statement that is always true due to being badly written. In other words, we need to ensure that the Statement we just wrote will ever evaluate to false if the implementation is wrong. As we wrote it after the implementation is in place, we do not have this certainty.</p>
 
   <p class="calibre2">What we will do is to modify the implementation slightly to make it badly implemented and see how our Statement will react (we expect it to evaluate to false):</p>
   <pre class="calibre10">public class ListWithAggregateOperations
@@ -3265,28 +3265,28 @@ public int SumOfElements()
 }
 </pre>
 
-  <p class="calibre2">When we do this, we can see our last Statement evaluate to false with a message like “expected 21, got 22”. We can now undo this one little change and go back to correct implementation.</p>
+  <p class="calibre2">When we do this, we can see our last Statement evaluate to false with a&nbsp;message like “expected 21, got 22”. We can now undo this one little change and go back to correct implementation.</p>
 
-  <p class="calibre2">The examples (“zero elements”, “one element” and “two elements”) still evaluate to true, but it’s now safe to remove the last two, leaving only the Statement about a behavior we expect when we calculate sum of no elements and the Statement about N elements we just wrote.</p>
+  <p class="calibre2">The examples (“zero elements”, “one element” and “two elements”) still evaluate to true, but it’s now safe to remove the last two, leaving only the Statement about a&nbsp;behavior we expect when we calculate sum of no elements and the Statement about N elements we just wrote.</p>
 
   <p class="calibre2">And voilà! We have arrived at the final, generic solution. Note that the steps we took were tiny - so you might get the impression that the effort was not worth it. Indeed, this example was only to show the mechanics of triangulation - in real life, if we encountered such simple situation we’d know straight away what the design would be and we’d start with the general Statement straight away and just type in the obvious implementation. Triangulation shows its power in more complex problems with multiple design axes and where taking tiny steps helps avoid “analysis paralysis”.</p>
 
   <h2 class="calibre5">Summary</h2>
 
-  <p class="calibre2">As I stated before, triangulation is most useful when you have no idea how the internal design of a piece of functionality will look like (e.g. even if there are work-flows, they cannot be easily derived from your knowledge of the domain) and it’s not obvious along which axes your design must provide generality, but you are able to give some examples of the observable behavior of that functionality given certain inputs. These are usually situations where you need to slow down and take tiny steps that slowly bring you closer to the right design and functionality - and that’s what triangulation is for!</p>
+  <p class="calibre2">As I&nbsp;stated before, triangulation is most useful when you have no idea how the internal design of a&nbsp;piece of functionality will look like (e.g. even if there are work-flows, they cannot be easily derived from your knowledge of the domain) and it’s not obvious along which axes your design must provide generality, but you are able to give some examples of the observable behavior of that functionality given certain inputs. These are usually situations where you need to slow down and take tiny steps that slowly bring you closer to the right design and functionality - and that’s what triangulation is for!</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-17">
+<div class="calibre4" id="calibre_link-16">
   <h1 class="calibre1">Part 2: Test-Driven Development in Object Oriented World</h1>
 
-  <p class="calibre2">Most of the examples I gave you during the previous part were about a single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a system.</p>
+  <p class="calibre2">Most of the examples I&nbsp;gave you during the previous part were about a&nbsp;single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a&nbsp;real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a&nbsp;system.</p>
 
-  <p class="calibre2">This brings about some issues that need to be discussed. One of them is the approach to object oriented design and how it influences the tools we use to test-drive our code. You probably heard something about a tool called mock objects (at least from one of the introductory chapters of this book) or, in more broaded sense, test doubles. If you open your web browser and type "mock objects break encapsulation", you will find a lot of different opinions - some saying that mocks are great, others blaming them for everything bad in the world, and a lot of opinions inbetween those. The discussions are still heated, even though mocks were introduced more than ten years ago. My goal in this chapter is to outline the real context and forces that lead to adoption of mocks and how to use them for your benefit, not failure.</p>
+  <p class="calibre2">This brings about some issues that need to be discussed. One of them is the approach to object oriented design and how it influences the tools we use to test-drive our code. You probably heard something about a&nbsp;tool called mock objects (at least from one of the introductory chapters of this book) or, in more broaded sense, test doubles. If you open your web browser and type "mock objects break encapsulation", you will find a&nbsp;lot of different opinions - some saying that mocks are great, others blaming them for everything bad in the world, and a&nbsp;lot of opinions inbetween those. The discussions are still heated, even though mocks were introduced more than ten years ago. My goal in this chapter is to outline the real context and forces that lead to adoption of mocks and how to use them for your benefit, not failure.</p>
 
-  <p class="calibre2">Steve Freeman, one of the godfathers of using mock objects with TDD, <a href="https://groups.google.com/d/msg/growing-object-oriented-software/rwxCURI_3kM/2UcNAlF_Jh4J">wrote</a>: "mocks arise naturally from doing responsibility-driven OO. All these mock/not-mock arguments are completely missing the point. If you're not writing that kind of code, people, please don't give me a hard time". I am going to introduce mocks in a way that will not give Steve a hard time, I hope.</p>
+  <p class="calibre2">Steve Freeman, one of the godfathers of using mock objects with TDD, <a href="https://groups.google.com/d/msg/growing-object-oriented-software/rwxCURI_3kM/2UcNAlF_Jh4J">wrote</a>: "mocks arise naturally from doing responsibility-driven OO. All these mock/not-mock arguments are completely missing the point. If you're not writing that kind of code, people, please don't give me a&nbsp;hard time". I&nbsp;am going to introduce mocks in a&nbsp;way that will not give Steve a&nbsp;hard time, I&nbsp;hope.</p>
 
-  <p class="calibre2">In order to do this, I need to cover some topics of object oriented design. That is why not all chapters in this part are specifically about TDD, but some are about object oriented techniques, practices and qualities you need to know to use TDD effectively in object oriented world. First of them being objects composability.</p>
+  <p class="calibre2">In order to do this, I&nbsp;need to cover some topics of object oriented design. That is why not all chapters in this part are specifically about TDD, but some are about object oriented techniques, practices and qualities you need to know to use TDD effectively in object oriented world. First of them being objects composability.</p>
 
   <p class="calibre2">After reading part 2, you will understand how mocks fit into test-driving object oriented code, how to make Statements using mocks maintainable and how some of the practices I&nbsp;introduced in the chapters of part 1 apply to mocks. You will also be able to test-drive simple object oriented systems.</p>
 </div>
@@ -3300,9 +3300,9 @@ public int SumOfElements()
 <div class="calibre4" id="calibre_link-7">
   <h1 class="calibre1">On Objects Composability</h1>
 
-  <p class="calibre2">In this chapter, I will try to outline why objects' composability is a goal worth achieving and how it can be achieved. I am going to start with an example of unmaintainable code and will gradually fix its flaws in the next chapters. In this chapter, we are going to fix just one of the flaws, so the code we will end up will not be perfect by any means, still, it will be better by one quality.</p>
+  <p class="calibre2">In this chapter, I&nbsp;will try to outline why objects' composability is a&nbsp;goal worth achieving and how it can be achieved. I&nbsp;am going to start with an example of unmaintainable code and will gradually fix its flaws in the next chapters. In this chapter, we are going to fix just one of the flaws, so the code we will end up will not be perfect by any means, still, it will be better by one quality.</p>
 
-  <h1 class="calibre1">TODO make it into a role-play!</h1>
+  <h1 class="calibre1">TODO make it into a&nbsp;role-play!</h1>
 
   <h1 class="calibre1">Another task for Johnny and Benjamin</h1>
 
@@ -3310,25 +3310,25 @@ public int SumOfElements()
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> So, what's this assignment about?</p>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong> Actually, it's nothing exciting - we'll have to add two features to a legacy application that's not prepared for the changes.</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong> Actually, it's nothing exciting - we'll have to add two features to a&nbsp;legacy application that's not prepared for the changes.</p>
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong>What is the code for?</p>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong>It is a class that implements company policies. As the company has just started using this automated system and it was started recently, there is only one policy implemented: yearly incentive plan. Many corporations have what they call incentive plans. These plans are used to promote good behaviors and exceeding expectations by employees of a company.</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong>It is a&nbsp;class that implements company policies. As the company has just started using this automated system and it was started recently, there is only one policy implemented: yearly incentive plan. Many corporations have what they call incentive plans. These plans are used to promote good behaviors and exceeding expectations by employees of a&nbsp;company.</p>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> You mean, the project has just started and is already in a bad shape?</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> You mean, the project has just started and is already in a&nbsp;bad shape?</p>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Yep. The guys writing it wanted to "keep it simple", whatever that means, and now it's pretty bad.</p>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> I see...</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> I&nbsp;see...</p>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> By the way, do you like riddles?</p>
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Always!</p>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong> So here's one: how do you call a development phase when you ensure high code quality?</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong> So here's one: how do you call a&nbsp;development phase when you ensure high code quality?</p>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> ... ... seems I don't have a clue... So what is it called?</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> ... ... seems I&nbsp;don't have a&nbsp;clue... So what is it called?</p>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> It's called "now".</p>
 
@@ -3336,13 +3336,13 @@ public int SumOfElements()
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> By the way, the company's incentive plan is one of the most stupid ones I've ever seen. Wonder how this company has managed to stay on the market for three years.</p>
 
-  <p class="calibre2">Every employee in the company has a pay grade. An employee can be promoted to a higher pay grade, but the mechanics of how it works is something we are not going to deal with.</p>
+  <p class="calibre2">Every employee in the company has a&nbsp;pay grade. An employee can be promoted to a&nbsp;higher pay grade, but the mechanics of how it works is something we are not going to deal with.</p>
 
-  <p class="calibre2">Normally, every year, everyone gets a raise by 10%. But to encourage behaviors that give an employee a higher pay grade, such employee cannot get raises indefinitely on a given pay grade. Each grade has its associated maximum pay. If this amount of money is reached, an employee does not get a raise anymore until they reach a higher pay grade.</p>
+  <p class="calibre2">Normally, every year, everyone gets a&nbsp;raise by 10%. But to encourage behaviors that give an employee a&nbsp;higher pay grade, such employee cannot get raises indefinitely on a&nbsp;given pay grade. Each grade has its associated maximum pay. If this amount of money is reached, an employee does not get a&nbsp;raise anymore until they reach a&nbsp;higher pay grade.</p>
 
-  <p class="calibre2">Additionally, every employee on their 5th anniversary of working for the company, gets a special, one-time bonus which is twice their current payment.</p>
+  <p class="calibre2">Additionally, every employee on their 5th anniversary of working for the company, gets a&nbsp;special, one-time bonus which is twice their current payment.</p>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Looks like the source code repository just finished synchronizing. Let's take a bite at the code!</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Looks like the source code repository just finished synchronizing. Let's take a&nbsp;bite at the code!</p>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Sure, here you go:</p>
   <pre class="calibre10">public class CompanyPolicies : IDisposable
@@ -3382,13 +3382,13 @@ public int SumOfElements()
   }
 }</pre>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Wow, there are a lot of literal constants and functional decomposition is barely done!</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Wow, there are a&nbsp;lot of literal constants and functional decomposition is barely done!</p>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Yeah. We won't be fixing all of that today. Still, we will follow the scout rule and "leave the campground cleaner than we found it".</p>
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> What's our assignment?</p>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong> First of all, we need to provide our users a choice between an SQL database and a NoSQL one. To achieve our goal, we need to be somehow able to make the <code class="calibre11">CompanyPolicies</code> class database type-agnostic. For now, as you can see, the implementation is coupled to the specific <code class="calibre11">SqlRepository</code>, because it creates a specific instance itself:</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong> First of all, we need to provide our users a&nbsp;choice between an SQL database and a&nbsp;NoSQL one. To achieve our goal, we need to be somehow able to make the <code class="calibre11">CompanyPolicies</code> class database type-agnostic. For now, as you can see, the implementation is coupled to the specific <code class="calibre11">SqlRepository</code>, because it creates a&nbsp;specific instance itself:</p>
   <pre class="calibre10">public class CompanyPolicies : IDisposable
 {
   readonly SqlRepository _repository
@@ -3415,9 +3415,9 @@ public int SumOfElements()
   }
 </pre>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong> True, but this option has few deficiencies. First of all, remember we're following the scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let's say tommorow someone writes a class for reporting - they will need to make the same decision on repositories. This means we would have to make the same decision in both of these classes, effectively duplicating code. What's our next option?</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong> True, but this option has few deficiencies. First of all, remember we're following the scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let's say tommorow someone writes a&nbsp;class for reporting - they will need to make the same decision on repositories. This means we would have to make the same decision in both of these classes, effectively duplicating code. What's our next option?</p>
 
-  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Another option would be to change the SqlRepository itself to be just a wrapper around the actual database access, like this:</p>
+  <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Another option would be to change the SqlRepository itself to be just a&nbsp;wrapper around the actual database access, like this:</p>
   <pre class="calibre10">public class SqlRepository : IDisposable
 {
   readonly Repository _repository;
@@ -3442,12 +3442,12 @@ public int SumOfElements()
 
   <h1 class="calibre1">TOOOOOOOOOOOODOOOOOOOOOO</h1>
 
-  <p class="calibre2">There are a couple of ways of dealing with this problem, like:</p>
+  <p class="calibre2">There are a&nbsp;couple of ways of dealing with this problem, like:</p>
 
   <h1 class="calibre1">TOOOOOOOOOODOOOOOOOOO convert the list to separate sections</h1>
 
   <ol class="calibre12">
-    <li class="calibre13">Creating a constructor with an if statement inside to choose the database - this is a bad idea because other classes in our system use the database as well so the if statement will need to be duplicated.</li>
+    <li class="calibre13">Creating a&nbsp;constructor with an if statement inside to choose the database - this is a&nbsp;bad idea because other classes in our system use the database as well so the if statement will need to be duplicated.</li>
 
     <li class="calibre13">Changing the <code class="calibre11">SqlRepository</code> class itself so that it hides the information on the database used behind its own API - this could work, but will lead to every method duplicating the choice between the databases. If we decide to make the choice just once, we don't really need this class, because most of the time it will delegate to its inner implementation.</li>
 
@@ -3535,7 +3535,7 @@ policies.ApplyYearlyIncentivePlan();
 repository.Dispose();
 </pre>
 
-  <p class="calibre2">What have we achieved? Well, we allowed ourselves to choose the implementation of employees' storage. We did this by making the system composable - i.e. we can achieve different behaviors of the system by changing the way objects are composed together into a system. For example, instead of creating a <code class="calibre11">policies</code> object like this:</p>
+  <p class="calibre2">What have we achieved? Well, we allowed ourselves to choose the implementation of employees' storage. We did this by making the system composable - i.e. we can achieve different behaviors of the system by changing the way objects are composed together into a&nbsp;system. For example, instead of creating a&nbsp;<code class="calibre11">policies</code> object like this:</p>
   <pre class="calibre10">SqlRepository repository = new SqlRepository();
 var policies = new CompanyPolicies(repository);</pre>
 
@@ -3543,7 +3543,7 @@ var policies = new CompanyPolicies(repository);</pre>
   <pre class="calibre10">NoSqlRepository repository = new NoSqlRepository();
 var policies = new CompanyPolicies(repository);</pre>
 
-  <p class="calibre2">Or even, if we later decide to make the repository configurable by a strategy (e.g. there may be different definitions of what it means to get "current" employees) and extract the connection logic even further and make error reporting more configurable, we can do it like this:</p>
+  <p class="calibre2">Or even, if we later decide to make the repository configurable by a&nbsp;strategy (e.g. there may be different definitions of what it means to get "current" employees) and extract the connection logic even further and make error reporting more configurable, we can do it like this:</p>
   <pre class="calibre10">Repository repository = new RepositoryConfigurableByPolicies(
   new SqlDatabase(),
   new FilterToExcludeProbationEmployeesFromCurrent(),
@@ -3578,7 +3578,7 @@ var policies = new CompanyPolicies(repository);</pre>
 </div>
 
 
-<div class="calibre4" id="calibre_link-1">
+<div class="calibre4" id="calibre_link-15">
   <p class="calibre2">dependency injection?</p>
 
   <p class="calibre2">What should be stable in your system?</p>
@@ -3619,7 +3619,7 @@ var policies = new CompanyPolicies(repository);</pre>
 </div>
 
 
-<div class="calibre" id="calibre_link-16">
+<div class="calibre" id="calibre_link-17">
   <p class="calibre2">&nbsp;1. combinatorial explosion</p>
 
   <p class="calibre2">2. too many classes specified at once</p>
