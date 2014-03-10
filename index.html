@@ -7,7 +7,7 @@
 </div>
 
 
-<div class="calibre" id="calibre_link-4">
+<div class="calibre" id="calibre_link-12">
   <h1 class="calibre1">Part 1: Just&nbsp;the basics</h1>
 
   <p class="calibre2">This is a&nbsp;part where I&nbsp;introduce the basic TDD philosophy and practices (as well as some advanced ones) without going much into object orientation and how to do TDD for systems where multiple objects collaborate together (which is a&nbsp;topic of Part 2).</p>
@@ -18,7 +18,7 @@
 </div>
 
 
-<div class="calibre4" id="calibre_link-9">
+<div class="calibre4" id="calibre_link-11">
   <h1 class="calibre1">Motivation - the first step to learning TDD</h1>
 
   <p class="calibre2">So, you want to learn TDD, huh? First off, let me ask a&nbsp;question ‘why?’.</p>
@@ -33,9 +33,9 @@
 
   <h2 id="calibre_link-20" class="calibre5">How TDD feels like</h2>
 
-  <p class="calibre2">Me and my brother liked to play video games in our childhood - one of the most memorable being Tekken 3 - a&nbsp;japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a&nbsp;day. Some could say the game had nothing to offer since then. Why then did we spend over a&nbsp;year on it?<br class="calibre6" /></p>
+  <p class="calibre2">Me and my brother liked to play video games in our childhood - one of the most memorable being Tekken 3 - a&nbsp;Japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a&nbsp;day. Some could say the game had nothing to offer since then. Why then did we spend over a&nbsp;year on it?<br class="calibre6" /></p>
 
-  <p class="calibre2"><img alt="Tekken3" src="images/000002.png" class="calibre7" /><br class="calibre6" /></p>
+  <p class="calibre2"><img alt="Tekken3" src="images/000000.png" class="calibre7" /><br class="calibre6" /></p>
 
   <p class="calibre2">It is because each fighter in the game had a&nbsp;lot of combos, kicks and punches that could be mixed in a&nbsp;variety of ways. Some were only usable in some situations, others were something you could throw at your opponent almost anytime without a&nbsp;big risk of being exposed to counterattacks. You could side-step to evade enemy’s attacks and, most of all, you could kick another fighter up in the air where they could not block your attacks and you were able to land some nice attacks on them before they fell down. These in-the-air techniques were called “juggles”. There were magazines that published a&nbsp;list of new possible juggles each month and the hype stayed in the gaming community for well over a&nbsp;year.</p>
 
@@ -46,14 +46,14 @@
   <p class="calibre2">Some people I&nbsp;talk with about TDD sum up what I&nbsp;say to them as: “That is really demotivating - there are so many things I&nbsp;have to watch out for that it makes me never want to start!”. Easy, don’t panic - remember the first time you tried to ride a&nbsp;bike - you must have been really far back then from knowing traffic regulations and following road signs, but that did not really keep you away, did it? I&nbsp;myself found TDD very exciting. Some guys my age already think they know all about coding, are bored with it and cannot wait until they move to management or requirements or business analysis, but hey! I&nbsp;have a&nbsp;new technique that makes my coding career challenging again! And it’s not something I&nbsp;can use only when I&nbsp;pay to Microsoft or Oracle or anybody else - it’s quite portable, making me a&nbsp;better developer overall!</p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Student</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-21">Student</h3>
 
     <p class="calibre8">You have started travelling the way of masters with conviction, determination and pride.</p>
   </div>
 </div>
 
 
-<div class="calibre4" id="calibre_link-8">
+<div class="calibre4" id="calibre_link-16">
   <h1 class="calibre1">The three most essential tools</h1>
 
   <p class="calibre2">Ever watched Karate Kid, either the old version or the new one? The thing they have in common is that when the kid starts learning Karate (or Kung-Fu) from his master, he is given a&nbsp;basic, repetitive task (like taking off a&nbsp;jacket, and putting it on again), not knowing yet where it would lead him. Or look at the first Rocky film (yeah, the one starring Sylvester Stallone), where Rocky was chasing a&nbsp;chicken in order to train agility.</p>
@@ -64,11 +64,11 @@
 
   <p class="calibre2">In other words, I&nbsp;will give you a&nbsp;brief tour of the three most essential tools we will be using throughout this book.</p>
 
-  <h2 id="calibre_link-21" class="calibre5">Our shiny tools</h2>
+  <h2 id="calibre_link-22" class="calibre5">Our shiny tools</h2>
 
   <p class="calibre2">A disclaimer - in this chapter, I&nbsp;will oversimplify some things just to get you up and running without getting into the philosophy of TDD yet (think: physics lessons in primary school). Do not worry about it :-), we will fix that in the coming chapters!</p>
 
-  <h3 class="sigilnotintoc">xUnit framework</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-23">xUnit framework</h3>
 
   <p class="calibre2">The first and most essential tool we are going to use is an xUnit framework.</p>
 
@@ -220,15 +220,15 @@ Multiplication_ShouldResultInAMultiplicationOfTwoPassedNumbers()
 
   <p class="calibre2">Phew, I&nbsp;hope I&nbsp;made the transition quite painless for you. Now the last thing to add - as there is not <code class="calibre11">Main()</code> method anymore in the last example, you surely must wonder how we run those tests, right? Ok, the last big secret unveiled - we use an external application for this (we will refer to it using a&nbsp;term <strong class="calibre14">Test Runner</strong>) - we tell it which assemblies to run and it loads them, runs them, reports results etc. It can take various forms, e.g. it can be a&nbsp;console application, a&nbsp;GUI application or a&nbsp;plugin to our IDEs. Here is an example of a&nbsp;stand-alone runner for xUnit.NET framework:</p>
 
-  <p class="calibre15"><img alt="XUnit.NET.Window" src="images/000001.png" class="calibre7" /></p>
+  <p class="calibre15"><img alt="XUnit.NET.Window" src="images/000003.png" class="calibre7" /></p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Sprinter</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-24">Sprinter</h3>
 
     <p class="calibre8">You sure know how to run your tests. Automatically!</p>
   </div>
 
-  <h3 class="sigilnotintoc">Mocking framework</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-25">Mocking framework</h3>
 
   <p class="calibre2">Mocking frameworks are libraries that automate runtime creation of objects (called “mocks”) that adhere to specified interface. Aside from the creation itself, the frameworks provide an API to configure our mocks on how they behave when certain methods are called on them and to let us inspect which calls they received.</p>
 
@@ -412,12 +412,12 @@ ShouldInsertNewOrderToDatabase()
   <p class="calibre2">I will get back to mocks, since, as I&nbsp;said, there is a&nbsp;huge philosophy behind them and we have only scratched the surface here.</p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Pretender</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-26">Pretender</h3>
 
     <p class="calibre8">You have managed to use a&nbsp;mock instead of a&nbsp;real object in unit test!</p>
   </div>
 
-  <h3 class="sigilnotintoc">Anonymous values generator</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-27">Anonymous values generator</h3>
 
   <p class="calibre2">Look at the test in the previous section. Does it not trouble you that we fill the order object with so many values that are totally irrelevant to the test logic itself? They actually hinder readability of the test. Also, they make us believe that the tested object really cares what these values are, although it does not (the database does, but we already got rid of it from the test). Let us move it to a&nbsp;method with descriptive name:</p>
   <pre class="calibre10">[Fact] public void 
@@ -482,29 +482,29 @@ private Fixture any = new Fixture();
   <p class="calibre2">In the next chapters, you will see me using a&nbsp;lot of different methods from the <code class="calibre11">Any</code> type. The more you use this class, the more it grows with other methods for creating customized objects. For now, however, let us stop here.</p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Anonymous</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-28">Anonymous</h3>
 
     <p class="calibre8">The values you use in your unit tests move like a&nbsp;shadow, unnoticed by anyone and until it is really necessary.</p>
   </div>
 
-  <h3 class="sigilnotintoc">Summary</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-29">Summary</h3>
 
   <p class="calibre2">In this chapter, I&nbsp;tried to show you the three essential tools which we will be using in this book and which, when mastered, will make your test-driven development smoother. If this chapter leaves you with insufficient justification for their use, do not worry - we will dive into the philosophy behind them in the coming chapters. For now, I&nbsp;just want you to get familiar with the tools themselves and their syntax. Go on, download these tools, launch them, try to write something simple with them. You do not need to understand their full purpose yet, just go out and play :-).</p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Equipped</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-30">Equipped</h3>
 
     <p class="calibre8">You are now able to understand most of the code examples throughout this book!</p>
   </div>
 </div>
 
 
-<div class="calibre4" id="calibre_link-14">
+<div class="calibre4" id="calibre_link-17">
   <h1 class="calibre1">It is not a&nbsp;test</h1>
 
   <p class="calibre2">Up to now, I&nbsp;was cheating on you. I&nbsp;told you that the little executable snippets of code are ‘tests’ and that they’re here to ‘check’ or ‘verify’ something. Now it is time to reveal the truth.</p>
 
-  <h2 id="calibre_link-22" class="calibre5">When a&nbsp;test becomes something else</h2>
+  <h2 id="calibre_link-31" class="calibre5">When a&nbsp;test becomes something else</h2>
 
   <p class="calibre2">I studied in Łódź, a&nbsp;large city in the center of Poland. As probably all other students in all other countries, we have had lectures, exercises and exams. The exams were pretty hard, especially considered that my computer science group was on the faculty of electronic and electric engineering, so we had to grasp a&nbsp;lot of classes that did not have anything to do with programming, for instance electrotechnics, solid-state physics or electronic and electrical metrology.</p>
 
@@ -526,7 +526,7 @@ private Fixture any = new Fixture();
 
   <p class="calibre2">That was the value of a&nbsp;test before learning. Note that the tests we would usually receive were not exactly what we would encounter at the time of exam, so we still had to guess. Still, the role of a&nbsp;<strong class="calibre14">test as specification of a&nbsp;need</strong> was already visible.</p>
 
-  <h2 id="calibre_link-23" class="calibre5">Taking It To The Software Development Land</h2>
+  <h2 id="calibre_link-32" class="calibre5">Taking It To The Software Development Land</h2>
 
   <p class="calibre2">I chose this lengthy metaphor to show you that ‘test’ is really another way of specifying a&nbsp;requirement or a&nbsp;need and that it is not something that is counter-intuitive - it occurs in our everyday lives. This is also true in software development. Let us take the following ‘test’ and see what kind of needs it specifies:</p>
   <pre class="calibre10">var reporting = new ReportingFeature();
@@ -551,12 +551,12 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));
   <p class="calibre2">Also, are already after the phase of designing an API that will fulfill the need. Don’t you think it is pretty much information about the application from just three lines of code?</p>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Lean &amp; Mean</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-33">Lean &amp; Mean</h3>
 
     <p class="calibre8">You now see some connotations between Test-Driven Development and Lean movement. There are more if you are interested, so be sure to pick up a&nbsp;good read bout lean software development!</p>
   </div>
 
-  <h2 id="calibre_link-24" class="calibre5">A Specification Instead of a&nbsp;Test Suite</h2>
+  <h2 id="calibre_link-34" class="calibre5">A Specification Instead of a&nbsp;Test Suite</h2>
 
   <p class="calibre2">I hope that you can see now that what we called ‘a test’ is really a&nbsp;kind of specification. The discovery is very recent, so there isn’t a&nbsp;clear terminology on it yet. Some like to call the process of using tests as specifications: Specification By Example, to say that the tests are really examples that help specify and clarify the behavior of developed part of functionality. The terminology is still not rock-solid, so you might encounter different naming for different things. For example, a&nbsp;‘test’ is often referred to as ‘spec’, or an ‘example’, or a&nbsp;‘behavior description’, or a&nbsp;‘specification statement’ or a&nbsp;‘fact about the developed system’ (the xUnit.NET framework marks each ‘test’ with a&nbsp;<code class="calibre11">[Fact]</code> attribute, suggesting that by writing it, we are stating a&nbsp;single fact about developed code. By the way, xUnit.NET also allows us to state ‘theories’ about our code, but let us leave it for now).</p>
 
@@ -593,17 +593,17 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));
   </ol>
 
   <div class="achievement">
-    <h3 class="sigilnotintoc pcalibre">Enlightened</h3>
+    <h3 class="sigilnotintoc pcalibre" id="calibre_link-35">Enlightened</h3>
 
     <p class="calibre8">You are starting to see Test-Driven Development in a&nbsp;new light - not as a&nbsp;testing technique, but as a&nbsp;mean to specify the behaviors of the code under development.</p>
   </div>
 </div>
 
 
-<div class="calibre4" id="calibre_link-18">
+<div class="calibre4" id="calibre_link-9">
   <h1 class="calibre1">Statement-First programming</h1>
 
-  <h2 id="calibre_link-25" class="calibre5">What is The Point of Writing Specification After The Fact?</h2>
+  <h2 id="calibre_link-36" class="calibre5">What is The Point of Writing Specification After The Fact?</h2>
 
   <p class="calibre2">In the last chapter, I&nbsp;said that in TDD a&nbsp;‘test’ takes another role - one of a&nbsp;statement being a&nbsp;part of a&nbsp;specification. If we put things this way, then the whole controversial concept of “writing a&nbsp;test before the code” does not pose a&nbsp;problem at all. Quite the contrary - it only seems natural to specify what we are going to write before we attempt to write it. Does the other way round even make sense? A&nbsp;specification written after completing the implementation is nothing more than an attempt at documenting the existing solution. Sure, such attempts can provide some value when done as a&nbsp;kind of reverse-engineering (i.e. writing specification for something that was implemented long ago and we do not really know the exact business rules or policies, which we discover as we document the existing solution) - it has an excitement of discovery in it, but doing it just after we, ourselves, made all the decisions seems like a&nbsp;waste of time, not to mention that it is dead boring (Do not believe me? Try implementing a&nbsp;simple calculator app and the write specification for it just after it is implemented and working). Anyway, specifying how something should work after the fact can hardly be considered creative.</p>
 
@@ -613,11 +613,11 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));
 
   <p class="calibre2">Reading so much about cycles, it is probably no surprise to you that the traditional illustration of the TDD process is modeled visually as a&nbsp;circle-like flow:</p>
 
-  <p class="calibre2"><img alt="Traditional_TDD_cycle" src="images/000004.png" class="calibre7" /></p>
+  <p class="calibre2"><img alt="Traditional_TDD_cycle" src="images/000001.png" class="calibre7" /></p>
 
   <p class="calibre2">Note that the above form uses the traditional terminology of TDD, so before I&nbsp;explain the steps, I&nbsp;will translate it to use our terms of Specification and Statements:</p>
 
-  <p class="calibre2"><img alt="Modern_TDD_cycle" src="images/000005.png" class="calibre7" /></p>
+  <p class="calibre2"><img alt="Modern_TDD_cycle" src="images/000002.png" class="calibre7" /></p>
 
   <p class="calibre2">The second version seems more like common sense than the first one - specifying how something should behave before putting that behavior in place is way more intuitive than testing something that does not exist.</p>
 
@@ -639,13 +639,13 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));
 
   <p class="calibre2">By the way, this process is sometimes referred to as “Red-Green-Refactor”. I&nbsp;am just mentioning it here for the record - I&nbsp;am not planning to use this term further in the book.</p>
 
-  <h2 id="calibre_link-26" class="calibre5">The Benefit of Failure</h2>
+  <h2 id="calibre_link-37" class="calibre5">The Benefit of Failure</h2>
 
   <p class="calibre2">Look again at the drawing with TDD process - can you spot a&nbsp;single word I&nbsp;underlined? Yes, it is <strong class="calibre14">unfulfilled</strong>. It means that when you write a&nbsp;Statement, you have to evaluate it (i.e. run it) and watch it fail its assertions before providing implementation that makes this Statement true. Why is that so important? Is it not just enough to write the Statement first? Why run it and watch it fail?</p>
 
   <p class="calibre2">There are multiple reasons and I&nbsp;will try to outline few of them briefly.</p>
 
-  <h3 class="sigilnotintoc">You do not know whether the Statement can ever be false until you see it evaluate to false</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-38">You do not know whether the Statement can ever be false until you see it evaluate to false</h3>
 
   <p class="calibre2">Every accurate Statement (do I&nbsp;have to tell you that such Statements are what we are interested in?) fails when it isn’t fulfilled and passes when it is. That is one of the main reasons we write it - to receive this feedback. Also, after being fulfilled, the Statement becomes a&nbsp;part of the executable specification and starts failing as soon as the code stops fulfilling it (e.g. as a&nbsp;result of mistake made during code rework). When your run a&nbsp;Statement after it is implemented and it is evaluated as true, how do you know whether it really describes a&nbsp;need accurately? You did not ever watch it fail, so how do you know it ever will?</p>
 
@@ -666,7 +666,7 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));
 }
 </pre>
 
-  <p class="calibre2">Now, imagine that you are writing this Statement post-factum as a&nbsp;unit test in an environment that has, let us say, more than thirty Statements - you have written the code, now you are just creating a&nbsp;test after test “to ensure” (as you see, this is not my favorite reason for writing unit tests) the code works. Code, test - pass, test - pass, test - pass. You almost always evaluate your code against the whole Specification, since it is usually easier than selectig what to evaluate each time, plus, you get more confidence this way that you did not break by mistake something that is already working. So, this is really: Code, Test - all pass, test - all pass, test - all pass… Hopefully, you use some kind of snippets mechanism for creating new Statements, but if not (and many do not actually do this), once in a&nbsp;while, you do something like this:</p>
+  <p class="calibre2">Now, imagine that you are writing this Statement post-factum as a&nbsp;unit test in an environment that has, let us say, more than thirty Statements - you have written the code, now you are just creating a&nbsp;test after test “to ensure” (as you see, this is not my favorite reason for writing unit tests) the code works. Code, test - pass, test - pass, test - pass. You almost always evaluate your code against the whole Specification, since it is usually easier than selecting what to evaluate each time, plus, you get more confidence this way that you did not break by mistake something that is already working. So, this is really: Code, Test - all pass, test - all pass, test - all pass… Hopefully, you use some kind of snippets mechanism for creating new Statements, but if not (and many do not actually do this), once in a&nbsp;while, you do something like this:</p>
   <pre class="calibre10">
 public class CalculatorSpecification
 {
@@ -738,13 +738,13 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2">What the…? Well, well, here is what happened: the author of this class coded in a&nbsp;small little optimization. He thought: “In this app, the configuration is only modified by members of the support staff and to do it, they have to shut down the system, so, there is no need to read the XML file every time an XmlConfiguration object is created. I&nbsp;can save some CPU cycles and I/O operations by reading it only once when the first object is created. Another created object will just use the same XML!”. Good for him, not so good for you. Why? Because (unless your Statement is evaluated prior to being fulfilled), your custom xml string will never actually be used!</p>
 
-  <h3 class="sigilnotintoc">“Test-After” ends up as “Test-Never”</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-39">“Test-After” ends up as “Test-Never”</h3>
 
   <p class="calibre2">I will ask this question again: ever had to write a&nbsp;requirement or design document for something that you already implemented? Was it fun? Was it valuable? Was it creative? No, I&nbsp;do not think so. The same is with our executable specification. After we write the code, we have little motivation to specify what is already written - some of the pieces of code “we can just see are correct”, other pieces “we already saw working” when we copied our code over to our deployment machine and ran few sanity checks… The design is ready… Specification? Maybe next time…</p>
 
   <p class="calibre2">Another reason might be time pressure. Let us be honest - we are all in a&nbsp;hurry, we are all under pressure and when this pressure is too high, it triggers heroic behaviors in us, especially when there is a&nbsp;risk of not making it with the sprint commitment. Such heroic behavior usually goes by the following rules: drop all the “baggage”, stop learning and experimenting, revert to all of the old “safe” behaviors and “save what we can!”. If Specification is written at the end, it is often sacrificed on the altar of making it with the commitment, since the code is already written, “and it will be tested anyway by real tests” (box tests, smoke tests, sanity tests etc.). It is quite the contrary when starting with a&nbsp;Statement, where the Statement evaluating to false is <strong class="calibre14">a reason</strong> to write any code. Thus, if we want to write code, Specification become irremovable part of your development. By the way, I&nbsp;bet in big corporations no one sane ever thinks they can abandon checking in the code to source control, at the same time treating Specification as “an optional addition”.</p>
 
-  <h3 class="sigilnotintoc">Not starting from specification leads to waste of time on making objects testable</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-40">Not starting from specification leads to waste of time on making objects testable</h3>
 
   <p class="calibre2">It so happens, that I&nbsp;like watching and reading Uncle Bob. One day, I&nbsp;was listening to <a href="http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years" target="_blank">his keynote at Ruby Midwest 2011, called Architecture The Lost Years</a>. At the end, Robert made some digressions, one of them being about TDD. He said that writing unit tests after the code is not TDD. It is a&nbsp;waste of time.</p>
 
@@ -787,11 +787,11 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2">The previous chapter was filled with a&nbsp;lot of theory and philosophy, don’t you think? I&nbsp;really hope you did not fall asleep while reading it. To tell you the truth, we need to grasp much more theory until we are really able to write real-world applications using TDD. To compensate for this somehow, I&nbsp;propose we make a&nbsp;side trip from the trail and try what we already learned on a&nbsp;quick and easy example. As we go through the example, you might wonder how on earth could you possibly write real applications the way we will write our simple program. Do not worry, I&nbsp;will not show you all the tricks yet, so treat it as a&nbsp;“taste of things to come”. In other words, the example will be as close to real world problems as the fight between Sub-Zero and nameless ninja was to real martial arts fight, but will show you some of the elements of TDD process.</p>
 
-  <h2 id="calibre_link-27" class="calibre5">Let me tell you a&nbsp;story</h2>
+  <h2 id="calibre_link-41" class="calibre5">Let me tell you a&nbsp;story</h2>
 
   <p class="calibre2">Meet Johnny and Benjamin, two developers from Buthig Company. Johnny is quite fluent in programming and Test-Driven Development, while Benjamin is an intern under Johnny’s mentorship and is eager to learn TDD. They are on their way to their customer, Jane, who requested their presence as she wants them to do write a&nbsp;small program for her. Together with them, we will see how they interact with the customer and how Benjamin tries to understand the basics of TDD. Just as you, Benjamin is a&nbsp;novice so his questions may reflect yours. However, if you find anything explained in not enough details, do not worry - in the next chapters, we will be expanding on this material.</p>
 
-  <h2 id="calibre_link-28" class="calibre5">Act 1: The Car</h2>
+  <h2 id="calibre_link-42" class="calibre5">Act 1: The Car</h2>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> How do you feel on your first assignment?</p>
 
@@ -805,7 +805,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Sure.</p>
 
-  <h2 id="calibre_link-29" class="calibre5">Act 2: The Customer</h2>
+  <h2 id="calibre_link-43" class="calibre5">Act 2: The Customer</h2>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Hi, Jane, how are you?</p>
 
@@ -859,7 +859,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Let us go through stories one by one and see if we can find some key examples of how the features work. The first story is…</p>
 
-  <h3 class="sigilnotintoc"><strong class="calibre19">In order to</strong> know that the calculator is turned on, <strong class="calibre19">As a</strong> tax payer <strong class="calibre19">I want</strong> to see “0” on the screen as soon as I&nbsp;turn it on.</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-44"><strong class="calibre19">In order to</strong> know that the calculator is turned on, <strong class="calibre19">As a</strong> tax payer <strong class="calibre19">I want</strong> to see “0” on the screen as soon as I&nbsp;turn it on.</h3>
 
   <p class="calibre2"><strong class="calibre14">Jane:</strong> I&nbsp;do not think there is much to talk about. If you display “0”, I&nbsp;will be happy. That is all.</p>
 
@@ -889,7 +889,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Jane:</strong> Agree.</p>
 
-  <h3 class="sigilnotintoc"><strong class="calibre19">In order to</strong> see what numbers I&nbsp;am currently operating on, <strong class="calibre19">As a</strong> tax payer, <strong class="calibre19">I want</strong> the calculator to display the values I&nbsp;enter</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-45"><strong class="calibre19">In order to</strong> see what numbers I&nbsp;am currently operating on, <strong class="calibre19">As a</strong> tax payer, <strong class="calibre19">I want</strong> the calculator to display the values I&nbsp;enter</h3>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Let us begin with the case raised by Benjamin. What should happen when I&nbsp;input “0” multiple times after I&nbsp;have only “0” on the display?</p>
 
@@ -983,7 +983,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Jane:</strong> No, that is pretty much it. Let us take another story.</p>
 
-  <h3 class="sigilnotintoc"><strong class="calibre19">In order to</strong> calculate sum of my different incomes, <strong class="calibre19">As a</strong> tax payer <strong class="calibre19">I want</strong> the calculator to enable addition of multiple numbers</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-46"><strong class="calibre19">In order to</strong> calculate sum of my different incomes, <strong class="calibre19">As a</strong> tax payer <strong class="calibre19">I want</strong> the calculator to enable addition of multiple numbers</h3>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Is the following all we have to support?</p>
 
@@ -1181,7 +1181,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Jane:</strong> good luck!</p>
 
-  <h2 id="calibre_link-30" class="calibre5">Act 3: Test-Driven Development</h2>
+  <h2 id="calibre_link-47" class="calibre5">Act 3: Test-Driven Development</h2>
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> Wow, that was cool. Was that Acceptance Test-Driven Development?</p>
 
@@ -1191,7 +1191,7 @@ var configuration = new XmlConfiguration(customFixture);
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Sure. If we followed the ATDD process, we would start writing what we call acceptance-level specification. In our case, however, a&nbsp;unit-level specification will be enough. Let us take the first example:</p>
 
-  <h3 class="sigilnotintoc">Statement 1: Calculator should display 0 on creation</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-48">Statement 1: Calculator should display 0 on creation</h3>
 
   <table class="calibre20">
     <tr class="calibre21">
@@ -1256,7 +1256,7 @@ ShouldDisplay0WhenCreated()
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> But that does not even compile. What use is it?</p>
 
-  <p class="calibre2"><strong class="calibre14">Johnny:</strong> the code not compiling is the feedback that you needed to proceed. While previously you did not know where to start, now you have a&nbsp;clear goal - make this code compile. Firstly, whre do you get the displayed value?</p>
+  <p class="calibre2"><strong class="calibre14">Johnny:</strong> the code not compiling is the feedback that you needed to proceed. While previously you did not know where to start, now you have a&nbsp;clear goal - make this code compile. Firstly, where do you get the displayed value from?</p>
 
   <p class="calibre2"><strong class="calibre14">Benjamin:</strong> From the calculator display, of course!</p>
 
@@ -1411,7 +1411,7 @@ ShouldDisplayInitialValueWhenCreated()
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Ok. We should handle it now, especially that it is part of the story we are currently implementing, but I&nbsp;will leave it for later just to show you the power of TODO list in TDD - whatever is on the list, we can forget and get back to when we have nothing better to do. Our next item from the list is this:</p>
 
-  <h3 class="sigilnotintoc">Statement 2: Calculator should display entered digits</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-49">Statement 2: Calculator should display entered digits</h3>
 
   <table class="calibre20">
     <tr class="calibre21">
@@ -1652,7 +1652,7 @@ ShouldDisplayAllEnteredDigitsThatAreNotLeadingZeroes()
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> good, now we are pretty sure that it works OK. Let us uncomment the lines we just commented out and move forward.</p>
 
-  <h3 class="sigilnotintoc">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-50">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</h3>
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Benjamin, this should be easy for you, so go ahead and try it. It is really a&nbsp;variation of previous Statement.</p>
 
@@ -1711,7 +1711,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 
   <p class="calibre2"><strong class="calibre14">Johnny:</strong> Sure.</p>
 
-  <div class="calibre24"></div><h2 id="calibre_link-31" class="calibre5">Epilogue</h2>
+  <div class="calibre24"></div><h2 id="calibre_link-51" class="calibre5">Epilogue</h2>
 
   <p class="calibre2">Time to leave Johnny and Benjamin, at least for now. I&nbsp;actually planned to make this chapter longer, and cover all the other operations, but I&nbsp;fear I&nbsp;would make this too long and get you bored. You should have a&nbsp;feel of how the TDD cycle looks like, especially that Johnny and Benjamin had a&nbsp;lot of conversations on many other topics in the meantime. I&nbsp;will be revisiting these topics later in the book. For now, so if you felt lost or unconvinced on any of the topics mentioned by Johnny, do not worry - I&nbsp;do not expect you to be proficient with any of the techniques shown in this chapter just yet. Time will come for that.</p>
 </div>
@@ -1746,18 +1746,18 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 </div>
 
 
-<div class="calibre4" id="calibre_link-19">
+<div class="calibre4" id="calibre_link-0">
   <h1 class="calibre1">How to start?</h1>
 
   <p class="calibre2">Whenever I&nbsp;sat down with a&nbsp;person that was about to write their first code in a&nbsp;Statement-first manner, the person would first stare at the screen, then at me, then would say: “what now?”. It is easy to say: “You know how to write code, you know how to write a&nbsp;unit test for it, just this time start with the latter rather than the first”, but for many people, this is something that blocks them completely. If you are one of them, do not worry - you are not alone. I&nbsp;decided to dedicate this chapter solely to techniques for kicking off a&nbsp;Statement when there is no code.</p>
 
-  <h2 id="calibre_link-32" class="calibre5">Start with a&nbsp;good name</h2>
+  <h2 id="calibre_link-52" class="calibre5">Start with a&nbsp;good name</h2>
 
   <p class="calibre2">It may sound obvious, but some people are having serious trouble describing the behavior they expect from their code. If you can name such behavior, it is a&nbsp;great starting point.</p>
 
   <p class="calibre2">I know not everybody pays attention to naming their Statements, mainly because the Statements are considered as tests and second-level citizens - as long as they run and “prove the code does not contain defects”, they are considered sufficient. We will take a&nbsp;look at some examples of bad names and then I&nbsp;will introduce to you some rules of good naming.</p>
 
-  <h3 class="sigilnotintoc">Consequences of bad naming</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-53">Consequences of bad naming</h3>
 
   <p class="calibre2">As I&nbsp;said, many people do not really care how their Statements are named. This is a&nbsp;symptom of treating the Specification as garbage or leftovers - such situation is dangerous, because as soon as this kind of thinking is established, it leads to bad, unmaintainable Specification that looks more like lumps of accidental code put together in a&nbsp;haste than a&nbsp;living documentation. Imagine that your Specification consists of names like this:</p>
 
@@ -1795,7 +1795,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
     <li class="calibre13">How can you keep track of the Statements already made about the specified class vs those that still need to be made?</li>
   </ol>
 
-  <h3 class="sigilnotintoc">What does a&nbsp;good name contain?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-54">What does a&nbsp;good name contain?</h3>
 
   <p class="calibre2">For the name of the Statement to be of any use, it has to describe the expected behavior. At minimum, it should describe what happens under what circumstances. Let us take a&nbsp;look at one of the names Steve freeman and Nat Pryce came up in their great book Growing Object Oriented Software Guided By Tests:</p>
   <pre class="calibre10">notifiesListenersThatServerIsUnavailableWhenCannotConnectToItsMonitoringPort()</pre>
@@ -1827,7 +1827,7 @@ public void Statement_002()
     <li class="calibre13">Using a&nbsp;name that describes a&nbsp;(single) behavior allows you to track quickly why the Statement is false when it is. Suppose a&nbsp;Statement is true when you start refactoring, but at one point it starts being evaluated as false and the report in the runner looks like this: <code class="calibre11">TrySendingHttpRequest: FAILED</code> - it does not really tell you anything more than that an attempt is made to send a&nbsp;HTTP request, but, for instance, does not tell you whether your specified object is the sender (that should try to send this request under some circumstances) or the receiver (that should handle such request properly). To actually know what went wrong, you have to go Statement body and scan its source code. Now compare it to the following name: <code class="calibre11">ShouldRespondWithAnAckWheneverItReceivesAHttpRequest</code>. Now when it evaluates to false, you can tell what is broken - the object no longer responds with an ACK to HTTP request. Sometimes this is enough to identify which part of the code is in fault of this evaluation failure.</li>
   </ol>
 
-  <h3 class="sigilnotintoc">My favourite convention</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-55">My favourite convention</h3>
 
   <p class="calibre2">There are many conventions for naming Statements appropriately. My favorite is the one developed by Dan North, which makes each Statement name begin with the word <code class="calibre11">Should</code>. So for example, I&nbsp;would name a&nbsp;Statement:</p>
 
@@ -1853,11 +1853,11 @@ public void Statement_002()
 
   <p class="calibre2"><code class="calibre11">ShouldReportThatItIsEqualToAnotherIdThatHasTheSameUserName()</code>.</p>
 
-  <h2 id="calibre_link-33" class="calibre5">Start By Filling The GIVEN-WHEN-THEN Structure With The Obvious<br class="calibre26" /></h2>
+  <h2 id="calibre_link-56" class="calibre5">Start By Filling The GIVEN-WHEN-THEN Structure With The Obvious<br class="calibre26" /></h2>
 
   <p class="calibre2">This is a&nbsp;technique that is applicable when you come up with a&nbsp;GIVEN-WHEN-THEN structure for the Statement or a&nbsp;good name for it (GIVEN-WHEN-THEN structure can be easily derived from a&nbsp;good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
 
-  <h3 class="sigilnotintoc">A Simple Example</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-57">A Simple Example</h3>
 
   <p class="calibre2">Let us take a&nbsp;simple example of comparing two users. We assume that a&nbsp;user should be equal to another when it has the same name as the other one:</p>
   <pre class="calibre27">GIVEN a&nbsp;user with any name
@@ -1958,13 +1958,13 @@ ShouldAppearEqualToAnotherUserWithTheSameName()
 
   <p class="calibre2">And that is it - the Statement is complete!</p>
 
-  <h2 id="calibre_link-34" class="calibre5">Start From The End</h2>
+  <h2 id="calibre_link-58" class="calibre5">Start From The End</h2>
 
   <p class="calibre2">This is a&nbsp;technique that I&nbsp;suggest to people that seem to have absolutely no idea how to start. I&nbsp;got it from Kent Beck’s book Test Driven Development by Example. It seems funny at start, but is quite powerful. The trick is to write the Statement ‘backwards’, i.e. starting with what the Statement asserts to be true (in terms of the GIVEN-WHEN-THEN structure, we would say that we start with our THEN).</p>
 
   <p class="calibre2">This works because, while we are many times quite sure of our goal (i.e. what the outcome of the behavior should be), but are unsure of how to get there.</p>
 
-  <h3 class="sigilnotintoc">A Simple Example</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-59">A Simple Example</h3>
 
   <p class="calibre2">Imagine we are writing a&nbsp;class for granting access to a&nbsp;reporting functionality based on roles. We do not have any idea what the API should look like and how to write our Statement, but we know one thing: in our domain the access can be either granted or denied. Let us take the successful case (just because it is the first one we can think of) and, starting backwards, start with the following assertion:</p>
   <pre class="calibre10">//THEN
@@ -2013,11 +2013,11 @@ ShouldAllowAccessToReportingWhenAskedForEitherAdministratorOrAuditor()
  Assert.True(accessGranted);
 }</pre>
 
-  <h2 id="calibre_link-35" class="calibre5">Start By Invoking a&nbsp;Method When You Have One</h2>
+  <h2 id="calibre_link-60" class="calibre5">Start By Invoking a&nbsp;Method When You Have One</h2>
 
   <p class="calibre2">Sometimes, we have to add a&nbsp;new class that implements an existing interface required by another class. The fact of implementing an interface imposes what methods should the new class support. If this point is already decided, we can start our Statement by first calling the method and then discovering what we need to supply.</p>
 
-  <h3 class="sigilnotintoc">A Simple Example</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-61">A Simple Example</h3>
 
   <p class="calibre2">Suppose we have an application holding a&nbsp;lot of data that, among other things, handles importing am existing database from another instance of the application. As importing a&nbsp;database can be a&nbsp;lengthy process, a&nbsp;message box is displayed each time when user chooses to perform the import and this message box displays the following message: “Johnny, please sit down and enjoy your coffee for a&nbsp;few minutes as we take time to import your database” (given user name is Johnny). The class that implements it looks like this:</p>
   <pre class="calibre10">public class FriendlyMessages
@@ -2100,16 +2100,16 @@ public void TODO()
 
   <p class="calibre2">and all that is left is to find a&nbsp;good name for the Statement. This isn’t an issue since we already specified the desired behavior in the code, so we can just summarize it as something like <code class="calibre11">ShouldYieldAMessageSayingThatFeatureIsLockedWhenAskedForImportDatabaseMessage</code>.</p>
 
-  <h2 id="calibre_link-36" class="calibre5">Summary</h2>
+  <h2 id="calibre_link-62" class="calibre5">Summary</h2>
 
   <p class="calibre2">These few techniques can be useful when you are stuck and do not know how to start. Note that the examples given are simplistic and assume that there is one object that takes some kind of input parameter and returns a&nbsp;well defined result. This is not how most of the object-oriented world is built. In object oriented world, we have a&nbsp;lot of objects communicating with other objects, sending messages, invoking methods on each other and often having no return values. Do not worry, all of these techniques work in this concept and we’ll be revisiting them as soon as we learn how to do TDD in fully object-oriented world (that is, after we introduce a&nbsp;concept of mock objects). For now, I’m trying to keep it simple.</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-1">
+<div class="calibre4" id="calibre_link-8">
   <h1 class="calibre1">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</h1>
 
-  <h2 id="calibre_link-37" class="calibre5">Is there really a&nbsp;commonality between analysis and TDD?</h2>
+  <h2 id="calibre_link-63" class="calibre5">Is there really a&nbsp;commonality between analysis and TDD?</h2>
 
   <p class="calibre2">From Wikipedia:</p>
 
@@ -2133,7 +2133,7 @@ public void TODO()
 
   <p class="calibre2">If you go back to our example, you will note that both when talking to a&nbsp;customer and when writing code, Johnny and Benjamin used a&nbsp;TODO list. This list was first filled with whatever scenarios they came up with, but later, they would add a&nbsp;smaller unit of work. This is one way complex topics are decomposed into smaller items that all land on the TODO list (the other way is mocking, but we will not get into that yet). Thanks to this, we can focus on one thing at a&nbsp;time, crossing off item after item from the list after it is done. If we learn something new or encounter new issue that needs our attention, we can add it to the TODO list and get back to it later, for now continuing our work on the current point of focus.</p>
 
-  <p class="calibre2">An example TODO list from the middle of implementation may look like this (do not read trough it, I&nbsp;put it here only to give you a&nbsp;glimpse):</p>
+  <p class="calibre2">An example TODO list from the middle of implementation may look like this (do not read through it, I&nbsp;put it here only to give you a&nbsp;glimpse):</p>
 
   <ol class="calibre28">
     <li class="calibre13">
@@ -2169,7 +2169,7 @@ public void TODO()
 
   <p class="calibre2">Ok, that is it for the discussion. Now that we are sure that TDD is about analysis, let us focus on the tools can use to aid and inform it. You already saw both of them in this book, now we are going to have a&nbsp;closer look.</p>
 
-  <h2 id="calibre_link-38" class="calibre5">Gherkin</h2>
+  <h2 id="calibre_link-64" class="calibre5">Gherkin</h2>
 
   <p class="calibre2">Hungry? Too bad, because the Gkerkin I&nbsp;am gonna talk about is not edible. It is a&nbsp;notation and a&nbsp;way of thinking about behaviors of the specified piece of code. It can be applied on different levels of granularity - any behavior, whether of a&nbsp;whole system or a&nbsp;single class, may be described using it.</p>
 
@@ -2229,7 +2229,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 
   <p class="calibre2">By thinking in terms of these three parts of behavior, we may arrive at different circumstances (GIVEN) at which the behavior takes place, or additional ones that are needed. The same goes for triggers (WHEN) and effects (THEN). If anything like this comes to our mind, we add it to the TODO list.</p>
 
-  <h2 id="calibre_link-39" class="calibre5">TODO list… again!</h2>
+  <h2 id="calibre_link-65" class="calibre5">TODO list… again!</h2>
 
   <p class="calibre2">As we said previously, a&nbsp;TODO list is a&nbsp;repository for anything that comes to our mind when writing or thinking about a&nbsp;Statement, but is not a&nbsp;part o the current Statement we are writing. We do not want to forget it, neither do we want it to haunt us and distract us from our current task, so we write it down as soon as possible and continue with our current task.</p>
 
@@ -2237,11 +2237,11 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 
   <p class="calibre2">There are two important questions related to TODO lists: “what exactly should we add as a&nbsp;TODO list item?” and “How to efficiently manage the TODO list?”. We will take care of these two questions now.</p>
 
-  <h3 class="sigilnotintoc">What to put on the TODO list?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-66">What to put on the TODO list?</h3>
 
   <p class="calibre2">Everything that you need addressed but is not part of the current Statement. Those items may be related to implementing unimplemented methods, to add whole functionalities (such items are usually followed my more fine-grained sub tasks as soon as you start implementing the item), there might be reminders to take a&nbsp;better look at something (e.g. “investigate what is this component’s policy for logging errors”) or questions about the domain that need to get answered. If you get carried away too much in coding that you forget to eat, you can even add a&nbsp;reminder (“TODO: get something to eat!”). The list is yours!</p>
 
-  <h3 class="sigilnotintoc">How to pick items from TODO list?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-67">How to pick items from TODO list?</h3>
 
   <p class="calibre2">Which item to choose from the TODO list when you have several? I&nbsp;have no clear rule, although I&nbsp;tend to take into account the following factors:</p>
 
@@ -2253,7 +2253,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
     <li class="calibre13">Completeness - in simplest words, when I&nbsp;finish test-driving an “if” case, I&nbsp;usually pick up the “else” next. For example, after I&nbsp;finish implementing a&nbsp;Statement saying that something should return true for values less than 50, then the next item to pick up is the “greater or equal to 50” case. Usually, when I&nbsp;start test-driving a&nbsp;class, I&nbsp;take items related to this class until I&nbsp;run out of them, then go on to another one.</li>
   </ol>
 
-  <h3 class="sigilnotintoc">Where to put a&nbsp;TODO list?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-68">Where to put a&nbsp;TODO list?</h3>
 
   <p class="calibre2">There are two ways of maintaining a&nbsp;TODO list. The first one is on a&nbsp;sheet of paper, which is nice, but requires you to take your hands off the keyboard, grab a&nbsp;pen or pencil and then get back to coding every time you think of something. Also, the only way a&nbsp;TODO item written on a&nbsp;sheet of paper can tell you which place in code it is related to, is (obviously) by its text.</p>
 
@@ -2267,7 +2267,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
     <li class="calibre13">Many TODO lists automatically add items for certain things. E.g. in C#, when you are yet to implement a&nbsp;method that was automatically generated by a&nbsp;tool, its body usually consists of a&nbsp;line that throws a&nbsp;<code class="calibre11">NotImplementedException</code> exception. Guess what - <code class="calibre11">NotImplementedException</code> occurences are added to the TODO list automatically, so we do not have to manually add items to the TODO list for implementing the methods where they occur.</li>
   </ol>
 
-  <h3 class="sigilnotintoc">Expanded TDD process with a&nbsp;TODO list</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-69">Expanded TDD process with a&nbsp;TODO list</h3>
 
   <p class="calibre2">In one of the previous chapters, I&nbsp;introduced you to the basic TDD process that contained three steps: write unfulfilled Statement, fulfill it and refactor the code. TODO list adds new steps to this process leading to the following list of steps:</p>
 
@@ -2287,7 +2287,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 
   <p class="calibre2">Of course, we are free to add new items to the TODO list as we make progress with the existing ones and at the beginning of each cycle the list is re-evaluated to choose the most important item to implement next taking into account what was added during the previous cycle.</p>
 
-  <h3 class="sigilnotintoc">Potential downsides</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-70">Potential downsides</h3>
 
   <p class="calibre2">There are also some downsides. The biggest is that people often add TODO items for other means than to support TDD and they never go back to such items. Some people joke that a&nbsp;TODO left in the code means “Once, I&nbsp;wanted to…”. Anyway, such items may pollute your TDD-related TODO list with so much cruft that your own items are barely findable. To work around it, I&nbsp;tend to use a&nbsp;different tag than TODO (many IDEs let you define your own tags, or support multiple tag types out of the box. E.g. with Resharper, I&nbsp;like to use “bug” tag, because this is something no one would leave in the code) and filter by it. Another options is, of course, getting rid of the leftover TODO items - if no one addressed it for a&nbsp;year, then probably no one ever will.</p>
 
@@ -2295,14 +2295,14 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 </div>
 
 
-<div class="calibre4" id="calibre_link-6">
+<div class="calibre4" id="calibre_link-7">
   <h1 class="calibre1">Developing TDD style and Constrained Non-Determinism</h1>
 
   <p class="calibre2">In one of the first chapters, I&nbsp;introduced to you the idea of anonymous values generator idea, which I&nbsp;have wrapped in a&nbsp;static class called <code class="calibre11">Any</code>. Throughout the next chapters, you have seen me using it quite extensively in many of the Statements I&nbsp;wrote.</p>
 
   <p class="calibre2">The time has come to explain a&nbsp;little bit more carefully what principles lie under this technique and tool. I&nbsp;will also use this technique as a&nbsp;case study to show you how one develops a&nbsp;style of Test-Driven Development.</p>
 
-  <h2 id="calibre_link-40" class="calibre5">A style?</h2>
+  <h2 id="calibre_link-71" class="calibre5">A style?</h2>
 
   <p class="calibre2">Yep. Why am I&nbsp;wasting your time writing about style instead of giving you the hardcore technical details? The answer is simple. Before I&nbsp;started writing this tutorial, I&nbsp;read four or five books solely on TDD and maybe two others that contain chapters on TDD. All of this sums up to about two or three thousands of paper pages, plus numerous posts on many blogs. And you know what I&nbsp;noticed? No two authors use exactly the same sets of techniques for test-driving their code! I&nbsp;mean, sometimes, when you look techniques they are suggesting, the suggestions from two authorities contradict each other. As each authority has their followers, it is not uncommon to observe and take part in discussions about whether this or that technique is better than a&nbsp;competing one or which one leads to trouble in the long run.</p>
 
@@ -2310,7 +2310,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 
   <p class="calibre2">Developing a&nbsp;style starts with underlying set of principles. These principles lead us to adopt our first technique, which makes us adopt another one and, ultimately, a&nbsp;coherent style emerges. Using Constrained Non-Determinism as an example, I&nbsp;will try to show you how part of a&nbsp;style gets derived from a&nbsp;technique that is derived from a&nbsp;principle.</p>
 
-  <h2 id="calibre_link-41" class="calibre5">Principle: Tests As Specification</h2>
+  <h2 id="calibre_link-72" class="calibre5">Principle: Tests As Specification</h2>
 
   <p class="calibre2">As I&nbsp;already stressed, I&nbsp;strongly believe that unit tests constitute an executable specification. Thus, they should not only pass input values to an object and assert on the output, they should also convey to their reader the rules according to which objects and functions work. The following oversimplified example shows a&nbsp;Statement where it is not explicitly stated what is the relationship between input and output:</p>
   <pre class="calibre10">[Fact] public void 
@@ -2330,7 +2330,7 @@ ShouldCreateBackupFileNameContainingPassedHostName()
 
   <p class="calibre2">This makes me invent a&nbsp;first technique to provide my Statements with better support for the principle I&nbsp;believe in.</p>
 
-  <h2 id="calibre_link-42" class="calibre5">First technique: Anonymous Input</h2>
+  <h2 id="calibre_link-73" class="calibre5">First technique: Anonymous Input</h2>
 
   <p class="calibre2">I can wrap the actual value “MY_HOST_NAME” with a&nbsp;method and give it a&nbsp;name that better documents the constraints imposed on it by the specified functionality. In our case, we can pass whatever string we want (the object is not responsible for input validation), so we will name our method <code class="calibre11">AnyString()</code>:</p>
   <pre class="calibre10">[Fact] public void 
@@ -2356,7 +2356,7 @@ public string AnyString()
 
   <p class="calibre2">Now that the Statement itself is freed from the knowledge of the concrete value of <code class="calibre11">hostName</code> variable, the concrete value of “backup_MY_HOST_NAME.zip” looks kinda weird. There is no clear indication of the kind of relationship between input and output and whether there is any at all (one may reason whether the output is always the same string or maybe it depends on the string length). It is unclear which part is added by the production code and which part depends on the input we pass to the method. This leads us to another technique.</p>
 
-  <h2 id="calibre_link-43" class="calibre5">Second Technique: Derived Values</h2>
+  <h2 id="calibre_link-74" class="calibre5">Second Technique: Derived Values</h2>
 
   <p class="calibre2">To better document the relationship between input and output, we have to simply derive the expected value we assert on from the input value. Here is the same Statement with the assertion changed:</p>
   <pre class="calibre10">[Fact] public void 
@@ -2381,7 +2381,7 @@ public string AnyString()
 
   <p class="calibre2"><strong class="calibre14">Derived values</strong> are about defining expected output in terms of the input that was passed to provide a&nbsp;clear indication on what is the “transformation” of the input required of the specified production code.</p>
 
-  <h2 id="calibre_link-44" class="calibre5">Third technique: Distinct Generated Values</h2>
+  <h2 id="calibre_link-75" class="calibre5">Third technique: Distinct Generated Values</h2>
 
   <p class="calibre2">Let us assume that some time after our initial version is shipped, we are asked to make the backup feature applied locally per user only for this user’s data. As the customer does not want to confuse files from different users, we are asked to add name of the user doing backup to the backup file name. Thus, the new format is “backup_H_U.zip”, where H is still the host name and U is the user name. Our Statement for the pattern must change as well to include this information. Of course, we are trying to use the anonymous input again as a&nbsp;proven technique and we end up with:</p>
   <pre class="calibre10">[Fact] public void 
@@ -2458,7 +2458,7 @@ public string AnyString()
 
   <p class="calibre2"><strong class="calibre14">Distinct generated values</strong> means that each time we need a&nbsp;value of a&nbsp;particular type, we get something different (if possible) than the last time and each value is generated automatically using some kind of heuristics.</p>
 
-  <h2 id="calibre_link-45" class="calibre5">Fourth technique: Constant Specification</h2>
+  <h2 id="calibre_link-76" class="calibre5">Fourth technique: Constant Specification</h2>
 
   <p class="calibre2">Let us consider another modification that we are requested to make - this time, the backup file name needs to contain version number of our application as well. Remembering that we want to use Derived Values, we will not hardcode the version number into our Statement. Instead, we are going to use a&nbsp;constant that is already defined somewhere else in the application (this way we also avoid duplication of this version number across the application):</p>
   <pre class="calibre10">[Fact] public void 
@@ -2494,7 +2494,7 @@ ShouldContainNumberEqualTo1_0()
 
   <p class="calibre2">By doing so, we make the value in the production code just echo what is in our executable Specification, which we can fully trust.</p>
 
-  <h2 id="calibre_link-46" class="calibre5">Summary of the example</h2>
+  <h2 id="calibre_link-77" class="calibre5">Summary of the example</h2>
 
   <p class="calibre2">In this example, I&nbsp;tried to show you how a&nbsp;style can evolve from the principles you value when doing TDD. I&nbsp;did so for two reasons:</p>
 
@@ -2524,7 +2524,7 @@ ShouldContainNumberEqualTo1_0()
     <dd class="calibre17">Write a&nbsp;separate Statement for a&nbsp;constant and use the constant instead of its literal value in all other Statements to create a&nbsp;Derived Value.</dd>
   </dl>
 
-  <h2 id="calibre_link-47" class="calibre5">Constrained non-determinism</h2>
+  <h2 id="calibre_link-78" class="calibre5">Constrained non-determinism</h2>
 
   <p class="calibre2">When we combine anonymous input together with distinct generated values, we get something that is called <strong class="calibre14">Constrained Non-Determinism</strong>. This is a&nbsp;term coined by Mark Seemann and basically means three things:</p>
 
@@ -2542,22 +2542,22 @@ var anonymousInteger = fixture.Create&lt;int&gt;();</pre>
 
   <p class="calibre2">I, after Amir Kolsky and Scott Bain, like to use Any class as seen in the previous chapters of this book. Any takes a&nbsp;slightly different approach than AutoFixture (although it uses AutoFixture internally). My implementation of Any class is available to download as well from https://github.com/grzesiek-galezowski/tdd-toolkit.</p>
 
-  <h2 id="calibre_link-48" class="calibre5">Summary</h2>
+  <h2 id="calibre_link-79" class="calibre5">Summary</h2>
 
   <p class="calibre2">That was a&nbsp;long ride, wasn’t it? I&nbsp;hope that this chapter, gave you some understanding of how different TDD styles came into existence and why I&nbsp;use some of the techniques I&nbsp;do (and how these techniques are not just a&nbsp;series of random choices). In the next chapters, I&nbsp;will try to introduce some more techniques to help you grow a&nbsp;bag of neat tricks - a&nbsp;coherent style.</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-11">
+<div class="calibre4" id="calibre_link-10">
   <h1 class="calibre1">What is the scope of a&nbsp;unit-level Statement in TDD?</h1>
 
-  <p class="calibre2">Ha, now I&nbsp;have to admit that I&nbsp;deferred for a&nbsp;long time an answer to a&nbsp;pretty fundamental question: what should be the scope of a&nbsp;single Statement? If I&nbsp;put the whole system together, can I&nbsp;write a&nbsp;Statement for its behavior? Or maybe the other way round - there should be a&nbsp;Statement for each method of each class, including the private ones? Well, first thing I&nbsp;want to explain is that there are multiple levels we can write write our Statements on. This varies depending on the TDD authority, but in this book, we will cover two of such levels - unit level and acceptance level. For now, let us stick to the unit level, which is what we have done so far anyway. The time will come for the rest.</p>
+  <p class="calibre2">Ha, now I&nbsp;have to admit that I&nbsp;deferred for a&nbsp;long time an answer to a&nbsp;pretty fundamental question: what should be the scope of a&nbsp;single Statement? If I&nbsp;put the whole system together, can I&nbsp;write a&nbsp;Statement for its behavior? Or maybe the other way round - there should be a&nbsp;Statement for each method of each class, including the private ones? Well, first thing I&nbsp;want to explain is that there are multiple levels we can write our Statements on. This varies depending on the TDD authority, but in this book, we will cover two of such levels - unit level and acceptance level. For now, let us stick to the unit level, which is what we have done so far anyway. The time will come for the rest.</p>
 
   <p class="calibre2">For unit level, let us consider the kind of Statements that you already saw in this book - where we take one object, invoke a&nbsp;method on it and assert on the result. This is actually a&nbsp;special case of unit-level Statement and we will cover more in the coming chapters. This is, however, a&nbsp;good moment to stop and consider the “scope” of a&nbsp;single unit-level Statement in TDD. Is it method scope? Class scope? Feature scope?</p>
 
   <p class="calibre2">Let us try to answer the question by examining some TDD unit-level Statements:</p>
 
-  <h3 class="sigilnotintoc">Is it class scope?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-80">Is it class scope?</h3>
 
   <p class="calibre2">Let us see the first example and try to answer this question:</p>
   <pre class="calibre10">[Fact] public void
@@ -2578,7 +2578,7 @@ ShouldThrowValidationExceptionWithFatalErrorLevelWhenValidatedStringIsEmpty()
 
   <p class="calibre2">This is an example of a&nbsp;well-written unit-level Statement. Ok, so let us see… how many real classes take part in this spec? Three: a&nbsp;string, an exception and the validation. So the class scope is not the most accurate description.</p>
 
-  <h3 class="sigilnotintoc">Or a&nbsp;method scope?</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-81">Or a&nbsp;method scope?</h3>
 
   <p class="calibre2">So, maybe the scope covers a&nbsp;single method, meaning a&nbsp;Statement always exercises one method of a&nbsp;specified object?</p>
 
@@ -2601,7 +2601,7 @@ ShouldBeFulfilledWhenEventOccursThreeTimes()
 
   <p class="calibre2">Count with me: how many methods are called? Depending on how we count, it is two (<code class="calibre11">Queued()</code> and <code class="calibre11">IsFulfilled()</code>) or four (<code class="calibre11">Queued(), Queued(), Queued(), IsFulfilled()</code>). In any case, not one. So it is not method scope either.</p>
 
-  <h3 class="sigilnotintoc">It is the scope of class behavior!</h3>
+  <h3 class="sigilnotintoc" id="calibre_link-82">It is the scope of class behavior!</h3>
 
   <p class="calibre2">The proper answer is: behavior! Each TDD Statement specifies a&nbsp;single behavior. I&nbsp;like how <a href="http://sustainabletdd.com">Amir Kolsky and Scott Bain</a>&nbsp;phrase it, by saying that each unit-level Statement should “introduce a&nbsp;behavioral distinction not existing before”.</p>
 
@@ -2657,16 +2657,16 @@ ShouldReportItIsStartedAndItDoesNotYetTransmitVoiceWhenItStarts()
 </div>
 
 
-<div class="calibre4" id="calibre_link-13">
+<div class="calibre4" id="calibre_link-18">
   <div class="disclaimer">
     <h3 class="sigilnotintoc2">A Disclaimer</h3>
 
     <p class="calibre2">Before I&nbsp;begin, I&nbsp;have to admit that this chapter is mostly based on the material from a&nbsp;series of posts by Scot Bain and Amir Kolsky from the blog Sustainable Test Driven Development and their upcoming book by the same title. I&nbsp;like their idea of boundaries so much that I&nbsp;just follow the guidelines they outlined. This chapter is going to be a&nbsp;rephrase of these guidelines. I&nbsp;placed it here so that you have all the important topics covered in one place, but I&nbsp;encourage you to read the original blog posts on this subject on http://www.sustainabletdd.com (and the upcoming book).</p>
   </div>
 
-  <h1 id="calibre_link-49" class="calibre1">Specifying Boundaries and Conditions</h1>
+  <h1 id="calibre_link-83" class="calibre1">Specifying Boundaries and Conditions</h1>
 
-  <h2 id="calibre_link-50" class="calibre5">Sometimes, Anonymous Value Is Not Enough</h2>
+  <h2 id="calibre_link-84" class="calibre5">Sometimes, Anonymous Value Is Not Enough</h2>
 
   <p class="calibre2">When we specify a&nbsp;behavior, there are times when this behavior should be the same no matter what arguments we pass to the constructor or invoked methods. An example would be an addition of two numbers - whatever numbers we would supply, the answer would always be a&nbsp;sum of those numbers:</p>
   <pre class="calibre10">[Fact] public void
@@ -2689,7 +2689,7 @@ ShouldCalculateTheSumOfTwoNumbers()
 
   <p class="calibre2">In such cases, Scott and Amir offer us other guidelines for choosing input values.</p>
 
-  <h2 id="calibre_link-51" class="calibre5">Exceptions To The Rule</h2>
+  <h2 id="calibre_link-85" class="calibre5">Exceptions To The Rule</h2>
 
   <p class="calibre2">There are times, when a&nbsp;Statement is true for every value except one (or more) explicitly specified. For example, in Poland, high school students are graded for exams between “mediocre” and “very good”. Every grade means the exam is passed except for “mediocre” grade which means the exam is failed. If we imagine we have to specify an object that decides whether the exam is passed based on rating, we would have to write two Statements: one for the mediocre rating and other for all the others.</p>
 
@@ -2727,7 +2727,7 @@ ShouldPassTheExamWhenGradeIsOtherThanMediocre()
 
   <p class="calibre2">The example shown above assumes there is only one exception to the rule (the mediocre grade). However, this concept can be scaled up to more values, as long as it is a&nbsp;finished, discrete set. If there are multiple exceptional values that produce the same behavior, a&nbsp;single Statement is sufficient to cover them all (using <code class="calibre11">Any</code> class and making the following call for exception Statement: <code class="calibre11">Any.Of(value1, value2)</code> and the following for the rest: <code class="calibre11">Any.OtherThan(value1, value2)</code>). However, when there are multiple exceptions to the rule and each one triggers a&nbsp;different behavior, each one deserves its own Statement.</p>
 
-  <h2 id="calibre_link-52" class="calibre5">Rules Valid Within Boundaries</h2>
+  <h2 id="calibre_link-86" class="calibre5">Rules Valid Within Boundaries</h2>
 
   <p class="calibre2">Sometimes, a&nbsp;behavior varies around a&nbsp;numerical boundary. the simplest example would be a&nbsp;set of rules on how to calculate an absolute value of a&nbsp;number:</p>
 
@@ -2831,7 +2831,7 @@ ShouldNotNegateNumberWhenItIsGreaterOrEqualToSmallestValueNotToNegate()
 
   <p class="calibre2">Boundaries may look like they apply only to integer input, but they occur at many other places. There are boundaries associated with date/time (e.g. an action is performed again when time from last action is at least 30 seconds - the decision would need to be made whether we need precision in seconds or maybe in ticks), to strings (e.g. validation of user name where it must be at least 2 characters, or password that must contain at least 2 special characters) etc.</p>
 
-  <h2 id="calibre_link-53" class="calibre5">Combination of Boundaries - Ranges</h2>
+  <h2 id="calibre_link-87" class="calibre5">Combination of Boundaries - Ranges</h2>
 
   <p class="calibre2">So, what about a&nbsp;behavior that is valid in a&nbsp;range? Let us assume that we live in a&nbsp;country where a&nbsp;citizen can get a&nbsp;driving license only after their 17th birthday, but before 65th (the government decided that people after 65 have worse sight and it’s safer not to give them new driving licenses). Let us also assume that we try to develop a&nbsp;class that answers the question whether we can apply for driving license and the return values of this query are as follows:</p>
 
@@ -2935,18 +2935,18 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
   );
 }</pre>
 
-  <h2 id="calibre_link-54" class="calibre5">Summary</h2>
+  <h2 id="calibre_link-88" class="calibre5">Summary</h2>
 
   <p class="calibre2">In this chapter, we covered specifying numerical boundaries with a&nbsp;minimal amount of code, so that the Specification is more maintainable and runs fast. There is one more kind of situation left: when we have compound conditions (e.g. a&nbsp;password must be at least 10 characters and contain at least 2 special characters) - we’ll get back to those when we introduce mocks.</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-10">
+<div class="calibre4" id="calibre_link-14">
   <div class="disclaimer">
     The first occurence of the term triangulation I&nbsp;know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>.
   </div>
 
-  <h1 class="calibre1">Triangulation</h1>
+  <h1 class="calibre1" id="calibre_link-89">Triangulation</h1>
 
   <p class="calibre2">As one of the last topics of the core TDD techniques that do not require us to delve into the object oriented world, I’d like to show you triangulation.</p>
 
@@ -2962,7 +2962,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 
   <p class="calibre2">All of these techniques are simple (triangulaion being a&nbsp;youtubelittle more complex), so I’ll show you all of them one by one, putting more emphasis on triangulation:</p>
 
-  <h2 class="calibre5">Type The Obvious Implementation</h2>
+  <h2 id="calibre_link-90" class="calibre5">Type The Obvious Implementation</h2>
 
   <p class="calibre2">The first of the three techniques is just writing an obvious implementation in response to a&nbsp;Statetement. If the implementation is simple, this approach makes a&nbsp;lot of sense. Let’s take a&nbsp;trivial example of adding two numbers:</p>
   <pre class="calibre10">[Fact] public void
@@ -3007,7 +3007,7 @@ ShouldAddTwoNumbersTogether()
 
   <p class="calibre2">Here, we don’t have any choice. The most obvious implementation that would make this Statement true is the correct implementation. We are unable to return some constant value as we previously could (but we did not), because we just don’t know what the expected result is and it is strictly dependent on the input values which we don’t know as well.</p>
 
-  <h2 class="calibre5">Fake It (‘Til You Make It)</h2>
+  <h2 id="calibre_link-91" class="calibre5">Fake It (‘Til You Make It)</h2>
 
   <p class="calibre2">This technique is kind of funny. I&nbsp;do not recall myself ever using it, but it is so interesting I&nbsp;want to show it to you anyway. It is so simple you will not regret these few minutes even if just for broadening your horizons.</p>
 
@@ -3073,7 +3073,7 @@ ShouldAddTwoNumbersTogether()
 
   <p class="calibre2">And that’s it. I&nbsp;used a&nbsp;trivial example, since I&nbsp;don’t want to spend too much time on this, but you can find more advanced ones in Kent Beck’s book if you like.</p>
 
-  <h2 class="calibre5">Triangulation</h2>
+  <h2 id="calibre_link-92" class="calibre5">Triangulation</h2>
 
   <p class="calibre2">As I&nbsp;wrote, triangulation is the most conservative technique, because following it involves the tiniest possible steps to arrive at the right solution. The technique is called triangulation by analogy to <a href="http://encyclopedia2.thefreedictionary.com/radar+triangulation">radar triangulation</a> where outputs from at least two radars must be used to determine the position of a&nbsp;unit. Also, in radar triangulation, the position is measured indirectly, by combining the following data: range (not position!) between two radars, measurement done by each radar and the positions of the radars (which we know, because we are the ones who put the radars there). From this data, we can derive a&nbsp;triangle, so we can use trigonometry to calculate the position of the third point of the triangle, which is the desired position of the unit (two remaining points are the positions of radars). Such measurement is indirect in nature, because we do not measure the position directly, but calculate it from other helper measurements.</p>
 
@@ -3271,13 +3271,13 @@ public int SumOfElements()
 
   <p class="calibre2">And voilà! We have arrived at the final, generic solution. Note that the steps we took were tiny - so you might get the impression that the effort was not worth it. Indeed, this example was only to show the mechanics of triangulation - in real life, if we encountered such simple situation we’d know straight away what the design would be and we’d start with the general Statement straight away and just type in the obvious implementation. Triangulation shows its power in more complex problems with multiple design axes and where taking tiny steps helps avoid “analysis paralysis”.</p>
 
-  <h2 class="calibre5">Summary</h2>
+  <h2 class="calibre5" id="calibre_link-93">Summary</h2>
 
   <p class="calibre2">As I&nbsp;stated before, triangulation is most useful when you have no idea how the internal design of a&nbsp;piece of functionality will look like (e.g. even if there are work-flows, they cannot be easily derived from your knowledge of the domain) and it’s not obvious along which axes your design must provide generality, but you are able to give some examples of the observable behavior of that functionality given certain inputs. These are usually situations where you need to slow down and take tiny steps that slowly bring you closer to the right design and functionality - and that’s what triangulation is for!</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-16">
+<div class="calibre4" id="calibre_link-4">
   <h1 class="calibre1">Part 2: Test-Driven Development in Object Oriented World</h1>
 
   <p class="calibre2">Most of the examples I&nbsp;gave you during the previous part were about a&nbsp;single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a&nbsp;real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a&nbsp;system.</p>
@@ -3292,19 +3292,19 @@ public int SumOfElements()
 </div>
 
 
-<div class="calibre" id="calibre_link-0">
+<div class="calibre" id="calibre_link-15">
   <h4 class="sigilnotintoc1">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h4>
 </div>
 
 
-<div class="calibre4" id="calibre_link-7">
+<div class="calibre4" id="calibre_link-6">
   <h1 class="calibre1">On Objects Composability</h1>
 
   <p class="calibre2">In this chapter, I&nbsp;will try to outline why objects' composability is a&nbsp;goal worth achieving and how it can be achieved. I&nbsp;am going to start with an example of unmaintainable code and will gradually fix its flaws in the next chapters. In this chapter, we are going to fix just one of the flaws, so the code we will end up will not be perfect by any means, still, it will be better by one quality.</p>
 
-  <h1 class="calibre1">TODO make it into a&nbsp;role-play!</h1>
+  <h1 id="calibre_link-94" class="calibre1">TODO make it into a&nbsp;role-play!</h1>
 
-  <h1 class="calibre1">Another task for Johnny and Benjamin</h1>
+  <h1 id="calibre_link-95" class="calibre1">Another task for Johnny and Benjamin</h1>
 
   <p class="calibre2">Remember Johnny and Benjamin? Looks like they managed their previous task and are up to something else. Let us listen to their conversation as they are working on another project...</p>
 
@@ -3440,11 +3440,11 @@ public int SumOfElements()
   }
 </pre>
 
-  <h1 class="calibre1">TOOOOOOOOOOOODOOOOOOOOOO</h1>
+  <h1 id="calibre_link-96" class="calibre1">TOOOOOOOOOOOODOOOOOOOOOO</h1>
 
   <p class="calibre2">There are a&nbsp;couple of ways of dealing with this problem, like:</p>
 
-  <h1 class="calibre1">TOOOOOOOOOODOOOOOOOOO convert the list to separate sections</h1>
+  <h1 id="calibre_link-97" class="calibre1">TOOOOOOOOOODOOOOOOOOO convert the list to separate sections</h1>
 
   <ol class="calibre12">
     <li class="calibre13">Creating a&nbsp;constructor with an if statement inside to choose the database - this is a&nbsp;bad idea because other classes in our system use the database as well so the if statement will need to be duplicated.</li>
@@ -3572,24 +3572,24 @@ var policies = new CompanyPolicies(repository);</pre>
 
   <p class="calibre2">Again, these modifications are all possible without touching the <code class="calibre11">RepositoryConfigurableByPolicies</code> class!</p>
 
-  <h1 class="calibre1">Todo write about web of objects and how we can unplug parts of the web and plug in different parts to modify the system behavior without modifying the rest of the web</h1>
+  <h1 id="calibre_link-98" class="calibre1">Todo write about web of objects and how we can unplug parts of the web and plug in different parts to modify the system behavior without modifying the rest of the web</h1>
 
-  <h1 class="calibre1">Todo write about composition root!</h1>
+  <h1 id="calibre_link-99" class="calibre1">Todo write about composition root!</h1>
 </div>
 
 
-<div class="calibre4" id="calibre_link-15">
+<div class="calibre4" id="calibre_link-19">
   <p class="calibre2">dependency injection?</p>
 
   <p class="calibre2">What should be stable in your system?</p>
 
-  <h2 class="calibre5">What code to extract from a Statement to shared utility method?<br class="calibre26" /></h2>
+  <h2 id="calibre_link-100" class="calibre5">What code to extract from a Statement to shared utility method?<br class="calibre26" /></h2>
 
-  <h2 id="calibre_link-55" class="calibre5">Why such a strange approach to create enumerated constants?</h2>
+  <h2 id="calibre_link-101" class="calibre5">Why such a strange approach to create enumerated constants?</h2>
 
   <p class="calibre2">TODO</p>
 
-  <h2 id="calibre_link-56" class="calibre5">Expanded TDD process</h2>
+  <h2 id="calibre_link-102" class="calibre5">Expanded TDD process</h2>
 
   <p class="calibre2">As a little introduction, I’ll show you an expanded version of TDD flow that we’ll be using:</p>
 
@@ -3609,24 +3609,24 @@ var policies = new CompanyPolicies(repository);</pre>
 
   <p class="calibre2">Some of the steps don’t probably mean anything to yet. Don’t worry, we’ll be reiterating them several times, so don’t try to memorize them now.</p>
 
-  <h2 id="calibre_link-57" class="calibre5">What exactly do we specify?<br class="calibre26" /></h2>
+  <h2 id="calibre_link-103" class="calibre5">What exactly do we specify?<br class="calibre26" /></h2>
 
   <p class="calibre2">In this chapter, we’ll look a little bit on what it is that we actually write our specification against - what exactly do we want to describe about a class. We’re gonna jump into a quick example, because I’ve been keeping you away from practice too long now. Note that the example won’t exactly show how the real-world TDD looks like, but it will be enough to draw some conclusions and get a feel of Statement-First style of programming.</p>
 
-  <h2 id="calibre_link-58" class="calibre5">quick example (list? calculator?)</h2>
+  <h2 id="calibre_link-104" class="calibre5">quick example (list? calculator?)</h2>
 
   <p class="calibre2">TODO - todo list</p>
 </div>
 
 
-<div class="calibre" id="calibre_link-17">
+<div class="calibre" id="calibre_link-1">
   <p class="calibre2">&nbsp;1. combinatorial explosion</p>
 
   <p class="calibre2">2. too many classes specified at once</p>
 </div>
 
 
-<div class="calibre4" id="calibre_link-12">
+<div class="calibre4" id="calibre_link-13">
   <ol class="calibre12">
     <li class="calibre13">Need driven development and the principle of least astonishment (perspective of use)</li>
 
