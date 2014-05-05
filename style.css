@@ -1,8 +1,3 @@
-@page {
-    margin-bottom: 5pt;
-    margin-top: 5pt
-    }
-
 .achievement {
     border-bottom-color: #E1A60A;
     border-bottom-style: double;
@@ -247,6 +242,14 @@
 .calibre29 {
     text-decoration: line-through
     }
+.calibre30 {
+    display: table-row-group;
+    vertical-align: middle
+    }
+.calibre31 {
+    display: table-row;
+    vertical-align: inherit
+    }
 .disclaimer {
     border-bottom-color: black;
     border-bottom-style: solid;
@@ -290,5 +293,10 @@
     }
 .pcalibre:before {
     content: "Achievement: "
+    }
+
+@page {
+    margin-bottom: 5pt;
+    margin-top: 5pt
     }
 
