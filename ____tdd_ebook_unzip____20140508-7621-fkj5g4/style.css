@@ -1,0 +1,302 @@
+@page {
+    margin-bottom: 5pt;
+    margin-top: 5pt
+    }
+
+.achievement {
+    border-bottom-color: #E1A60A;
+    border-bottom-style: double;
+    border-bottom-width: 4px;
+    border-top-color: #E1A60A;
+    border-top-style: double;
+    border-top-width: 4px;
+    display: block;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em
+    }
+.calibre {
+    display: block;
+    font-size: 1em;
+    margin-bottom: 0;
+    margin-left: 5pt;
+    margin-right: 5pt;
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 0
+    }
+.calibre1 {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.67em
+    }
+.calibre2 {
+    display: block;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.calibre3 {
+    font-style: italic
+    }
+.calibre4 {
+    display: block;
+    font-size: 1em;
+    margin-bottom: 0;
+    margin-left: 5pt;
+    margin-right: 5pt;
+    margin-top: 0;
+    orphans: 0;
+    padding-left: 0;
+    padding-right: 0;
+    widows: 0
+    }
+.calibre5 {
+    display: block;
+    font-size: 1.41667em;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.83em
+    }
+.calibre6 {
+    display: block
+    }
+.calibre7 {
+    height: auto;
+    width: auto
+    }
+.calibre8 {
+    display: block;
+    font-style: italic;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.calibre9 {
+    display: block;
+    text-align: center
+    }
+.calibre10 {
+    display: block;
+    font-family: monospace;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em;
+    white-space: pre
+    }
+.calibre11 {
+    font-family: monospace
+    }
+.calibre12 {
+    display: block;
+    list-style-type: decimal;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.calibre13 {
+    display: list-item
+    }
+.calibre14 {
+    font-weight: bold
+    }
+.calibre15 {
+    display: block;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em
+    }
+.calibre16 {
+    display: block;
+    padding-top: 0.2em
+    }
+.calibre17 {
+    display: block;
+    margin-left: 40px
+    }
+.calibre18 {
+    display: block;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em
+    }
+.calibre19 {
+    font-weight: bold;
+    line-height: 1.2
+    }
+.calibre20 {
+    border-collapse: separate;
+    border-spacing: 2px;
+    display: table;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-indent: 0;
+    width: 70%
+    }
+.calibre21 {
+    display: table-row;
+    vertical-align: middle
+    }
+.calibre22 {
+    border-bottom-color: #C0C0C0;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-left-color: #C0C0C0;
+    border-left-style: solid;
+    border-left-width: thin;
+    border-right-color: #C0C0C0;
+    border-right-style: solid;
+    border-right-width: thin;
+    border-top-color: #C0C0C0;
+    border-top-style: solid;
+    border-top-width: thin;
+    display: table-cell;
+    font-weight: bold;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    vertical-align: inherit
+    }
+.calibre23 {
+    border-bottom-color: #C0C0C0;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-left-color: #C0C0C0;
+    border-left-style: solid;
+    border-left-width: thin;
+    border-right-color: #C0C0C0;
+    border-right-style: solid;
+    border-right-width: thin;
+    border-top-color: #C0C0C0;
+    border-top-style: solid;
+    border-top-width: thin;
+    display: table-cell;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    text-align: inherit;
+    vertical-align: inherit
+    }
+.calibre24 {
+    display: block;
+    page-break-after: always
+    }
+.calibre25 {
+    display: block;
+    list-style-type: disc;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.calibre26 {
+    display: block;
+    line-height: 1.2
+    }
+.calibre27 {
+    border-bottom-color: gray;
+    border-bottom-style: dashed;
+    border-bottom-width: thin;
+    border-left-color: gray;
+    border-left-style: dashed;
+    border-left-width: thin;
+    border-right-color: gray;
+    border-right-style: dashed;
+    border-right-width: thin;
+    border-top-color: gray;
+    border-top-style: dashed;
+    border-top-width: thin;
+    display: block;
+    font-family: monospace;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    white-space: pre
+    }
+.calibre28 {
+    display: block;
+    font-style: italic;
+    list-style-type: decimal;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.calibre29 {
+    text-decoration: line-through
+    }
+.calibre30 {
+    display: table-row-group;
+    vertical-align: middle
+    }
+.calibre31 {
+    display: table-row;
+    vertical-align: inherit
+    }
+.disclaimer {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-color: black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    display: block;
+    font-size: 0.75em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em
+    }
+.sigilnotintoc {
+    display: block;
+    font-size: 1.125em;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.sigilnotintoc1 {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1.33em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1.33em
+    }
+.sigilnotintoc2 {
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1em
+    }
+.pcalibre:before {
+    content: "Achievement: "
+    }
+

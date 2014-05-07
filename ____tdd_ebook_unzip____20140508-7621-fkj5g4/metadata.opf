@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">047a965b-e50f-49d1-a05e-1e6ae52a9274</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">917f2626-1237-4d26-b70f-3b98561fc41b</dc:identifier>
+        <dc:title>Test-Driven Development - Extensive Tutorial</dc:title>
+        <dc:creator opf:file-as="Nieznany" opf:role="aut">Grzegorz Gałęzowski</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (1.34.0) [http://calibre-ebook.com]</dc:contributor>
+        <dc:date>2014-02-04T23:00:00+00:00</dc:date>
+        <dc:language>pl</dc:language>
+        <meta content="{}" name="calibre:author_link_map"/>
+    </metadata>
+    <guide>
+        <reference href="cover.jpg" title="Okładka" type="cover"/>
+    </guide>
+</package>
