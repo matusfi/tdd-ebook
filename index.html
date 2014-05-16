@@ -2106,7 +2106,7 @@ public void TODO()
 </div>
 
 
-<div class="calibre4" id="calibre_link-0">
+<div class="calibre4" id="calibre_link-11">
   <h1 class="calibre1">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</h1>
 
   <h2 id="calibre_link-64" class="calibre5">Is there really a&nbsp;commonality between analysis and TDD?</h2>
@@ -3587,11 +3587,6 @@ public class CompanyPolicies
 
 </div>
 
-<div class="calibre" id="calibre_link-11">
-  <h4 class="sigilnotintoc1">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h4>
-</div>
-
-
 <div class="calibre4" id="calibre_link-8">
 <h1 class="calibre1">Telling, not asking</h1>
 
@@ -3853,7 +3848,7 @@ if(employee.GetYearsOfService() == 5)
 
   <h1 class="calibre1">A Quick Retrospective</h1>
 
-<p class="calibre2">In this chapter, Benjamin learned that the composability of objects (not to mention clarity) is reinforced when interactions between them are abstract, logical and stable. Also, he discovered, with Johnny's help, that it is further strengthened by following a design style where objects are told what to do instead of asked for information for somebody who needs to make the decision on their behalf. This is because if abstraction needs to answer questions, the one asking is coupled to both those questions and some aspects of the answers. This makes creating another implementation of abstraction harder. When objects are merely told what their client wants them to do, it is decoupled from most of the details of how this happens. This makes introducing new implementations of abstraction easier - a good example is that it often lets us define implementations with all methods empty and the client does not even notice.</p>
+<p class="calibre2">In this chapter, Benjamin learned that the composability of objects (not to mention clarity) is reinforced when interactions between them are: abstract, logical and stable. Also, he discovered, with Johnny's help, that it is further strengthened by following a design style where objects are told what to do instead of asked to give away information to somebody who the makes the decision on their behalf. This is because if an API of an abstraction is built around answering to specific questions, the clients of the abstraction tend to ask it a lot of questions an are coupled to both those questions and some aspects of the answers (i.e. what it in the return values). This makes creating another implementation of abstraction harder, because each new implementation of the abstraction needs to not only provide answers to all those questions, but the answers are constrained to what the client expects. When abstraction is merely told what its client wants it to achieve, the clients is decoupled from most of the details of how this happens. This makes introducing new implementations of abstraction easier - it often even lets us define implementations with all methods empty without the client noticing at all.</p>
 
 <p class="calibre2">These are all important conclusions that will lead us towards TDD with mock objects.</p>
 
@@ -3861,6 +3856,11 @@ if(employee.GetYearsOfService() == 5)
 
     
 </div>
+
+<div class="calibre" id="calibre_link-0">
+  <h4 class="sigilnotintoc1">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h4>
+</div>
+
 
 <div class="calibre4" id="calibre_link-19">
   <p class="calibre2">dependency injection?</p>
