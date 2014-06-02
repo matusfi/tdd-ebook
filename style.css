@@ -1,3 +1,8 @@
+@page {
+    margin-bottom: 5pt;
+    margin-top: 5pt
+    }
+
 .achievement {
     border-bottom-color: #E1A60A;
     border-bottom-style: double;
@@ -293,10 +298,5 @@
     }
 .pcalibre:before {
     content: "Achievement: "
-    }
-
-@page {
-    margin-bottom: 5pt;
-    margin-top: 5pt
     }
 
