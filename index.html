@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="calibre4" id="calibre_link-14">
+<div class="calibre4" id="calibre_link-15">
   <h1 class="calibre1">The three most essential tools</h1>
 
   <p class="calibre2">Ever watched Karate Kid, either the old version or the new one? The thing they have in common is that when the kid starts learning Karate (or Kung-Fu) from his master, he is given a&nbsp;basic, repetitive task (like taking off a&nbsp;jacket, and putting it on again), not knowing yet where it would lead him. Or look at the first Rocky film (yeah, the one starring Sylvester Stallone), where Rocky was chasing a&nbsp;chicken in order to train agility.</p>
@@ -499,7 +499,7 @@ private Fixture any = new Fixture();
 </div>
 
 
-<div class="calibre4" id="calibre_link-18">
+<div class="calibre4" id="calibre_link-19">
   <h1 class="calibre1">It is not a&nbsp;test</h1>
 
   <p class="calibre2">Up to now, I&nbsp;was cheating on you. I&nbsp;told you that the little executable snippets of code are ‘tests’ and that they’re here to ‘check’ or ‘verify’ something. Now it is time to reveal the truth.</p>
@@ -1717,7 +1717,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 </div>
 
 
-<div class="calibre4" id="calibre_link-20">
+<div class="calibre4" id="calibre_link-21">
   <h1 class="calibre1">Sorting Out The Bits</h1>
 
   <p class="calibre2">In the previous chapter, there has been a&nbsp;lively conversation between Johnny and Benjamin. Even in such a&nbsp;short session, Benjamin, as a&nbsp;TDD novice, had a&nbsp;lot of questions and a&nbsp;lot of things he needed sorted out. We will pick up all those questions and explain them one by one. Here they are:</p>
@@ -2657,7 +2657,7 @@ ShouldReportItIsStartedAndItDoesNotYetTransmitVoiceWhenItStarts()
 </div>
 
 
-<div class="calibre4" id="calibre_link-17">
+<div class="calibre4" id="calibre_link-18">
   <div class="disclaimer">
     <h3 class="sigilnotintoc2">A Disclaimer</h3>
 
@@ -2941,7 +2941,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 </div>
 
 
-<div class="calibre4" id="calibre_link-21">
+<div class="calibre4" id="calibre_link-14">
   <div class="disclaimer">
     The first occurence of the term triangulation I&nbsp;know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>.
   </div>
@@ -3277,7 +3277,7 @@ public int SumOfElements()
 </div>
 
 
-<div class="calibre4" id="calibre_link-15">
+<div class="calibre4" id="calibre_link-16">
   <h1 class="calibre1">Part 2: Test-Driven Development in Object Oriented World</h1>
 
   <p class="calibre2">Most of the examples I&nbsp;gave you during the previous part were about a&nbsp;single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a&nbsp;real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a&nbsp;system.</p>
@@ -3857,7 +3857,7 @@ if(employee.GetYearsOfService() == 5)
     
 </div>
 
-<div class="calibre" id="calibre_link-19">
+<div class="calibre" id="calibre_link-20">
   <h4 class="sigilnotintoc1">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h4>
 </div>
 
@@ -4133,9 +4133,9 @@ connection.Close();</pre>
 <p class="calibre2">Remember the change Johnny and Benjamin had to make in order to add another kind of employees to the application? In order to do that, they had to change existing interfaces and add new ones. This was a lot of work. We don't want to do this much work every time we make a change. The reason they had to do so much changes was that the protocol between the objects they were dealing with was unstable. And they were unstable because they were:</p>
 
 <ol class="calibre12">
-  <li class="calibre13">complicated instead of simple</li>
-  <li class="calibre13">concrete instead of abstract</li>
-  <li class="calibre13">large instead of small</li>
+  <li class="calibre13">complicated rather than simple</li>
+  <li class="calibre13">concrete rather than abstract</li>
+  <li class="calibre13">large rather than small</li>
 </ol>
 
 <p class="calibre2">Driven by why the stability of the protocols is bad, we can come up with some qualities that make protocols stable:</p>
@@ -4199,9 +4199,9 @@ catch(SecurityFailure failure)
 <p class="calibre2">Object responsibilities change less often than their data and if they do, they affect the design in a more predictable way. If a design reflects the domain, a change in design that is a result of domain rules change is easier to predict. This contributes to maintainability and stability of the interactions and the design as a whole.</p>
 
 
-<h4 class="sigilnotintoc1">Objects should be told what to do, instead of asked for data</h4>
+<h4 class="sigilnotintoc1">Objects should be told what to do, instead of asked for information</h4>
 
-<p class="calibre2">This is probably one of the most important guidelines. When an object is asked to perform a task instead of asked questions, we have a change of switching the implementation of this task with another one.</p>
+<p class="calibre2">This is probably one of the most important guidelines, known under the name of Tell Don't Ask. When an object is asked to perform a task instead of asked questions, we have a change of switching the implementation of this task with another one.</p>
 
 <p class="calibre2">So remember the payroll system that Johnny and Benjamin were working on? As long as their code for giving raise looked like this:</p>
 
@@ -4219,11 +4219,13 @@ catch(SecurityFailure failure)
 
 <p class="calibre2">Again, quoting Scott Bain, "what you hide, you can change". Thus, telling an object what to do requires less knowledge than asking for data and information. Going back to the driver license example: I may ask another person for a driving license number to actually make sure they have the license and that it is valid (by checking the number somewhere). I may also ask another person to provide me with the directions to the place I want the first person to drive. But isn't it easier to just tell "buy me some bread and butter"? Then, whoever I ask, has the freedom to either drive, or walk (if they know a good store nearby) or ask yet another person to do it instead. I don't care as long as tomorrow morning, I find the bread and butter in my fridge.</p>
 
+<p class="calibre2">This guideline should be trated very, very seriously and applied in almost an extreme way. There are few places where it does not apply and we'll get back to them later.</p>
+
 <h4 class="sigilnotintoc1">Getters should be removed</h4>
 
-<p class="calibre2">what if we get data from network?</p>
+<p class="calibre2">The above stated guideline of "Tell Don't Ask" has a practical implication of getting rid of (almost) all the getters.</p>
 
-
+<p class="calibre2">For me, this was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that allowed far better abstraction, but my style of coding didn't really change much. I would still have procedures and functions, but now more abstract (divided into objects) and data structures, but now more abstract (i.e. objects with setters, getters and some other query methods). TODO TODO </p>
 
 <h4 class="sigilnotintoc1">Returning values should be extremely minimized</h4>
 
@@ -4231,6 +4233,25 @@ catch(SecurityFailure failure)
 
 <p class="calibre2">Size of protocols. Even interface with a single method can return a lot of values. Example: different reports produced.</p>
 
+<h4 class="sigilnotintoc1">Instead of pulling the data where context is, pass the context where the data is</h4>
+
+<p class="calibre2">this may sound like something non obvious</p>
+
+<ol class="calibre12">
+  <li class="calibre13">data - the information</li>
+  <li class="calibre13">context - what we want to do with information</li>
+</ol>
+
+<p class="calibre2">e.g. for employees:</p>
+
+<ol class="calibre12">
+  <li class="calibre13">data - employee name surname etc.</li>
+  <li class="calibre13">context - we want to print it on the screen</li>
+</ol>
+
+<p class="calibre2">TODO example: with employees loop getters refactoring</p>
+
+<p class="calibre2">May be more coupling, but the coupling is very light - just an abstract interface, especially if we were following the rest guidelines. On the other hand, better information hiding and decoupling users from details.</p>
 
 <h4 class="sigilnotintoc1">Protocols should rely on abstractions</h4>
 
@@ -4334,7 +4355,7 @@ catch(SecurityFailure failure)
 </div>
 
 
-<div class="calibre4" id="calibre_link-16">
+<div class="calibre4" id="calibre_link-17">
   <ol class="calibre12">
     <li class="calibre13">Need driven development and the principle of least astonishment (perspective of use)</li>
 
