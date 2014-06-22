@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-        <dc:identifier opf:scheme="calibre" id="calibre_id">5ed9361c-8dcf-431d-aadd-f2c977ec08ce</dc:identifier>
-        <dc:identifier opf:scheme="uuid" id="uuid_id">4077b74f-0eaf-474f-be40-5d79e854df8f</dc:identifier>
+        <dc:identifier opf:scheme="calibre" id="calibre_id">7d4a602d-229b-49fd-9a18-2a834a19a37b</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">7f0095f3-8211-468a-83d8-271e68ce6383</dc:identifier>
         <dc:title>Test-Driven Development - Extensive Tutorial</dc:title>
         <dc:creator opf:file-as="Nieznany" opf:role="aut">Grzegorz Gałęzowski</dc:creator>
         <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (1.41.0) [http://calibre-ebook.com]</dc:contributor>
