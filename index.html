@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link href="style.css" rel="stylesheet" type="text/css" /></head><body><div class="calibre" id="calibre_link-5">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link href="style.css" rel="stylesheet" type="text/css" /></head><body><div class="calibre" id="calibre_link-10">
   <h1 class="calibre1">Dedications</h1>
 
   <p class="calibre2"><i class="calibre3">Ad Deum qui laetificat iuventutem meam.</i></p>
@@ -7,7 +7,7 @@
 </div>
 
 
-<div class="calibre" id="calibre_link-7">
+<div class="calibre" id="calibre_link-0">
   <h1 class="calibre1">Part 1: Just&nbsp;the basics</h1>
 
   <p class="calibre2">This is a&nbsp;part where I&nbsp;introduce the basic TDD philosophy and practices (as well as some advanced ones) without going much into object orientation and how to do TDD for systems where multiple objects collaborate together (which is a&nbsp;topic of Part 2).</p>
@@ -18,7 +18,7 @@
 </div>
 
 
-<div class="calibre4" id="calibre_link-12">
+<div class="calibre4" id="calibre_link-13">
   <h1 class="calibre1">Motivation - the first step to learning TDD</h1>
 
   <p class="calibre2">So, you want to learn TDD, huh? First off, let me ask a&nbsp;question ‘why?’.</p>
@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="calibre4" id="calibre_link-10">
+<div class="calibre4" id="calibre_link-11">
   <h1 class="calibre1">The three most essential tools</h1>
 
   <p class="calibre2">Ever watched Karate Kid, either the old version or the new one? The thing they have in common is that when the kid starts learning Karate (or Kung-Fu) from his master, he is given a&nbsp;basic, repetitive task (like taking off a&nbsp;jacket, and putting it on again), not knowing yet where it would lead him. Or look at the first Rocky film (yeah, the one starring Sylvester Stallone), where Rocky was chasing a&nbsp;chicken in order to train agility.</p>
@@ -774,7 +774,7 @@ var configuration = new XmlConfiguration(customFixture);
 </div>
 
 
-<div class="calibre4" id="calibre_link-17">
+<div class="calibre4" id="calibre_link-18">
   <h1 class="calibre1">Practicing what we already learned</h1>
 
   <blockquote class="calibre18">
@@ -2106,7 +2106,7 @@ public void TODO()
 </div>
 
 
-<div class="calibre4" id="calibre_link-16">
+<div class="calibre4" id="calibre_link-17">
   <h1 class="calibre1">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</h1>
 
   <h2 id="calibre_link-65" class="calibre5">Is there really a&nbsp;commonality between analysis and TDD?</h2>
@@ -2941,7 +2941,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 </div>
 
 
-<div class="calibre4" id="calibre_link-15">
+<div class="calibre4" id="calibre_link-16">
   <div class="disclaimer">
     The first occurence of the term triangulation I&nbsp;know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>.
   </div>
@@ -3277,7 +3277,7 @@ public int SumOfElements()
 </div>
 
 
-<div class="calibre4" id="calibre_link-6">
+<div class="calibre4" id="calibre_link-5">
   <h1 class="calibre1">Part 2: Test-Driven Development in Object Oriented World</h1>
 
   <p class="calibre2">Most of the examples I&nbsp;gave you during the previous part were about a&nbsp;single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a&nbsp;real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a&nbsp;system.</p>
@@ -3292,7 +3292,7 @@ public int SumOfElements()
 </div>
 
 
-<div class="calibre4" id="calibre_link-18">
+<div class="calibre4" id="calibre_link-15">
   <h1 class="calibre1">On Objects Composability</h1>
 
   <p class="calibre2">In this chapter, I&nbsp;will try to outline briefly why objects' composability is a&nbsp;goal worth achieving and how it can be achieved. I&nbsp;am going to start with an example of unmaintainable code and will gradually fix its flaws in the next chapters. For now, we are going to fix just one of the flaws, so the code we will end up will not be perfect by any means, still, it will be better by one quality.</p>
@@ -3587,7 +3587,7 @@ public class CompanyPolicies
 
 </div>
 
-<div class="calibre4" id="calibre_link-0">
+<div class="calibre4" id="calibre_link-6">
 <h1 class="calibre1">Telling, not asking</h1>
 
 <p class="calibre2">In this chapter, we'll get back to Johnny and Benjamin as they introduce another change in the code they are working on. In the process, they discover the impact that return values and getters have on composability of objects.</p>
@@ -3862,7 +3862,7 @@ if(employee.GetYearsOfService() == 5)
 </div>
 
 
-<div class="calibre4" id="calibre_link-14">
+<div class="calibre4" id="calibre_link-7">
 
 <h1 class="calibre1">The need for mock objects</h1>
 
@@ -4233,7 +4233,7 @@ catch(SecurityFailure failure)
 
 <p class="calibre2">But what alternatives do we have? Let's say that we have a piece of software that handles user sessions (e.g. modeled using a <code class="calibre11">Session</code> class). We want to be able to display the sessions on the GUI, send the sessions through the network and persist them. How can we do this without getters? Should we put all the code for displaying, sending and storing inside the <code class="calibre11">Session</code> class? If we did that, we would couple a core domain concept (session) to a nasty set of third-party libraries (e.g. a particular GUI library), which would force us to tinker in core domain rules every time some GUI displaying concept changed. Also, if we did that, the <code class="calibre11">Session</code> would be hard to reuse, because every place we would want to reuse the class, we would need to take all these heavy libraries it depends on with us. So, our (not so good, as we will see) remedy may be to introduce getters for the information pieces stored inside a session:</p>
 
-<pre class="calibre10">public class Session
+<pre class="calibre10">public interface Session
 {
   string GetOwner();
   string GetTarget();
@@ -4294,29 +4294,39 @@ foreach(var session in sessions)
 
 <p class="calibre2">Thankfully, we have a third alternative, which is better than the two we already mentioned. We can just <strong class="calibre14">pass</strong> the context <strong class="calibre14">into</strong> the <code class="calibre11">Session</code> class. "Isn't this just another way to do what we outlined in point 1? If we pass the context in, isn't <code class="calibre11">Session</code> still coupled to this context?", you may ask. The answer is: no, because we can make <code class="calibre11">Session</code> class depend on interfaces only to make it context-independent.</p>
 
-<p class="calibre2">Let's see how this plays out in practice. First let's remove those ugly getters from the <code class="calibre11">Session</code> and introduce new method called <code class="calibre11">Dump()</code> that will take the <code class="calibre11">Destination</code> interface as parameter and pass all fields into this destination:
+<p class="calibre2">Let's see how this plays out in practice. First let's remove those ugly getters from the <code class="calibre11">Session</code> and introduce new method called <code class="calibre11">Dump()</code> that will take the <code class="calibre11">Destination</code> interface as parameter:</p> 
 
-</p><pre class="calibre10">public class Session
+<pre class="calibre10">public interface Session
 {
+  void DumpInto(Destination destination);
+}</pre>
+
+<p class="calibre2">Its implementation can pass all fields into this destination like so:</p>
+
+<pre class="calibre10">public class TimedSession : Session
+{
+  //...
+
   public void DumpInto(Destination destination)
   {
     destination.AcceptOwner(this.owner);
     destination.AcceptTarget(this.target);
     destination.AcceptExpiryTime(this.expiryTime);
+    destination.Done();
   }
+
+  //...
 }</pre>
 
 <p class="calibre2">And the looping through sessions now looks like this:</p>
 
 <pre class="calibre10">foreach(var session : sessions)
 {
-  var destination = destinationFactory.Create();
-  session.DumpInto(destination);
-  destination.Done();
+  var newDestination = destinationFactory.Create();
+  session.DumpInto(newDestination);
 }</pre>
 
 <p class="calibre2">In this design, <code class="calibre11">Session</code> itself decides which parameters to pass - no one is asking for its data. This <code class="calibre11">Dump()</code> method is fairly general, so we can use it to implement all three mentioned behaviors (displaying, storing, sending), by creating adapters for each type of destination, e.g. for GUI, it might look like this:</p>
-
 
 <pre class="calibre10">public class GuiDestination : Destination
 {
@@ -4353,7 +4363,38 @@ foreach(var session in sessions)
 
 <p class="calibre2">Note that with the current design, adding new property to the <code class="calibre11">Session</code> that would need to be displayed, stored or sent, means adding new method to the <code class="calibre11">Destination</code> interface. All implementing classes must implement this new method, or they stop compiling, so there is no way to mistakenly forget about one of them.</p>
 
-<p class="calibre2">TOODOO so what??</p>
+<p class="calibre2">Also, unnoticeably, the protocol got more stable. Previously, when we had the getters in the <code class="calibre11">Session</code> class:</p>
+
+<pre class="calibre10">public class Session
+{
+  string GetOwner();
+  string GetTarget();
+  DateTime GetExpiryTime();
+}</pre>
+
+<p class="calibre2">the getters <strong class="calibre14">had to</strong> return <strong class="calibre14">something</strong>. So what if we didn't want to display, send and store expired timed sessions anymore? we would have to add another getter, called <code class="calibre11">IsExpired()</code> and checking it everywhere... you see where this is going. On the other hand, with the current design of the <code class="calibre11">Session</code> interface, we can e.g. introduce a feature where the expired sessions are not processed at all:</p>
+
+<pre class="calibre10">public class TimedSession : Session
+{
+  //...
+
+  public void DumpInto(Destination destination)
+  {
+    if(!IsExpired())
+    {
+      destination.AcceptOwner(this.owner);
+      destination.AcceptTarget(this.target);
+      destination.AcceptExpiryTime(this.expiryTime);
+      destination.Done();
+    }
+  }
+
+  //...
+}</pre>
+
+<p class="calibre2">and there is no need to change any other code to get this working.</p>
+
+<p class="calibre2">TODO</p>
 
 <h4 class="sigilnotintoc1">Returning values should be extremely minimized</h4>
 
@@ -4441,7 +4482,7 @@ foreach(var session in sessions)
     
 </ol></div>
 
-<div class="calibre4" id="calibre_link-13">
+<div class="calibre4" id="calibre_link-14">
   <p class="calibre2">dependency injection?</p>
 
   <p class="calibre2">What should be stable in your system?</p>
@@ -4489,7 +4530,7 @@ foreach(var session in sessions)
 </div>
 
 
-<div class="calibre4" id="calibre_link-11">
+<div class="calibre4" id="calibre_link-12">
   <ol class="calibre12">
     <li class="calibre13">Need driven development and the principle of least astonishment (perspective of use)</li>
 
