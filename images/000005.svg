@@ -1,139 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400pt" height="426pt" viewBox="0.00 0.00 400.07 425.81">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 421.806)">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="659pt" height="185pt" viewBox="0.00 0.00 658.91 185.08">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 181.083)">
 <title>G</title>
-<polygon fill="white" stroke="none" points="-4,4 -4,-421.806 396.068,-421.806 396.068,4 -4,4"/>
-<!-- o1 -->
-<g id="node1" class="node"><title>o1</title>
-<ellipse fill="none" stroke="black" cx="100.167" cy="-229.894" rx="18" ry="18"/>
+<polygon fill="white" stroke="none" points="-4,4 -4,-181.083 654.907,-181.083 654.907,4 -4,4"/>
+<!-- Sender -->
+<g id="node1" class="node"><title>Sender</title>
+<ellipse fill="none" stroke="black" cx="31.1991" cy="-129.563" rx="31.3996" ry="31.3996"/>
+<text text-anchor="middle" x="31.1991" y="-127.063" font-family="Times,serif" font-size="10.00">Sender</text>
 </g>
-<!-- o3 -->
-<g id="node3" class="node"><title>o3</title>
-<ellipse fill="none" stroke="black" cx="173.922" cy="-270.096" rx="18" ry="18"/>
+<!-- square -->
+<g id="node3" class="node"><title>square</title>
+<polygon fill="none" stroke="black" points="290.629,-159.462 220.629,-129.462 290.629,-99.4621 360.629,-129.462 290.629,-159.462"/>
+<polyline fill="none" stroke="black" points="231.659,-134.189 231.659,-124.735 "/>
+<polyline fill="none" stroke="black" points="279.599,-104.189 301.659,-104.189 "/>
+<polyline fill="none" stroke="black" points="349.599,-124.735 349.599,-134.189 "/>
+<polyline fill="none" stroke="black" points="301.659,-154.735 279.599,-154.735 "/>
+<text text-anchor="middle" x="290.629" y="-132.462" font-family="Times,serif" font-size="10.00">Recipient</text>
+<text text-anchor="middle" x="290.629" y="-121.462" font-family="Times,serif" font-size="10.00">(Interface)</text>
 </g>
-<!-- o1-&gt;o3 -->
-<g id="edge1" class="edge"><title>o1-&gt;o3</title>
-<path fill="none" stroke="black" d="M116.17,-238.617C125.739,-243.833 138.103,-250.572 148.934,-256.476"/>
-<polygon fill="black" stroke="black" points="147.494,-259.677 157.949,-261.39 150.844,-253.531 147.494,-259.677"/>
+<!-- Sender-&gt;square -->
+<g id="edge1" class="edge"><title>Sender-&gt;square</title>
+<path fill="none" stroke="black" d="M62.4924,-129.551C98.9296,-129.536 160.502,-129.513 210.503,-129.493"/>
+<polygon fill="black" stroke="black" points="210.661,-132.993 220.66,-129.489 210.658,-125.993 210.661,-132.993"/>
+<text text-anchor="middle" x="132.992" y="-132.551" font-family="Times,serif" font-size="10.00">Recipient::DoSomething()...</text>
 </g>
-<!-- o2 -->
-<g id="node2" class="node"><title>o2</title>
-<ellipse fill="none" stroke="black" cx="123.086" cy="-335.481" rx="18" ry="18"/>
+<!-- Recipient -->
+<g id="node2" class="node"><title>Recipient</title>
+<ellipse fill="none" stroke="black" cx="604.945" cy="-131.121" rx="45.9239" ry="45.9239"/>
+<text text-anchor="middle" x="604.945" y="-134.121" font-family="Times,serif" font-size="10.00">Concrete</text>
+<text text-anchor="middle" x="604.945" y="-123.121" font-family="Times,serif" font-size="10.00">Recipient</text>
 </g>
-<!-- o13 -->
-<g id="node13" class="node"><title>o13</title>
+<!-- square-&gt;Recipient -->
+<g id="edge2" class="edge"><title>square-&gt;Recipient</title>
+<path fill="none" stroke="black" d="M359.996,-129.828C416.605,-130.127 495.589,-130.544 548.407,-130.823"/>
+<polygon fill="black" stroke="black" points="548.589,-134.324 558.607,-130.877 548.626,-127.324 548.589,-134.324"/>
+<text text-anchor="middle" x="453.496" y="-132.828" font-family="Times,serif" font-size="10.00">...ConcreteRecipient::DoSomething()</text>
 </g>
-<!-- o2-&gt;o13 -->
-<g id="edge15" class="edge"><title>o2-&gt;o13</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M112.796,-350.725C107.934,-357.928 102.004,-366.713 96.5114,-374.85"/>
-<polygon fill="black" stroke="black" points="93.4887,-373.072 90.7948,-383.319 99.2906,-376.989 93.4887,-373.072"/>
+<!-- Alarm -->
+<g id="node4" class="node"><title>Alarm</title>
+<ellipse fill="none" stroke="black" cx="31.1991" cy="-32.6995" rx="27.8353" ry="27.8353"/>
+<text text-anchor="middle" x="31.1991" y="-30.1995" font-family="Times,serif" font-size="10.00">Alarm</text>
 </g>
-<!-- o3-&gt;o2 -->
-<g id="edge2" class="edge"><title>o3-&gt;o2</title>
-<path fill="none" stroke="black" d="M162.64,-284.607C156.19,-292.903 147.959,-303.489 140.678,-312.854"/>
-<polygon fill="black" stroke="black" points="137.711,-310.968 134.336,-321.011 143.237,-315.264 137.711,-310.968"/>
+<!-- Lift -->
+<g id="node6" class="node"><title>Lift</title>
+<polygon fill="none" stroke="black" points="290.745,-62.7366 220.745,-32.7366 290.745,-2.73661 360.745,-32.7366 290.745,-62.7366"/>
+<polyline fill="none" stroke="black" points="231.775,-37.4636 231.775,-28.0096 "/>
+<polyline fill="none" stroke="black" points="279.715,-7.46365 301.775,-7.46365 "/>
+<polyline fill="none" stroke="black" points="349.715,-28.0096 349.715,-37.4636 "/>
+<polyline fill="none" stroke="black" points="301.775,-58.0096 279.715,-58.0096 "/>
+<text text-anchor="middle" x="290.745" y="-35.7366" font-family="Times,serif" font-size="10.00">Lift</text>
+<text text-anchor="middle" x="290.745" y="-24.7366" font-family="Times,serif" font-size="10.00">(Interface)</text>
 </g>
-<!-- o7 -->
-<g id="node7" class="node"><title>o7</title>
-<ellipse fill="none" stroke="black" cx="242.916" cy="-217.755" rx="18" ry="18"/>
+<!-- Alarm-&gt;Lift -->
+<g id="edge3" class="edge"><title>Alarm-&gt;Lift</title>
+<path fill="none" stroke="black" d="M58.9751,-32.7035C94.8355,-32.7086 158.766,-32.7178 210.413,-32.7251"/>
+<polygon fill="black" stroke="black" points="210.566,-36.2251 220.567,-32.7266 210.567,-29.2251 210.566,-36.2251"/>
+<text text-anchor="middle" x="123.975" y="-35.7035" font-family="Times,serif" font-size="10.00">Lift::GoToBottomFloor()...</text>
 </g>
-<!-- o3-&gt;o7 -->
-<g id="edge3" class="edge"><title>o3-&gt;o7</title>
-<path fill="none" stroke="black" d="M188.554,-258.996C197.701,-252.056 209.675,-242.972 220.057,-235.097"/>
-<polygon fill="black" stroke="black" points="222.454,-237.671 228.305,-228.839 218.223,-232.094 222.454,-237.671"/>
+<!-- AutoLift -->
+<g id="node5" class="node"><title>AutoLift</title>
+<ellipse fill="none" stroke="black" cx="605.099" cy="-34.1425" rx="34.2855" ry="34.2855"/>
+<text text-anchor="middle" x="605.099" y="-31.6425" font-family="Times,serif" font-size="10.00">AutoLift</text>
 </g>
-<!-- o4 -->
-<g id="node4" class="node"><title>o4</title>
-<ellipse fill="none" stroke="black" cx="222.309" cy="-339.132" rx="18" ry="18"/>
-</g>
-<!-- o4-&gt;o3 -->
-<g id="edge4" class="edge"><title>o4-&gt;o3</title>
-<path fill="none" stroke="black" d="M211.81,-324.152C205.532,-315.196 197.421,-303.623 190.315,-293.485"/>
-<polygon fill="black" stroke="black" points="193.006,-291.227 184.401,-285.047 187.274,-295.244 193.006,-291.227"/>
-</g>
-<!-- o5 -->
-<g id="node5" class="node"><title>o5</title>
-<ellipse fill="none" stroke="black" cx="300.06" cy="-344.64" rx="18" ry="18"/>
-</g>
-<!-- o5-&gt;o4 -->
-<g id="edge5" class="edge"><title>o5-&gt;o4</title>
-<path fill="none" stroke="black" d="M282.027,-343.363C272.673,-342.7 261.035,-341.876 250.523,-341.131"/>
-<polygon fill="black" stroke="black" points="250.736,-337.637 240.514,-340.422 250.241,-344.62 250.736,-337.637"/>
-</g>
-<!-- o6 -->
-<g id="node6" class="node"><title>o6</title>
-<ellipse fill="none" stroke="black" cx="313.654" cy="-269.004" rx="18" ry="18"/>
-</g>
-<!-- o6-&gt;o5 -->
-<g id="edge6" class="edge"><title>o6-&gt;o5</title>
-<path fill="none" stroke="black" d="M310.432,-286.929C308.824,-295.878 306.842,-306.903 305.043,-316.912"/>
-<polygon fill="black" stroke="black" points="301.582,-316.383 303.258,-326.844 308.472,-317.621 301.582,-316.383"/>
-</g>
-<!-- o7-&gt;o6 -->
-<g id="edge7" class="edge"><title>o7-&gt;o6</title>
-<path fill="none" stroke="black" d="M257.573,-228.374C267.153,-235.314 279.862,-244.522 290.759,-252.417"/>
-<polygon fill="black" stroke="black" points="288.864,-255.366 299.016,-258.399 292.971,-249.698 288.864,-255.366"/>
-</g>
-<!-- o8 -->
-<g id="node8" class="node"><title>o8</title>
-<ellipse fill="none" stroke="black" cx="232.625" cy="-124.873" rx="18" ry="18"/>
-</g>
-<!-- o7-&gt;o8 -->
-<g id="edge8" class="edge"><title>o7-&gt;o8</title>
-<path fill="none" stroke="black" d="M240.932,-199.846C239.461,-186.568 237.427,-168.21 235.74,-152.984"/>
-<polygon fill="black" stroke="black" points="239.218,-152.597 234.638,-143.043 232.261,-153.368 239.218,-152.597"/>
-</g>
-<!-- o11 -->
-<g id="node11" class="node"><title>o11</title>
-<ellipse fill="none" stroke="black" cx="310.441" cy="-168.243" rx="18" ry="18"/>
-</g>
-<!-- o7-&gt;o11 -->
-<g id="edge9" class="edge"><title>o7-&gt;o11</title>
-<path fill="none" stroke="black" d="M257.568,-207.011C266.328,-200.588 277.648,-192.289 287.564,-185.017"/>
-<polygon fill="black" stroke="black" points="289.823,-187.701 295.818,-178.966 285.684,-182.056 289.823,-187.701"/>
-</g>
-<!-- o9 -->
-<g id="node9" class="node"><title>o9</title>
-<ellipse fill="none" stroke="black" cx="302.484" cy="-88.5922" rx="18" ry="18"/>
-</g>
-<!-- o8-&gt;o9 -->
-<g id="edge10" class="edge"><title>o8-&gt;o9</title>
-<path fill="none" stroke="black" d="M248.828,-116.458C257.292,-112.062 267.84,-106.585 277.337,-101.652"/>
-<polygon fill="black" stroke="black" points="279.108,-104.676 286.369,-96.9613 275.882,-98.4642 279.108,-104.676"/>
-</g>
-<!-- o14 -->
-<g id="node14" class="node"><title>o14</title>
-</g>
-<!-- o9-&gt;o14 -->
-<g id="edge16" class="edge"><title>o9-&gt;o14</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M309.277,-71.8628C312.535,-63.8385 316.52,-54.0243 320.192,-44.982"/>
-<polygon fill="black" stroke="black" points="323.484,-46.1765 324.003,-35.5944 316.998,-43.543 323.484,-46.1765"/>
-</g>
-<!-- o10 -->
-<g id="node10" class="node"><title>o10</title>
-<ellipse fill="none" stroke="black" cx="374.068" cy="-218.295" rx="18" ry="18"/>
-</g>
-<!-- o10-&gt;o6 -->
-<g id="edge11" class="edge"><title>o10-&gt;o6</title>
-<path fill="none" stroke="black" d="M360.056,-230.056C352.736,-236.2 343.614,-243.856 335.401,-250.751"/>
-<polygon fill="black" stroke="black" points="332.999,-248.197 327.59,-257.307 337.499,-253.558 332.999,-248.197"/>
-</g>
-<!-- o11-&gt;o9 -->
-<g id="edge13" class="edge"><title>o11-&gt;o9</title>
-<path fill="none" stroke="black" d="M308.635,-150.169C307.649,-140.291 306.405,-127.837 305.294,-116.718"/>
-<polygon fill="black" stroke="black" points="308.759,-116.197 304.283,-106.595 301.794,-116.893 308.759,-116.197"/>
-</g>
-<!-- o11-&gt;o10 -->
-<g id="edge12" class="edge"><title>o11-&gt;o10</title>
-<path fill="none" stroke="black" d="M324.879,-179.601C332.77,-185.808 342.719,-193.634 351.601,-200.621"/>
-<polygon fill="black" stroke="black" points="349.664,-203.55 359.687,-206.982 353.992,-198.049 349.664,-203.55"/>
-</g>
-<!-- o12 -->
-<g id="node12" class="node"><title>o12</title>
-</g>
-<!-- o12-&gt;o1 -->
-<g id="edge14" class="edge"><title>o12-&gt;o1</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M50.5531,-210.966C57.8729,-213.758 65.9933,-216.856 73.509,-219.724"/>
-<polygon fill="black" stroke="black" points="72.3319,-223.021 82.9227,-223.315 74.8271,-216.481 72.3319,-223.021"/>
+<!-- Lift-&gt;AutoLift -->
+<g id="edge4" class="edge"><title>Lift-&gt;AutoLift</title>
+<path fill="none" stroke="black" d="M360.12,-33.0469C421.185,-33.32 508.283,-33.7095 560.5,-33.943"/>
+<polygon fill="black" stroke="black" points="560.759,-37.4441 570.775,-33.989 560.791,-30.4442 560.759,-37.4441"/>
+<text text-anchor="middle" x="437.12" y="-36.0469" font-family="Times,serif" font-size="10.00">...AutoLift::GoToBottomFloor()</text>
 </g>
 </g>
 </svg>
