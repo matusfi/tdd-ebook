@@ -285,17 +285,17 @@ C:\MultiplicationApp\</code></pre>
 <li>The <code>AssertTwoIntegersAreEqual()</code> method is <strong>an Assertion</strong></li>
 </ol>
 <p>Quite to our joy, those three elements are present in xUnit frameworks as well. To illustrate it, here is (finally!) the same test we wrote, but with an xUnit framework (this one is called XUnit.Net):</p>
-<pre class="sourceCode cs"><code class="sourceCode cs">[Fact] <span class="kw">public</span> <span class="dt">void</span> 
-<span class="fu">Multiplication_ShouldResultInAMultiplicationOfTwoPassedNumbers</span>()
+<pre><code>[Fact] public void 
+Multiplication_ShouldResultInAMultiplicationOfTwoPassedNumbers()
 {
-  <span class="co">//Assuming...</span>
-  <span class="dt">var</span> multiplication = <span class="kw">new</span> <span class="fu">Multiplication</span>(<span class="dv">3</span>,<span class="dv">7</span>);
+  //Assuming...
+  var multiplication = new Multiplication(3,7);
   
-  <span class="co">//when this happens:</span>
-  <span class="dt">var</span> result = multiplication.<span class="fu">Perform</span>();
+  //when this happens:
+  var result = multiplication.Perform();
   
-  <span class="co">//then the result should be...</span>
-  Assert.<span class="fu">Equal</span>(<span class="dv">21</span>, result);
+  //then the result should be...
+  Assert.Equal(21, result);
 }</code></pre>
 <p>As you can see, it looks like two methods that we previously had are gone now and the test is the only thing that is left. Well, to tell you the truth, they are not gone - it is just that the framework handles these for us. Let us reiterate through the three elements of the previous version of the test that I promised would be there after the transition to xUnit framework:</p>
 <ol style="list-style-type: decimal">
