@@ -267,7 +267,7 @@ public static void AssertTwoIntegersAreEqual(
   if(actual != expected)
   {
     throw new Exception(
-      &quot;Failed! Expected: &quot; + expected + &quot; but was: &quot; + actual);
+    &quot;Failed! Expected: &quot; + expected + &quot; but was: &quot; + actual);
   }
 }</code></pre>
 <p>And we are finished. Now if we need another test, e.g. for division, we can just add a new method call to the <code>Main()</code> method and implement it. When implementing it, we can reuse the <code>AssertTwoIntegersAreEqual()</code> method, since the check for division would be analogous.</p>
@@ -566,7 +566,20 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <h2 id="a-specification-instead-of-atest-suite"><a href="#a-specification-instead-of-atest-suite">A Specification Instead of a Test Suite</a></h2>
 <p>I hope that you can see now that what we called ‘a test’ is really a kind of specification. The discovery is very recent, so there isn’t a clear terminology on it yet. Some like to call the process of using tests as specifications: Specification By Example, to say that the tests are really examples that help specify and clarify the behavior of developed part of functionality. The terminology is still not rock-solid, so you might encounter different naming for different things. For example, a ‘test’ is often referred to as ‘spec’, or an ‘example’, or a ‘behavior description’, or a ‘specification statement’ or a ‘fact about the developed system’ (the xUnit.NET framework marks each ‘test’ with a <code>[Fact]</code> attribute, suggesting that by writing it, we are stating a single fact about developed code. By the way, xUnit.NET also allows us to state ‘theories’ about our code, but let us leave it for now).</p>
 <p>The time has come to make a deal: I will establish some naming conventions for this book to be consistent, but leave you with the freedom to follow your own if you so desire. The terminology shift is for pedagogical reasons - I am not trying to create a movement to change established terms or to invent a new methodology or anything - my hope is that using this terminology throughout the book will let you look differently at some things. So, let us agree that for the sake of this book:</p>
-<p><strong>Specification Statement</strong> (or simply <strong>Statement</strong>, starting with capital letter) : will be used instead of ‘test’ or ‘test method’ <strong>Specification</strong> (or simply <strong>Spec</strong>), also starting with capital letter : will be used instead of ‘test suite’ or ‘test list’ <strong>False Statement</strong> : will be used instead of ‘failing test’ <strong>True Statement</strong> : will be used instead of ‘passing test’</p>
+<dl>
+<dt><strong>Specification Statement</strong> (or simply <strong>Statement</strong>, starting with capital letter)</dt>
+<dd>will be used instead of ‘test’ or ‘test method’
+</dd>
+<dt><strong>Specification</strong> (or simply <strong>Spec</strong>), also starting with capital letter</dt>
+<dd>will be used instead of ‘test suite’ or ‘test list’
+</dd>
+<dt><strong>False Statement</strong></dt>
+<dd>will be used instead of ‘failing test’
+</dd>
+<dt><strong>True Statement</strong></dt>
+<dd>will be used instead of ‘passing test’
+</dd>
+</dl>
 <p>From time to time, I will refer back to the ‘traditional’ terminology, because it is better established and you’ve probably heard some terms already and may wonder how it should be understood in context of thinking of tests as specification.</p>
 <p>From your experience, you may know paper or word specifications, written in plain English or other spoken language. Our specification is different than these specifications in at least few ways:</p>
 <ol style="list-style-type: decimal">
@@ -595,21 +608,20 @@ You are starting to see Test-Driven Development in a new light - not as a test
 <p>Anyway, these three steps demand some explanation. In the coming chapters, I will give you some examples of how this process works in practice and introduce an expanded version, but in the meantime, its sufficient to say that:</p>
 <dl>
 <dt>Write a Statement you wish was true but is not</dt>
-<dd>means that the Statement evaluates to false (it shows on the test list as failing - in most xUnit frameworks, it will be marked with red color)
+<dd><p>means that the Statement evaluates to false (it shows on the test list as failing - in most xUnit frameworks, it will be marked with red color)</p>
 </dd>
 <dt>Add code to make it true</dt>
-<dd>means that we write just enough code to make the Statement true (in most xUnit frameworks, the true Statement will be marked with green color). Later in the course of the book, you will see how small can be “just enough”
+<dd><p>means that we write just enough code to make the Statement true (in most xUnit frameworks, the true Statement will be marked with green color). Later in the course of the book, you will see how small can be “just enough”</p>
 </dd>
 <dt>Refactor</dt>
-<dd>is a step that I have silently discarded so far (and will do so for at least few next chapters. Do not worry, we will get back to it eventually). Basically, it boils down to using the safety net of executable specification we already have in place to safely enhance the quality of the covered code while all mistakes we make in the process are quickly discovered by the running Specification.
+<dd><p>is a step that I have silently discarded so far (and will do so for at least few next chapters. Do not worry, we will get back to it eventually). Basically, it boils down to using the safety net of executable specification we already have in place to safely enhance the quality of the covered code while all mistakes we make in the process are quickly discovered by the running Specification.</p>
 </dd>
 </dl>
 <p>By the way, this process is sometimes referred to as “Red-Green-Refactor”. I am just mentioning it here for the record - I am not planning to use this term further in the book.</p>
 <h2 id="the-benefit-of-failure"><a href="#the-benefit-of-failure">The Benefit of Failure</a></h2>
 <p>When I showed you a drawing with a TDD process, I specifically said that you are supposed to write a Statement that you wish was true <strong>but is not</strong>. It means that when you write a Statement, you have to evaluate it (i.e. run it) and watch it fail its assertions before providing implementation that makes this Statement true. Why is that so important? Is it not just enough to write the Statement first? Why run it and watch it fail?</p>
 <p>There are multiple reasons and I will try to outline few of them briefly.</p>
-<h3 id="you-do-not-know-whether-the-statement-can-ever-be-false-until-you"><a href="#you-do-not-know-whether-the-statement-can-ever-be-false-until-you">You do not know whether the Statement can ever be false until you</a></h3>
-<p>see it evaluate as false</p>
+<h3 id="you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false"><a href="#you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false">You do not know whether the Statement can ever be false until you see it evaluate as false</a></h3>
 <p>Every accurate Statement (do I have to tell you that such Statements are what we are interested in?) fails when it isn’t fulfilled and passes when it is. That is one of the main reasons we write it - to receive this feedback. Also, after being fulfilled, the Statement becomes a part of the executable specification and starts failing as soon as the code stops fulfilling it (e.g. as a result of mistake made during code rework). When your run a Statement after it is implemented and it is evaluated as true, how do you know whether it really describes a need accurately? You did not ever watch it fail, so how do you know it ever will?</p>
 <p>The first time I encountered this argument (it was before I started thinking of unit tests as executable specification), it quickly raised my self-defense mechanism: “seriously?” - I thought - “I am a wise person, I know what I am writing. If I make my unit tests small enough, it is self-evident that I am describing the correct behavior. This is paranoid”. However, life quickly verified my claims and I was forced to withdraw my arguments. Let me describe, from my experience, three ways (there are more, I just forgot the rest :-D) one can really put in a Statement that is always evaluated as true, regardless of the code being correct or not (i.e. a Statement that cheats you into thinking it is fulfilled even when it is not):</p>
 <h4 id="accidental-omission-of-adding-astatement-to-specification"><a href="#accidental-omission-of-adding-astatement-to-specification">1. Accidental omission of adding a Statement to Specification</a></h4>
@@ -739,7 +751,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Johnny:</strong> Trust me, Benjamin, if there is one word I fear most in communication, it is “obvious”. Miscommunication happens most often around things that people consider obvious, simply because other people do not.</p>
 <p><strong>Jane:</strong> Ok, I am in. What do I do?</p>
 <p><strong>Johnny:</strong> Let us go through stories one by one and see if we can find some key examples of how the features work. The first story is…</p>
-<h3 id="uf3ac031f-9b76-48b2-ac5f-609b8999b7be" class="sigil_not_in_toc"><a href="#uf3ac031f-9b76-48b2-ac5f-609b8999b7be"><strong>In order to</strong> know that the calculator is turned on, <strong>As a</strong> tax payer <strong>I want</strong> to see “0” on the screen as soon as I turn it on.</a></h3>
+<h3 id="in-order-to-know-that-the-calculator-is-turned-on-as-a-tax-payer-i-want-to-see-0-on-the-screen-as-soon-as-iturn-it-on."><a href="#in-order-to-know-that-the-calculator-is-turned-on-as-a-tax-payer-i-want-to-see-0-on-the-screen-as-soon-as-iturn-it-on."><strong>In order to</strong> know that the calculator is turned on, <strong>As a</strong> tax payer <strong>I want</strong> to see “0” on the screen as soon as I turn it on.</a></h3>
 <p><strong>Jane:</strong> I do not think there is much to talk about. If you display “0”, I will be happy. That is all.</p>
 <p><strong>Johnny:</strong> Let us write down this example:</p>
 <table>
@@ -761,7 +773,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Benjamin:</strong> That makes me wonder… what should happen when I press “0” again at this stage?</p>
 <p><strong>Johnny:</strong> Good catch, that is what these examples are for - they make our thinking concrete. As Ken Pugh says: “Often the complete understanding of a concept does not occur until someone tries to use the concept”. We would normally put it on a TODO list, because it is part of a different story, but we are actually done with this one, so let us move straight to the story about displaying entered digits. How about it, Jane?</p>
 <p><strong>Jane:</strong> Agree.</p>
-<h3 id="u75349e7f-5984-435c-be9e-6a7f4c4c7a35" class="sigil_not_in_toc"><a href="#u75349e7f-5984-435c-be9e-6a7f4c4c7a35"><strong>In order to</strong> see what numbers I am currently operating on, <strong>As a</strong> tax payer, <strong>I want</strong> the calculator to display the values I enter</a></h3>
+<h3 id="in-order-to-see-what-numbers-iam-currently-operating-on-as-a-tax-payer-i-want-the-calculator-to-display-the-values-ienter"><a href="#in-order-to-see-what-numbers-iam-currently-operating-on-as-a-tax-payer-i-want-the-calculator-to-display-the-values-ienter"><strong>In order to</strong> see what numbers I am currently operating on, <strong>As a</strong> tax payer, <strong>I want</strong> the calculator to display the values I enter</a></h3>
 <p><strong>Johnny:</strong> Let us begin with the case raised by Benjamin. What should happen when I input “0” multiple times after I have only “0” on the display?</p>
 <p><strong>Jane:</strong> Just one “0” should be displayed</p>
 <p><strong>Johnny:</strong> Do you mean this?</p>
@@ -836,7 +848,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Benjamin:</strong> I think I am beginning to understand why you like working with examples!</p>
 <p><strong>Johnny:</strong> Good. Is there anything else, Jane?</p>
 <p><strong>Jane:</strong> No, that is pretty much it. Let us take another story.</p>
-<h3 id="u068ecf28-5fd1-40f0-a438-9cedb9486a1c" class="sigil_not_in_toc"><a href="#u068ecf28-5fd1-40f0-a438-9cedb9486a1c"><strong>In order to</strong> calculate sum of my different incomes, <strong>As a</strong> tax payer <strong>I want</strong> the calculator to enable addition of multiple numbers</a></h3>
+<h3 id="in-order-to-calculate-sum-of-my-different-incomes-as-a-tax-payer-i-want-the-calculator-to-enable-addition-of-multiple-numbers"><a href="#in-order-to-calculate-sum-of-my-different-incomes-as-a-tax-payer-i-want-the-calculator-to-enable-addition-of-multiple-numbers"><strong>In order to</strong> calculate sum of my different incomes, <strong>As a</strong> tax payer <strong>I want</strong> the calculator to enable addition of multiple numbers</a></h3>
 <p><strong>Johnny:</strong> Is the following all we have to support?</p>
 <table>
 <thead>
@@ -990,7 +1002,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Johnny:</strong> In a greatly simplified version, yes. The reason I took you with me was to show you the similarities between working with customer the way we did and working with the code using TDD process. They are both applying the same set of principles, just on different levels.</p>
 <p><strong>Benjamin:</strong> I am dying to see it with my own eyes. Shall we start?</p>
 <p><strong>Johnny:</strong> Sure. If we followed the ATDD process, we would start writing what we call acceptance-level specification. In our case, however, a unit-level specification will be enough. Let us take the first example:</p>
-<h3 id="u7a1820ab-f461-4f8c-9c40-47de72b1405a" class="sigil_not_in_toc"><a href="#u7a1820ab-f461-4f8c-9c40-47de72b1405a">Statement 1: Calculator should display 0 on creation</a></h3>
+<h3 id="statement-1-calculator-should-display-0-on-creation"><a href="#statement-1-calculator-should-display-0-on-creation">Statement 1: Calculator should display 0 on creation</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -1148,7 +1160,7 @@ ShouldDisplayInitialValueWhenCreated()
 <p>That is right. We need to add it to our TODO list to handle this case. Can you write it down?</p>
 <p><strong>Benjamin:</strong> Sure. I will write it as “TODO: 0 should be used as an initial value.”</p>
 <p><strong>Johnny:</strong> Ok. We should handle it now, especially that it is part of the story we are currently implementing, but I will leave it for later just to show you the power of TODO list in TDD - whatever is on the list, we can forget and get back to when we have nothing better to do. Our next item from the list is this:</p>
-<h3 id="u3f564a21-4fcf-42c1-8b74-b0f57676aff0" class="sigil_not_in_toc"><a href="#u3f564a21-4fcf-42c1-8b74-b0f57676aff0">Statement 2: Calculator should display entered digits</a></h3>
+<h3 id="statement-2-calculator-should-display-entered-digits"><a href="#statement-2-calculator-should-display-entered-digits">Statement 2: Calculator should display entered digits</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -1338,7 +1350,7 @@ ShouldDisplayAllEnteredDigitsThatAreNotLeadingZeroes()
  }</code></pre>
 <p><strong>Benjamin:</strong> Running… Ok, it is false now. Expected “243”, got “0”.</p>
 <p><strong>Johnny:</strong> good, now we are pretty sure that it works OK. Let us uncomment the lines we just commented out and move forward.</p>
-<h3 id="ub7968b9c-798d-41a2-94ef-86e57921a82b" class="sigil_not_in_toc"><a href="#ub7968b9c-798d-41a2-94ef-86e57921a82b">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</a></h3>
+<h3 id="statement-3-calculator-should-display-only-one-zero-digit-if-it-is-the-only-entered-digit-even-if-it-is-entered-multiple-times"><a href="#statement-3-calculator-should-display-only-one-zero-digit-if-it-is-the-only-entered-digit-even-if-it-is-entered-multiple-times">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</a></h3>
 <p><strong>Johnny:</strong> Benjamin, this should be easy for you, so go ahead and try it. It is really a variation of previous Statement.</p>
 <p><strong>Benjamin:</strong> Let me try… ok, here it is:</p>
 <pre><code>[Fact] public void 
@@ -1408,7 +1420,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 <h2 id="start-with-agood-name"><a href="#start-with-agood-name">Start with a good name</a></h2>
 <p>It may sound obvious, but some people are having serious trouble describing the behavior they expect from their code. If you can name such behavior, it is a great starting point.</p>
 <p>I know not everybody pays attention to naming their Statements, mainly because the Statements are considered as tests and second-level citizens - as long as they run and “prove the code does not contain defects”, they are considered sufficient. We will take a look at some examples of bad names and then I will introduce to you some rules of good naming.</p>
-<h3 id="ue6b820a0-8d47-4bcc-8594-e14d112faf7e" class="sigil_not_in_toc"><a href="#ue6b820a0-8d47-4bcc-8594-e14d112faf7e">Consequences of bad naming</a></h3>
+<h3 id="consequences-of-bad-naming"><a href="#consequences-of-bad-naming">Consequences of bad naming</a></h3>
 <p>As I said, many people do not really care how their Statements are named. This is a symptom of treating the Specification as garbage or leftovers - such situation is dangerous, because as soon as this kind of thinking is established, it leads to bad, unmaintainable Specification that looks more like lumps of accidental code put together in a haste than a living documentation. Imagine that your Specification consists of names like this:</p>
 <ul>
 <li><code>TrySendPacket()</code></li>
@@ -1467,20 +1479,26 @@ public void Statement_002()
 <p><code>ShouldReportThatItIsEqualToAnotherIdThatHasTheSameUserName()</code>.</p>
 <h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious"><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start By Filling The GIVEN-WHEN-THEN Structure With The Obvious</a></h2>
 <p>This is a technique that is applicable when you come up with a GIVEN-WHEN-THEN structure for the Statement or a good name for it (GIVEN-WHEN-THEN structure can be easily derived from a good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
-<h3 id="uebece5ad-cd6e-42a9-b43e-dfb05633af88" class="sigil_not_in_toc"><a href="#uebece5ad-cd6e-42a9-b43e-dfb05633af88">A Simple Example</a></h3>
+<h3 id="a-simple-example"><a href="#a-simple-example">A Simple Example</a></h3>
 <p>Let us take a simple example of comparing two users. We assume that a user should be equal to another when it has the same name as the other one:</p>
-<p>~<sub>~</sub> {style=“padding: 1em; border: dashed thin gray;”} GIVEN a user with any name WHEN I compare it to another user with the same name THEN it should appear equal to this other user <sub>~</sub></p>
-<p>Let us start with the translation</p>
-<p>The first line:</p>
-<pre style="padding: 1em; border: dashed thin gray;"><code>GIVEN a user with any name</code></pre>
+<pre><code>GIVEN a user with any name
+WHEN I compare it to another user with the same name
+THEN it should appear equal to this other user
+~~~
+
+Let us start with the translation
+
+The first line:
+</code></pre>
+<p>GIVEN a user with any name ~<sub>~</sub></p>
 <p>can be translated literally to code like this:</p>
 <pre><code>var user = new User(anyName);</code></pre>
 <p>Then the second line:</p>
-<pre style="padding: 1em; border: dashed thin gray;"><code>WHEN I compare it to another user with the same name</code></pre>
+<pre><code>WHEN I compare it to another user with the same name</code></pre>
 <p>can be written as:</p>
 <pre><code>user.Equals(anotherUserWithTheSameName);</code></pre>
 <p>Great! Now the last line:</p>
-<pre style="padding: 1em; border: dashed thin gray;"><code>THEN it should appear equal to this other user</code></pre>
+<pre><code>THEN it should appear equal to this other user</code></pre>
 <p>and its translation into the code:</p>
 <pre><code>Assert.True(areUsersEqual);</code></pre>
 <p>Ok, so we have made the translation, now let us summarize this and see what is missing to make this code compile:</p>
@@ -1533,7 +1551,7 @@ ShouldAppearEqualToAnotherUserWithTheSameName()
 <h2 id="start-from-the-end"><a href="#start-from-the-end">Start From The End</a></h2>
 <p>This is a technique that I suggest to people that seem to have absolutely no idea how to start. I got it from Kent Beck’s book Test Driven Development by Example. It seems funny at start, but is quite powerful. The trick is to write the Statement ‘backwards’, i.e. starting with what the Statement asserts to be true (in terms of the GIVEN-WHEN-THEN structure, we would say that we start with our THEN).</p>
 <p>This works because, while we are many times quite sure of our goal (i.e. what the outcome of the behavior should be), but are unsure of how to get there.</p>
-<h3 id="a-simple-example"><a href="#a-simple-example">A Simple Example</a></h3>
+<h3 id="a-simple-example-1"><a href="#a-simple-example-1">A Simple Example</a></h3>
 <p>Imagine we are writing a class for granting access to a reporting functionality based on roles. We do not have any idea what the API should look like and how to write our Statement, but we know one thing: in our domain the access can be either granted or denied. Let us take the successful case (just because it is the first one we can think of) and, starting backwards, start with the following assertion:</p>
 <pre><code>//THEN
 Assert.True(accessGranted);</code></pre>
@@ -1571,7 +1589,7 @@ ShouldAllowAccessToReportingWhenAskedForEitherAdministratorOrAuditor()
 }</code></pre>
 <h2 id="start-by-invoking-amethod-when-you-have-one"><a href="#start-by-invoking-amethod-when-you-have-one">Start By Invoking a Method When You Have One</a></h2>
 <p>Sometimes, we have to add a new class that implements an existing interface required by another class. The fact of implementing an interface imposes what methods should the new class support. If this point is already decided, we can start our Statement by first calling the method and then discovering what we need to supply.</p>
-<h3 id="a-simple-example-1"><a href="#a-simple-example-1">A Simple Example</a></h3>
+<h3 id="a-simple-example-2"><a href="#a-simple-example-2">A Simple Example</a></h3>
 <p>Suppose we have an application holding a lot of data that, among other things, handles importing am existing database from another instance of the application. As importing a database can be a lengthy process, a message box is displayed each time when user chooses to perform the import and this message box displays the following message: “Johnny, please sit down and enjoy your coffee for a few minutes as we take time to import your database” (given user name is Johnny). The class that implements it looks like this:</p>
 <pre><code>public class FriendlyMessages
 {
@@ -1969,7 +1987,7 @@ var anonymousInteger = fixture.Create&lt;int&gt;();</code></pre>
 <p>Ha, now I have to admit that I deferred for a long time an answer to a pretty fundamental question: what should be the scope of a single Statement? If I put the whole system together, can I write a Statement for its behavior? Or maybe the other way round - there should be a Statement for each method of each class, including the private ones? Well, first thing I want to explain is that there are multiple levels we can write our Statements on. This varies depending on the TDD authority, but in this book, we will cover two of such levels - unit level and acceptance level. For now, let us stick to the unit level, which is what we have done so far anyway. The time will come for the rest.</p>
 <p>For unit level, let us consider the kind of Statements that you already saw in this book - where we take one object, invoke a method on it and assert on the result. This is actually a special case of unit-level Statement and we will cover more in the coming chapters. This is, however, a good moment to stop and consider the “scope” of a single unit-level Statement in TDD. Is it method scope? Class scope? Feature scope?</p>
 <p>Let us try to answer the question by examining some TDD unit-level Statements:</p>
-<h3 id="u06f9b4ca-3b63-475d-81e5-3c2690472b97" class="sigil_not_in_toc"><a href="#u06f9b4ca-3b63-475d-81e5-3c2690472b97">Is it class scope?</a></h3>
+<h3 id="is-it-class-scope"><a href="#is-it-class-scope">Is it class scope?</a></h3>
 <p>Let us see the first example and try to answer this question:</p>
 <pre><code>[Fact] public void
 ShouldThrowValidationExceptionWithFatalErrorLevelWhenValidatedStringIsEmpty()
@@ -1987,7 +2005,7 @@ ShouldThrowValidationExceptionWithFatalErrorLevelWhenValidatedStringIsEmpty()
   Assert.True(exceptionThrown.IsFatalError);
 }</code></pre>
 <p>This is an example of a well-written unit-level Statement. Ok, so let us see… how many real classes take part in this spec? Three: a string, an exception and the validation. So the class scope is not the most accurate description.</p>
-<h3 id="ub669df36-50ac-404a-bcdd-bc0e64845b4b" class="sigil_not_in_toc"><a href="#ub669df36-50ac-404a-bcdd-bc0e64845b4b">Or a method scope?</a></h3>
+<h3 id="or-amethod-scope"><a href="#or-amethod-scope">Or a method scope?</a></h3>
 <p>So, maybe the scope covers a single method, meaning a Statement always exercises one method of a specified object?</p>
 <p>Let us consider the following example:</p>
 <pre><code>[Fact] public void 
@@ -2790,9 +2808,6 @@ public class CompanyPolicies
 <p><strong>Benjamin:</strong> So this is what we will be doing today?</p>
 <p><strong>Johnny:</strong> That’s right. The policy is going to be different for contractors. While, just as regular employees, they will be receiving raises and bonuses, the rules will be different. I made a small table to allow comparing what we have for regular employees and what we want to add for contractors:</p>
 <table>
-<col width="30%" />
-<col width="33%" />
-<col width="34%" />
 <thead>
 <tr class="header">
 <th align="left">Employee Type</th>
@@ -2802,14 +2817,14 @@ public class CompanyPolicies
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Regular Employee</p></td>
-<td align="left"><p>+10% of current salary if not reached maximum on a given pay grade</p></td>
-<td align="left"><p>+200% of current salary one time after five years</p></td>
+<td align="left">Regular Employee</td>
+<td align="left">+10% of current salary if not reached maximum on a given pay grade</td>
+<td align="left">+200% of current salary one time after five years</td>
 </tr>
 <tr class="even">
-<td align="left"><p>Contractor</p></td>
-<td align="left"><p>+5% of average salary calculated for last 3 years of service (or all previous years of service if they have worked for less than 3 years)</p></td>
-<td align="left"><p>+10% of current salary when a contractor receives score more than 100 for the previous year</p></td>
+<td align="left">Contractor</td>
+<td align="left">+5% of average salary calculated for last 3 years of service (or all previous years of service if they have worked for less than 3 years</td>
+<td align="left">+10% of current salary when a contractor receives score more than 100 for the previous year</td>
 </tr>
 </tbody>
 </table>
@@ -2991,20 +3006,20 @@ if(employee.GetYearsOfService() == 5)
 <p>It might seem stupid to ask this question here - if you have managed to stay with me this long, then you’re probably motivated enough not to need a justification? Well, anyway, it’s still worth discussing it a little. Hopefully, you’ll learn as much reading this back-to-basics chapter as I did writing it.</p>
 <h2 id="pre-object-oriented-approaches"><a href="#pre-object-oriented-approaches">Pre-object oriented approaches</a></h2>
 <p>Back in the days of procedural programming, when we wanted to execute a different code based on some factor, it was usually achieved using an ‘if’ statement. For example, if our application was able to use different kinds of alarms, e.g. a loud alarm (that plays a loud sound) and a silent alarm (that does not play any sound, but instead silently contacts the security), then usually, we could find a piece of code like the following to achieve that:</p>
-<pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(alarm-&gt;kind == LOUD_ALARM)
+<pre><code>if(alarm-&gt;kind == LOUD_ALARM)
 {
   triggerLoudAlarm((LoudAlarm*)alarm);
 }
-<span class="kw">else</span> <span class="kw">if</span>(alarm-&gt;kind == SILENT_ALARM)
+else if(alarm-&gt;kind == SILENT_ALARM)
 {
   triggerSilentAlarm((SilentAlarm*)alarm);
 }</code></pre>
 <p>The code queries the alarm kind which is embedded in the alarm structure and makes decision based on this kind. Unfortunately, if we wanted make a second decision based on the alarm kind, we would need to query for the alarm kind again, duplicating the code, just with different set of actions to perform depending on what kind of alarm we are dealing with:</p>
-<pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(alarm-&gt;kind == LOUD_ALARM)
+<pre><code>if(alarm-&gt;kind == LOUD_ALARM)
 {
   disableLoudAlarm((LoudAlarm*)alarm);
 }
-<span class="kw">else</span> <span class="kw">if</span>(alarm-&gt;kind == SILENT_ALARM)
+else if(alarm-&gt;kind == SILENT_ALARM)
 {
   disableSilentAlarm((SilentAlarm*)alarm);
 }</code></pre>
@@ -3050,11 +3065,11 @@ if(employee.GetYearsOfService() == 5)
   }
 }</code></pre>
 <p>Now, we can make parts of code use the alarm without having to know its type, so what we previously had:</p>
-<pre class="sourceCode c"><code class="sourceCode c"><span class="kw">if</span>(alarm-&gt;kind == LOUD_ALARM)
+<pre><code>if(alarm-&gt;kind == LOUD_ALARM)
 {
   triggerLoudAlarm((LoudAlarm*)alarm);
 }
-<span class="kw">else</span> <span class="kw">if</span>(alarm-&gt;kind == SILENT_ALARM)
+else if(alarm-&gt;kind == SILENT_ALARM)
 {
   triggerSilentAlarm((SilentAlarm*)alarm);
 }</code></pre>
@@ -3127,7 +3142,7 @@ if(employee.GetYearsOfService() == 5)
 <h2 id="summary---are-you-still-with-me"><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></h2>
 <p>Although we started with what seemed to be a repetition from basic object oriented programming class, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
 <p>In the next chapter, we will take a closer look at composing objects itself.</p>
-<h4 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial" class="sigil_not_in_toc"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h4>
+<h4 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h4>
 <h1 id="web-messages-and-protocols"><a href="#web-messages-and-protocols">Web, messages and protocols</a></h1>
 <p>In the last chapter, we talked a little bit about why composability is valuable, now let’s flesh a little bit of terminology to get more precise understanding.</p>
 <h2 id="so-again-what-does-it-mean-to-compose-objects"><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></h2>
