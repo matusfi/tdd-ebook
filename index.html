@@ -6,25 +6,6 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
   <link rel="stylesheet" href="/home/astral/Google Drive/Shared/Raporty i prezentacje/TDDEBook/temp_manuscript/Stylesheets/Global.css" type="text/css" />
 </head>
 <body>
@@ -125,8 +106,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#worse-and-better-composability">Worse and better composability</a><ul>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
 </ul></li>
-<li><a href="#copyright-notice">Copyright Notice</a></li>
-<li><a href="#license">License</a></li>
 </ul>
 </div>
 <div class="figure">
@@ -1443,7 +1422,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 </ol>
 <h3 id="what-does-agood-name-contain"><a href="#what-does-agood-name-contain">What does a good name contain?</a></h3>
 <p>For the name of the Statement to be of any use, it has to describe the expected behavior. At minimum, it should describe what happens under what circumstances. Let us take a look at one of the names Steve freeman and Nat Pryce came up in their great book Growing Object Oriented Software Guided By Tests:</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">notifiesListenersThatServerIsUnavailableWhenCannotConnectToItsMonitoringPort</span>()</code></pre>
+<pre><code>notifiesListenersThatServerIsUnavailableWhenCannotConnectToItsMonitoringPort()</code></pre>
 <p>Note few things about the name of the Statement:</p>
 <ol style="list-style-type: decimal">
 <li>It describes a behavior of an instance of a specified class. Note that it does not contain method name that triggers the behavior, because what is specified is not a method, but the behavior itself. The name simply tells that what an instance does (“notifies listeners that server is unavailable”) under certain circumstances (“when cannot connect to its monitoring port”). It is important because such description is what you can derive from thinking about responsibilities of a class, so you do not need to know any of its method signature or the code that is inside of the class. Hence, this is something you can come up with before implementing - you just need to know why you created this class and build on this knowledge.</li>
@@ -1481,24 +1460,20 @@ public void Statement_002()
 <p>This is a technique that is applicable when you come up with a GIVEN-WHEN-THEN structure for the Statement or a good name for it (GIVEN-WHEN-THEN structure can be easily derived from a good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
 <h3 id="a-simple-example"><a href="#a-simple-example">A Simple Example</a></h3>
 <p>Let us take a simple example of comparing two users. We assume that a user should be equal to another when it has the same name as the other one:</p>
-<pre><code>GIVEN a user with any name
-WHEN I compare it to another user with the same name
-THEN it should appear equal to this other user
-~~~
-
-Let us start with the translation
-
-The first line:
-</code></pre>
-<p>GIVEN a user with any name ~<sub>~</sub></p>
+<pre><code>Given a user with any name
+When I compare it to another user with the same name
+Then it should appear equal to this other user</code></pre>
+<p>Let us start with the translation</p>
+<p>The first line:</p>
+<pre><code>Given a user with any name</code></pre>
 <p>can be translated literally to code like this:</p>
 <pre><code>var user = new User(anyName);</code></pre>
 <p>Then the second line:</p>
-<pre><code>WHEN I compare it to another user with the same name</code></pre>
+<pre><code>When I compare it to another user with the same name</code></pre>
 <p>can be written as:</p>
 <pre><code>user.Equals(anotherUserWithTheSameName);</code></pre>
 <p>Great! Now the last line:</p>
-<pre><code>THEN it should appear equal to this other user</code></pre>
+<pre><code>Then it should appear equal to this other user</code></pre>
 <p>and its translation into the code:</p>
 <pre><code>Assert.True(areUsersEqual);</code></pre>
 <p>Ok, so we have made the translation, now let us summarize this and see what is missing to make this code compile:</p>
@@ -1682,12 +1657,12 @@ public void TODO()
 <p>If you go back to our example, you will note that both when talking to a customer and when writing code, Johnny and Benjamin used a TODO list. This list was first filled with whatever scenarios they came up with, but later, they would add a smaller unit of work. This is one way complex topics are decomposed into smaller items that all land on the TODO list (the other way is mocking, but we will not get into that yet). Thanks to this, we can focus on one thing at a time, crossing off item after item from the list after it is done. If we learn something new or encounter new issue that needs our attention, we can add it to the TODO list and get back to it later, for now continuing our work on the current point of focus.</p>
 <p>An example TODO list from the middle of implementation may look like this (do not read through it, I put it here only to give you a glimpse):</p>
 <ol style="list-style-type: decimal">
-<li><del>Create entry point to the module (top-level abstraction)</del></li>
-<li><del>Implement main workflow of the module</del></li>
-<li><del>Implement Message interface</del></li>
-<li><del>Implement MessageFactory interface</del></li>
+<li>— Create entry point to the module (top-level abstraction)</li>
+<li>— Implement main workflow of the module</li>
+<li>— Implement Message interface</li>
+<li>— Implement MessageFactory interface</li>
 <li>Implement ValidationRules interface</li>
-<li><del>Implement behavior required from Wrap method in LocationMessageFactory class</del></li>
+<li>— Implement behavior required from Wrap method in LocationMessageFactory class</li>
 <li>Implement behavior required from ValidateWith method in LocationMessage class for Speed field</li>
 <li>Implement behavior required from ValidateWith method in LocationMessage class for Age field</li>
 <li>Implement behavior required from ValidateWith method in LocationMessage class for Sender field</li>
@@ -1958,16 +1933,16 @@ ShouldContainNumberEqualTo1_0()
 <p>Now, let us take a quick summary of all the techniques introduced in example:</p>
 <dl>
 <dt>Anonymous Input</dt>
-<dd>moving the output out of the Statement code and hide it behind a method that to emphasize the constrain on the data used rather than what is its value
+<dd><p>moving the output out of the Statement code and hide it behind a method that to emphasize the constrain on the data used rather than what is its value</p>
 </dd>
 <dt>Derived Values</dt>
-<dd>defining expected output in terms of the input in order to document the relationship between input and output
+<dd><p>defining expected output in terms of the input in order to document the relationship between input and output</p>
 </dd>
 <dt>Distinct Generated Values</dt>
-<dd>When using Anonymous Input, generate a distinct value each time (in case of types that have very few values, like boolean, try at least not to generate the same value twice in a row) in order to make the Statement more reliable.
+<dd><p>When using Anonymous Input, generate a distinct value each time (in case of types that have very few values, like boolean, try at least not to generate the same value twice in a row) in order to make the Statement more reliable.</p>
 </dd>
 <dt>Constant Specification</dt>
-<dd>Write a separate Statement for a constant and use the constant instead of its literal value in all other Statements to create a Derived Value.
+<dd><p>Write a separate Statement for a constant and use the constant instead of its literal value in all other Statements to create a Derived Value.</p>
 </dd>
 </dl>
 <h2 id="constrained-non-determinism"><a href="#constrained-non-determinism">Constrained non-determinism</a></h2>
@@ -2562,8 +2537,7 @@ ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
 <p>This Statement uses three values rather than zero, one or two as in the examples we had. When I need to use collections with deterministic size (and I do prefer to do it everywhere where using collection with non-deterministic size would force me to use a <code>for</code> loop in my Statement), I pick 3, which is the number I got from Mark Seemann and the rationale is that 3 is the smallest number that has distinct head, tail and middle element. One or two elements seem like a special case, while three sounds generic enough.</p>
 <p>One more thing we can do is to ensure that we didn’t write a <strong>false positive</strong>, i.e. a Statement that is always true due to being badly written. In other words, we need to ensure that the Statement we just wrote will ever evaluate to false if the implementation is wrong. As we wrote it after the implementation is in place, we do not have this certainty.</p>
 <p>What we will do is to modify the implementation slightly to make it badly implemented and see how our Statement will react (we expect it to evaluate to false):</p>
-<pre><code>public class ListWithAggregateOperations
-public int SumOfElements()
+<pre><code>public int SumOfElements()
 {
   //changed
   int sum = 0;
@@ -3919,33 +3893,5 @@ foreach(var session in sessions)
 <li>need driven development</li>
 </ol>
 <p>TODO</p>
-<h1 id="copyright-notice"><a href="#copyright-notice">Copyright Notice</a></h1>
-<p>Although none of the things I wrote about in this book are my idea, I tried very hard not to infringe anyone’s copyright. That said, I am not a lawyer so there is a slight possibility that this happened.</p>
-<p>If you feel your copyright were infringed by any part of this book, please let me know and we’ll work it out somehow.</p>
-<h1 id="license"><a href="#license">License</a></h1>
-<p>THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (“CCPL” OR “LICENSE”). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.</p>
-<p>BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</p>
-<ol style="list-style-type: decimal">
-<li><p>Definitions</p>
-<p>“Adaptation” means a work based upon the Work, or upon the Work and other pre-existing works, such as a translation, adaptation, derivative work, arrangement of music or other alterations of a literary or artistic work, or phonogram or performance and includes cinematographic adaptations or any other form in which the Work may be recast, transformed, or adapted including in any form recognizably derived from the original, except that a work that constitutes a Collection will not be considered an Adaptation for the purpose of this License. For the avoidance of doubt, where the Work is a musical work, performance or phonogram, the synchronization of the Work in timed-relation with a moving image (“synching”) will be considered an Adaptation for the purpose of this License. “Collection” means a collection of literary or artistic works, such as encyclopedias and anthologies, or performances, phonograms or broadcasts, or other works or subject matter other than works listed in Section 1(f) below, which, by reason of the selection and arrangement of their contents, constitute intellectual creations, in which the Work is included in its entirety in unmodified form along with one or more other contributions, each constituting separate and independent works in themselves, which together are assembled into a collective whole. A work that constitutes a Collection will not be considered an Adaptation (as defined above) for the purposes of this License. “Distribute” means to make available to the public the original and copies of the Work or Adaptation, as appropriate, through sale or other transfer of ownership. “Licensor” means the individual, individuals, entity or entities that offer(s) the Work under the terms of this License. “Original Author” means, in the case of a literary or artistic work, the individual, individuals, entity or entities who created the Work or if no individual or entity can be identified, the publisher; and in addition (i) in the case of a performance the actors, singers, musicians, dancers, and other persons who act, sing, deliver, declaim, play in, interpret or otherwise perform literary or artistic works or expressions of folklore; (ii) in the case of a phonogram the producer being the person or legal entity who first fixes the sounds of a performance or other sounds; and, (iii) in the case of broadcasts, the organization that transmits the broadcast. “Work” means the literary and/or artistic work offered under the terms of this License including without limitation any production in the literary, scientific and artistic domain, whatever may be the mode or form of its expression including digital form, such as a book, pamphlet and other writing; a lecture, address, sermon or other work of the same nature; a dramatic or dramatico-musical work; a choreographic work or entertainment in dumb show; a musical composition with or without words; a cinematographic work to which are assimilated works expressed by a process analogous to cinematography; a work of drawing, painting, architecture, sculpture, engraving or lithography; a photographic work to which are assimilated works expressed by a process analogous to photography; a work of applied art; an illustration, map, plan, sketch or three-dimensional work relative to geography, topography, architecture or science; a performance; a broadcast; a phonogram; a compilation of data to the extent it is protected as a copyrightable work; or a work performed by a variety or circus performer to the extent it is not otherwise considered a literary or artistic work. “You” means an individual or entity exercising rights under this License who has not previously violated the terms of this License with respect to the Work, or who has received express permission from the Licensor to exercise rights under this License despite a previous violation. “Publicly Perform” means to perform public recitations of the Work and to communicate to the public those public recitations, by any means or process, including by wire or wireless means or public digital performances; to make available to the public Works in such a way that members of the public may access these Works from a place and at a place individually chosen by them; to perform the Work to the public by any means or process and the communication to the public of the performances of the Work, including by public digital performance; to broadcast and rebroadcast the Work by any means including signs, sounds or images. “Reproduce” means to make copies of the Work by any means including without limitation by sound or visual recordings and the right of fixation and reproducing fixations of the Work, including storage of a protected performance or phonogram in digital form or other electronic medium.</p></li>
-<li><p>Fair Dealing Rights. Nothing in this License is intended to reduce, limit, or restrict any uses free from copyright or rights arising from limitations or exceptions that are provided for in connection with the copyright protection under copyright law or other applicable laws.</p></li>
-<li><p>License Grant. Subject to the terms and conditions of this License, Licensor hereby grants You a worldwide, royalty-free, non-exclusive, perpetual (for the duration of the applicable copyright) license to exercise the rights in the Work as stated below:</p>
-<p>to Reproduce the Work, to incorporate the Work into one or more Collections, and to Reproduce the Work as incorporated in the Collections; to create and Reproduce Adaptations provided that any such Adaptation, including any translation in any medium, takes reasonable steps to clearly label, demarcate or otherwise identify that changes were made to the original Work. For example, a translation could be marked “The original work was translated from English to Spanish,” or a modification could indicate “The original work has been modified.”; to Distribute and Publicly Perform the Work including as incorporated in Collections; and, to Distribute and Publicly Perform Adaptations.</p>
-<p>For the avoidance of doubt: Non-waivable Compulsory License Schemes. In those jurisdictions in which the right to collect royalties through any statutory or compulsory licensing scheme cannot be waived, the Licensor reserves the exclusive right to collect such royalties for any exercise by You of the rights granted under this License; Waivable Compulsory License Schemes. In those jurisdictions in which the right to collect royalties through any statutory or compulsory licensing scheme can be waived, the Licensor waives the exclusive right to collect such royalties for any exercise by You of the rights granted under this License; and, Voluntary License Schemes. The Licensor waives the right to collect royalties, whether individually or, in the event that the Licensor is a member of a collecting society that administers voluntary licensing schemes, via that society, from any exercise by You of the rights granted under this License.</p></li>
-</ol>
-<p>The above rights may be exercised in all media and formats whether now known or hereafter devised. The above rights include the right to make such modifications as are technically necessary to exercise the rights in other media and formats. Subject to Section 8(f), all rights not expressly granted by Licensor are hereby reserved.</p>
-<ol start="4" style="list-style-type: decimal">
-<li><p>Restrictions. The license granted in Section 3 above is expressly made subject to and limited by the following restrictions:</p>
-<p>You may Distribute or Publicly Perform the Work only under the terms of this License. You must include a copy of, or the Uniform Resource Identifier (URI) for, this License with every copy of the Work You Distribute or Publicly Perform. You may not offer or impose any terms on the Work that restrict the terms of this License or the ability of the recipient of the Work to exercise the rights granted to that recipient under the terms of the License. You may not sublicense the Work. You must keep intact all notices that refer to this License and to the disclaimer of warranties with every copy of the Work You Distribute or Publicly Perform. When You Distribute or Publicly Perform the Work, You may not impose any effective technological measures on the Work that restrict the ability of a recipient of the Work from You to exercise the rights granted to that recipient under the terms of the License. This Section 4(a) applies to the Work as incorporated in a Collection, but this does not require the Collection apart from the Work itself to be made subject to the terms of this License. If You create a Collection, upon notice from any Licensor You must, to the extent practicable, remove from the Collection any credit as required by Section 4(b), as requested. If You create an Adaptation, upon notice from any Licensor You must, to the extent practicable, remove from the Adaptation any credit as required by Section 4(b), as requested. If You Distribute, or Publicly Perform the Work or any Adaptations or Collections, You must, unless a request has been made pursuant to Section 4(a), keep intact all copyright notices for the Work and provide, reasonable to the medium or means You are utilizing: (i) the name of the Original Author (or pseudonym, if applicable) if supplied, and/or if the Original Author and/or Licensor designate another party or parties (e.g., a sponsor institute, publishing entity, journal) for attribution (“Attribution Parties”) in Licensor’s copyright notice, terms of service or by other reasonable means, the name of such party or parties; (ii) the title of the Work if supplied; (iii) to the extent reasonably practicable, the URI, if any, that Licensor specifies to be associated with the Work, unless such URI does not refer to the copyright notice or licensing information for the Work; and (iv) , consistent with Section 3(b), in the case of an Adaptation, a credit identifying the use of the Work in the Adaptation (e.g., “French translation of the Work by Original Author,” or “Screenplay based on original Work by Original Author”). The credit required by this Section 4 (b) may be implemented in any reasonable manner; provided, however, that in the case of a Adaptation or Collection, at a minimum such credit will appear, if a credit for all contributing authors of the Adaptation or Collection appears, then as part of these credits and in a manner at least as prominent as the credits for the other contributing authors. For the avoidance of doubt, You may only use the credit required by this Section for the purpose of attribution in the manner set out above and, by exercising Your rights under this License, You may not implicitly or explicitly assert or imply any connection with, sponsorship or endorsement by the Original Author, Licensor and/or Attribution Parties, as appropriate, of You or Your use of the Work, without the separate, express prior written permission of the Original Author, Licensor and/or Attribution Parties. Except as otherwise agreed in writing by the Licensor or as may be otherwise permitted by applicable law, if You Reproduce, Distribute or Publicly Perform the Work either by itself or as part of any Adaptations or Collections, You must not distort, mutilate, modify or take other derogatory action in relation to the Work which would be prejudicial to the Original Author’s honor or reputation. Licensor agrees that in those jurisdictions (e.g. Japan), in which any exercise of the right granted in Section 3(b) of this License (the right to make Adaptations) would be deemed to be a distortion, mutilation, modification or other derogatory action prejudicial to the Original Author’s honor and reputation, the Licensor will waive or not assert, as appropriate, this Section, to the fullest extent permitted by the applicable national law, to enable You to reasonably exercise Your right under Section 3(b) of this License (right to make Adaptations) but not otherwise.</p></li>
-<li><p>Representations, Warranties and Disclaimer</p></li>
-</ol>
-<p>UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN WRITING, LICENSOR OFFERS THE WORK AS-IS AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND CONCERNING THE WORK, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTIBILITY, FITNESS FOR A PARTICULAR PURPOSE, NONINFRINGEMENT, OR THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO SUCH EXCLUSION MAY NOT APPLY TO YOU.</p>
-<ol start="6" style="list-style-type: decimal">
-<li><p>Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p></li>
-<li><p>Termination</p>
-<p>This License and the rights granted hereunder will terminate automatically upon any breach by You of the terms of this License. Individuals or entities who have received Adaptations or Collections from You under this License, however, will not have their licenses terminated provided such individuals or entities remain in full compliance with those licenses. Sections 1, 2, 5, 6, 7, and 8 will survive any termination of this License. Subject to the above terms and conditions, the license granted here is perpetual (for the duration of the applicable copyright in the Work). Notwithstanding the above, Licensor reserves the right to release the Work under different license terms or to stop distributing the Work at any time; provided, however that any such election will not serve to withdraw this License (or any other license that has been, or is required to be, granted under the terms of this License), and this License will continue in full force and effect unless terminated as stated above.</p></li>
-<li><p>Miscellaneous</p>
-<p>Each time You Distribute or Publicly Perform the Work or a Collection, the Licensor offers to the recipient a license to the Work on the same terms and conditions as the license granted to You under this License. Each time You Distribute or Publicly Perform an Adaptation, Licensor offers to the recipient a license to the original Work on the same terms and conditions as the license granted to You under this License. If any provision of this License is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this License, and without further action by the parties to this agreement, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable. No term or provision of this License shall be deemed waived and no breach consented to unless such waiver or consent shall be in writing and signed by the party to be charged with such waiver or consent. This License constitutes the entire agreement between the parties with respect to the Work licensed here. There are no understandings, agreements or representations with respect to the Work not specified here. Licensor shall not be bound by any additional provisions that may appear in any communication from You. This License may not be modified without the mutual written agreement of the Licensor and You. The rights granted under, and the subject matter referenced, in this License were drafted utilizing the terminology of the Berne Convention for the Protection of Literary and Artistic Works (as amended on September 28, 1979), the Rome Convention of 1961, the WIPO Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996 and the Universal Copyright Convention (as revised on July 24, 1971). These rights and subject matter take effect in the relevant jurisdiction in which the License terms are sought to be enforced according to the corresponding provisions of the implementation of those treaty provisions in the applicable national law. If the standard suite of rights granted under applicable copyright law includes additional rights not granted under this License, such additional rights are deemed to be included in the License; this License is not intended to restrict the license of any rights under applicable law.</p></li>
-</ol>
 </body>
 </html>
