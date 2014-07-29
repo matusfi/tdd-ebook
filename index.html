@@ -149,23 +149,22 @@
 <p>Others want to learn TDD for reasons they themselves made up. Knowing that TDD is valued and praised by others, they draw conclusions that it has to be good. Why is that so? Err… maybe… “the code will be more tested”? Or… ekhem… “the network of tests will be tighter”? And why do Test-First? Well… hmm… “to ensure tests are written for everything”? While these statements might be partially true, they don’t even touch the essence of the “why” of TDD, and quickly turn into something like: “I don’t really need TDD, because I need tests that give me confidence on broader scope” or: “Why do I need unit tests when I already have integration tests, smoke tests, sanity tests, exploration tests…?”. Then TDD gets abandoned, before actually ever being achieved in the first place.</p>
 <p>You need to be highly motivated on this one. If you are not, hey, I heard the new series of Game Of Thrones is on TV, why don’t you check it out instead? Ok, I’m just teasing, however, as some say, TDD is “easy to learn, hard to master” (don’t actually know who said it first, I searched the web and found it in few places where none of the writers gave credit to anyone else for it, so I decided just to mention that I’m not the one that coined this description) , so without some guts to move on, it will be hard.</p>
 <h2 id="how-tdd-feels-like"><a href="#how-tdd-feels-like">How TDD feels like</a></h2>
-<p>Me and my brother liked to play video games in our childhood - one of the most memorable being Tekken 3 - a Japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a day. Some could say the game had nothing to offer since then. Why then did we spend over a year on it?<br /> <img src="images/Tekken3-gray.png" alt="Tekken3" /><br /> It is because each fighter in the game had a lot of combos, kicks and punches that could be mixed in a variety of ways. Some were only usable in some situations, others were something you could throw at your opponent almost anytime without a big risk of being exposed to counterattacks. You could side-step to evade enemy’s attacks and, most of all, you could kick another fighter up in the air where they could not block your attacks and you were able to land some nice attacks on them before they fell down. These in-the-air techniques were called “juggles”. There were magazines that published a list of new possible juggles each month and the hype stayed in the gaming community for well over a year.</p>
+<p>Me and my brother liked to play video games in our childhood - one of the most memorable being Tekken 3 - a Japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a day. Some could say the game had nothing to offer since then. Why then did we spend over a year on it?</p>
+<div class="figure">
+<img src="images/Tekken3-gray.png" alt="Tekken3" /><p class="caption">Tekken3</p>
+</div>
+<p>It is because each fighter in the game had a lot of combos, kicks and punches that could be mixed in a variety of ways. Some were only usable in some situations, others were something you could throw at your opponent almost anytime without a big risk of being exposed to counterattacks. You could side-step to evade enemy’s attacks and, most of all, you could kick another fighter up in the air where they could not block your attacks and you were able to land some nice attacks on them before they fell down. These in-the-air techniques were called “juggles”. There were magazines that published a list of new possible juggles each month and the hype stayed in the gaming community for well over a year.</p>
 <p>Yes, Tekken was easy to learn - you could put one hour into training the core moves of a character and then be able to “use them”, but what made you a great fighter was the experience and knowledge on which techniques were risky or not, which ones could be used in which situations, which ones, if used one after another, gave the opponent little chance to counterattack etc. No wonder that soon, many tournaments sprang, where players could clash for glory, fame and rewards. Even today, you can watch some of the matches on youtube.</p>
 <p>TDD is like Tekken. You have probably heard the mantra “red-green-refactor” or the general advice “write your test first, then the code”, maybe you even did some experiments on your own where you were trying to implement a bubble-sort algorithm or other simple stuff by starting with a test. But that is all like practicing Tekken by trying out each move on its own on dummy opponent, without the context of real-world issues that make the fight really challenging. And while I think such exercises are (somewhat) useful, you need to understand the bigger picture.</p>
 <p>Some people I talk with about TDD sum up what I say to them as: “That is really demotivating - there are so many things I have to watch out for that it makes me never want to start!”. Easy, don’t panic - remember the first time you tried to ride a bike - you must have been really far back then from knowing traffic regulations and following road signs, but that did not really keep you away, did it? I myself found TDD very exciting. Some guys my age already think they know all about coding, are bored with it and cannot wait until they move to management or requirements or business analysis, but hey! I have a new technique that makes my coding career challenging again! And it’s not something I can use only when I pay to Microsoft or Oracle or anybody else - it’s quite portable, making me a better developer overall!</p>
-<div class="achievement">
-<h3><a href="#student">Student</a></h3>
-You have started travelling the way of masters with conviction, determination and pride.
-</div>
 <h1 id="the-three-most-essential-tools"><a href="#the-three-most-essential-tools">The three most essential tools</a></h1>
 <p>Ever watched Karate Kid, either the old version or the new one? The thing they have in common is that when the kid starts learning Karate (or Kung-Fu) from his master, he is given a basic, repetitive task (like taking off a jacket, and putting it on again), not knowing yet where it would lead him. Or look at the first Rocky film (yeah, the one starring Sylvester Stallone), where Rocky was chasing a chicken in order to train agility.</p>
 <p>When I first tried to learn how to play guitar, I found two advices on the web: the first was to start by mastering a single, difficult song. The second was to play with a single string, learn how to make it sound in different ways and try to play some melodies by ear just with this one string. Do I have to tell you that the second advice worked better?</p>
 <p>Honestly, I could dive right into the core techniques of TDD, but this would be like putting you on a ring with a demanding opponent - you would most probably be discouraged before gaining the necessary skills. So, instead of explaining how to win a race, in this chapter we will take a look at what shiny cars we will be driving.</p>
 <p>In other words, I will give you a brief tour of the three most essential tools we will be using throughout this book.</p>
 <h2 id="our-shiny-tools"><a href="#our-shiny-tools">Our shiny tools</a></h2>
-<div class="disclaimer">
-A disclaimer - in this chapter, I will oversimplify some things just to get you up and running without getting into the philosophy of TDD yet (think: physics lessons in primary school). Do not worry about it :-), we will fix that in the coming chapters!
-</div>
+<h3 id="a-disclaimer"><a href="#a-disclaimer">A disclaimer</a></h3>
+<p>In this chapter, I will oversimplify some things just to get you up and running without getting into the philosophy of TDD yet (think: physics lessons in primary school). Do not worry about it :-), we will fix that in the coming chapters!</p>
 <h3 id="xunit-framework"><a href="#xunit-framework">xUnit framework</a></h3>
 <p>The first and most essential tool we are going to use is an xUnit framework.</p>
 <p>Let us assume that our application looks like this:</p>
@@ -287,10 +286,6 @@ Multiplication_ShouldResultInAMultiplicationOfTwoPassedNumbers()
 <p>Phew, I hope I made the transition quite painless for you. Now the last thing to add - as there is not <code>Main()</code> method anymore in the last example, you surely must wonder how we run those tests, right? Ok, the last big secret unveiled - we use an external application for this (we will refer to it using a term <strong>Test Runner</strong>) - we tell it which assemblies to run and it loads them, runs them, reports results etc. It can take various forms, e.g. it can be a console application, a GUI application or a plugin to our IDEs. Here is an example of a stand-alone runner for xUnit.NET framework:</p>
 <div class="figure">
 <img src="images/XUnit_NET_Window.png" alt="XUnit.NET window" /><p class="caption">XUnit.NET window</p>
-</div>
-<div class="achievement">
-<h3><a href="#sprinter">Sprinter</a></h3>
-You sure know how to run your tests. Automatically!
 </div>
 <h3 id="mocking-framework"><a href="#mocking-framework">Mocking framework</a></h3>
 <p>Mocking frameworks are libraries that automate runtime creation of objects (called “mocks”) that adhere to specified interface. Aside from the creation itself, the frameworks provide an API to configure our mocks on how they behave when certain methods are called on them and to let us inspect which calls they received.</p>
@@ -442,10 +437,6 @@ ShouldInsertNewOrderToDatabase()
 }</code></pre>
 <p>Note that we do not need the <code>SelectAllOrders()</code> method. If no one except this test needs it, we can delete it and spare some more maintainability trouble. The last line of this test is actually a camouflaged assertion that checks whether Insert method was called once with order object as parameter.</p>
 <p>I will get back to mocks, since, as I said, there is a huge philosophy behind them and we have only scratched the surface here.</p>
-<div class="achievement">
-<h3><a href="#pretender">Pretender</a></h3>
-You have managed to use a mock instead of a real object in unit test!
-</div>
 <h3 id="anonymous-values-generator"><a href="#anonymous-values-generator">Anonymous values generator</a></h3>
 <p>Look at the test in the previous section. Does it not trouble you that we fill the order object with so many values that are totally irrelevant to the test logic itself? They actually hinder readability of the test. Also, they make us believe that the tested object really cares what these values are, although it does not (the database does, but we already got rid of it from the test). Let us move it to a method with descriptive name:</p>
 <pre><code>[Fact] public void 
@@ -501,16 +492,8 @@ private Fixture any = new Fixture();</code></pre>
   }
 }</code></pre>
 <p>In the next chapters, you will see me using a lot of different methods from the <code>Any</code> type. The more you use this class, the more it grows with other methods for creating customized objects. For now, however, let us stop here.</p>
-<div class="achievement">
-<h3><a href="#anonymous">Anonymous</a></h3>
-<p>The values you use in your unit tests move like a shadow, unnoticed by anyone and until it is really necessary.</p>
-</div>
 <h3 id="summary"><a href="#summary">Summary</a></h3>
 <p>In this chapter, I tried to show you the three essential tools which we will be using in this book and which, when mastered, will make your test-driven development smoother. If this chapter leaves you with insufficient justification for their use, do not worry - we will dive into the philosophy behind them in the coming chapters. For now, I just want you to get familiar with the tools themselves and their syntax. Go on, download these tools, launch them, try to write something simple with them. You do not need to understand their full purpose yet, just go out and play :-).</p>
-<div class="achievement">
-<h3><a href="#equipped">Equipped</a></h3>
-<p>You are now able to understand most of the code examples throughout this book!</p>
-</div>
 <h1 id="it-is-not-atest"><a href="#it-is-not-atest">It is not a test</a></h1>
 <p>Up to now, I was cheating on you. I told you that the little executable snippets of code are ‘tests’ and that they’re here to ‘check’ or ‘verify’ something. Now it is time to reveal the truth.</p>
 <h2 id="when-atest-becomes-something-else"><a href="#when-atest-becomes-something-else">When a test becomes something else</a></h2>
@@ -539,10 +522,6 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <li>Power users will need to be privileged to use the reporting feature (note that it does not specify which other users should or should not be able to use this feature - we would need a separate ‘test’ for that).</li>
 </ol>
 <p>Also, are already after the phase of designing an API that will fulfill the need. Don’t you think it is pretty much information about the application from just three lines of code?</p>
-<div class="achievement">
-<h3><a href="#lean-mean">Lean &amp; Mean</a></h3>
-<p>You now see some connotations between Test-Driven Development and Lean movement. There are more if you are interested, so be sure to pick up a good read about lean software development!</p>
-</div>
 <h2 id="a-specification-instead-of-atest-suite"><a href="#a-specification-instead-of-atest-suite">A Specification Instead of a Test Suite</a></h2>
 <p>I hope that you can see now that what we called ‘a test’ is really a kind of specification. The discovery is very recent, so there isn’t a clear terminology on it yet. Some like to call the process of using tests as specifications: Specification By Example, to say that the tests are really examples that help specify and clarify the behavior of developed part of functionality. The terminology is still not rock-solid, so you might encounter different naming for different things. For example, a ‘test’ is often referred to as ‘spec’, or an ‘example’, or a ‘behavior description’, or a ‘specification statement’ or a ‘fact about the developed system’ (the xUnit.NET framework marks each ‘test’ with a <code>[Fact]</code> attribute, suggesting that by writing it, we are stating a single fact about developed code. By the way, xUnit.NET also allows us to state ‘theories’ about our code, but let us leave it for now).</p>
 <p>The time has come to make a deal: I will establish some naming conventions for this book to be consistent, but leave you with the freedom to follow your own if you so desire. The terminology shift is for pedagogical reasons - I am not trying to create a movement to change established terms or to invent a new methodology or anything - my hope is that using this terminology throughout the book will let you look differently at some things. So, let us agree that for the sake of this book:</p>
@@ -567,10 +546,6 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <li>it is executable - you can run it to see whether the code adheres to the specification or not.</li>
 <li>it is written in source code rather than in spoken language - which is both good (less room for misunderstanding - source code is the most formal and structured way of writing specifications) and bad (great care must be taken to keep the specification readable).</li>
 </ol>
-<div class="achievement">
-<h3><a href="#enlightened">Enlightened</a></h3>
-You are starting to see Test-Driven Development in a new light - not as a testing technique, but as a mean to specify the behaviors of the code under development.
-</div>
 <h1 id="statement-first-programming"><a href="#statement-first-programming">Statement-first programming</a></h1>
 <h2 id="what-is-the-point-of-writing-specification-after-the-fact"><a href="#what-is-the-point-of-writing-specification-after-the-fact">What is the point of writing specification after the fact?</a></h2>
 <p>In the last chapter, I said that in TDD a ‘test’ takes another role - one of a statement being a part of a specification. If we put things this way, then the whole controversial concept of “writing a test before the code” does not pose a problem at all. Quite the contrary - it only seems natural to specify what we are going to write before we attempt to write it. Does the other way round even make sense? A specification written after completing the implementation is nothing more than an attempt at documenting the existing solution. Sure, such attempts can provide some value when done as a kind of reverse-engineering (i.e. writing specification for something that was implemented long ago and we do not really know the exact business rules or policies, which we discover as we document the existing solution) - it has an excitement of discovery in it, but doing it just after we, ourselves, made all the decisions seems like a waste of time, not to mention that it is dead boring (Do not believe me? Try implementing a simple calculator app and the write specification for it just after it is implemented and working). Anyway, specifying how something should work after the fact can hardly be considered creative.</p>
@@ -2048,10 +2023,8 @@ ShouldReportItIsStartedAndItDoesNotYetTransmitVoiceWhenItStarts()
 <p>Again, there are two behaviors here: reporting the call status after start and not being able to transmit frames after start. That is why this test should be split into two.</p>
 <p>How to catch that you are writing a Statement about two or more behaviors rather than one? First, take a look at the test name - if it looks strange and contains some “And” or “Or” words, it may (but does not have to) be about more than one behavior. Another way is to write the description of a behavior in a Given-When-Then way. If you have more than one item in the “When” section or the structure is not Given-When-Then, but rather a “Given-When-Then-When-Then” - that is also a signal.</p>
 <h1 id="specifying-boundaries-and-conditions"><a href="#specifying-boundaries-and-conditions">Specifying Boundaries and Conditions</a></h1>
-<div class="disclaimer">
-<h3><a href="#a-disclaimer">A Disclaimer</a></h3>
-Before I begin, I have to admit that this chapter is mostly based on the material from a series of posts by Scot Bain and Amir Kolsky from the blog Sustainable Test Driven Development and their upcoming book by the same title. I like their idea of boundaries so much that I just follow the guidelines they outlined. This chapter is going to be a rephrase of these guidelines. I placed it here so that you have all the important topics covered in one place, but I encourage you to read the original blog posts on this subject on http://www.sustainabletdd.com (and the upcoming book).
-</div>
+<h3 id="a-disclaimer-1"><a href="#a-disclaimer-1">A Disclaimer</a></h3>
+<p>Before I begin, I have to admit that this chapter is mostly based on the material from a series of posts by Scot Bain and Amir Kolsky from the blog Sustainable Test Driven Development and their upcoming book by the same title. I like their idea of boundaries so much that I just follow the guidelines they outlined. This chapter is going to be a rephrase of these guidelines. I placed it here so that you have all the important topics covered in one place, but I encourage you to read the original blog posts on this subject on http://www.sustainabletdd.com (and the upcoming book).</p>
 <h2 id="sometimes-anonymous-value-is-not-enough"><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, Anonymous Value Is Not Enough</a></h2>
 <p>When we specify a behavior, there are times when this behavior should be the same no matter what arguments we pass to the constructor or invoked methods. An example would be an addition of two numbers - whatever numbers we would supply, the answer would always be a sum of those numbers:</p>
 <pre><code>[Fact] public void
@@ -2276,9 +2249,8 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 <h2 id="summary-3"><a href="#summary-3">Summary</a></h2>
 <p>In this chapter, we covered specifying numerical boundaries with a minimal amount of code, so that the Specification is more maintainable and runs fast. There is one more kind of situation left: when we have compound conditions (e.g. a password must be at least 10 characters and contain at least 2 special characters) - we’ll get back to those when we introduce mocks.</p>
 <h1 id="triangulation"><a href="#triangulation">Triangulation</a></h1>
-<div class="disclaimer">
-(The first occurence of the term triangulation I know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>).
-</div>
+<h3 id="a-disclaimer-2"><a href="#a-disclaimer-2">A disclaimer</a></h3>
+<p>The first occurence of the term triangulation I know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>).</p>
 <p>As one of the last topics of the core TDD techniques that do not require us to delve into the object oriented world, I’d like to show you triangulation.</p>
 <p>Triangulation is often described as the most conservative of three approaches of test-driving implementation. These approaches are:</p>
 <ol style="list-style-type: decimal">
