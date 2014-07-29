@@ -13,7 +13,7 @@
 <ul>
 <li><a href="#dedications">Dedications</a></li>
 <li><a href="#thanks">Thanks!</a></li>
-<li><a href="#part-1-justthe-basics"><strong>Part 1: Just the basics</strong></a></li>
+<li><a href="#part-1-justthe-basics">Part 1: Just the basics</a></li>
 <li><a href="#motivation---the-first-step-to-learning-tdd">Motivation - the first step to learning TDD</a><ul>
 <li><a href="#how-tdd-feels-like">How TDD feels like</a></li>
 </ul></li>
@@ -74,7 +74,7 @@
 <li><a href="#triangulation-1">Triangulation</a></li>
 <li><a href="#summary-4">Summary</a></li>
 </ul></li>
-<li><a href="#part-2-test-driven-development-in-object-oriented-world"><strong>Part 2: Test-Driven Development in Object Oriented World</strong></a></li>
+<li><a href="#part-2-test-driven-development-in-object-oriented-world">Part 2: Test-Driven Development in Object Oriented World</a></li>
 <li><a href="#on-objects-composability">On Objects Composability</a><ul>
 <li><a href="#another-task-for-johnny-and-benjamin">Another task for Johnny and Benjamin</a></li>
 <li><a href="#a-quick-retrospective">A Quick Retrospective</a></li>
@@ -92,6 +92,7 @@
 <li><a href="#the-power-of-composition">The power of composition</a></li>
 <li><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></li>
 </ul></li>
+<li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
 <li><a href="#web-messages-and-protocols">Web, messages and protocols</a><ul>
 <li><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></li>
 <li><a href="#summary-5">Summary</a></li>
@@ -137,7 +138,7 @@
 <li>Steve Freeman</li>
 <li>Robert C. Martin</li>
 </ul>
-<h1 id="part-1-justthe-basics"><a href="#part-1-justthe-basics"><strong>Part 1: Just the basics</strong></a></h1>
+<h1 id="part-1-justthe-basics"><a href="#part-1-justthe-basics">Part 1: Just the basics</a></h1>
 <p>This is a part where I introduce the basic TDD philosophy and practices (as well as some advanced ones) without going much into object orientation and how to do TDD for systems where multiple objects collaborate together (which is a topic of Part 2).</p>
 <p>So, for the most chapters of this part, I will be giving you examples where single object (plus some small ones like strings etc.) is exercised to slowly introduce some concepts in an easy to grasp manner.</p>
 <p>After reading part 1, you will be able to quite effectively develop classes that have no dependencies on other classes (and on operating system resources).</p>
@@ -2552,7 +2553,7 @@ ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
 <p>And voilà! We have arrived at the final, generic solution. Note that the steps we took were tiny - so you might get the impression that the effort was not worth it. Indeed, this example was only to show the mechanics of triangulation - in real life, if we encountered such simple situation we’d know straight away what the design would be and we’d start with the general Statement straight away and just type in the obvious implementation. Triangulation shows its power in more complex problems with multiple design axes and where taking tiny steps helps avoid “analysis paralysis”.</p>
 <h2 id="summary-4"><a href="#summary-4">Summary</a></h2>
 <p>As I stated before, triangulation is most useful when you have no idea how the internal design of a piece of functionality will look like (e.g. even if there are work-flows, they cannot be easily derived from your knowledge of the domain) and it’s not obvious along which axes your design must provide generality, but you are able to give some examples of the observable behavior of that functionality given certain inputs. These are usually situations where you need to slow down and take tiny steps that slowly bring you closer to the right design and functionality - and that’s what triangulation is for!</p>
-<h1 id="part-2-test-driven-development-in-object-oriented-world"><a href="#part-2-test-driven-development-in-object-oriented-world"><strong>Part 2: Test-Driven Development in Object Oriented World</strong></a></h1>
+<h1 id="part-2-test-driven-development-in-object-oriented-world"><a href="#part-2-test-driven-development-in-object-oriented-world">Part 2: Test-Driven Development in Object Oriented World</a></h1>
 <p>Most of the examples I gave you during the previous part were about a single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a system.</p>
 <p>This brings about some issues that need to be discussed. One of them is the approach to object oriented design and how it influences the tools we use to test-drive our code. You probably heard something about a tool called mock objects (at least from one of the introductory chapters of this book) or, in more broaded sense, test doubles. If you open your web browser and type “mock objects break encapsulation”, you will find a lot of different opinions - some saying that mocks are great, others blaming them for everything bad in the world, and a lot of opinions inbetween those. The discussions are still heated, even though mocks were introduced more than ten years ago. My goal in this chapter is to outline the real context and forces that lead to adoption of mocks and how to use them for your benefit, not failure.</p>
 <p>Steve Freeman, one of the godfathers of using mock objects with TDD, <a href="https://groups.google.com/d/msg/growing-object-oriented-software/rwxCURI_3kM/2UcNAlF_Jh4J">wrote</a>: “mocks arise naturally from doing responsibility-driven OO. All these mock/not-mock arguments are completely missing the point. If you’re not writing that kind of code, people, please don’t give me a hard time”. I am going to introduce mocks in a way that will not give Steve a hard time, I hope.</p>
@@ -3116,7 +3117,7 @@ else if(alarm-&gt;kind == SILENT_ALARM)
 <h2 id="summary---are-you-still-with-me"><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></h2>
 <p>Although we started with what seemed to be a repetition from basic object oriented programming class, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
 <p>In the next chapter, we will take a closer look at composing objects itself.</p>
-<h4 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h4>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h1>
 <h1 id="web-messages-and-protocols"><a href="#web-messages-and-protocols">Web, messages and protocols</a></h1>
 <p>In the last chapter, we talked a little bit about why composability is valuable, now let’s flesh a little bit of terminology to get more precise understanding.</p>
 <h2 id="so-again-what-does-it-mean-to-compose-objects"><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></h2>
