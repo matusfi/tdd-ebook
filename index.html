@@ -22,12 +22,12 @@
 </ul></li>
 <li><a href="#it-is-not-atest">It is not a test</a><ul>
 <li><a href="#when-atest-becomes-something-else">When a test becomes something else</a></li>
-<li><a href="#taking-it-to-the-software-development-land">Taking It To The Software Development Land</a></li>
-<li><a href="#a-specification-instead-of-atest-suite">A Specification Instead of a Test Suite</a></li>
+<li><a href="#taking-it-to-the-software-development-land">Taking it to the software development land</a></li>
+<li><a href="#a-specification-instead-of-atest-suite">A Specification instead of a Test Suite</a></li>
 </ul></li>
 <li><a href="#statement-first-programming">Statement-first programming</a><ul>
 <li><a href="#what-is-the-point-of-writing-specification-after-the-fact">What is the point of writing specification after the fact?</a></li>
-<li><a href="#the-benefit-of-failure">The Benefit of Failure</a></li>
+<li><a href="#the-benefit-of-failure">The benefit of failure</a></li>
 </ul></li>
 <li><a href="#practicing-what-we-already-learned">Practicing what we already learned</a><ul>
 <li><a href="#let-me-tell-you-astory">Let me tell you a story</a></li>
@@ -39,9 +39,9 @@
 <li><a href="#sorting-out-the-bits">Sorting Out The Bits</a></li>
 <li><a href="#how-to-start">How to start?</a><ul>
 <li><a href="#start-with-agood-name">Start with a good name</a></li>
-<li><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start By Filling The GIVEN-WHEN-THEN Structure With The Obvious</a></li>
-<li><a href="#start-from-the-end">Start From The End</a></li>
-<li><a href="#start-by-invoking-amethod-when-you-have-one">Start By Invoking a Method When You Have One</a></li>
+<li><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start by filling the GIVEN-WHEN-THEN structure with the obvious</a></li>
+<li><a href="#start-from-the-end">Start from the end</a></li>
+<li><a href="#start-by-invoking-amethod-when-you-have-one">Start by invoking a method when you have one</a></li>
 <li><a href="#summary-1">Summary</a></li>
 </ul></li>
 <li><a href="#how-is-tdd-about-analysis-and-what-does-given-when-then-mean">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</a><ul>
@@ -49,7 +49,7 @@
 <li><a href="#gherkin">Gherkin</a></li>
 <li><a href="#todo-list-again">TODO list… again!</a></li>
 </ul></li>
-<li><a href="#developing-tdd-style-and-constrained-non-determinism">Developing TDD style and Constrained Non-Determinism</a><ul>
+<li><a href="#developing-a-tdd-style-and-constrained-non-determinism">Developing a TDD style and Constrained Non-Determinism</a><ul>
 <li><a href="#a-style">A style?</a></li>
 <li><a href="#principle-tests-as-specification">Principle: Tests As Specification</a></li>
 <li><a href="#first-technique-anonymous-input">First technique: Anonymous Input</a></li>
@@ -62,10 +62,10 @@
 </ul></li>
 <li><a href="#what-is-the-scope-of-aunit-level-statement-in-tdd">What is the scope of a unit-level Statement in TDD?</a></li>
 <li><a href="#specifying-boundaries-and-conditions">Specifying Boundaries and Conditions</a><ul>
-<li><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, Anonymous Value Is Not Enough</a></li>
-<li><a href="#exceptions-to-the-rule">Exceptions To The Rule</a></li>
-<li><a href="#rules-valid-within-boundaries">Rules Valid Within Boundaries</a></li>
-<li><a href="#combination-of-boundaries---ranges">Combination of Boundaries - Ranges</a></li>
+<li><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, anonymous value is not enough</a></li>
+<li><a href="#exceptions-to-the-rule">Exceptions to the rule</a></li>
+<li><a href="#rules-valid-within-boundaries">Rules valid within boundaries</a></li>
+<li><a href="#combination-of-boundaries---ranges">Combination of boundaries - ranges</a></li>
 <li><a href="#summary-3">Summary</a></li>
 </ul></li>
 <li><a href="#triangulation">Triangulation</a><ul>
@@ -508,7 +508,7 @@ private Fixture any = new Fixture();</code></pre>
 <li>they brought our attention away from what was <strong>not</strong> needed to reach our goal</li>
 </ol>
 <p>That was the value of a test before learning. Note that the tests we would usually receive were not exactly what we would encounter at the time of exam, so we still had to guess. Still, the role of a <strong>test as specification of a need</strong> was already visible.</p>
-<h2 id="taking-it-to-the-software-development-land"><a href="#taking-it-to-the-software-development-land">Taking It To The Software Development Land</a></h2>
+<h2 id="taking-it-to-the-software-development-land"><a href="#taking-it-to-the-software-development-land">Taking it to the software development land</a></h2>
 <p>I chose this lengthy metaphor to show you that ‘test’ is really another way of specifying a requirement or a need and that it is not something that is counter-intuitive - it occurs in our everyday lives. This is also true in software development. Let us take the following ‘test’ and see what kind of needs it specifies:</p>
 <pre><code>var reporting = new ReportingFeature();
 var anyPowerUser = Any.Of(Users.Admin, Users.Auditor);
@@ -522,7 +522,7 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <li>Power users will need to be privileged to use the reporting feature (note that it does not specify which other users should or should not be able to use this feature - we would need a separate ‘test’ for that).</li>
 </ol>
 <p>Also, are already after the phase of designing an API that will fulfill the need. Don’t you think it is pretty much information about the application from just three lines of code?</p>
-<h2 id="a-specification-instead-of-atest-suite"><a href="#a-specification-instead-of-atest-suite">A Specification Instead of a Test Suite</a></h2>
+<h2 id="a-specification-instead-of-atest-suite"><a href="#a-specification-instead-of-atest-suite">A Specification instead of a Test Suite</a></h2>
 <p>I hope that you can see now that what we called ‘a test’ is really a kind of specification. The discovery is very recent, so there isn’t a clear terminology on it yet. Some like to call the process of using tests as specifications: Specification By Example, to say that the tests are really examples that help specify and clarify the behavior of developed part of functionality. The terminology is still not rock-solid, so you might encounter different naming for different things. For example, a ‘test’ is often referred to as ‘spec’, or an ‘example’, or a ‘behavior description’, or a ‘specification statement’ or a ‘fact about the developed system’ (the xUnit.NET framework marks each ‘test’ with a <code>[Fact]</code> attribute, suggesting that by writing it, we are stating a single fact about developed code. By the way, xUnit.NET also allows us to state ‘theories’ about our code, but let us leave it for now).</p>
 <p>The time has come to make a deal: I will establish some naming conventions for this book to be consistent, but leave you with the freedom to follow your own if you so desire. The terminology shift is for pedagogical reasons - I am not trying to create a movement to change established terms or to invent a new methodology or anything - my hope is that using this terminology throughout the book will let you look differently at some things. So, let us agree that for the sake of this book:</p>
 <dl>
@@ -573,7 +573,7 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 </dd>
 </dl>
 <p>By the way, this process is sometimes referred to as “Red-Green-Refactor”. I am just mentioning it here for the record - I am not planning to use this term further in the book.</p>
-<h2 id="the-benefit-of-failure"><a href="#the-benefit-of-failure">The Benefit of Failure</a></h2>
+<h2 id="the-benefit-of-failure"><a href="#the-benefit-of-failure">The benefit of failure</a></h2>
 <p>When I showed you a drawing with a TDD process, I specifically said that you are supposed to write a Statement that you wish was true <strong>but is not</strong>. It means that when you write a Statement, you have to evaluate it (i.e. run it) and watch it fail its assertions before providing implementation that makes this Statement true. Why is that so important? Is it not just enough to write the Statement first? Why run it and watch it fail?</p>
 <p>There are multiple reasons and I will try to outline few of them briefly.</p>
 <h3 id="you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false"><a href="#you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false">You do not know whether the Statement can ever be false until you see it evaluate as false</a></h3>
@@ -1432,10 +1432,10 @@ public void Statement_002()
 <p><code>EqualOperationShouldPassForTwoInstancesWithTheSameUserName()</code>.</p>
 <p>Note that this is not from the perspective of a single object, but rather from the perspective of an operation that is executed on it, which means that we stopped thinking in terms of object responsibilities and started thinking in terms of operation correctness, which is farther away from our assumption that we are writing a Specification consisting of Statements. This name should be something more like:</p>
 <p><code>ShouldReportThatItIsEqualToAnotherIdThatHasTheSameUserName()</code>.</p>
-<h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious"><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start By Filling The GIVEN-WHEN-THEN Structure With The Obvious</a></h2>
+<h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious"><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start by filling the GIVEN-WHEN-THEN structure with the obvious</a></h2>
 <p>This is a technique that is applicable when you come up with a GIVEN-WHEN-THEN structure for the Statement or a good name for it (GIVEN-WHEN-THEN structure can be easily derived from a good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
-<h3 id="a-simple-example"><a href="#a-simple-example">A Simple Example</a></h3>
-<p>Let us take a simple example of comparing two users. We assume that a user should be equal to another when it has the same name as the other one:</p>
+<h3 id="example"><a href="#example">Example</a></h3>
+<p>Let us try this on a simple problem of comparing two users. We assume that a user should be equal to another when it has the same name as the other one:</p>
 <pre><code>Given a user with any name
 When I compare it to another user with the same name
 Then it should appear equal to this other user</code></pre>
@@ -1499,10 +1499,10 @@ ShouldAppearEqualToAnotherUserWithTheSameName()
   Assert.True(areUsersEqual);
 }</code></pre>
 <p>And that is it - the Statement is complete!</p>
-<h2 id="start-from-the-end"><a href="#start-from-the-end">Start From The End</a></h2>
+<h2 id="start-from-the-end"><a href="#start-from-the-end">Start from the end</a></h2>
 <p>This is a technique that I suggest to people that seem to have absolutely no idea how to start. I got it from Kent Beck’s book Test Driven Development by Example. It seems funny at start, but is quite powerful. The trick is to write the Statement ‘backwards’, i.e. starting with what the Statement asserts to be true (in terms of the GIVEN-WHEN-THEN structure, we would say that we start with our THEN).</p>
 <p>This works because, while we are many times quite sure of our goal (i.e. what the outcome of the behavior should be), but are unsure of how to get there.</p>
-<h3 id="a-simple-example-1"><a href="#a-simple-example-1">A Simple Example</a></h3>
+<h3 id="example-1"><a href="#example-1">Example</a></h3>
 <p>Imagine we are writing a class for granting access to a reporting functionality based on roles. We do not have any idea what the API should look like and how to write our Statement, but we know one thing: in our domain the access can be either granted or denied. Let us take the successful case (just because it is the first one we can think of) and, starting backwards, start with the following assertion:</p>
 <pre><code>//THEN
 Assert.True(accessGranted);</code></pre>
@@ -1538,9 +1538,9 @@ ShouldAllowAccessToReportingWhenAskedForEitherAdministratorOrAuditor()
  //THEN
  Assert.True(accessGranted);
 }</code></pre>
-<h2 id="start-by-invoking-amethod-when-you-have-one"><a href="#start-by-invoking-amethod-when-you-have-one">Start By Invoking a Method When You Have One</a></h2>
+<h2 id="start-by-invoking-amethod-when-you-have-one"><a href="#start-by-invoking-amethod-when-you-have-one">Start by invoking a method when you have one</a></h2>
 <p>Sometimes, we have to add a new class that implements an existing interface required by another class. The fact of implementing an interface imposes what methods should the new class support. If this point is already decided, we can start our Statement by first calling the method and then discovering what we need to supply.</p>
-<h3 id="a-simple-example-2"><a href="#a-simple-example-2">A Simple Example</a></h3>
+<h3 id="example-2"><a href="#example-2">Example</a></h3>
 <p>Suppose we have an application holding a lot of data that, among other things, handles importing am existing database from another instance of the application. As importing a database can be a lengthy process, a message box is displayed each time when user chooses to perform the import and this message box displays the following message: “Johnny, please sit down and enjoy your coffee for a few minutes as we take time to import your database” (given user name is Johnny). The class that implements it looks like this:</p>
 <pre><code>public class FriendlyMessages
 {
@@ -1725,13 +1725,13 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 <h3 id="potential-downsides"><a href="#potential-downsides">Potential downsides</a></h3>
 <p>There are also some downsides. The biggest is that people often add TODO items for other means than to support TDD and they never go back to such items. Some people joke that a TODO left in the code means “Once, I wanted to…”. Anyway, such items may pollute your TDD-related TODO list with so much cruft that your own items are barely findable. To work around it, I tend to use a different tag than TODO (many IDEs let you define your own tags, or support multiple tag types out of the box. E.g. with Resharper, I like to use “bug” tag, because this is something no one would leave in the code) and filter by it. Another options is, of course, getting rid of the leftover TODO items - if no one addressed it for a year, then probably no one ever will.</p>
 <p>Another downside is that when you work with multiple workspaces/solutions, your IDE will gather TODO items only from current solution/workspace, so you will have few TODO lists - one per workspace or solution. Fortunately, this isn’t usually a big deal.</p>
-<h1 id="developing-tdd-style-and-constrained-non-determinism"><a href="#developing-tdd-style-and-constrained-non-determinism">Developing TDD style and Constrained Non-Determinism</a></h1>
+<h1 id="developing-a-tdd-style-and-constrained-non-determinism"><a href="#developing-a-tdd-style-and-constrained-non-determinism">Developing a TDD style and Constrained Non-Determinism</a></h1>
 <p>In one of the first chapters, I introduced to you the idea of anonymous values generator idea, which I have wrapped in a static class called <code>Any</code>. Throughout the next chapters, you have seen me using it quite extensively in many of the Statements I wrote.</p>
 <p>The time has come to explain a little bit more carefully what principles lie under this technique and tool. I will also use this technique as a case study to show you how one develops a style of Test-Driven Development.</p>
 <h2 id="a-style"><a href="#a-style">A style?</a></h2>
-<p>Yep. Why am I wasting your time writing about style instead of giving you the hardcore technical details? The answer is simple. Before I started writing this tutorial, I read four or five books solely on TDD and maybe two others that contain chapters on TDD. All of this sums up to about two or three thousands of paper pages, plus numerous posts on many blogs. And you know what I noticed? No two authors use exactly the same sets of techniques for test-driving their code! I mean, sometimes, when you look techniques they are suggesting, the suggestions from two authorities contradict each other. As each authority has their followers, it is not uncommon to observe and take part in discussions about whether this or that technique is better than a competing one or which one leads to trouble in the long run.</p>
+<p>Yep. Why am I wasting your time writing about style instead of giving you the hardcore technical details? The answer is simple. Before I started writing this tutorial, I read four or five books solely on TDD and maybe two others that contain chapters on TDD. All of this sums up to about two or three thousands of paper pages, plus numerous posts on many blogs. And you know what I noticed? No two authors use exactly the same sets of techniques for test-driving their code! I mean, sometimes, when you look at the techniques they are suggesting, two authorities contradict each other. As each authority has their followers, it is not uncommon to observe and take part in discussions about whether this or that technique is better than a competing one or which one leads to trouble in the long run.</p>
 <p>I did this, too. I also tried to understand how come people praise techniques I KNEW were wrong and led to disaster. Then, Finally, I got it. I understood that it is not a “technique A vs. technique B” debate. There are certain sets of techniques that work together and choosing one technique leaves us with issues we have to resolve by adopting other techniques. This is how a style is created.</p>
-<p>Developing a style starts with underlying set of principles. These principles lead us to adopt our first technique, which makes us adopt another one and, ultimately, a coherent style emerges. Using Constrained Non-Determinism as an example, I will try to show you how part of a style gets derived from a technique that is derived from a principle.</p>
+<p>Developing a style starts with a set of problems to solve and an underlying set of principles we consider important. These principles lead us to adopt our first technique, which makes us adopt another one and, ultimately, a coherent style emerges. Using Constrained Non-Determinism as an example, I will try to show you how part of a style gets derived from a technique that is derived from a principle.</p>
 <h2 id="principle-tests-as-specification"><a href="#principle-tests-as-specification">Principle: Tests As Specification</a></h2>
 <p>As I already stressed, I strongly believe that unit tests constitute an executable specification. Thus, they should not only pass input values to an object and assert on the output, they should also convey to their reader the rules according to which objects and functions work. The following oversimplified example shows a Statement where it is not explicitly stated what is the relationship between input and output:</p>
 <pre><code>[Fact] public void 
@@ -1769,7 +1769,7 @@ public string AnyString()
   return &quot;MY_HOST_NAME&quot;;
 }</code></pre>
 <p>By using <strong>anonymous input</strong>, we provide a better documentation of the input value. Here, I wrote <code>AnyString()</code>, but of course, there can be a situation where I use more constrained data, e.g. <code>AnyAlphaNumericString()</code> when I need a string that does not contain any characters other than letters and digits. Note that this technique <strong>is applicable only when the particular value of the variable is not important, but rather its “trait”</strong>. Taking authorization as an example, when a certain behavior occurs only when the input value is <code>Users.Admin</code>, there is <strong>no sense</strong> making it anonymous. On the other hand, for a behavior that occurs for all values other than <code>Users.Admin</code>, it makes sense to use a method like <code>AnyUserOtherThan(Users.Admin)</code> or even <code>AnyNonAdminUser()</code>.</p>
-<p>Now that the Statement itself is freed from the knowledge of the concrete value of <code>hostName</code> variable, the concrete value of “backup_MY_HOST_NAME.zip” looks kinda weird. There is no clear indication of the kind of relationship between input and output and whether there is any at all (one may reason whether the output is always the same string or maybe it depends on the string length). It is unclear which part is added by the production code and which part depends on the input we pass to the method. This leads us to another technique.</p>
+<p>Now that the Statement itself is freed from the knowledge of the concrete value of <code>hostName</code> variable, the concrete value of “backup_MY_HOST_NAME.zip” looks kind of weird. There is no clear indication of the kind of relationship between input and output and whether there is any at all (one may reason whether the output is always the same string or maybe it depends on the string length). It is unclear which part is added by the production code and which part depends on the input we pass to the method. This leads us to another technique.</p>
 <h2 id="second-technique-derived-values"><a href="#second-technique-derived-values">Second technique: Derived Values</a></h2>
 <p>To better document the relationship between input and output, we have to simply derive the expected value we assert on from the input value. Here is the same Statement with the assertion changed:</p>
 <pre><code>[Fact] public void 
@@ -2025,7 +2025,7 @@ ShouldReportItIsStartedAndItDoesNotYetTransmitVoiceWhenItStarts()
 <h1 id="specifying-boundaries-and-conditions"><a href="#specifying-boundaries-and-conditions">Specifying Boundaries and Conditions</a></h1>
 <h3 id="a-disclaimer-1"><a href="#a-disclaimer-1">A Disclaimer</a></h3>
 <p>Before I begin, I have to admit that this chapter is mostly based on the material from a series of posts by Scot Bain and Amir Kolsky from the blog Sustainable Test Driven Development and their upcoming book by the same title. I like their idea of boundaries so much that I just follow the guidelines they outlined. This chapter is going to be a rephrase of these guidelines. I placed it here so that you have all the important topics covered in one place, but I encourage you to read the original blog posts on this subject on http://www.sustainabletdd.com (and the upcoming book).</p>
-<h2 id="sometimes-anonymous-value-is-not-enough"><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, Anonymous Value Is Not Enough</a></h2>
+<h2 id="sometimes-anonymous-value-is-not-enough"><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, anonymous value is not enough</a></h2>
 <p>When we specify a behavior, there are times when this behavior should be the same no matter what arguments we pass to the constructor or invoked methods. An example would be an addition of two numbers - whatever numbers we would supply, the answer would always be a sum of those numbers:</p>
 <pre><code>[Fact] public void
 ShouldCalculateTheSumOfTwoNumbers()
@@ -2043,7 +2043,7 @@ ShouldCalculateTheSumOfTwoNumbers()
 <p>In this case, the integer numbers can really be “any” - the described relationship between input and output is independent of the actual values we use. As indicated in one of the previous chapters, this is the canonical case where Constrained Non-Determinism applies.</p>
 <p>Sometimes, however, objects exhibit different behaviors based on what is passed to their constructor and to their methods (OK, we also have static methods and singletons. Longer discussion on those will be included in one of the next chapters - for now we can safely ignore them). For example, in our application we may have a licensing policy where a feature is allowed to use only if the license is valid, and denied after it has expired. Another example would be that some shops are open from 10:00 to 18:00, so if we had a query in our application whether the shop is currently open, we would expect it to be answered differently based on what the current time is.</p>
 <p>In such cases, Scott and Amir offer us other guidelines for choosing input values.</p>
-<h2 id="exceptions-to-the-rule"><a href="#exceptions-to-the-rule">Exceptions To The Rule</a></h2>
+<h2 id="exceptions-to-the-rule"><a href="#exceptions-to-the-rule">Exceptions to the rule</a></h2>
 <p>There are times, when a Statement is true for every value except one (or more) explicitly specified. For example, in Poland, high school students are graded for exams between “mediocre” and “very good”. Every grade means the exam is passed except for “mediocre” grade which means the exam is failed. If we imagine we have to specify an object that decides whether the exam is passed based on rating, we would have to write two Statements: one for the mediocre rating and other for all the others.</p>
 <p>Here is the Statement for mediocre grade (let us imagine that all grades are members of an enum):</p>
 <pre><code>[Fact] public void
@@ -2075,7 +2075,7 @@ ShouldPassTheExamWhenGradeIsOtherThanMediocre()
 }</code></pre>
 <p>Here, <code>Any.Besides()</code> takes care of the enum value generation, producing a nice, readable code as a side effect.</p>
 <p>The example shown above assumes there is only one exception to the rule (the mediocre grade). However, this concept can be scaled up to more values, as long as it is a finished, discrete set. If there are multiple exceptional values that produce the same behavior, a single Statement is sufficient to cover them all (using <code>Any</code> class and making the following call for exception Statement: <code>Any.Of(value1, value2)</code> and the following for the rest: <code>Any.OtherThan(value1, value2)</code>). However, when there are multiple exceptions to the rule and each one triggers a different behavior, each one deserves its own Statement.</p>
-<h2 id="rules-valid-within-boundaries"><a href="#rules-valid-within-boundaries">Rules Valid Within Boundaries</a></h2>
+<h2 id="rules-valid-within-boundaries"><a href="#rules-valid-within-boundaries">Rules valid within boundaries</a></h2>
 <p>Sometimes, a behavior varies around a numerical boundary. the simplest example would be a set of rules on how to calculate an absolute value of a number:</p>
 <ol style="list-style-type: decimal">
 <li>for any X less than 0, the result is -X (e.g. absolute value of -1.5 is 1.5)</li>
@@ -2159,7 +2159,7 @@ ShouldNotNegateNumberWhenItIsGreaterOrEqualToSmallestValueNotToNegate()
 }</code></pre>
 <p>As you can see, the first Statement contains the following expression: <code>Constants.SmallestValueNotToNegate - 1</code>, where 1 is the exact length of the boundary. Like I said, the situation is so trivial that it may look silly and funny, however, in real life scenarios, this is a great technique to apply anytime, anywhere.</p>
 <p>Boundaries may look like they apply only to integer input, but they occur at many other places. There are boundaries associated with date/time (e.g. an action is performed again when time from last action is at least 30 seconds - the decision would need to be made whether we need precision in seconds or maybe in ticks), to strings (e.g. validation of user name where it must be at least 2 characters, or password that must contain at least 2 special characters) etc.</p>
-<h2 id="combination-of-boundaries---ranges"><a href="#combination-of-boundaries---ranges">Combination of Boundaries - Ranges</a></h2>
+<h2 id="combination-of-boundaries---ranges"><a href="#combination-of-boundaries---ranges">Combination of boundaries - ranges</a></h2>
 <p>So, what about a behavior that is valid in a range? Let us assume that we live in a country where a citizen can get a driving license only after their 17th birthday, but before 65th (the government decided that people after 65 have worse sight and it’s safer not to give them new driving licenses). Let us also assume that we try to develop a class that answers the question whether we can apply for driving license and the return values of this query are as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Age &lt; 17 - returns enum value <code>QueryResults.TooYoung</code></li>
@@ -2360,7 +2360,7 @@ ShouldAddTwoNumbersTogether()
 <li><strong>Using at least two sources of information</strong>: start with the simplest possible implementation and make it more general <strong>only</strong> when you have two or more different examples (i.e. Statements that describe the desired functionality for specific inputs). Then new examples can be added and generalization can be done again. This process is repeated until we reach the desired implementation. Robert C. Martin developed a maxim on this, saying that “As the tests get more specific, the code gets more generic.</li>
 </ol>
 <p>Usually, when TDD is showcased on simple examples, triangulation is the primary technique used, so many novices mistakenly believe TDD is all about triangulation. This isn’t true, although triangulation is important.</p>
-<h4 id="example"><a href="#example">Example</a></h4>
+<h4 id="example-3"><a href="#example-3">Example</a></h4>
 <p>Suppose we want to write a logic that creates an aggregate sum of the list. Let’s assume that we have no idea how to design the internals of our custom list class so that it fulfills its responsibility. Thus, we start with the simplest example of calculating a sum of 0 elements:</p>
 <pre><code>[Fact] public void 
 ShouldReturn0AsASumOfNoElements()
