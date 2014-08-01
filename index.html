@@ -2952,39 +2952,54 @@ if(employee.GetYearsOfService() == 5)
 <h1 id="why-do-we-need-composability"><a href="#why-do-we-need-composability">Why do we need composability?</a></h1>
 <p>It might seem stupid to ask this question here - if you have managed to stay with me this long, then you’re probably motivated enough not to need a justification? Well, anyway, it’s still worth discussing it a little. Hopefully, you’ll learn as much reading this back-to-basics chapter as I did writing it.</p>
 <h2 id="pre-object-oriented-approaches"><a href="#pre-object-oriented-approaches">Pre-object oriented approaches</a></h2>
-<p>Back in the days of procedural programming, when we wanted to execute a different code based on some factor, it was usually achieved using an ‘if’ statement. For example, if our application was able to use different kinds of alarms, e.g. a loud alarm (that plays a loud sound) and a silent alarm (that does not play any sound, but instead silently contacts the security), then usually, we could find a piece of code like the following to achieve that:</p>
-<pre><code>if(alarm-&gt;kind == LOUD_ALARM)
+<p>Back in the days of procedural programming, when we wanted to execute a different code based on some factor, it was usually achieved using an ‘if’ statement. For example, if our application was in need to be able to use different kinds of alarms, like a loud alarm (that plays a loud sound) and a silent alarm (that does not play any sound, but instead silently contacts the security) interchangeably, then usually, we could achieve this using a piece of code like the following:</p>
+<pre><code>void triggerAlarm(Alarm* alarm)
 {
-  triggerLoudAlarm((LoudAlarm*)alarm);
-}
-else if(alarm-&gt;kind == SILENT_ALARM)
-{
-  triggerSilentAlarm((SilentAlarm*)alarm);
+  if(alarm-&gt;kind == LOUD_ALARM)
+  {
+    playLoudSound((LoudAlarm*)alarm);
+  }
+  else if(alarm-&gt;kind == SILENT_ALARM)
+  {
+    notifyPolice((SilentAlarm*)alarm);
+  }
 }</code></pre>
-<p>The code queries the alarm kind which is embedded in the alarm structure and makes decision based on this kind. Unfortunately, if we wanted make a second decision based on the alarm kind, we would need to query for the alarm kind again, duplicating the code, just with different set of actions to perform depending on what kind of alarm we are dealing with:</p>
-<pre><code>if(alarm-&gt;kind == LOUD_ALARM)
+<p>The code queries the alarm kind which is embedded in the alarm structure and makes decision based on this kind. Unfortunately, if we wanted make a second decision based on the alarm kind, we would need to query for the alarm kind again, duplicating the conditional code, just with different set of actions to perform depending on what kind of alarm we were dealing with:</p>
+<pre><code>void disableAlarm(Alarm* alarm)
 {
-  disableLoudAlarm((LoudAlarm*)alarm);
-}
-else if(alarm-&gt;kind == SILENT_ALARM)
-{
-  disableSilentAlarm((SilentAlarm*)alarm);
+  if(alarm-&gt;kind == LOUD_ALARM)
+  {
+    stopLoudSound((LoudAlarm*)alarm);
+  }
+  else if(alarm-&gt;kind == SILENT_ALARM)
+  {
+    stopNotfyingPolice((SilentAlarm*)alarm);
+  }
 }</code></pre>
-<p>Do I have to say why this duplication is bad? Do I hear a “no”? My apologies then, but I’ll tell you anyway. The duplication means that every time a new kind of alarm is introduced, a developer has to remember to update both places that contain ‘if-else’ - the compiler will not force this. As you are probably aware, in the context of teams, where one developer picks up work that another left and where there is a notion of attrition, expecting someone to “remember” to update all the places where the logic is duplicated is asking for trouble.</p>
-<p>Here’s the reason for this duplication: We have two things we do with our alarms: triggering and disabling. Each alarm has different way of doing all these things - resulting in having a set of “answers” for the same set of questions associated with each alarm kind:</p>
-<ol style="list-style-type: decimal">
-<li>Loud Alarm
-<ol style="list-style-type: decimal">
-<li>triggering: <code>triggerLoudAlarm()</code></li>
-<li>disabling: <code>disableLoudAlarm()</code></li>
-</ol></li>
-<li>SilentAlarm
-<ol style="list-style-type: decimal">
-<li>triggering: <code>triggerSilentAlarm()</code></li>
-<li>disabling: <code>disableSilentAlarm()</code></li>
-</ol></li>
-</ol>
-<p>So, at least conceptually, as soon as we know the alarm kind, we already know which set of behaviors it needs. We could just decide the alarm kind once and associate the right set of behaviors with the data structure. Then, we would not have to query the alarm data again as we did, but instead, we could say: “execute triggering the alarm from the set of behaviors associated with this alarm, whatever it is”.</p>
+<p>Do I have to say why this duplication is bad? Do I hear a “no”? My apologies then, but I’ll tell you anyway. The duplication means that every time a new kind of alarm is introduced, a developer has to remember to update both places that contain ‘if-else’ - the compiler will not force this. As you are probably aware, in the context of teams, where one developer picks up work that another left and where, from time to time, people leave to find another job, expecting someone to “remember” to update all the places where the logic is duplicated is asking for trouble.</p>
+<p>So we see that the duplication is bad, but can we do something about it? To answer this question, let us take a look at the reason it was introduced. The reason is: We have two things we do with our alarms: triggering and disabling. In other words, we have a set of questions we want to be able to ask an alarm. Each kind of alarm has a different way of answering these questions - resulting in having a set of “answers” specific to each alarm kind:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Alarm Kind</th>
+<th align="left">Triggering</th>
+<th align="left">Disabling</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Loud Alarm</td>
+<td align="left"><code>playLoudSound()</code></td>
+<td align="left"><code>notifyPolice()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Silent Alarm</td>
+<td align="left"><code>stopLoudSound()</code></td>
+<td align="left"><code>stopNotfyingPolice()</code></td>
+</tr>
+</tbody>
+</table>
+<p>So, at least conceptually, as soon as we know the alarm kind, we already know which set of behaviors (represented as a row in the above table) it needs. We could just decide the alarm kind once and associate the right set of behaviors with the data structure. Then, we would not have to query the alarm data again as we did, but instead, we could say: “execute triggering the alarm from the set of behaviors associated with this alarm, whatever it is”.</p>
 <p>Unfortunately, procedural programming does not let us bind behaviors with data. As a matter of fact, the whole paradigm of procedural programming is about separating behaviors and data! Well, honestly, they had some answers to those concerns, but they were mostly awkward (for those of you that still remember C: I’m talking about macros and function pointers). So, as data and behaviors are separated, we need to query the data each time we want to pick a behavior based on it. That’s why we have the duplication.</p>
 <h2 id="object-oriented-programming-to-the-rescue"><a href="#object-oriented-programming-to-the-rescue">Object oriented programming to the rescue!</a></h2>
 <p>On the other hand, object oriented programming has for a long time made available two mechanisms that made what we didn’t have in procedural languages available:</p>
@@ -3014,11 +3029,11 @@ else if(alarm-&gt;kind == SILENT_ALARM)
 <p>Now, we can make parts of code use the alarm without having to know its type, so what we previously had:</p>
 <pre><code>if(alarm-&gt;kind == LOUD_ALARM)
 {
-  triggerLoudAlarm((LoudAlarm*)alarm);
+  playLoudSound((LoudAlarm*)alarm);
 }
 else if(alarm-&gt;kind == SILENT_ALARM)
 {
-  triggerSilentAlarm((SilentAlarm*)alarm);
+  notifyPolice((SilentAlarm*)alarm);
 }</code></pre>
 <p>becomes just:</p>
 <pre><code>alarm.Trigger();</code></pre>
