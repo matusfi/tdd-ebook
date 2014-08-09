@@ -92,14 +92,15 @@
 <li><a href="#the-power-of-composition">The power of composition</a></li>
 <li><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></li>
 </ul></li>
-<li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
 <li><a href="#web-messages-and-protocols">Web, messages and protocols</a><ul>
 <li><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></li>
+<li><a href="#alarms-again">Alarms, again!</a></li>
 <li><a href="#summary-5">Summary</a></li>
 </ul></li>
 <li><a href="#composing-a-web-of-objects">Composing a web of objects</a><ul>
 <li><a href="#three-important-questions">Three important questions</a></li>
-<li><a href="#how-does-sender-obtain-a-reference-to-recipient">How does sender obtain a reference to recipient?</a></li>
+<li><a href="#a-preview">A preview</a></li>
+<li><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></li>
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#when-are-objects-composed">When are objects composed?</a></li>
 <li><a href="#where-are-objects-composed-1">Where are objects composed?</a></li>
@@ -3052,7 +3053,7 @@ alarm = new LoudAlarm(); </code></pre>
 <p>Thanks to this, I create the alarm once, and then I can take it and pass it to ten, a hundred or a thousand different places where I will not have to determine the alarm kind anymore to use it correctly.</p>
 <p>This allows writing a lot of classes that have no knowledge whatsoever about the real class of the alarm they are dealing with, yet are able to use the alarm just fine only by knowing a common abstract type - <code>Alarm</code>. If we are able to do that, we arrive at a situation where we can add more alarms implementing <code>Alarm</code> and watch existing objects that are already using <code>Alarm</code> work with these new alarms without any change in their source code! There is one condition, however - the <strong>creation of the alarm instances must be moved out of the classes that use them</strong>. That’s because, as we already observed, to create an alarm using a <code>new</code> operator, we have to know the exact type of the alarm we are creating. So whoever creates an instance of <code>LoudAlarm</code> or <code>SilentAlarm</code>, loses its uniformity, since it is not able to depend solely on the <code>Alarm</code> interface.</p>
 <h2 id="the-power-of-composition"><a href="#the-power-of-composition">The power of composition</a></h2>
-<p>Moving creation of alarm instances away from the classes that use those alarms brings up an interesting problem - if an object does not create the objects it uses, then who does it? I have cleverly avoided answering this question so far, so let’s tackle this issue now. A solution is to make some special place in the code that assembles a system from loosely coupled objects. We saw this already as Johnny was explaining composability to Benjamin. He used the following example:</p>
+<p>Moving creation of alarm instances away from the classes that use those alarms brings up an interesting problem - if an object does not create the objects it uses, then who does it? A solution is to make some special places in the code that are only responsible for composing a system from context-independent objects<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. We saw this already as Johnny was explaining composability to Benjamin. He used the following example:</p>
 <pre><code>new SqlRepository(
   new ConnectionString(&quot;...&quot;), 
   new AccessPrivileges(
@@ -3063,46 +3064,113 @@ alarm = new LoudAlarm(); </code></pre>
 );</code></pre>
 <p>We can do the same with our alarms. Let’s say that we have a secure area that has three buildings with different alarm policies:</p>
 <ul>
-<li>Office building - the alarm should be silent during the day (to keep office staff from panicking) and loud in the night, when guards are on patrol.</li>
+<li>Office building - the alarm should silently notify guards during the day (to keep office staff from panicking) and loud during the night, when guards are on patrol.</li>
 <li>Storage building - as it is quite far and the workers are few, we want to trigger loud and silent alarms at the same time</li>
-<li>Guards building - as the guards are there, no need to notify them with silent alarm, but a loud alarm is desired</li>
+<li>Guards building - as the guards are there, no need to notify them. However, a silent alarm should call police for help instead, and a loud alarm is desired as well</li>
 </ul>
-<p>The composition of objects fulfilling these needs could look like this:</p>
+<p>Note that besides just triggering loud or silent alarm, we have a requirement for a combination (“loud and silent alarms at the same time”) and a conditional (“silent during the day and loud during the night”). we could just hardcode some <code>for</code>s and <code>if-else</code>s in our code, but instead, let’s factor out these two operations (combination and choice) into separate classes implementing the alarm interface.</p>
+<p>Let’s call the class implementing the choice between two alarms <code>DayNightSwitchedAlarm</code>. Here is the source code:</p>
+<pre><code>public class DayNightSwitchedAlarm : Alarm
+{
+  private readonly Alarm _dayAlarm;
+  private readonly Alarm _nightAlarm;
+  
+  public DayNightSwitchedAlarm(
+    Alarm dayAlarm,
+    Alarm nightAlarm)
+  {
+    _dayAlarm = dayAlarm;
+    _nightAlarm = nightAlarm;
+  }
+  
+  public void Trigger()
+  {
+    if(/* is day */)
+    {
+      _dayAlarm.Trigger();
+    }
+    else
+    {
+      _nightAlarm.Trigger();
+    }
+  }
+
+  public void Disable()
+  {
+    _dayAlarm.Disable();
+    _nightAlarm.Disable();
+  }
+}</code></pre>
+<p>Studying the above code, it is apparent that this is not an alarm <em>per se</em>, e.g. it does not raise any sound or notification, but rather, it contains some rules on how to use other alarms. This is the same concept as power splitters in real life, which act as electric devices but do not do anything other than redirecting the electricity to other devices.</p>
+<p>Next, let’s use the same approach and model the combination of two alarms as a class called <code>HybridAlarm</code>. Here is the source code:</p>
+<pre><code>public class HybridAlarm : Alarm
+{
+  private readonly Alarm _alarm1;
+  private readonly Alarm _alarm2;
+  
+  public HybridAlarm(
+    Alarm alarm1,
+    Alarm alarm2)
+  {
+    _alarm1 = alarm1;
+    _alarm2 = alarm2;
+  }
+  
+  public void Trigger()
+  {
+    _alarm1.Trigger();
+    _alarm2.Trigger();
+  }
+
+  public void Disable()
+  {
+    _alarm1.Disable();
+    _alarm2.Disable();
+  }
+}</code></pre>
+<p>Using these two classes along with already existing alarms, we can implement the requirements by composing instances of those classes like this:</p>
 <pre><code>new SecureArea(
   new OfficeBuilding(
     new DayNightSwitchedAlarm(
-      new SilentAlarm(), 
+      new SilentAlarm(&quot;222-333-444&quot;), 
       new LoudAlarm()
     )
   ),
   new StorageBuilding(
     new HybridAlarm(
-      new SilentAlarm(),
+      new SilentAlarm(&quot;222-333-444&quot;),
       new LoudAlarm()
     )
   ),
   new GuardsBuilding(
-    new LoudAlarm()
+    new HybridAlarm(
+      new SilentAlarm(&quot;919&quot;), //call police
+      new LoudAlarm()
+    )
   )
 );</code></pre>
-<p>The parts I would like to turn your attention to are: <code>HybridAlarm</code> and <code>DayNightSwitchedAlarm</code>. These are both classes implementing the <code>Alarm</code> interface, at the same time taking <code>Alarm</code> implementations as their constructor arguments. For example, <code>DayNightSwitchedAlarm</code> uses different alarm during the day and another during the night. Note that this allows us to change the alarm behaviors in many interesting ways using the parts we already have, but composing them together differently. For example, we might have, as in the above example:</p>
+<p>Note that the fact that we implemented combination and choice of alarms as separate objects implementing the <code>Alarm</code> interface allows us to define new, interesting alarm behaviors using the parts we already have, but composing them together differently. For example, we might have, as in the above example:</p>
 <pre><code>new DayNightSwitchAlarm(
-  new SilentAlarm(), 
+  new SilentAlarm(&quot;222-333-444&quot;), 
   new LoudAlarm());</code></pre>
 <p>which would mean triggering silent alarm during a day and loud one during night. However, instead of this combination, we might use:</p>
 <pre><code>new DayNightSwitchAlarm(
-  new SilentAlarm(),
+  new SilentAlarm(&quot;222-333-444&quot;),
   new HybridAlarm(
-    new SilentAlarm(),
+    new SilentAlarm(&quot;919&quot;),
     new LoudAlarm()
   )
 )</code></pre>
-<p>Which would mean that we use silent alarm during the day, but a combination of silent and loud during the night.</p>
+<p>Which would mean that we use silent alarm to notify the guards during the day, but a combination of silent (notifying police) and loud during the night. Of course, we are not limited to combining a silent alarm with a loud one only. We can as well combine two silent ones:</p>
+<pre><code>new HybridAlarm(
+  new SilentAlarm(&quot;919&quot;),
+  new SilentAlarm(&quot;222-333-444&quot;)
+)</code></pre>
 <p>Additionally, if we suddenly decided that we do not want alarm at all during the day, we could use a special class called <code>NoAlarm</code> that would implement <code>Alarm</code> interface, but have both <code>Trigger</code> and <code>Disable</code> methods do nothing. The composition code would look like this:</p>
 <pre><code>new DayNightSwitchAlarm(
-  new NoAlarm(), // no alarm during day
+  new NoAlarm(), // no alarm during the day
   new HybridAlarm(
-    new SilentAlarm(),
+    new SilentAlarm(&quot;919&quot;),
     new LoudAlarm()
   )
 )</code></pre>
@@ -3111,27 +3179,27 @@ alarm = new LoudAlarm(); </code></pre>
   new NoAlarm()
 )</code></pre>
 <p>Noticed something funny about the last few examples? If not, here goes an explanation: in the last few examples, we have twisted the behaviors of our application in wacky ways, but all of this took place in the composition code! We did not have to modify any other existing classes! True, we had to write a new class called <code>NoAlarm</code>, but did not need to modify any other code than the composition code to make objects if this new class work with objects of existing classes!</p>
-<p>This ability to change the behavior of our application just by changing the way objects are composed together is extremely powerful (although you will always be able to achieve it only to certain extent), especially in evolutionary, incremental design, where we want to evolve some pieces of code with as little as possible other pieces of code having to realize that the evolution takes place..</p>
+<p>This ability to change the behavior of our application just by changing the way objects are composed together is extremely powerful (although you will always be able to achieve it only to certain extent), especially in evolutionary, incremental design, where we want to evolve some pieces of code with as little as possible other pieces of code having to realize that the evolution takes place. This ability can be achieved only if our system consists of composable objects, thus the need for composability - an answer to a question raised at the beginning of this chapter.</p>
 <h2 id="summary---are-you-still-with-me"><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></h2>
-<p>Although we started with what seemed to be a repetition from basic object oriented programming class, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
+<p>We started with what seemed to be a repetition from basic object oriented programming course, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
 <p>In the next chapter, we will take a closer look at composing objects itself.</p>
-<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h1>
 <h1 id="web-messages-and-protocols"><a href="#web-messages-and-protocols">Web, messages and protocols</a></h1>
 <p>In the last chapter, we talked a little bit about why composability is valuable, now let’s flesh a little bit of terminology to get more precise understanding.</p>
 <h2 id="so-again-what-does-it-mean-to-compose-objects"><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></h2>
 <p>Basically it means that an object has obtained a reference to another object and is able to invoke methods on it. By being composed together, two objects form a small system that can be expanded with more objects as needed. Thus, a bigger object oriented system forms something similar to a web:</p>
 <div class="figure">
-<img src="images/WebOfObjects.png" alt="Web of objects" /><p class="caption">Web of objects</p>
+<img src="images/WebOfObjects.png" alt="Web of objects - the circles are the objects and the arrows are methods invocations from one object on another" /><p class="caption">Web of objects - the circles are the objects and the arrows are methods invocations from one object on another</p>
 </div>
-<p>where the circles are the objects and the arrows are methods invocations from one object on another.</p>
-<p>If we take the web metaphor a little bit further, we can note some similarities to e.g. a TCP network:</p>
+<p>If we take the web metaphor a little bit further, we can note some similarities to e.g. a TCP/IP network:</p>
 <ol style="list-style-type: decimal">
-<li>An object can send <strong>messages</strong> to other objects (i.e. call methods on them - arrows on the above diagram) using <strong>interfaces</strong>. Each message has a <strong>sender</strong> and a <strong>recipient</strong>.</li>
-<li>In order to send a message to a recipient, a sender has to acquire an <strong>address</strong> of the recipient, which, in object oriented world, we call a reference (actually, prior to virtual machines, references were just that - addresses in memory. With virtual machines around, this may be a little more complicated).</li>
-<li>A communication between sender and recipients has to obey certain <strong>protocol</strong> (don’t worry if you do not see th analogy now - I’ll follow up with more explanation of this topic later).</li>
+<li>An object can send <strong>messages</strong> to other objects (i.e. call methods on them - arrows on the above diagram) via <strong>interfaces</strong>. Each message has a <strong>sender</strong> and at least one <strong>recipient</strong>.</li>
+<li>In order to send a message to a recipient, a sender has to acquire an <strong>address</strong> of the recipient, which, in object oriented world, we call a reference (actually, in languages such as C++, references are just that - addresses in memory).</li>
+<li>A communication between sender and recipients has to obey certain <strong>protocol</strong>. For example, a sender usually cannot invoke a method passing nulls as all arguments, or should expect an exception if it does so. Don’t worry if you do not see the analogy now - I’ll follow up with more explanation of this topic later).</li>
 </ol>
-<p>Let us try to apply this terminology to an example. Let’s say that we have an anti-fire alarm system in an office that, when triggered, makes all lifts go to bottom floor, opens them and then disables them. Among others, the office contains automatic lifts, that contain their own control systems and mechanical lifts, that are controlled from the outside by a special custom mechanism. Now to write some code! We will have some objects like alarm, automatic lift and mechanical lift.</p>
-<p>First, we do not want the alarm to have to distinguish between automatic and mechanical lifts - this would only add complexity to alarm system. Thus, we need a special <strong>interface</strong> (let’s call it <code>Lift</code>) to communicate with both <code>AutoLift</code> and <code>MechanicalLift</code>. Through this interface, an alarm will be able to send messages to both types of lifts without having to know a difference between them.</p>
+<h2 id="alarms-again"><a href="#alarms-again">Alarms, again!</a></h2>
+<p>Let us try to apply this terminology to an example. Let’s say that we have an anti-fire alarm system in an office that, when triggered, makes all lifts go to bottom floor, opens them and then disables them. Among others, the office contains automatic lifts, that contain their own remote control systems and mechanical lifts, that are controlled from the outside by a special custom-made mechanism.</p>
+<p>Let’s try to model this behavior in code. As you might have guessed, we will have some objects like alarm, automatic lift and mechanical lift. The alarm will control the lifts when triggered.</p>
+<p>First, we do not want the alarm to have to distinguish between an automatic and a mechanical lift - this would only add complexity to alarm system, especially that there are plans to add a third kind of lift - a more modern one, so if we made the alarm aware of the different kinds, we would have to modify it each time a new kind of lift is introduced. Thus, we need a special <strong>interface</strong> (let’s call it <code>Lift</code>) to communicate with both <code>AutoLift</code> and <code>MechanicalLift</code> (and <code>ModernLift</code> in the future). Through this interface, an alarm will be able to send messages to both types of lifts without having to know the difference between them.</p>
 <pre><code>public interface Lift
 {
   ...
@@ -3149,15 +3217,14 @@ public class MechanicalLift : Lift
 <p>Next, to be able to communicate with specific lifts through the <code>Lift</code> interface, an alarm object has to acquire <strong>“addresses”</strong> of the lift objects (i.e. references to them). We can pass them e.g. through a constructor:</p>
 <pre><code>public class Alarm
 {
+  private readonly IEnumerable&lt;Lift&gt; _lifts;
+  
   //obtain &quot;addresses&quot; through here
   public Alarm(IEnumerable&lt;Lift&gt; lifts)
   {
     //store the &quot;addresses&quot; for later use
     _lifts = lifts;
   }
-
-  private readonly IEnumerable&lt;Lift&gt; _lifts;
-
 }</code></pre>
 <p>Then, the alarm can send three kinds of <strong>messages</strong>: <code>GoToBottomFloor()</code>, <code>OpenDoor()</code>, and <code>DisablePower()</code> to any of the lifts through the <code>Lift</code> interface:</p>
 <pre><code>public interface Lift
@@ -3166,7 +3233,7 @@ public class MechanicalLift : Lift
   void OpenDoor();
   void DisablePower();
 }</code></pre>
-<p>and, as a matter of fact, it sends all these messages when triggered:</p>
+<p>and, as a matter of fact, it sends all these messages when triggered. The <code>Trigger()</code> method on the alarm looks like this:</p>
 <pre><code>public void Trigger()
 {
   foreach(var lift in _lifts)
@@ -3176,18 +3243,18 @@ public class MechanicalLift : Lift
     lift.DisablePower();
   }
 }</code></pre>
-<p>By the way, note that the order in which the messages are sent <strong>does</strong> matter. For example, if we disabled the power first, asking the powerless lift to go anywhere would be impossible.</p>
-<p>In this communication, <code>Alarm</code> is a <strong>sender</strong> - it knows what it is sending, it knows why, but does not know exactly what are the recipients going to do when they receive the message - its knowledge ends on the fact that it is communicating through the <code>Lift</code> interface. The rest is left to objects that implement <code>Lift</code> (namely, <code>AutoLift</code> and <code>MechanicalLift</code>). They are <strong>recipients</strong> - they do not know who they got the message from (unless they are told in the content of the message somehow - but even then they can be cheated), but they know how to react, based on who they are, what the kind of the message they received and what’s the message content (i.e. method arguments - in this simplistic example there are none, actually).</p>
-<p>To illustrate that this separation between a sender and a recipient does, in fact, exist, it is sufficient to say that we could even write an implementation of <code>Lift</code> interface that would just ignore the messages it got from the alarm (or fake that it did what it was asked for) and the alarm will not even notice.</p>
+<p>By the way, note that the order in which the messages are sent <strong>does</strong> matter. For example, if we disabled the power first, asking the powerless lift to go anywhere would be impossible. This is a first sign of a <strong>protocol</strong> existing between the <code>Alarm</code> and a <code>Lift</code>.</p>
+<p>In this communication, <code>Alarm</code> is a <strong>sender</strong> - it knows what it is sending (controlling lifts), it knows why (because the alarm is triggered), but does not know what exactly are the recipients going to do when they receive the message - it only knows what it <strong>wants</strong> them to do, but does not know <strong>how</strong> they are going to achieve it. The rest is left to objects that implement <code>Lift</code> (namely, <code>AutoLift</code> and <code>MechanicalLift</code>). They are <strong>recipients</strong> - they do not know who they got the message from (unless they are told in the content of the message somehow - but even then they can be cheated), but they know how to react, based on who they are (<code>AutoLift</code> has its own way of reacting and <code>MechanicalLift</code> has its own), what kind of the message they received (a lift does different thing when asked to go to bottom floor than when it is asked to open its door) and what’s the message content (i.e. method arguments - in this simplistic example there are none, actually).</p>
+<p>To illustrate that this separation between a sender and a recipient does, in fact, exist, it is sufficient to say that we could even write an implementation of <code>Lift</code> interface that would just ignore the messages it got from the <code>Alarm</code> (or fake that it did what it was asked for) and the <code>Alarm</code> will not even notice. We sometimes say that this is not the <code>Alarm</code>’s responsibility.</p>
 <div class="figure">
 <img src="images/SenderRecipientMessage.png" alt="Sender, interface, and recipient" /><p class="caption">Sender, interface, and recipient</p>
 </div>
 <p>Ok, I hope we got that part straight. Time for some new requirements. It has been decided that whenever any malfunction happens in the lift when it is executing the alarm emergency procedure, the lift object should report this by throwing an exception called <code>LiftUnoperationalException</code>. This affects both <code>Alarm</code> and implementations of <code>Lift</code>:</p>
 <ol style="list-style-type: decimal">
-<li>The <code>Lift</code> implementations need to know that when a malfunction happens, they should report it by throwing the said exception.</li>
+<li>The <code>Lift</code> implementations need to know that when a malfunction happens, they should report it by throwing the exception.</li>
 <li>The <code>Alarm</code> must be ready to handle the exception thrown from lifts and act accordingly (e.g. still try to secure other lifts).</li>
 </ol>
-<p>Here is an exemplary code of <code>Alarm</code> handling the malfunction reports:</p>
+<p>Here is an exemplary code of <code>Alarm</code> handling the malfunction reports in its <code>Trigger()</code> method:</p>
 <pre><code>public void Trigger()
 {
   foreach(var lift in _lifts)
@@ -3204,53 +3271,60 @@ public class MechanicalLift : Lift
     }
   }
 }</code></pre>
-<p>In other words, there is a <strong>protocol</strong> between <code>Alarm</code> and <code>Lift</code> that must be adhered to by both sides.</p>
+<p>This is a second example of a <strong>protocol</strong> existing between <code>Alarm</code> and <code>Lift</code> that must be adhered to by both sides.</p>
 <h2 id="summary-5"><a href="#summary-5">Summary</a></h2>
-<p>Each of the objects in the web can receive messages and most of them send messages to other objects. Throughout the next chapters, I will refer to an object sending a message as sender and an object receiving a message as recipient.</p>
+<p>Each of the objects in the web can receive messages and most of them send messages to other objects. Throughout the next chapters, I will refer to an object sending a message as <strong>sender</strong> and an object receiving a message as <strong>recipient</strong>.</p>
+<p>For now, it may look unjustified to introduce this metaphor of webs, protocols, interfaces etc. but:</p>
+<ul>
+<li>This is the way object oriented programming inventors<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> have thought about object oriented systems</li>
+<li>It will prove useful as I explain making connections between objects and achieving strong composability in the next chapters</li>
+</ul>
 <h1 id="composing-a-web-of-objects"><a href="#composing-a-web-of-objects">Composing a web of objects</a></h1>
 <h2 id="three-important-questions"><a href="#three-important-questions">Three important questions</a></h2>
-<p>Ok, I told you that there is such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
-<p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. The question itself is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
+<p>Ok, I told you that such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
+<p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. In addition, this is a question that is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
 <ol style="list-style-type: decimal">
-<li>How does an object obtain a reference to another one in the web?</li>
-<li>When are objects composed?</li>
-<li>Where are objects composed?</li>
+<li>How does an object obtain a reference to another one in the web (i.e. how a connection is made)?</li>
+<li>When are objects composed (i.e. when a connection is made)?</li>
+<li>Where are objects composed (i.e. where a connection is made)?</li>
 </ol>
-<p>For now, you may have some trouble understanding why these questions are important, but the good news is that you won’t have to trust me too long, because these questions are the topic of this chapter.</p>
+<p>For now, you may have some trouble understanding why these questions are important, but the good news is that you won’t have to trust me too long, because these questions are the topic of this chapter. Let’s go!</p>
+<h2 id="a-preview"><a href="#a-preview">A preview</a></h2>
 <p>Before we take a deep dive, let’s try to answer these questions for a really simple example code of a console application:</p>
 <pre><code>public static void Main(string[] args)
 {
   var sender = new Sender(new Recipient());
 }</code></pre>
 <ol style="list-style-type: decimal">
-<li>How does an object (<code>Sender</code>) obtain a reference to another one (<code>Recipient</code>)? The reference is passed through constructor.</li>
-<li>When are objects composed? During application startup.</li>
-<li>Where are objects composed? At application entry point (<code>Main()</code> method)</li>
+<li>How does an object (<code>Sender</code>) obtain a reference to another one (<code>Recipient</code>)? Answer: the reference is passed through constructor.</li>
+<li>When are objects composed? Answer: during application startup.</li>
+<li>Where are objects composed? Answer: at application entry point (<code>Main()</code> method)</li>
 </ol>
-<p>Depending on circumstances, we have sets of best answers to these questions. But first, let us take the questions on one by one.</p>
-<h2 id="how-does-sender-obtain-a-reference-to-recipient"><a href="#how-does-sender-obtain-a-reference-to-recipient">How does sender obtain a reference to recipient?</a></h2>
-<p>There are few ways, each of them useful in certain circumstances:</p>
-<h3 id="pass-as-constructor-parameter"><a href="#pass-as-constructor-parameter">Pass as constructor parameter</a></h3>
+<p>Depending on circumstances, we have different sets of best answers to these questions. To find them, let us take the questions on one by one.</p>
+<h2 id="how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made"><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></h2>
+<p>There are few ways this happens, each of them useful in certain circumstances:</p>
+<h3 id="receive-as-constructor-parameter"><a href="#receive-as-constructor-parameter">Receive as constructor parameter</a></h3>
 <p>Two objects can be composed by passing one into the constructor of another:</p>
 <pre><code>sender = new Sender(recipient);</code></pre>
-<p>A sender is composed with a recipient and saves a reference to the recipient in a private field for later, like this:</p>
+<p>A sender then saves a reference to the recipient in a private field for later, like this:</p>
 <pre><code>public Sender(Recipient recipient)
 {
   this._recipient = recipient;
 }</code></pre>
 <p>Composing using constructors has one significant advantage. The code that passes <code>Recipient</code> to <code>Sender</code> through constructor is most often in a totally different place than the code using <code>Sender</code>. Thus, the code using <code>Sender</code> is not aware that <code>Sender</code> stores a reference to <code>Recipient</code> inside it. This basically means that when <code>Sender</code> is used, e.g. like this:</p>
 <pre><code>sender.DoSomething()</code></pre>
-<p><code>Sender</code> may send message to <code>Recipient</code> internally, but the code invoking the <code>DoSomething()</code> method is completely unaware of that. Which is good, because “what you hide, you can change” - if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty, the code that uses <code>Sender</code> does not need to change at all - it still uses the <code>Sender</code> the same way:</p>
+<p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that. Which is good, because “what you hide, you can change”<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> - if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty (or pass in a different implementation of <code>Sender</code> that does not need the <code>Recipient</code>), the code that uses <code>Sender</code> does not need to change at all - it still uses the <code>Sender</code> the same way:</p>
 <pre><code>sender.DoSomething()</code></pre>
-<p>All we have to change is the composition code:</p>
+<p>All we have to change is the composition code to remove <code>Recipient</code>:</p>
 <pre><code>//no need to pass a reference to Recipient anymore
-sender = new Sender();</code></pre>
-<p>Passing into constructor is a great way to compose sender with a recipient permanently. In order to be able to do this, a <code>Recipient</code> must, of course, exist before a <code>Sender</code> does. Another less obvious requirement for this composition is that <code>Recipient</code> must be usable at least as long as <code>Sender</code> is usable. In other words, the following is nonsense:</p>
+new Sender();</code></pre>
+<p>Another advantage of the constructor approach is that if <code>Recipient</code> is required for a <code>Sender</code> to work correctly and it does not make sense to create a <code>Sender</code> without a <code>Recipient</code>, the signature of the constructor makes it explicit - the compiler will not let us create a <code>Sender</code> without passing <em>something</em> as a <code>Recipient</code>.</p>
+<p>Passing into constructor is a great solution in cases we want to compose sender with a recipient permanently (i.e. for the lifetime of <code>Sender</code>). In order to be able to do this, a <code>Recipient</code> must, of course, exist before a <code>Sender</code> does. Another less obvious requirement for this composition is that <code>Recipient</code> must be usable at least as long as <code>Sender</code> is usable. In other words, the following is nonsense:</p>
 <pre><code>sender = new Sender(recipient);
 recipient.Dispose(); //but sender is unaware of it 
                      //and may still use recipient in:
 sender.DoSomething();</code></pre>
-<h3 id="pass-inside-a-message-i.e.as-a-method-parameter"><a href="#pass-inside-a-message-i.e.as-a-method-parameter">Pass inside a message (i.e. as a method parameter)</a></h3>
+<h3 id="receive-inside-a-message-i.e.as-a-method-parameter"><a href="#receive-inside-a-message-i.e.as-a-method-parameter">Receive inside a message (i.e. as a method parameter)</a></h3>
 <p>Another common way of composing objects together is passing one object as a parameter of another object’s method call:</p>
 <pre><code>sender.DoSomethingWithHelpOf(recipient);</code></pre>
 <p>In such case, the objects are most often composed temporarily, just for the time of execution of this single method:</p>
@@ -3262,7 +3336,7 @@ sender.DoSomething();</code></pre>
   
   //... perform some logic
 }</code></pre>
-<p>This is a great way to compose objects when we want to use the same sender with different recipients at different times (most often from different parts of the code):</p>
+<p>Contrary to the constructor approach, where a <code>Sender</code> could hide from its user the fact that it needs <code>Recipient</code>, in this case the user of <code>Sender</code> is explicitly responsible for supplying a <code>Recipient</code>. It may look like the coupling of user to <code>Recipient</code> is a disadvantage, but there are scenarios where it is actually <strong>required</strong> for a code using <code>Sender</code> to be able to provide its own <code>Recipient</code> - it lets us use the same sender with different recipients at different times (most often from different parts of the code):</p>
 <pre><code>//in one place
 sender.DoSomethingWithHelpOf(recipient);
 
@@ -3271,8 +3345,9 @@ sender.DoSomethingWithHelpOf(anotherRecipient);
 
 //in yet another place:
 sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
-<h3 id="return-recipient-from-a-method"><a href="#return-recipient-from-a-method">Return recipient from a method</a></h3>
-<p>This method of composing objects uses another intermediary object - a factory (that creates new recipient instance on each call) or a cache (that usually yields the same object many times when asked with the same arguments). Most often, the sender is given a reference to this intermediary object as a constructor parameter (an approach we already discussed):</p>
+<p>If this ability is not required, the constructor approach is better as it removes the then unnecessary coupling between code using <code>Sender</code> and a <code>Recipient</code>.</p>
+<h3 id="get-recipient-in-response-to-message-i.e.as-method-return-value"><a href="#get-recipient-in-response-to-message-i.e.as-method-return-value">Get recipient in response to message (i.e. as method return value)</a></h3>
+<p>This method of composing objects uses another intermediary object - often a factory (that creates new recipient instance on each call)<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Most often, the sender is given a reference to this intermediary object as a constructor parameter (an approach we already discussed):</p>
 <pre><code>sender = new Sender(factory);</code></pre>
 <p>and then the intermediary object is used to deliver other objects:</p>
 <pre><code>public class Sender
@@ -3285,7 +3360,7 @@ sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
     recipient.DoSomethingElse();
   }
 }</code></pre>
-<p>This kind of composition is beneficial when a different recipient is needed each time <code>DoSomething()</code> is called (much like in case of previously discussed approach of passing recipient as a method parameter), but at the same time (contrary to passing recipient as a method parameter), the code using the <code>Sender</code> should not (or cannot) be responsible for supplying a recipient.</p>
+<p>This kind of composition is beneficial when a new recipient is needed each time <code>DoSomething()</code> is called (much like in case of previously discussed approach of receiving a recipient as a method parameter), but at the same time (contrary to the mentioned approach), it is not the code using the <code>Sender</code> that should (or can) be responsible for supplying a recipient.</p>
 <p>To be more clear, here is a comparison of two approaches: passing recipient inside a message:</p>
 <pre><code>//user of Sender passes a recipient:
 public DoSomething(Recipient recipient) 
@@ -3300,15 +3375,24 @@ public DoSomething()
   recipient.DoSomethingElse();
 }</code></pre>
 <h3 id="register-a-recipient-with-already-created-sender"><a href="#register-a-recipient-with-already-created-sender">“Register” a recipient with already created sender</a></h3>
-<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck (Implementation Patterns book) I find this convention too much implementaion-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
+<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> I find this convention too much implementaion-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
 <p>Note that this is similar to “pass inside a message” approach, only this time, the passed recipient is not used immediately and forgotten, but rather remembered for later use.</p>
-<p>Anyway, a quick example. Suppose we have a temperature sensor that can report its current and historically mean value for the current date to whoever registers with it. If no one registers, it still does its job, because mean value is based on historical data and someone might register for it at any time, right? So, part of the definition of such a sensor could look like this:</p>
+<p>I hope I can clear up the confusion with a quick example. Suppose we have a temperature sensor that can report its current and historically mean value for the current date to whoever registers with it. If no one registers, it still does its job, because it still has to be able to give a history-based mean value to whoever registers at whatever time, right?</p>
+<p>We may solve the problem by introducing an observer registration mechanism in the sensor implementation. If no observer is registered, the values are not reported (in other words, a registered observer is not required for the object to function, but if there is one, it can take advantage of the reports). For this purpose, let’s make our sensor depend on an interface called <code>TemperatureObserver</code> that could be implemented by various custom observers:</p>
+<pre><code>public interface TemperatureObserver
+{
+  void NotifyOn(
+    Temperature currentValue,
+    Temperature meanValue);  
+}</code></pre>
+<p>Now we are ready to look at the sensor implementation. Let’s make it a class called <code>TemperatureSensor</code>. Part of its definition could look like this:</p>
 <pre><code>public class TemperatureSensor
 {
   private TemperatureObserver _observer 
-    = new NullObserver(); //ignores values by default
+    = new NullObserver(); //ignores reported values
   private Temperature _meanValue = Temperature.Zero();
-  //+ maybe more fields related to storing historical data
+  
+  // + maybe more fields related to storing historical data
 
   public void Run()
   {
@@ -3323,13 +3407,25 @@ public DoSomething()
     } 
   }
 }</code></pre>
-<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). Still, we want to be able to supply our own observer one day, when we start caring about the measured and calculated values. This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with one that we provide:</p>
+<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few times before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) - <code>NullObserver</code> is just another incarnation of this pattern.</p>
+<p>Still, we want to be able to supply our own observer one day, when someone starts caring about the measured and calculated values (this may be indicated to our application e.g. with a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument:</p>
 <pre><code>public void FromNowOnReportTo(TemperatureObserver observer)
 {
   _observer = observer;
 }</code></pre>
-<p>This lets us overwrite the observer with a new one should we ever need to do it.</p>
-<p>Time for a general remark. Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional - if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for required recipients - these should all be passed through constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”.</p>
+<p>This lets us overwrite the observer with a new one should we ever need to do it. Note that, as I mentioned, this is the place where registration approach differs from the “pass inside a message” approach, where we also receive a recipient in a message, but for immediate use. Here, we don’t use the recipient (i.e. the observer) when we get it, but instead we save it for later.</p>
+<p>TODO make below a side note</p>
+<p>Time for a general remark. Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional - if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for <strong>required</strong> recipients - these should all be passed through constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”. Look at how the following class members signatures talk to you:</p>
+<pre><code>public class Sender
+{
+  //&quot;I will not work without a Recipient1&quot;
+  public Sender(Recipient1 recipient1) {...}
+  
+  //&quot;I will do fine without Recipient2 but you
+  //can overwrite the default here to take advantage
+  //of some features&quot;
+  public void Register(Recipient2 recipient2) {...}
+}</code></pre>
 <p>Now, the observer API we just skimmed over gives us the possibility to have a single observer at any given time. When we register new observer, the reference to the old one is overwritten. This is not really useful in our context, is it? With real sensors, we often want them to report their measurements to multiple places (e.g. we want the measurements printed on screen, saved to database, used as part of more complex calculations). This can be achieved in two ways.</p>
 <p>The first way would be to just hold a collection of observers in our sensor, and add to this collection whenever a new observer is registered:</p>
 <pre><code>IList&lt;TemperatureObserver&gt; _observers 
@@ -3346,46 +3442,102 @@ foreach(var observer in _observers)
   observer.NotifyOn(currentValue, meanValue);
 }
 ...</code></pre>
-<p>Another, more flexible option, is not to introduce this collection in the sensor, but instead, create a special kind of “broadcasting observer” that would hold collection of other observers (welcome composability!) and broadcast the values to them every time it itself receives those values. It could be created and registered like this:</p>
-<pre><code>var broadcastingObserver 
+<p>Another, more flexible option, is to use something like we did in the previous chapter with a <code>HybridAlarm</code> (remember? It was an alarm aggregating other alarms) - i.e. instead of introducing a collection in the sensor, create a special kind of “broadcasting observer” that would hold collection of other observers (hurrah composability!) and broadcast the values to them every time it itself receives those values:</p>
+<pre><code>public class BroadcastingObserver 
+  : TemperatureObserver
+{
+  private readonly 
+    TemperatureObserver[] _observers;
+  
+  public BroadcastingObserver(
+    params TemperatureObserver[] observers)
+  {
+    _observers = observers;
+  }
+
+  public void NotifyOn(
+    Temperature currentValue,
+    Temperature meanValue)
+  {
+    foreach(var observer in _observers)
+    {
+      observer.NotifyOn(currentValue, meanValue);
+    }
+  }  
+} </code></pre>
+<p>This <code>BroadcastingObserver</code> could be instantiated and registered like this:</p>
+<pre><code>//instantiation:
+var broadcastingObserver 
   = new BroadcastingObserver(
       new DisplayingObserver(),
       new StoringObserver(),
       new CalculatingObserver());
 
+//registration:
 sensor.FromNowOnReportTo(broadcastingObserver);</code></pre>
-<p>This would let us change the broadcasting implementation without touching either the sensor code or the other observers. For example, we might introduce <code>ParallelBroadcastObserver</code> that would notify each observer asynchronously instead of sequentially and put it to use by changing the composition code only:</p>
-<pre><code>var broadcastingObserver 
+<p>This would let us change the broadcasting policy without touching either the sensor code or the other observers. For example, we might introduce <code>ParallelBroadcastObserver</code> that would notify each observer asynchronously instead of sequentially and put it to use by changing the composition code only:</p>
+<pre><code>//now using parallel observer
+var broadcastingObserver 
   = new ParallelBroadcastObserver(
       new DisplayingObserver(),
       new StoringObserver(),
       new CalculatingObserver());
 
 sensor.FromNowOnReportTo(broadcastingObserver);</code></pre>
-<p>Anyway, as I said, use registering instances very wisely and only if you specifically need it. Also, if you do use it, evaluate how allowing changing observers at runtime is affected by multithreading scenarios. This is because maintaining a changeable field (or a collection) throughout the object lifetime means that multiple thread might access it and get in each other’s way.</p>
+<p>Anyway, as I said, use registering instances very wisely and only if you specifically need it. Also, if you do use it, evaluate how allowing changing observers at runtime is affecting your multithreading scenarios. This is because maintaining a changeable field (or a collection) throughout the object lifetime means that multiple thread might access it and get in each others’ ways.</p>
 <h2 id="where-are-objects-composed"><a href="#where-are-objects-composed">Where are objects composed?</a></h2>
-<p>Ok, we went over some ways of passing a recipient to a sender. The big question is: which code is going to pass the reference?</p>
-<p>For almost all of the approaches described above there is no limitation - you pass the reference where you need to pass it.</p>
+<p>Ok, we went through some ways of passing a recipient to a sender. The big question is: which code should pass the recipient?</p>
+<p>For almost all of the approaches described above there is no limitation - you pass the recipient from where you need to pass it.</p>
 <p>There is one approach, however, that is more limited, and this approach is <strong>passing as constructor parameter</strong>.</p>
-<p>Why is that? Well, remember we were talking about separating objects usage from construction, right? And invoking constructor imples creating an object, right? Which implies that we can assemble objects using constructors only in the places we separated creation of objects to.</p>
-<p>Typically, there are two such types of places: <strong>composition root</strong> and <strong>factories</strong>. Let us take them one by one.</p>
+<p>Why is that? Well, remember we were talking about separating objects usage from construction, right? And invoking constructor implies creating an object, right? Which means that we can assemble objects using constructors only in the places where we moved the creation of the objects to.</p>
+<p>Typically, there are two such types of places: <strong>composition root</strong> and <strong>factories</strong> (or other creational design pattern incarnations). Let’s start with the first one.</p>
 <h3 id="composition-root"><a href="#composition-root">Composition Root</a></h3>
-<p>A composition root is a location near application entry point where you compose the part of the system on which you invoke your <code>Run()</code>, <code>Execute()</code>, <code>Go()</code> or whatever.</p>
-<p>For simplification, let’s take an example of a console application. Usually, when not using any framework, your application is symbolized as a class:</p>
+<p>A composition root is a location near application entry point where you compose the part of the system on which you invoke your <code>Run()</code>, <code>Execute()</code>, <code>Go()</code> or whatever, i.e. the part of the web that is necessary for the application to start running.</p>
+<p>For simplification, let’s take an example of a console application. In such case, your application usually has some kind of a single top-level class that serves as a starting point. In this example, I called it <code>MyApplication</code>:</p>
 <pre><code>public static void Main(string[] args)
 {
   var myApplication = new MyApplication();
-  myApplication.RunWith(args);
+  myApplication.Run();
 }</code></pre>
 <p>The above is a simple composition root.</p>
 <p>TODO</p>
 <h3 id="factories"><a href="#factories">Factories</a></h3>
-<p>Factories are objects responsible for creating other objects. They are a layer of abstraction over constructors. A lot of times I talk with people, they do not understand the benefits of using factories “since we already have the <code>new</code> operator”. But factories present a number of benefits:</p>
-<p>TODO what a factory is? a small example?</p>
-<h4 id="they-allow-creating-objects-polymorphically"><a href="#they-allow-creating-objects-polymorphically">They allow creating objects polymorphically</a></h4>
-<p>Typically, a return type of a factory is an interface or, at worst, an abstract class. This means that whatever uses the factory, knows only that it receives an object of that type.</p>
-<p>Let’s say we have a factory like this:</p>
-<pre><code>public class Version1ProtocolMessageFactory
+<p>Factories are objects responsible for creating other objects. They are a level of indirection placed above constructors to achieve flexibility (as you will see in the examples in this section).</p>
+<p>The simplest possible example of a factory is something along the following lines:</p>
+<pre><code>public class MyMessageFactory
+{
+  public MyMessage CreateMyMessage()
+  {
+    return new MyMessage();
+  }
+}</code></pre>
+<p>Although in this shape, the usefulness of the factory is quite limited, because there is not much indirection in here. More often, when talking about simple factories, we think about something like this:</p>
+<pre><code>//let&#39;s assume MessageFactory 
+//and Message are interfaces
+public class XmlMessageFactory : MessageFactory
+{
+  public Message CreateSessionInitialization()
+  {
+    return new XmlSessionInitialization(_serialization);
+  }
+}</code></pre>
+<p>Note the two things that the factory in the second example has that the one in the first example does not:</p>
+<ul>
+<li>it implements an interface (one level of indirection)</li>
+<li>its <code>CreateSessionInitialization()</code> method declares a return type to be an interface (another level of indirection)</li>
+</ul>
+<p>In order for you to use factories effectively, I need you to understand why this indirection is useful, especially that when I talk with people, they often do not understand the benefits of using factories, “because we already have the <code>new</code> operator to create objects”. So, here are the benefits of using factories:</p>
+<h4 id="factories-allow-creating-objects-polymorphically-encapsulation-of-type"><a href="#factories-allow-creating-objects-polymorphically-encapsulation-of-type">Factories allow creating objects polymorphically (encapsulation of type)</a></h4>
+<p>When we invoke a <code>new</code> operator, we have to put a name of a concrete type next to it:</p>
+<pre><code>new List&lt;int&gt;(); //OK!
+new IList&lt;int&gt;(); //won&#39;t compile...</code></pre>
+<p>Factories are different. Because we get objects from factories by invoking a method, not by saying which class we want to get instantiated, we can take advantage of polymorhism, i.e. our factory may have a method like this:</p>
+<pre><code>IList&lt;int&gt; createContainerForData() {...}</code></pre>
+<p>and everything is well as long as the code of this method returns an instance of a real class (say, <code>List&lt;int&gt;</code>).</p>
+<p>It is typical for a return type of a factory to be an interface or, at worst, an abstract class. This means that whatever uses the factory, it knows only that it receives an object of that type. This means that a factory may return objects of different types at different times, depending on some rules only they know.</p>
+<p>Time to look at some more realistic example of how to apply this. Let’s say we have a factory of messages like this:</p>
+<pre><code>public class Version1ProtocolMessageFactory 
+  : MessageFactory
 {
   public Message createFrom(MessageData rawData)
   {
@@ -3402,13 +3554,33 @@ sensor.FromNowOnReportTo(broadcastingObserver);</code></pre>
     }
   }
 }</code></pre>
-<p>Note that the factory can create many different types of messages depending on what is in the raw data, but for the user of the factory, this is irrelevant. All that is seen by the user is this:</p>
+<p>Note that the factory can create many different types of messages depending on what is inside the raw data, but for the user of the factory, this is irrelevant. All that it knows is that it gets a <code>Message</code>, thus, it (and additional code operating on messages for that matter) can be written as general-purpose logic:</p>
 <pre><code>var message = _messageFactory.NewInstanceFrom(rawData);
 message.ValidateUsing(_primitiveValidations);
 message.ApplyTo(_sessions);</code></pre>
-<p>So, whatever is going on in the factory, it is hidden from the users of the factory.</p>
-<p>TODO no need to change if rule changes</p>
-<h4 id="they-are-themselves-polymorphic"><a href="#they-are-themselves-polymorphic">They are themselves polymorphic</a></h4>
+<p>Note that while the above code needs to change when the rule “first validate, then apply to sessions” changes, it does not need to change when all we do is adding new type of message that complies with the current logic. The only place we need to change in such case is the factory:</p>
+<pre><code>public class Version1ProtocolMessageFactory
+  : MessageFactory
+{
+  public Message createFrom(MessageData rawData)
+  {
+    switch(rawData.MessageType)
+    {
+      case Messages.SessionInit:
+        return new SessionInit(rawData);
+      case Messages.SessionEnd:
+        return new SessionEnd(rawData);
+      case Messages.SessionPayload:
+        return new SessionPayload(rawData);
+      case Messages.SessionRefresh: //new message type!
+        return new SessionRefresh(rawData);
+      default:
+        throw new UnknownMessage(rawData);
+    }
+  }
+}</code></pre>
+<p>This makes maintaining code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (e.g. in case when we do not need to initiate a session anymore) [^encapsulatewhatvaries].</p>
+<h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule"><a href="#factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</a></h4>
 <p>So far, I keep talking about composability over and over again so much that you’re probably already sick of the word. But hey, here comes another benefit of the factory - in contrast to constructors, they are composable.</p>
 <p>We may have a class that uses a factory:</p>
 <pre><code>public class MessageInbound
@@ -3449,6 +3621,7 @@ var xmlMessageInbound
 <li>They allow decoupling from some of the dependencies of created objects (lower coupling)</li>
 <li>They allow naming rulesets for object creation (better readability)</li>
 </ol>
+<h4 id="they-allow-to-hide-some-of-the-constructor-parameters-from-their-users-encapsulation-of-dependencies"><a href="#they-allow-to-hide-some-of-the-constructor-parameters-from-their-users-encapsulation-of-dependencies">They allow to hide some of the constructor parameters from their users (encapsulation of dependencies)</a></h4>
 <h2 id="when-are-objects-composed"><a href="#when-are-objects-composed">When are objects composed?</a></h2>
 <p>Most of our system is assembled up-front when the application starts and stays this way until the application finishes executing. But not all of it. Let’s call this part the static part of the web. We will talk about <strong>composition root</strong> pattern that guides definition of that part.</p>
 <p>Apart from that, there’s the dynamic part. The first thing that leads to this dynamism is the lifetime of the objects that are connected. Some objects represent requests that arrive during the application runtime, are processed and then discarded. When there is no need to process such a request anymore, the objects representing it are discarded as well. Other objects represent items in the cache that live for some time and then expire etc. so it’s impossible to define these objects up-front. Soon, we will talk about the <strong>Factory</strong> pattern that will let us handle creation and composition of such short-lived objects.</p>
@@ -3457,6 +3630,7 @@ var xmlMessageInbound
 <p>First, let’s take a look at different ways of acquiring an object by another object:</p>
 <p>Now that we discussed how to pass a reference to recipient into a sender, let’s take a look at places it can be done:</p>
 <p>TODO factory and composition root</p>
+<p>[^encapsulatewhatvaries] Note that this is an application of Gang of Four guideline: “encapsulate what varies”</p>
 <h1 id="worse-and-better-composability"><a href="#worse-and-better-composability">Worse and better composability</a></h1>
 <p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
@@ -3895,7 +4069,12 @@ foreach(var session in sessions)
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>I am smiplifying the discussion on purpose, leaving out e.g. functional languages and assuming that “pre-object oriented” means procedural or structural. While this is not true in general, this is how the reality looked like for many of us. If you are good at functional programming, you already understand the benefits of composability<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>I am simplifying the discussion on purpose, leaving out e.g. functional languages and assuming that “pre-object oriented” means procedural or structural. While this is not true in general, this is how the reality looked like for many of us. If you are good at functional programming, you already understand the benefits of composability.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>More on context-independence and what these “special places” are, in the next chapters.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>TODO citation by Alan Kay needed # THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>I got this saying from Amir Kolsky and Scott Bain<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>While factory is the most often used, other creational patterns such as builder also fall into this category. Other than this, we may have caches, that usually hold ready to use objects and yields them when requested.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>Kent Beck, Implementation Patterns<a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
 </body>
