@@ -97,6 +97,7 @@
 <li><a href="#alarms-again">Alarms, again!</a></li>
 <li><a href="#summary-5">Summary</a></li>
 </ul></li>
+<li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
 <li><a href="#composing-a-web-of-objects">Composing a web of objects</a><ul>
 <li><a href="#three-important-questions">Three important questions</a></li>
 <li><a href="#a-preview">A preview</a></li>
@@ -3218,7 +3219,7 @@ public class MechanicalLift : Lift
 <pre><code>public class Alarm
 {
   private readonly IEnumerable&lt;Lift&gt; _lifts;
-  
+
   //obtain &quot;addresses&quot; through here
   public Alarm(IEnumerable&lt;Lift&gt; lifts)
   {
@@ -3276,11 +3277,13 @@ public class MechanicalLift : Lift
 <p>Each of the objects in the web can receive messages and most of them send messages to other objects. Throughout the next chapters, I will refer to an object sending a message as <strong>sender</strong> and an object receiving a message as <strong>recipient</strong>.</p>
 <p>For now, it may look unjustified to introduce this metaphor of webs, protocols, interfaces etc. but:</p>
 <ul>
-<li>This is the way object oriented programming inventors<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> have thought about object oriented systems</li>
+<li>This is the way <a href="http://c2.com/cgi/wiki?AlanKayOnMessaging">object oriented programming inventors</a> have thought about object oriented systems</li>
 <li>It will prove useful as I explain making connections between objects and achieving strong composability in the next chapters</li>
 </ul>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h1>
 <h1 id="composing-a-web-of-objects"><a href="#composing-a-web-of-objects">Composing a web of objects</a></h1>
 <h2 id="three-important-questions"><a href="#three-important-questions">Three important questions</a></h2>
+<p>łódź</p>
 <p>Ok, I told you that such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
 <p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. In addition, this is a question that is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
 <ol style="list-style-type: decimal">
@@ -3313,7 +3316,7 @@ public class MechanicalLift : Lift
 }</code></pre>
 <p>Composing using constructors has one significant advantage. The code that passes <code>Recipient</code> to <code>Sender</code> through constructor is most often in a totally different place than the code using <code>Sender</code>. Thus, the code using <code>Sender</code> is not aware that <code>Sender</code> stores a reference to <code>Recipient</code> inside it. This basically means that when <code>Sender</code> is used, e.g. like this:</p>
 <pre><code>sender.DoSomething()</code></pre>
-<p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that. Which is good, because “what you hide, you can change”<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> - if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty (or pass in a different implementation of <code>Sender</code> that does not need the <code>Recipient</code>), the code that uses <code>Sender</code> does not need to change at all - it still uses the <code>Sender</code> the same way:</p>
+<p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that. Which is good, because “what you hide, you can change”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> - if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty (or pass in a different implementation of <code>Sender</code> that does not need the <code>Recipient</code>), the code that uses <code>Sender</code> does not need to change at all - it still uses the <code>Sender</code> the same way:</p>
 <pre><code>sender.DoSomething()</code></pre>
 <p>All we have to change is the composition code to remove <code>Recipient</code>:</p>
 <pre><code>//no need to pass a reference to Recipient anymore
@@ -3347,7 +3350,7 @@ sender.DoSomethingWithHelpOf(anotherRecipient);
 sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
 <p>If this ability is not required, the constructor approach is better as it removes the then unnecessary coupling between code using <code>Sender</code> and a <code>Recipient</code>.</p>
 <h3 id="get-recipient-in-response-to-message-i.e.as-method-return-value"><a href="#get-recipient-in-response-to-message-i.e.as-method-return-value">Get recipient in response to message (i.e. as method return value)</a></h3>
-<p>This method of composing objects uses another intermediary object - often a factory (that creates new recipient instance on each call)<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Most often, the sender is given a reference to this intermediary object as a constructor parameter (an approach we already discussed):</p>
+<p>This method of composing objects uses another intermediary object - often a factory (that creates new recipient instance on each call)<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Most often, the sender is given a reference to this intermediary object as a constructor parameter (an approach we already discussed):</p>
 <pre><code>sender = new Sender(factory);</code></pre>
 <p>and then the intermediary object is used to deliver other objects:</p>
 <pre><code>public class Sender
@@ -3375,7 +3378,7 @@ public DoSomething()
   recipient.DoSomethingElse();
 }</code></pre>
 <h3 id="register-a-recipient-with-already-created-sender"><a href="#register-a-recipient-with-already-created-sender">“Register” a recipient with already created sender</a></h3>
-<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> I find this convention too much implementaion-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
+<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> I find this convention too much implementaion-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
 <p>Note that this is similar to “pass inside a message” approach, only this time, the passed recipient is not used immediately and forgotten, but rather remembered for later use.</p>
 <p>I hope I can clear up the confusion with a quick example. Suppose we have a temperature sensor that can report its current and historically mean value for the current date to whoever registers with it. If no one registers, it still does its job, because it still has to be able to give a history-based mean value to whoever registers at whatever time, right?</p>
 <p>We may solve the problem by introducing an observer registration mechanism in the sensor implementation. If no observer is registered, the values are not reported (in other words, a registered observer is not required for the object to function, but if there is one, it can take advantage of the reports). For this purpose, let’s make our sensor depend on an interface called <code>TemperatureObserver</code> that could be implemented by various custom observers:</p>
@@ -4071,10 +4074,9 @@ foreach(var session in sessions)
 <ol>
 <li id="fn1"><p>I am simplifying the discussion on purpose, leaving out e.g. functional languages and assuming that “pre-object oriented” means procedural or structural. While this is not true in general, this is how the reality looked like for many of us. If you are good at functional programming, you already understand the benefits of composability.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>More on context-independence and what these “special places” are, in the next chapters.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>TODO citation by Alan Kay needed # THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>I got this saying from Amir Kolsky and Scott Bain<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>While factory is the most often used, other creational patterns such as builder also fall into this category. Other than this, we may have caches, that usually hold ready to use objects and yields them when requested.<a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p>Kent Beck, Implementation Patterns<a href="#fnref6">↩</a></p></li>
+<li id="fn3"><p>I got this saying from Amir Kolsky and Scott Bain<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>While factory is the most often used, other creational patterns such as builder also fall into this category. Other than this, we may have caches, that usually hold ready to use objects and yields them when requested.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Kent Beck, Implementation Patterns<a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 </body>
