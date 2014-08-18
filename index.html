@@ -3502,7 +3502,7 @@ sensor.FromNowOnReportTo(broadcastingObserver);</code></pre>
   
   game.Play();
 }</code></pre>
-<p>The <code>Game</code> creates its own <code>Level</code> objects of specific classes implementing the <code>Level</code> interface and storing them in an array:</p>
+<p>The <code>Game</code> creates its own <code>Level</code> objects of specific classes implementing the <code>Level</code> interface and stores them in an array:</p>
 <pre><code>public class Game
 {
   private Level[] _levels = new[] { 
@@ -3525,11 +3525,13 @@ public class Level2
   
   //some methods here that use the castle
 }</code></pre>
-<p>We can try to make them more compliant with the principle. First, let us refactor the <code>Level1</code> and <code>Level2</code> by moving instantiation of their castles out of these classes. As castles are required by the levels to make sense, we will use the approach of passing them through constructor:</p>
+<p>We can try to make them more compliant with the principle. First, let us refactor the <code>Level1</code> and <code>Level2</code> by moving instantiation of their castles out of these classes. Existence of a castle is required for a level to make sense at all to make sense - we will say this in code using the approach of passing them through constructor:</p>
 <pre><code>public class Level1
 {
   private Castle _castle;
   
+  //now castle is received as
+  //constructor parameter
   public Level1(Castle castle)
   {
     _castle = castle;
@@ -3542,6 +3544,8 @@ public class Level2
 {
   private Castle _castle;
   
+  //now castle is received as
+  //constructor parameter
   public Level2(Castle castle)
   {
     _castle = castle;
@@ -3552,18 +3556,21 @@ public class Level2
 <p>This was easy, wasn’t it? The only problem is that if the instantiation of castles is not in <code>Level1</code> and <code>Level2</code> anymore, then they have to be passed by whoever creates the levels. In our case - the <code>Game</code> class:</p>
 <pre><code>public class Game
 {
-  private Level[] _levels = new[] { 
+  private Level[] _levels = new[] {
+    //now castles are created here as well: 
     new Level1(new SmallCastle()), 
     new Level2(new BigCastle())
   };
   
   //some methods here that use the levels
 }</code></pre>
-<p>But remember - this class suffers from the same violation of not separating objects use from construction. Thus, we have to move the creation of levels out of this class:</p>
+<p>But remember - this class suffers from the same violation of not separating objects use from construction as the levels. Thus, to make this class compliant as well, we have to move the creation of levels out of it:</p>
 <pre><code>public class Game
 {
   private Level[] _levels;
   
+  //now levels are received as 
+  //constructor parameter
   public Game(Level[] levels)
   {
     _levels = levels;
@@ -3571,7 +3578,7 @@ public class Level2
   
   //some methods here that use the levels
 }</code></pre>
-<p>There, we did it, but again, the levels now must be supplied by whoever creates the <code>Game</code>. In our case, this is the <code>Main()</code> method of our application:</p>
+<p>There, we did it, but again, the levels now must be supplied by whoever creates the <code>Game</code>. Where do we put them? In our case, the only choice left is the <code>Main()</code> method of our application, so this is exactly what we are going to do:</p>
 <pre><code>public static void Main(string[] args)
 {
   var game = 
@@ -3595,11 +3602,16 @@ public class Level2
   
   game.Play();
 }</code></pre>
-<p>TODO this violates as well…</p>
-<p>~</p>
-<p>The above is a simple composition root.</p>
-<p>TODO</p>
+<p>Looking at the code above, we might come to another funny conclusion - this violates the principle of separating usage from construction as well! First, we create and connect the web of objects and then send the <code>Play()</code> message to the <code>game</code> object. Shouldn’t we fix this as well?</p>
+<p>The answer is “no”, for two reasons:</p>
+<ol style="list-style-type: decimal">
+<li>There is no further place we can defer the creation. Sure, we could move the creation of the <code>Game</code> object and its dependencies into a separate object responsible only for the creation (we call such object <strong>a factory</strong>), but that would leave us with the question: where where do we instantiate this factory?</li>
+<li>The whole point of the principle we are trying to apply is decoupling, i.e. giving ourselves the ability to change one thing without having to change another. When we think of it, there is no point of decoupling the entry point of the application since this is the most application-specific and non-reusable part of the application we can imagine.</li>
+</ol>
+<p>What is important is that we reached a place where the web of objects is created using constructor approach and we have no place left to defer the the creation of the web (in other words, it is as close as possible to application entry point). Such place is called <strong>a composition root</strong>.</p>
+<p>The composition root above looks quite small, but you can imagine it grow a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and reusable and we will explore those techniques in further chapters.</p>
 <h3 id="factories"><a href="#factories">Factories</a></h3>
+<p>TODO</p>
 <p>Factories are objects responsible for creating other objects. They are a level of indirection placed above constructors to achieve flexibility (as you will see in the examples in this section).</p>
 <p>The simplest possible example of a factory is something along the following lines:</p>
 <pre><code>public class MyMessageFactory
