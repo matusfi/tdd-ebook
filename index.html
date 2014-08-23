@@ -3784,7 +3784,33 @@ message.ApplyTo(_sessions);</code></pre>
 }</code></pre>
 <p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (e.g. in case when we do not need to initiate a session anymore) [^encapsulatewhatvaries] - the factory hides that.</p>
 <h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule"><a href="#factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</a></h4>
-<p>So far, I have kept talking about composability over and over again so much that you’re probably already sick of the word. But hey, here comes another benefit of the factory - in contrast to constructors, they are composable.</p>
+<p>Another benefit of factories over constructors is that they are composable themselves. This allows replacing the rule used to create objects with another one.</p>
+<p>For example, let’s say that we are writing a video player application that we are about to release in US and Europe. Also, let us imagine that law restrictions do not allow us to play movies in US format with the application version sold in Europe and at the same time, we are not allowed to play movies in Erope format with the version sold in US.</p>
+<p>So we have a rule of deciding whether to play a video or not and this rule is different. We can encode this rule in a factory.</p>
+<p>First, let’s code the player so that it delegates creating movies to a factory:</p>
+<pre><code>public class VideoPlayer
+{
+  private VideoFactory _videoFactory;
+  
+  public VideoPlayer(VideoFactory videoFactory)
+  {
+    _videoFactory = videoFactory;
+  }
+  
+  //...
+  
+  public void Play(VideoTitle title)
+  {
+    var video = _videoFactory.CreateBy(title);
+    video.Play();
+  }
+}</code></pre>
+<p>where the <code>VideoFactory</code> is an interface:</p>
+<pre><code>public interface VideoFactory
+{
+  Video CreateBy(VideoTitle title);
+}</code></pre>
+<p>TODO</p>
 <p>We may have a class that takes a factory as a constructor parameter like the following <code>MessageInbound</code>:</p>
 <pre><code>public class MessageInbound
 {
