@@ -3618,7 +3618,7 @@ public class Level2
 <li>The whole point of the principle we are trying to apply is decoupling, i.e. giving ourselves the ability to change one thing without having to change another. When we think of it, there is no point of decoupling the entry point of the application from the application itself, since this is the most application-specific and non-reusable part of the application we can imagine.</li>
 </ol>
 <p>What is important is that we reached a place where the web of objects is created using constructor approach and we have no place left to defer the the creation of the web (in other words, it is as close as possible to application entry point). Such place is called <strong>a composition root</strong>.</p>
-<p>We say that composition root is “as close as possible” to application entry point, because there may be different frameworks in control of your application and you will not always have the <code>Main()</code> method at your disposal[^seemanndi].</p>
+<p>We say that composition root is “as close as possible” to application entry point, because there may be different frameworks in control of your application and you will not always have the <code>Main()</code> method at your disposal<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
 <p>Apart from the constructor invocations, the composition root may also contain registrations of observers (see registration approach to passing recipients) if such observers are already known at this point.</p>
 <p>The composition root above looks quite small, but you can imagine it grow a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and reusable and we will explore those techniques in further chapters.</p>
 <h3 id="factories"><a href="#factories">Factories</a></h3>
@@ -3718,7 +3718,7 @@ public class Level2
     return new MyMessage();
   }
 }</code></pre>
-<p>Even in this primitive shape the factory already has some value (e.g. we can make <code>MyMessage</code> an abstract type and return instances of its subclasses from the factory, and the only place we need to change is the factory[^essentialskills]). More often, however, when talking about simple factories, we think about something like this:</p>
+<p>Even in this primitive shape the factory already has some value (e.g. we can make <code>MyMessage</code> an abstract type and return instances of its subclasses from the factory, and the only place we need to change is the factory<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>). More often, however, when talking about simple factories, we think about something like this:</p>
 <pre><code>//let&#39;s assume MessageFactory 
 //and Message are interfaces
 public class XmlMessageFactory : MessageFactory
@@ -3744,7 +3744,7 @@ new IList&lt;int&gt;(); //won&#39;t compile...</code></pre>
 <pre><code>public /*interface in declaration: */ IList&lt;int&gt; 
 CreateContainerForData() 
 {
-  return /* instance of concrete class: */ List&lt;int&gt;();
+  return /* instance of concrete class: */ new List&lt;int&gt;();
 }</code></pre>
 <p>Of course, it makes little sense for the return type of the factory to be a library class or interface (rather, we use factories to create our own classes), but you get the idea, right? Anyway, it is typical for a return type of a factory to be an interface or, at worst, an abstract class. This means that whatever uses the factory, it knows only that it receives an object of that type. Thus, a factory may return objects of different types at different times, depending on some rules only it knows.</p>
 <p>Time to look at some more realistic example of how to apply this. Let’s say we have a factory of messages like this:</p>
@@ -3791,7 +3791,7 @@ message.ApplyTo(_sessions);</code></pre>
     }
   }
 }</code></pre>
-<p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (e.g. in case when we do not need to initiate a session anymore) [^encapsulatewhatvaries] - the factory hides that.</p>
+<p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (e.g. in case when we do not need to initiate a session anymore) <a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> - the factory hides that.</p>
 <h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule"><a href="#factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</a></h4>
 <p>Another benefit of factories over constructors is that they are composable themselves. This allows replacing the rule used to create objects with another one.</p>
 <p>In the example in the previous section, we examined a situation where we extended the existing factory with a <code>SessionRefresh</code> message. This was done with assumption that we do not need the previous version of the factory. But consider a situation where we need both versions of the behavior. The “version 1” of the factory looking like this:</p>
@@ -3918,7 +3918,7 @@ var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
 <p>So, instead of <code>DataDestination</code> and <code>ValidationRules</code> interfaces, the <code>MessageProcessing</code> depends only on the factory. This may not sound as a very attractive tradeoff (taking away two dependencies and introducing one), but note that whenever the <code>MessageFactory</code> needs another dependency that is like the existing two, the factory is all that will need to change. The <code>MessageProcessing</code> will remain untouched and still coupled only to the factory.</p>
 <p>The last thing that needs to be said is that not all dependencies can be hidden inside a factory. Note that the factory still needs to receive the <code>MessageData</code> from whoever is asking for a <code>Message</code>, because the <code>MessageData</code> is not available when the factory is created. I call such dependencies a <strong>local context</strong> (because it is different everytime the factory is asked to create something). On the other hand, what a factory accepts through the constructor can be called a <strong>global context</strong> (because it is the same throughout the factory lifetime). Using this terminology, the local context cannot be hidden, but the global context can. Thanks to this, the classes using the factory do not need to know about the global context and can stay cleaner, coupled to less things and more focused.</p>
 <h4 id="factories-help-eliminate-redundancy"><a href="#factories-help-eliminate-redundancy">Factories help eliminate redundancy</a></h4>
-<p>Redundancy in code means that at least two things need to change for the same reason in the same way[^essentialskills]. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
+<p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
 <pre><code>public int MetersToCentimeters(int value)
 {
   return value*100;
@@ -3940,9 +3940,6 @@ public int DollarsToCents(int value)
 <p>There are more benefits of factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
 <p>TODO</p>
-<p>[^encapsulatewhatvaries] Note that this is an application of Gang of Four guideline: “encapsulate what varies”.</p>
-<p>[^seemanndi] For details, check Dependency Injection in .NET by Mark Seemann.</p>
-<p>[^essentialskills] A. Shalloway et al., Essential Skills For The Agile Developer</p>
 <h1 id="worse-and-better-composability"><a href="#worse-and-better-composability">Worse and better composability</a></h1>
 <p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
@@ -4386,6 +4383,10 @@ foreach(var session in sessions)
 <li id="fn3"><p>I got this saying from Amir Kolsky and Scott Bain<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>While factory is the most often used, other creational patterns such as builder also fall into this category. Other than this, we may have caches, that usually hold ready to use objects and yields them when requested.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>Kent Beck, Implementation Patterns<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>For details, check Dependency Injection in .NET by Mark Seemann.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref9">↩</a></p></li>
 </ol>
 </div>
 </body>
