@@ -101,10 +101,10 @@
 <li><a href="#composing-a-web-of-objects">Composing a web of objects</a><ul>
 <li><a href="#three-important-questions">Three important questions</a></li>
 <li><a href="#a-preview">A preview</a></li>
+<li><a href="#when-are-objects-composed">When are objects composed?</a></li>
 <li><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></li>
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
-<li><a href="#when-are-objects-composed">When are objects composed?</a></li>
-<li><a href="#where-are-objects-composed-1">Where are objects composed?</a></li>
+<li><a href="#summary-6">Summary</a></li>
 </ul></li>
 <li><a href="#worse-and-better-composability">Worse and better composability</a><ul>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
@@ -3286,8 +3286,8 @@ public class MechanicalLift : Lift
 <p>Ok, I told you that such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
 <p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. In addition, this is a question that is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
 <ol style="list-style-type: decimal">
-<li>How does an object obtain a reference to another one in the web (i.e. how a connection is made)?</li>
 <li>When are objects composed (i.e. when a connection is made)?</li>
+<li>How does an object obtain a reference to another one in the web (i.e. how a connection is made)?</li>
 <li>Where are objects composed (i.e. where a connection is made)?</li>
 </ol>
 <p>For now, you may have some trouble understanding why these questions are important, but the good news is that you won’t have to trust me too long, because these questions are the topic of this chapter. Let’s go!</p>
@@ -3298,11 +3298,20 @@ public class MechanicalLift : Lift
   var sender = new Sender(new Recipient());
 }</code></pre>
 <ol style="list-style-type: decimal">
+<li>When are objects composed? Answer: up-front, during application startup.</li>
 <li>How does an object (<code>Sender</code>) obtain a reference to another one (<code>Recipient</code>)? Answer: the reference is passed through constructor.</li>
-<li>When are objects composed? Answer: during application startup.</li>
 <li>Where are objects composed? Answer: at application entry point (<code>Main()</code> method)</li>
 </ol>
 <p>Depending on circumstances, we have different sets of best answers to these questions. To find them, let us take the questions on one by one.</p>
+<h2 id="when-are-objects-composed"><a href="#when-are-objects-composed">When are objects composed?</a></h2>
+<p>The quick answer to this question is: as early as possible.</p>
+<p>Most of our system is assembled up-front when the application starts and stays this way until the application finishes executing. Let’s call this part the <strong>static part</strong> of the web. We will talk about the <strong>composition root</strong> pattern that handles this part.</p>
+<p>Apart from that, there’s the <strong>dynamic part</strong>. There are two reasons this dynamic part exists:</p>
+<ol style="list-style-type: decimal">
+<li>Some objects represent requests that arrive during the application runtime, are processed and then discarded. These objects cannot be created up-front, but can be created only as soon as the necessary event occurs. Also, these objects do not live until the application is terminated, but are discarded as soon as the processing of a request is finished. Other objects represent items in the cache that live for some time and then expire etc. so it’s impossible to define these objects up-front. All of these objects come and go, making temporary connections. We will talk about <strong>getting recipients in response to a message</strong> approach (which will largely be about <strong>factories</strong>) that is made for such situations.</li>
+<li>There are objects that have a lifespan as long as the application itself, but be connected only for the needs of a single interaction (e.g. when one object is passed to a method of another as an argument) or at some point during the application runtime. We will talk about <strong>passing objects inside messages</strong> and <strong>registering objects</strong> approaches that allow us manage such connections.</li>
+</ol>
+<p>There can be situations when an object is part of both static and dynamic part - some of its connections may be made up-front, while others may be created later.</p>
 <h2 id="how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made"><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></h2>
 <p>There are few ways this happens, each of them useful in certain circumstances:</p>
 <h3 id="receive-as-constructor-parameter"><a href="#receive-as-constructor-parameter">Receive as constructor parameter</a></h3>
@@ -3928,31 +3937,9 @@ public int DollarsToCents(int value)
 </ol>
 <p>Thus, if factories didn’t exist, all these concepts would leak to sorrounding classes (we saw an example when we were talking about encapsulation of global context). Now, as soon as there is more than one class that needs to create instances, these things leak to all of these classes, creating redundancy. In such case, any change to how instances are created would mean a change to all classes needing those instances.</p>
 <p>Thankfully, by having a factory - an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
-<h4 id="factories-allow-named-rulesets"><a href="#factories-allow-named-rulesets">Factories allow named rulesets</a></h4>
-<p>A constructor of a class is always invoked using a class name:</p>
-<pre><code>List&lt;int&gt; list = new List&lt;int&gt;();</code></pre>
-<p>This is not always as readable as it could be. For example, the above code creates an empty list, but this is not written explicitly - it is a convention that we, as programmers, have come to adopt and understand. But for the classes we write, there are usually no well-known conventions.</p>
-<p>TODO TODO</p>
-<p>TODO make each a subchapter of L4</p>
-<ol style="list-style-type: decimal">
-<li>They allow creating objects polymorphically (hiding of created type):</li>
-<li>They are themselves polymorphic (hiding of object creation rule)</li>
-<li>They allow putting more complex creation logic in one place (reduce redundancy)</li>
-<li>They allow decoupling from some of the dependencies of created objects (lower coupling)</li>
-<li>They allow naming rulesets for object creation (better readability)</li>
-</ol>
-<h4 id="they-allow-to-hide-some-of-the-constructor-parameters-from-their-users-encapsulation-of-dependencies"><a href="#they-allow-to-hide-some-of-the-constructor-parameters-from-their-users-encapsulation-of-dependencies">They allow to hide some of the constructor parameters from their users (encapsulation of dependencies)</a></h4>
-<h4 id="they-help-eliminate-redundancy"><a href="#they-help-eliminate-redundancy">They help eliminate redundancy</a></h4>
-<h4 id="they-help-in-readability"><a href="#they-help-in-readability">They help in readability</a></h4>
-<h2 id="when-are-objects-composed"><a href="#when-are-objects-composed">When are objects composed?</a></h2>
-<p>TODO as early as possible</p>
-<p>Most of our system is assembled up-front when the application starts and stays this way until the application finishes executing. Let’s call this part the static part of the web. We will talk about <strong>composition root</strong> pattern that guides definition of that part.</p>
-<p>Apart from that, there’s the dynamic part. The first thing that leads to this dynamism is the lifetime of the objects that are connected. Some objects represent requests that arrive during the application runtime, are processed and then discarded. When there is no need to process such a request anymore, the objects representing it are discarded as well. Other objects represent items in the cache that live for some time and then expire etc. so it’s impossible to define these objects up-front. Soon, we will talk about the <strong>Factory</strong> pattern that will let us handle creation and composition of such short-lived objects.</p>
-<p>Another thing affecting the dynamic part of the web is the temporary character of connections themselves. The objects may have a lifespan as long as the application itself, but be connected only for the needs of a single interaction (e.g. when one object is passed to a method of another as an argument) or at some point during the application runtime. We will talk about doing these things by passing objects inside messages and by using the <strong>Observer</strong> pattern.</p>
-<h2 id="where-are-objects-composed-1"><a href="#where-are-objects-composed-1">Where are objects composed?</a></h2>
-<p>First, let’s take a look at different ways of acquiring an object by another object:</p>
-<p>Now that we discussed how to pass a reference to recipient into a sender, let’s take a look at places it can be done:</p>
-<p>TODO factory and composition root</p>
+<p>There are more benefits of factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
+<h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
+<p>TODO</p>
 <p>[^encapsulatewhatvaries] Note that this is an application of Gang of Four guideline: “encapsulate what varies”.</p>
 <p>[^seemanndi] For details, check Dependency Injection in .NET by Mark Seemann.</p>
 <p>[^essentialskills] A. Shalloway et al., Essential Skills For The Agile Developer</p>
