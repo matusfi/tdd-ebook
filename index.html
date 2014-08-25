@@ -106,7 +106,7 @@
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#summary-6">Summary</a></li>
 </ul></li>
-<li><a href="#worse-and-better-composability">Worse and better composability</a><ul>
+<li><a href="#achieving-the-best-composability">Achieving the best composability</a><ul>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
 </ul></li>
 </ul>
@@ -3939,8 +3939,9 @@ public int DollarsToCents(int value)
 <p>Thankfully, by having a factory - an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
 <p>There are more benefits of factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
-<p>TODO</p>
-<h1 id="worse-and-better-composability"><a href="#worse-and-better-composability">Worse and better composability</a></h1>
+<p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
+<p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
+<h1 id="achieving-the-best-composability"><a href="#achieving-the-best-composability">Achieving the best composability</a></h1>
 <p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
 <p>As we said, an object is composed with another object by obtaining a reference to something. Also, we said that we want the flexibility of plugging in objects of different classes at different times. This is, of course, done using polymorphism, as Johnny and Benjamin did when cleaning up the payroll system. So, what should be the base for polymorphism? Is a class sufficient, or do we rather want to use an interface? In other words, when we plug in an object as a message receipient:</p>
