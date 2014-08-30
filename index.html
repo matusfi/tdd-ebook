@@ -102,7 +102,7 @@
 <li><a href="#three-important-questions">Three important questions</a></li>
 <li><a href="#a-preview">A preview</a></li>
 <li><a href="#when-are-objects-composed">When are objects composed?</a></li>
-<li><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></li>
+<li><a href="#how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made">How does a sender obtain a reference to a recipient (i.e. how connections are made)?</a></li>
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#summary-6">Summary</a></li>
 </ul></li>
@@ -3286,50 +3286,75 @@ public class MechanicalLift : Lift
 <p>Ok, I told you that such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
 <p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. In addition, this is a question that is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
 <ol style="list-style-type: decimal">
-<li>When are objects composed (i.e. when a connection is made)?</li>
-<li>How does an object obtain a reference to another one in the web (i.e. how a connection is made)?</li>
-<li>Where are objects composed (i.e. where a connection is made)?</li>
+<li>When are objects composed (i.e. when connections are made)?</li>
+<li>How does an object obtain a reference to another one in the web (i.e. how connections made)?</li>
+<li>Where are objects composed (i.e. where connections are made)?</li>
 </ol>
-<p>For now, you may have some trouble understanding why these questions are important, but the good news is that you won’t have to trust me too long, because these questions are the topic of this chapter. Let’s go!</p>
+<p>For now, you may have some trouble understanding the difference between those questions, but the good news is that they are the topic of this chapter, so I hope we will have that cleared shortly. Let’s go!</p>
 <h2 id="a-preview"><a href="#a-preview">A preview</a></h2>
-<p>Before we take a deep dive, let’s try to answer these questions for a really simple example code of a console application:</p>
+<p>Before we take a deep dive, let’s try to answer these three questions for a really simple example code of a console application:</p>
 <pre><code>public static void Main(string[] args)
 {
   var sender = new Sender(new Recipient());
+  
+  sender.Work();
 }</code></pre>
+<p>And here are the answers to our questions:</p>
 <ol style="list-style-type: decimal">
 <li>When are objects composed? Answer: up-front, during application startup.</li>
-<li>How does an object (<code>Sender</code>) obtain a reference to another one (<code>Recipient</code>)? Answer: the reference is passed through constructor.</li>
+<li>How does an object (<code>Sender</code>) obtain a reference to another one (<code>Recipient</code>)? Answer: the reference is obtained as a constructor parameter.</li>
 <li>Where are objects composed? Answer: at application entry point (<code>Main()</code> method)</li>
 </ol>
-<p>Depending on circumstances, we have different sets of best answers to these questions. To find them, let us take the questions on one by one.</p>
+<p>Depending on circumstances, we have different sets of best answers. To find them, let us take the questions on one by one.</p>
 <h2 id="when-are-objects-composed"><a href="#when-are-objects-composed">When are objects composed?</a></h2>
-<p>The quick answer to this question is: as early as possible.</p>
-<p>Most of our system is assembled up-front when the application starts and stays this way until the application finishes executing. Let’s call this part the <strong>static part</strong> of the web. We will talk about the <strong>composition root</strong> pattern that handles this part.</p>
-<p>Apart from that, there’s the <strong>dynamic part</strong>. There are two reasons this dynamic part exists:</p>
+<p>The quick answer to this question is: as early as possible. Now, that wasn’t too helpful, was it? So here goes a clarification.</p>
+<p>Many of the objects we use in our applications can be created and connected up-front when the application starts and can stay this way until the application finishes executing (unless we are doing a web app - then most of the important stuff happens “per request”). Let’s call this part the <strong>static part</strong> of the web.</p>
+<p>Apart from that, there’s a <strong>dynamic part</strong> - a part that undergoes constant changes - objects are created, destroyed, connected temporarily, and then disconnected. There are at least two reasons this dynamic part exists:</p>
 <ol style="list-style-type: decimal">
-<li>Some objects represent requests that arrive during the application runtime, are processed and then discarded. These objects cannot be created up-front, but can be created only as soon as the necessary event occurs. Also, these objects do not live until the application is terminated, but are discarded as soon as the processing of a request is finished. Other objects represent items in the cache that live for some time and then expire etc. so it’s impossible to define these objects up-front. All of these objects come and go, making temporary connections. We will talk about <strong>getting recipients in response to a message</strong> approach (which will largely be about <strong>factories</strong>) that is made for such situations.</li>
-<li>There are objects that have a lifespan as long as the application itself, but be connected only for the needs of a single interaction (e.g. when one object is passed to a method of another as an argument) or at some point during the application runtime. We will talk about <strong>passing objects inside messages</strong> and <strong>registering objects</strong> approaches that allow us manage such connections.</li>
+<li>Some objects represent requests or user actions that arrive during the application runtime, are processed and then discarded. These objects cannot be composed up-front (because they do not exist yet), but only as early as the events they represent occur. Also, these objects do not live until the application is terminated, but are discarded as soon as the processing of a request is finished. Other objects represent e.g. items in cache that live for some time and then expire, so, again, we do not have these objects up-front and they often do not live as long as the application itself. All of these objects come and go, making temporary connections.</li>
+<li>There are objects that have a life span as long as the application itself, but are connected only for the needs of a single interaction (e.g. when one object is passed to a method of another as an argument) or at some point during the application runtime.</li>
 </ol>
-<p>There can be situations when an object is part of both static and dynamic part - some of its connections may be made up-front, while others may be created later.</p>
-<h2 id="how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made"><a href="#how-does-sender-obtain-a-reference-to-recipient-i.e.how-a-connection-is-made">How does sender obtain a reference to recipient (i.e. how a connection is made)?</a></h2>
-<p>There are few ways this happens, each of them useful in certain circumstances:</p>
+<p>It is perfectly possible for an object to be part of both static and dynamic part - some of its connections may be made up-front, while others may be created later, e.g. when it is passed inside a message sent to another object (i.e. passed as method parameter).</p>
+<h2 id="how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made"><a href="#how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made">How does a sender obtain a reference to a recipient (i.e. how connections are made)?</a></h2>
+<p>There are few ways this can happen, each of them useful in certain circumstances. These ways are:</p>
+<ol style="list-style-type: decimal">
+<li>Receive as constructor parameter</li>
+<li>Receive inside a message (i.e. as a method parameter)</li>
+<li>Receive in response to message (i.e. as method return value)</li>
+<li>Register a recipient with already created sender</li>
+</ol>
+<p>Let us have a closer look at what each of them is about and which one to choose in what circumstances.</p>
 <h3 id="receive-as-constructor-parameter"><a href="#receive-as-constructor-parameter">Receive as constructor parameter</a></h3>
 <p>Two objects can be composed by passing one into the constructor of another:</p>
 <pre><code>sender = new Sender(recipient);</code></pre>
-<p>A sender then saves a reference to the recipient in a private field for later, like this:</p>
-<pre><code>public Sender(Recipient recipient)
+<p>A sender that receives the recipient then saves a reference to it in a private field for later, like this:</p>
+<pre><code>private Recipient _recipient;
+
+public Sender(Recipient recipient)
 {
-  this._recipient = recipient;
+  _recipient = recipient;
 }</code></pre>
-<p>Composing using constructors has one significant advantage. The code that passes <code>Recipient</code> to <code>Sender</code> through constructor is most often in a totally different place than the code using <code>Sender</code>. Thus, the code using <code>Sender</code> is not aware that <code>Sender</code> stores a reference to <code>Recipient</code> inside it. This basically means that when <code>Sender</code> is used, e.g. like this:</p>
+<p>Starting from this point, the <code>Sender</code> may send messages to <code>Recipient</code> at will:</p>
+<pre><code>public DoSomething()
+{
+  //... other code
+  
+  _recipient.DoSomethingElse();
+  
+  //... other code
+}</code></pre>
+<h4 id="advantage-what-you-hide-you-can-change"><a href="#advantage-what-you-hide-you-can-change">Advantage: “what you hide, you can change”</a></h4>
+<p>Composing using constructors has one significant advantage. By separating object usage from construction, we end up with the code that creates a <code>Sender</code> being in a totally different place than the code that uses it. And, as <code>Recipient</code> is passed to <code>Sender</code> during its creation, it is the only place external to the <code>Sender</code> that needs to know that <code>Sender</code> uses <code>Recipient</code>. The part of code that uses <code>Sender</code> is not aware at all that <code>Sender</code> stores a reference to <code>Recipient</code> inside it. This basically means that when <code>Sender</code> is used, e.g. like this:</p>
 <pre><code>sender.DoSomething()</code></pre>
-<p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that. Which is good, because “what you hide, you can change”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> - if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty (or pass in a different implementation of <code>Sender</code> that does not need the <code>Recipient</code>), the code that uses <code>Sender</code> does not need to change at all - it still uses the <code>Sender</code> the same way:</p>
+<p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that - it is hidden. This is good, because “what you hide, you can change”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> - e.g. if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty, the code that uses <code>Sender</code> does not need to change at all - it still looks the same as before:</p>
 <pre><code>sender.DoSomething()</code></pre>
-<p>All we have to change is the composition code to remove <code>Recipient</code>:</p>
+<p>All we have to change is the composition code to remove the <code>Recipient</code>:</p>
 <pre><code>//no need to pass a reference to Recipient anymore
 new Sender();</code></pre>
-<p>Another advantage of the constructor approach is that if <code>Recipient</code> is required for a <code>Sender</code> to work correctly and it does not make sense to create a <code>Sender</code> without a <code>Recipient</code>, the signature of the constructor makes it explicit - the compiler will not let us create a <code>Sender</code> without passing <em>something</em> as a <code>Recipient</code>.</p>
+<p>and the <code>Sender</code> class itself to work in a different way.</p>
+<h4 id="communication-of-intent-required-recipient"><a href="#communication-of-intent-required-recipient">Communication of intent: required recipient</a></h4>
+<p>Another advantage of the constructor approach is that if a reference to <code>Recipient</code> is required for a <code>Sender</code> to work correctly and it does not make sense to create a <code>Sender</code> without a <code>Recipient</code>, the signature of the constructor makes it explicit - the compiler will not let us create a <code>Sender</code> without passing <em>something</em> as a <code>Recipient</code>.</p>
+<h4 id="where-to-apply"><a href="#where-to-apply">Where to apply</a></h4>
 <p>Passing into constructor is a great solution in cases we want to compose sender with a recipient permanently (i.e. for the lifetime of <code>Sender</code>). In order to be able to do this, a <code>Recipient</code> must, of course, exist before a <code>Sender</code> does. Another less obvious requirement for this composition is that <code>Recipient</code> must be usable at least as long as <code>Sender</code> is usable. In other words, the following is nonsense:</p>
 <pre><code>sender = new Sender(recipient);
 recipient.Dispose(); //but sender is unaware of it 
@@ -3347,6 +3372,7 @@ sender.DoSomething();</code></pre>
   
   //... perform some logic
 }</code></pre>
+<h4 id="where-to-apply-1"><a href="#where-to-apply-1">Where to apply</a></h4>
 <p>Contrary to the constructor approach, where a <code>Sender</code> could hide from its user the fact that it needs <code>Recipient</code>, in this case the user of <code>Sender</code> is explicitly responsible for supplying a <code>Recipient</code>. It may look like the coupling of user to <code>Recipient</code> is a disadvantage, but there are scenarios where it is actually <strong>required</strong> for a code using <code>Sender</code> to be able to provide its own <code>Recipient</code> - it lets us use the same sender with different recipients at different times (most often from different parts of the code):</p>
 <pre><code>//in one place
 sender.DoSomethingWithHelpOf(recipient);
@@ -3357,50 +3383,60 @@ sender.DoSomethingWithHelpOf(anotherRecipient);
 //in yet another place:
 sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
 <p>If this ability is not required, the constructor approach is better as it removes the then unnecessary coupling between code using <code>Sender</code> and a <code>Recipient</code>.</p>
-<h3 id="get-recipient-in-response-to-message-i.e.as-method-return-value"><a href="#get-recipient-in-response-to-message-i.e.as-method-return-value">Get recipient in response to message (i.e. as method return value)</a></h3>
-<p>This method of composing objects uses another intermediary object - often a factory (that creates new recipient instance on each call)<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Most often, the sender is given a reference to this intermediary object as a constructor parameter (an approach we already discussed):</p>
-<pre><code>sender = new Sender(factory);</code></pre>
-<p>and then the intermediary object is used to deliver other objects:</p>
+<h3 id="receive-in-response-to-a-message-i.e.as-method-return-value"><a href="#receive-in-response-to-a-message-i.e.as-method-return-value">Receive in response to a message (i.e. as method return value)</a></h3>
+<p>This method of composing objects relies on an intermediary object - often a factory<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> - to supply recipients on request. To simplify things, I will use factories as an example for the rest of this section, although what I tell you is true for some other creation patterns as well.</p>
+<p>To be able to ask a factory for recipients, the sender needs to obtain a reference to it first. Typically, a factory is composed with a sender through constructor (an approach we already discussed). For example:</p>
+<pre><code>var sender = new Sender(recipientFactory);</code></pre>
+<p>The factory can then be used by the <code>Sender</code> at will to get a hold of new recipients:</p>
 <pre><code>public class Sender
 {
   //...
 
   public DoSomething() 
   {
-    var recipient = _factory.CreateRecipient();
+    //ask the factory for a recipient:
+    var recipient = _recipientFactory.CreateRecipient();
+    
+    //use the recipient:
     recipient.DoSomethingElse();
   }
 }</code></pre>
-<p>This kind of composition is beneficial when a new recipient is needed each time <code>DoSomething()</code> is called (much like in case of previously discussed approach of receiving a recipient as a method parameter), but at the same time (contrary to the mentioned approach), it is not the code using the <code>Sender</code> that should (or can) be responsible for supplying a recipient.</p>
-<p>To be more clear, here is a comparison of two approaches: passing recipient inside a message:</p>
-<pre><code>//user of Sender passes a recipient:
-public DoSomething(Recipient recipient) 
-{
-  recipient.DoSomethingElse();
-}</code></pre>
+<h4 id="where-to-apply-2"><a href="#where-to-apply-2">Where to apply</a></h4>
+<p>This kind of composition is beneficial when a new recipient is needed each time <code>DoSomething()</code> is called. In this sense it may look much like in case of previously discussed approach of receiving a recipient inside a message. There is one difference, however. Contrary to passing a recipient inside a message, where the code using the <code>Sender</code> passed a <code>Recipient</code> “from outside” of the <code>Sender</code>, in this approach, we rely on a separate object that is used by a <code>Sender</code> “from the inside”.</p>
+<p>To be more clear, let us compare the two approaches. Passing recipient inside a message looks like this:</p>
+<p>//Sender gets a Recipient from the “outside”: public DoSomething(Recipient recipient) { recipient.DoSomethingElse(); } <sub>~</sub></p>
 <p>and obtaining from factory:</p>
-<pre><code>//user of Sender does not know about Recipient
+<pre><code>//a factory is used &quot;inside&quot; Sender
+//to obtain a recipient
 public DoSomething() 
 {
   var recipient = _factory.CreateRecipient();
   recipient.DoSomethingElse();
 }</code></pre>
-<h3 id="register-a-recipient-with-already-created-sender"><a href="#register-a-recipient-with-already-created-sender">“Register” a recipient with already created sender</a></h3>
-<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> I find this convention too much implementaion-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
-<p>Note that this is similar to “pass inside a message” approach, only this time, the passed recipient is not used immediately and forgotten, but rather remembered for later use.</p>
-<p>I hope I can clear up the confusion with a quick example. Suppose we have a temperature sensor that can report its current and historically mean value for the current date to whoever registers with it. If no one registers, it still does its job, because it still has to be able to give a history-based mean value to whoever registers at whatever time, right?</p>
-<p>We may solve the problem by introducing an observer registration mechanism in the sensor implementation. If no observer is registered, the values are not reported (in other words, a registered observer is not required for the object to function, but if there is one, it can take advantage of the reports). For this purpose, let’s make our sensor depend on an interface called <code>TemperatureObserver</code> that could be implemented by various custom observers:</p>
+<p>So in the first example, the decision on which <code>Recipient</code> is used is made by whoever calls <code>DoSomething()</code>. In the factory example, whoever calls <code>DoSomething()</code> does not know at all about the <code>Recipient</code> and cannot directly influence which <code>Recipient</code> is used. The factory makes this decision.</p>
+<h4 id="factories-with-parameters"><a href="#factories-with-parameters">Factories with parameters</a></h4>
+<p>So far, all the factories we considered had creation methods with empty parameter list, but this is not required. As the factory remains the decision maker on which <code>Recipient</code> is used, it can rely on some external parameters to help it make the decision.</p>
+<h4 id="not-only-factories"><a href="#not-only-factories">Not only factories</a></h4>
+<p>Throughout this section, we have used a factory as our role model, but the approach of obtaining a recipient in response to a message is wider than that. Other types of objects that fall into this category include: repositories, caches, builders and collections.</p>
+<h3 id="register-a-recipient-with-already-created-sender"><a href="#register-a-recipient-with-already-created-sender">Register a recipient with already created sender</a></h3>
+<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> I find this convention too much implementation-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
+<p>Note that there is one similarity to “passing inside a message” approach - in both, a recipient is passed inside a message. The difference is that this time, contrary to “pass inside a message” approach, the passed recipient is not immediately used (and then forgotten), but rather only remembered (registered) for later use.</p>
+<p>I hope I can clear up the confusion with a quick example.</p>
+<h4 id="example-4"><a href="#example-4">Example</a></h4>
+<p>Suppose we have a temperature sensor that can report its current and historically mean value to whoever subscribes with it. If no one subscribes, the sensor still does its job, because it still has to collect the data for calculating a history-based mean value in case anyone subscribes later.</p>
+<p>We may solve the problem by introducing an observer registration mechanism in the sensor implementation. If no observer is registered, the values are not reported (in other words, a registered observer is not required for the object to function, but if there is one, it can take advantage of the reports). For this purpose, let’s make our sensor depend on an interface called <code>TemperatureObserver</code> that could be implemented by various concrete observer classes. The interface declaration looks like this:</p>
 <pre><code>public interface TemperatureObserver
 {
   void NotifyOn(
     Temperature currentValue,
     Temperature meanValue);  
 }</code></pre>
-<p>Now we are ready to look at the sensor implementation. Let’s make it a class called <code>TemperatureSensor</code>. Part of its definition could look like this:</p>
+<p>Now we are ready to look at the implementation of the temperature sensor itself and how it uses this <code>TemperatureObserver</code> interface. Let’s say that the class representing the sensor is called <code>TemperatureSensor</code>. Part of its definition could look like this:</p>
 <pre><code>public class TemperatureSensor
 {
   private TemperatureObserver _observer 
     = new NullObserver(); //ignores reported values
+    
   private Temperature _meanValue 
     = Temperature.Celsius(0);
   
@@ -3419,12 +3455,24 @@ public DoSomething()
     } 
   }
 }</code></pre>
-<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few times before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) - <code>NullObserver</code> is just another incarnation of this pattern.</p>
-<p>Still, we want to be able to supply our own observer one day, when someone starts caring about the measured and calculated values (this may be indicated to our application e.g. with a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument:</p>
-<pre><code>public void FromNowOnReportTo(TemperatureObserver observer)
+<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> for a default value instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few times before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) - <code>NullObserver</code> is just another incarnation of this pattern.</p>
+<h4 id="registering-observers"><a href="#registering-observers">Registering observers</a></h4>
+<p>Still, we want to be able to supply our own observer one day, when we start caring about the measured and calculated values (the fact that we “started caring” may be indicated to our application e.g. by a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument. Here are the relevant parts of <code>TemperatureSensor</code> class:</p>
+<pre><code>public class TemperatureSensor
 {
-  _observer = observer;
+  private TemperatureObserver _observer 
+    = new NullObserver(); //ignores reported values
+
+  //... ... ...
+
+  public void FromNowOnReportTo(TemperatureObserver observer)
+  {
+    _observer = observer;
+  }
+  
+  //... ... ...
 }</code></pre>
+<p>TODO TODO TODO</p>
 <p>This lets us overwrite the observer with a new one should we ever need to do it. Note that, as I mentioned, this is the place where registration approach differs from the “pass inside a message” approach, where we also receive a recipient in a message, but for immediate use. Here, we don’t use the recipient (i.e. the observer) when we get it, but instead we save it for later.</p>
 <p>Time for a general remark. Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional - if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for <strong>required</strong> recipients - these should all be passed through constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”. Look at how the following class members signatures talk to you:</p>
 <pre><code>public class Sender
@@ -3623,7 +3671,7 @@ public class Level2
 <p>The composition root above looks quite small, but you can imagine it grow a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and reusable and we will explore those techniques in further chapters.</p>
 <h3 id="factories"><a href="#factories">Factories</a></h3>
 <p>As I previously said, it is not always possible to pass everything through the constructor. One of the approach we discussed that we can use in such cases is <strong>a factory</strong>.</p>
-<h4 id="example-4"><a href="#example-4">Example</a></h4>
+<h4 id="example-5"><a href="#example-5">Example</a></h4>
 <p>Consider the following code that receives a frame from the network (as raw data), then packs it into an object, validates and applies to the system:</p>
 <pre><code>public class MessageInbound
 {
