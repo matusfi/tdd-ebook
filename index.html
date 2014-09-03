@@ -3588,8 +3588,8 @@ public class Level2
 }</code></pre>
 <p>Now, I said (and I hope you saw this) that the <code>Game</code>, <code>Level1</code> and <code>Level2</code> classes violate the principle of separating usage from construction. We don’t like this, do we? So now we will try to make them more compliant with the principle.</p>
 <h4 id="achieving-separation-of-usage-from-construction"><a href="#achieving-separation-of-usage-from-construction">Achieving separation of usage from construction</a></h4>
+<p>First, let us refactor the <code>Level1</code> and <code>Level2</code> to follow the principle by moving instantiation of their castles out. As existence of a castle is required for a level to make sense at all - we will say this in code by using the approach of passing a castle through constructor:</p>
 <p>TODO</p>
-<p>First, let us refactor the <code>Level1</code> and <code>Level2</code> by moving instantiation of their castles out of these classes. Existence of a castle is required for a level to make sense at all to make sense - we will say this in code by using the approach of passing them through constructor:</p>
 <pre><code>public class Level1
 {
   private Castle _castle;
