@@ -3761,14 +3761,14 @@ public class Level2
 <p>And this is it. We have a factory now and the way we got to this point is by trying to be true to the principle of separating use from construction.</p>
 <p>Now that we are through with the example, we are ready for some more general explanation on factories.</p>
 <h4 id="reasons-to-use-factories"><a href="#reasons-to-use-factories">Reasons to use factories</a></h4>
-<p>As you saw in the example, factories are objects responsible for creating other objects. They are used to achieve the separation of object constructions from their use when not all of the information necessary to create objects is known up-front. We put the part of the context we know in the factory, and supply the rest in a form of factory method parameters when available:</p>
-<pre><code>var factory = new Factory(upfrontKnownContext);
+<p>As you saw in the example, factories are objects responsible for creating other objects. They are used to achieve the separation of object constructions from their use when not all of the context necessary to create an object is known up-front. We pass the part of the context we know up-front (so called <strong>global context</strong>) in the factory via its constructor and supply the rest that becomes available later (so called <strong>local context</strong>) in a form of factory method parameters when it becomes available:</p>
+<pre><code>var factory = new Factory(globalContextKnownUpFront);
 
 //...
 
-factory.CreateInstance(remainingPartOfTheContext);</code></pre>
+factory.CreateInstance(localContext);</code></pre>
 <p>Another case for using a factory is when we need to create a new object each time some kind of request is made (a message is received from the network or someone clicks a button):</p>
-<pre><code>var factory = new Factory(upfrontKnownContext);
+<pre><code>var factory = new Factory(globalContext);
 
 //...
 
@@ -3779,6 +3779,7 @@ factory.CreateInstance();
 
 //we need another fresh instance
 factory.CreateInstance();</code></pre>
+<p>In the above example, two independent instances are created, eve though both are created in identical way (there is no local context that would differ them).</p>
 <p>Both these reasons were present in our example:</p>
 <ol style="list-style-type: decimal">
 <li>We were unable to create a <code>ChangeMessage</code> before knowing the actual <code>Frame</code>.</li>
@@ -3847,7 +3848,7 @@ CreateContainerForData()
 <pre><code>var message = _messageFactory.NewInstanceFrom(rawData);
 message.ValidateUsing(_primitiveValidations);
 message.ApplyTo(_sessions);</code></pre>
-<p>Note that the above code does not need to change in case we want to add a new type of message that is compatible with the existing flow of processing messages[^messageotherchangecase]. The only place we need to modify in such case is the factory. For example, imagine we decided to add a session refresh message. The modified factory would look like this:</p>
+<p>Note that the above code does not need to change in case we want to add a new type of message that is compatible with the existing flow of processing messages<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>. The only place we need to modify in such case is the factory. For example, imagine we decided to add a session refresh message. The modified factory would look like this:</p>
 <pre><code>public class Version1ProtocolMessageFactory
   : MessageFactory
 {
@@ -3869,7 +3870,7 @@ message.ApplyTo(_sessions);</code></pre>
   }
 }</code></pre>
 <p>and the rest of the code could remain untouched.</p>
-<p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (in our example - in case when we do not need to initiate a session anymore) <a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a> - the factory hides that and the rest of the application is coded against the general scenario.</p>
+<p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (in our example - in case when we do not need to initiate a session anymore) <a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> - the factory hides that and the rest of the application is coded against the general scenario.</p>
 <h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule"><a href="#factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</a></h4>
 <p>Another benefit of factories over inline constructors is that they are composable. This allows replacing the rule used to create objects with another one, by replacing one factory implementation with another.</p>
 <p>In the example from the previous section, we examined a situation where we extended the existing factory with a <code>SessionRefresh</code> message. This was done with assumption that we do not need the previous version of the factory. But consider a situation where we need both versions of the behavior adn want to be able to use the old version sometimes, and other times the new one. The “version 1” of the factory (the old one) would look like this:</p>
@@ -3921,9 +3922,8 @@ public class Version2ProtocolMessageFactory
 var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
 <p>The above code composes a <code>MessageProcessing</code> instance with either a <code>Version1ProtocolMessageFactory</code> or a <code>Version2ProtocolMessageFactory</code>, depending on the configuration.</p>
 <p>This example shows something I like calling “encapsulation of rule”. The logic inside the factory is actually a rule on how, when and which objects to create. Thus, if we make our factory implement an interface and have other objects depend on this interface, we will be able to switch the rules of object creation without having to modify these objects.</p>
-<p>TODO</p>
 <h4 id="factories-can-hide-some-of-the-created-object-dependencies-encapsulation-of-global-context"><a href="#factories-can-hide-some-of-the-created-object-dependencies-encapsulation-of-global-context">Factories can hide some of the created object dependencies (encapsulation of global context)</a></h4>
-<p>Let us consider a simple example. We have an application that, again, can process messages. One of the things that is done with those messages is saving them in a database and another is validation. The processing of message is, like in previous examples, handled by a <code>MessageProcessing</code> class, which, this time, does not use any factory, but creates the messages based on the frame data itself. let us look at this class:</p>
+<p>Let us consider another simple example. We have an application that, again, can process messages. One of the things that is done with those messages is saving them in a database and another is validation. The processing of message is, like in previous examples, handled by a <code>MessageProcessing</code> class, which, this time, does not use any factory, but creates the messages based on the frame data itself. let us look at this class:</p>
 <pre><code>public class MessageProcessing
 {
   private DataDestination _database;
@@ -3949,8 +3949,8 @@ var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
     //... other actions 
   }
 }</code></pre>
-<p>There is one noticeable thing about the <code>MessageProcessing</code> class. It depends on both <code>DataDestination</code> and <code>ValidationRules</code> interfaces, but does not use them itself. The only thing it needs those interfaces is to supply them as parameters to the constructor. Thus, the class gets polluted by something that it does not need directly.</p>
-<p>We can remove these dependencies by introducing a factory. If we manage to move the creation of the <code>Message</code> to the factory, we will be need to pass <code>DataDestination</code> and <code>ValidationRules</code> to the factory only. The factory may look like this:</p>
+<p>There is one noticeable thing about the <code>MessageProcessing</code> class. It depends on both <code>DataDestination</code> and <code>ValidationRules</code> interfaces, but does not use them. The only thing it needs those interfaces for is to supply them as parameters to the constructor of a <code>Message</code>. As a number of <code>Message</code> constructor parameters grows, the <code>MessageProcessing</code> will have to change to take more parameters as well. Thus, the <code>MessageProcessing</code> class gets polluted by something that it does not directly need.</p>
+<p>We can remove these dependencies from <code>MessageProcessing</code> by introducing a factory that would take care of creating the messages in its stead. This way, we only need to pass <code>DataDestination</code> and <code>ValidationRules</code> to the factory, because <code>MessageProcessing</code> never needed them for any reason other than creating messages. This factory may look like this:</p>
 <pre><code>public class MessageFactory
 {
   private DataDestination _database;
@@ -3995,9 +3995,9 @@ var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
   }
 }</code></pre>
 <p>So, instead of <code>DataDestination</code> and <code>ValidationRules</code> interfaces, the <code>MessageProcessing</code> depends only on the factory. This may not sound as a very attractive tradeoff (taking away two dependencies and introducing one), but note that whenever the <code>MessageFactory</code> needs another dependency that is like the existing two, the factory is all that will need to change. The <code>MessageProcessing</code> will remain untouched and still coupled only to the factory.</p>
-<p>The last thing that needs to be said is that not all dependencies can be hidden inside a factory. Note that the factory still needs to receive the <code>MessageData</code> from whoever is asking for a <code>Message</code>, because the <code>MessageData</code> is not available when the factory is created. I call such dependencies a <strong>local context</strong> (because it is different everytime the factory is asked to create something). On the other hand, what a factory accepts through the constructor can be called a <strong>global context</strong> (because it is the same throughout the factory lifetime). Using this terminology, the local context cannot be hidden, but the global context can. Thanks to this, the classes using the factory do not need to know about the global context and can stay cleaner, coupled to less things and more focused.</p>
+<p>The last thing that needs to be said is that not all dependencies can be hidden inside a factory. Note that the factory still needs to receive the <code>MessageData</code> from whoever is asking for a <code>Message</code>, because the <code>MessageData</code> is not available when the factory is created. You may remember that I call such dependencies a <strong>local context</strong> (because it is specific to a single use of a factory). On the other hand, what a factory accepts through its constructor can be called a <strong>global context</strong> (because it is the same throughout the factory lifetime). Using this terminology, the local context cannot be hidden from users of the factory, but the global context can. Thanks to this, the classes using the factory do not need to know about the global context and can stay cleaner, coupled to less things and more focused.</p>
 <h4 id="factories-help-eliminate-redundancy"><a href="#factories-help-eliminate-redundancy">Factories help eliminate redundancy</a></h4>
-<p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
+<p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
 <pre><code>public int MetersToCentimeters(int value)
 {
   return value*100;
@@ -4007,7 +4007,7 @@ public int DollarsToCents(int value)
 {
   return value*100;
 }</code></pre>
-<p>As I said, this is not redundancy, because the two methods represent different concepts. Even if we were to extract “common logic” from the two methods, the only sensible name we could come up with would be something like <code>MultiplyBy100()</code> which wouldn’t add any value at all.</p>
+<p>As I said, this is not redundancy, because the two methods represent different concepts that would change for different reasons. Even if we were to extract “common logic” from the two methods, the only sensible name we could come up with would be something like <code>MultiplyBy100()</code> which wouldn’t add any value at all.</p>
 <p>Note that up to now, we considered three things factories encapsulate about creation of objects:</p>
 <ol style="list-style-type: decimal">
 <li>Type</li>
@@ -4020,7 +4020,6 @@ public int DollarsToCents(int value)
 <h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
-<p>[^messageotherchangecase] although it does need to change when the rule “first validate, then apply to sessions” changes Achieving the best composability ===============================</p>
 <p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
 <p>As we said, an object is composed with another object by obtaining a reference to something. Also, we said that we want the flexibility of plugging in objects of different classes at different times. This is, of course, done using polymorphism, as Johnny and Benjamin did when cleaning up the payroll system. So, what should be the base for polymorphism? Is a class sufficient, or do we rather want to use an interface? In other words, when we plug in an object as a message receipient:</p>
@@ -4465,8 +4464,9 @@ foreach(var session in sessions)
 <li id="fn5"><p>Kent Beck, Implementation Patterns<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>For details, check Dependency Injection in .NET by Mark Seemann.<a href="#fnref6">↩</a></p></li>
 <li id="fn7"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref7">↩</a></p></li>
-<li id="fn8"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref8">↩</a></p></li>
-<li id="fn9"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref9">↩</a></p></li>
+<li id="fn8"><p>although it does need to change when the rule “first validate, then apply to sessions” changes Achieving the best composability ===============================<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref9">↩</a></p></li>
+<li id="fn10"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref10">↩</a></p></li>
 </ol>
 </div>
 </body>
