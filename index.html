@@ -105,7 +105,7 @@
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#summary-6">Summary</a></li>
 </ul></li>
-<li><a href="#achieving-the-best-composability">Achieving the best composability</a><ul>
+<li><a href="#designing-for-composability">Designing for composability</a><ul>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
 </ul></li>
 </ul>
@@ -4020,18 +4020,19 @@ public int DollarsToCents(int value)
 <h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
-<h1 id="achieving-the-best-composability"><a href="#achieving-the-best-composability">Achieving the best composability</a></h1>
+<h1 id="designing-for-composability"><a href="#designing-for-composability">Designing for composability</a></h1>
 <p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
-<p>As we said, an object is composed with another object by obtaining a reference to something. Also, we said that we want the flexibility of plugging in objects of different classes at different times. This is, of course, done using polymorphism, as Johnny and Benjamin did when cleaning up the payroll system. So, what should be the base for polymorphism? Is a class sufficient, or do we rather want to use an interface? In other words, when we plug in an object as a message receipient:</p>
+<p>As we said, a sender is composed with a recipient by obtaining a reference to it. Also, we said that we want the flexibility of using a sender with many different recipients. This is, of course, done using polymorphism. So, on what should a sender depend on to be able to work with as many recipients as possible? Should it depend on classes or interfaces? In other words, when we plug in an object as a message receipient:</p>
 <pre><code>public Sender(Recipient recipient)
 {
   this._recipient = recipient;
 }</code></pre>
-<p>Should the Recipient be a class or an interface?</p>
-<p>If we assume that Recipient is a class, we can get the composability we want by deriving another class from it and overriding methods. However, using a class as a base for composability has the following weaknesses:</p>
+<p>Should the <code>Recipient</code> be a class or an interface?</p>
+<p>If we assume that Recipient is a class, we can get the composability we want by deriving another class from it and implementing abstract methods or overriding virtual ones. However, depending on a class as a base for composability has the following disadvantages:</p>
+<p>TODO below</p>
 <ol style="list-style-type: decimal">
-<li>The superclass may have real dependencies. For example, if <code>Recipient</code> class depends on WCF stack, then everywhere we take our Sender to compose it with different recipients, we must also take our <code>Recipient</code> and its WCF dependency.</li>
+<li>The class may have some real dependencies. For example, if <code>Recipient</code> class depends on WCF stack, then everywhere we take our Sender to compose it with different recipients, we must also take our <code>Recipient</code> and its WCF dependency.</li>
 <li>We force each recipient class we want to compose our sender with to invoke a constructor from superclass, which, depending on the complexity of the superclass, may be smaller or bigger trouble.</li>
 <li>In languages like C#, when only single inheritance exists all the classes that want to be composed with our <code>Sender</code>, we waste the only inheritance slot, further constraining the inheriting classes.</li>
 <li>We must take care to make all methods of <code>Recipient</code> superclass virtual to enable overriding by subclasses. otherwise, we won’t have full composability.</li>
