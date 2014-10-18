@@ -105,6 +105,7 @@
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#summary-6">Summary</a></li>
 </ul></li>
+<li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
 <li><a href="#designing-for-composability">Designing for composability</a><ul>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
 </ul></li>
@@ -3402,7 +3403,11 @@ sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
 <h4 id="where-to-apply-2"><a href="#where-to-apply-2">Where to apply</a></h4>
 <p>This kind of composition is beneficial when a new recipient is needed each time <code>DoSomething()</code> is called. In this sense it may look much like in case of previously discussed approach of receiving a recipient inside a message. There is one difference, however. Contrary to passing a recipient inside a message, where the code using the <code>Sender</code> passed a <code>Recipient</code> “from outside” of the <code>Sender</code>, in this approach, we rely on a separate object that is used by a <code>Sender</code> “from the inside”.</p>
 <p>To be more clear, let us compare the two approaches. Passing recipient inside a message looks like this:</p>
-<p>//Sender gets a Recipient from the “outside”: public DoSomething(Recipient recipient) { recipient.DoSomethingElse(); } <sub>~</sub></p>
+<pre><code>//Sender gets a Recipient from the &quot;outside&quot;:
+public DoSomething(Recipient recipient) 
+{
+  recipient.DoSomethingElse();
+}</code></pre>
 <p>and obtaining from factory:</p>
 <pre><code>//a factory is used &quot;inside&quot; Sender
 //to obtain a recipient
@@ -4020,10 +4025,12 @@ public int DollarsToCents(int value)
 <h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h1>
 <h1 id="designing-for-composability"><a href="#designing-for-composability">Designing for composability</a></h1>
-<p>Some classes are harder to compose with other classes, others are easier. There are numerous factors influencing this:</p>
+<p>Some classes are harder to compose with other classes, others are easier. Of course, we are striving for the higher composability. There are numerous factors influencing this:</p>
 <h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
-<p>As we said, a sender is composed with a recipient by obtaining a reference to it. Also, we said that we want the flexibility of using a sender with many different recipients. This is, of course, done using polymorphism. So, on what should a sender depend on to be able to work with as many recipients as possible? Should it depend on classes or interfaces? In other words, when we plug in an object as a message receipient:</p>
+<p>As we said, a sender is composed with a recipient by obtaining a reference to it. Also, we said that we want our senders to be able to send messages to many different recipients. This is, of course, done using polymorphism.</p>
+<p>So, one of the questions we have to ask ourselves in our quest for high composability is: on what should a sender depend on to be able to work with as many recipients as possible? Should it depend on classes or interfaces? In other words, when we plug in an object as a message receipient like this:</p>
 <pre><code>public Sender(Recipient recipient)
 {
   this._recipient = recipient;
@@ -4466,7 +4473,7 @@ foreach(var session in sessions)
 <li id="fn5"><p>Kent Beck, Implementation Patterns<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>For details, check Dependency Injection in .NET by Mark Seemann.<a href="#fnref6">↩</a></p></li>
 <li id="fn7"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref7">↩</a></p></li>
-<li id="fn8"><p>although it does need to change when the rule “first validate, then apply to sessions” changes # THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL<a href="#fnref8">↩</a></p></li>
+<li id="fn8"><p>although it does need to change when the rule “first validate, then apply to sessions” changes<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref10">↩</a></p></li>
 </ol>
