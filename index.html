@@ -114,10 +114,10 @@
 <div class="figure">
 <img src="images/homemade_title_page.png" />
 </div>
-<h1 id="dedications"><a href="#dedications">Dedications</a></h1>
+<h1 id="dedications">Dedications</h1>
 <p><em>Ad Deum qui laetificat iuventutem meam.</em></p>
 <p><em>To my beloved wife Monika.</em></p>
-<h1 id="thanks"><a href="#thanks">Thanks!</a></h1>
+<h1 id="thanks">Thanks!</h1>
 <p>I would like to thank the following people (listed alphabetically by name) for valuable feedback, suggestions, typo fixes and other contributions:</p>
 <ul>
 <li>Brad Appleton</li>
@@ -141,17 +141,17 @@
 <li>Steve Freeman</li>
 <li>Robert C. Martin</li>
 </ul>
-<h1 id="part-1-justthe-basics"><a href="#part-1-justthe-basics">Part 1: Just the basics</a></h1>
+<h1 id="part-1-justthe-basics">Part 1: Just the basics</h1>
 <p>This is a part where I introduce the basic TDD philosophy and practices (as well as some advanced ones) without going much into object orientation and how to do TDD for systems where multiple objects collaborate together (which is a topic of Part 2).</p>
 <p>So, for the most chapters of this part, I will be giving you examples where single object (plus some small ones like strings etc.) is exercised to slowly introduce some concepts in an easy to grasp manner.</p>
 <p>After reading part 1, you will be able to quite effectively develop classes that have no dependencies on other classes (and on operating system resources).</p>
-<h1 id="motivation---the-first-step-to-learning-tdd"><a href="#motivation---the-first-step-to-learning-tdd">Motivation - the first step to learning TDD</a></h1>
+<h1 id="motivation---the-first-step-to-learning-tdd">Motivation - the first step to learning TDD</h1>
 <p>So, you want to learn TDD, huh? First off, let me ask a question ‘why?’.</p>
 <p>I want to tell you a story - few years ago, I had an apprentice, who wanted to learn TDD as well. We started working on a small project together for him to grasp the necessary skills through practice, with me sitting next to him, providing guidance. He showed up three, four times, then he resigned, having ‘more urgent things’ and ‘no time’. Since then, he did not progress in TDD at all. Did he really want to learn?</p>
 <p>See, sometimes people don’t really want to learn something or don’t want so much as to dedicate the necessary time and resources to this. Sometimes they just think they need to do it for whatever reasons - getting promotion at work, gaining a certificate, add something to CV or just ‘stay up to date’ with recent hypes, one of them being Test-Driven Development.</p>
 <p>Others want to learn TDD for reasons they themselves made up. Knowing that TDD is valued and praised by others, they draw conclusions that it has to be good. Why is that so? Err… maybe… “the code will be more tested”? Or… ekhem… “the network of tests will be tighter”? And why do Test-First? Well… hmm… “to ensure tests are written for everything”? While these statements might be partially true, they don’t even touch the essence of the “why” of TDD, and quickly turn into something like: “I don’t really need TDD, because I need tests that give me confidence on broader scope” or: “Why do I need unit tests when I already have integration tests, smoke tests, sanity tests, exploration tests…?”. Then TDD gets abandoned, before actually ever being achieved in the first place.</p>
 <p>You need to be highly motivated on this one. If you are not, hey, I heard the new series of Game Of Thrones is on TV, why don’t you check it out instead? Ok, I’m just teasing, however, as some say, TDD is “easy to learn, hard to master” (don’t actually know who said it first, I searched the web and found it in few places where none of the writers gave credit to anyone else for it, so I decided just to mention that I’m not the one that coined this description) , so without some guts to move on, it will be hard.</p>
-<h2 id="how-tdd-feels-like"><a href="#how-tdd-feels-like">How TDD feels like</a></h2>
+<h2 id="how-tdd-feels-like">How TDD feels like</h2>
 <p>Me and my brother liked to play video games in our childhood - one of the most memorable being Tekken 3 - a Japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a day. Some could say the game had nothing to offer since then. Why then did we spend over a year on it?</p>
 <div class="figure">
 <img src="images/Tekken3-gray.png" alt="Tekken3" /><p class="caption">Tekken3</p>
@@ -160,15 +160,15 @@
 <p>Yes, Tekken was easy to learn - you could put one hour into training the core moves of a character and then be able to “use them”, but what made you a great fighter was the experience and knowledge on which techniques were risky or not, which ones could be used in which situations, which ones, if used one after another, gave the opponent little chance to counterattack etc. No wonder that soon, many tournaments sprang, where players could clash for glory, fame and rewards. Even today, you can watch some of the matches on youtube.</p>
 <p>TDD is like Tekken. You have probably heard the mantra “red-green-refactor” or the general advice “write your test first, then the code”, maybe you even did some experiments on your own where you were trying to implement a bubble-sort algorithm or other simple stuff by starting with a test. But that is all like practicing Tekken by trying out each move on its own on dummy opponent, without the context of real-world issues that make the fight really challenging. And while I think such exercises are useful (especially at the beginning), you need to understand the bigger picture as well.</p>
 <p>Some people I talk with about TDD sum up what I say to them as: “That is really demotivating - there are so many things I have to watch out for that it makes me never want to start!”. Easy, don’t panic - remember the first time you tried to ride a bike - you must have been really far back then from knowing traffic regulations and following road signs, but that did not really keep you away, did it? I myself found TDD very exciting. Some guys my age already think they know all about coding, are bored with it and cannot wait until they move to management or requirements or business analysis, but hey! I have a new technique that makes my coding career challenging again! And it’s not something I can use only when I pay to Microsoft or Oracle or anybody else - it’s quite portable, making me a better developer overall!</p>
-<h1 id="the-three-most-essential-tools"><a href="#the-three-most-essential-tools">The three most essential tools</a></h1>
+<h1 id="the-three-most-essential-tools">The three most essential tools</h1>
 <p>Ever watched Karate Kid, either the old version or the new one? The thing they have in common is that when the kid starts learning Karate (or Kung-Fu) from his master, he is given a basic, repetitive task (like taking off a jacket, and putting it on again), not knowing yet where it would lead him. Or look at the first Rocky film (yeah, the one starring Sylvester Stallone), where Rocky was chasing a chicken in order to train agility.</p>
 <p>When I first tried to learn how to play guitar, I found two advices on the web: the first was to start by mastering a single, difficult song. The second was to play with a single string, learn how to make it sound in different ways and try to play some melodies by ear just with this one string. Do I have to tell you that the second advice worked better?</p>
 <p>Honestly, I could dive right into the core techniques of TDD, but this would be like putting you on a ring with a demanding opponent - you would most probably be discouraged before gaining the necessary skills. So, instead of explaining how to win a race, in this chapter we will take a look at what shiny cars we will be driving.</p>
 <p>In other words, I will give you a brief tour of the three most essential tools we will be using throughout this book.</p>
-<h2 id="our-shiny-tools"><a href="#our-shiny-tools">Our shiny tools</a></h2>
-<h3 id="a-disclaimer"><a href="#a-disclaimer">A disclaimer</a></h3>
+<h2 id="our-shiny-tools">Our shiny tools</h2>
+<h3 id="a-disclaimer">A disclaimer</h3>
 <p>In this chapter, I will oversimplify some things just to get you up and running without getting into the philosophy of TDD yet (think: physics lessons in primary school). Do not worry about it :-), we will fix that in the coming chapters!</p>
-<h3 id="xunit-framework"><a href="#xunit-framework">xUnit framework</a></h3>
+<h3 id="xunit-framework">xUnit framework</h3>
 <p>The first and most essential tool we are going to use is an xUnit framework.</p>
 <p>Let us assume that our application looks like this:</p>
 <pre><code>public static void Main(string[] args) 
@@ -290,7 +290,7 @@ Multiplication_ShouldResultInAMultiplicationOfTwoPassedNumbers()
 <div class="figure">
 <img src="images/XUnit_NET_Window.png" alt="XUnit.NET window" /><p class="caption">XUnit.NET window</p>
 </div>
-<h3 id="mocking-framework"><a href="#mocking-framework">Mocking framework</a></h3>
+<h3 id="mocking-framework">Mocking framework</h3>
 <p>Mocking frameworks are libraries that automate runtime creation of objects (called “mocks”) that adhere to specified interface. Aside from the creation itself, the frameworks provide an API to configure our mocks on how they behave when certain methods are called on them and to let us inspect which calls they received.</p>
 <p>Mocking frameworks are not as old as xUnit frameworks and were not present in TDD at very beginning. As you might be wondering why on earth do we need something like this, I will let you in on a secret: they were born with a goal of aiding a specific approach to object oriented design in mind. This kind of design is what TDD can support quite well as you will soon experience.</p>
 <p>For now, however, let us try to keep things easy. I will defer explaining the actual rationale for mocking frameworks until later and instead give you a quick example where you can see them in action. Ready? Let us go!</p>
@@ -440,7 +440,7 @@ ShouldInsertNewOrderToDatabase()
 }</code></pre>
 <p>Note that we do not need the <code>SelectAllOrders()</code> method. If no one except this test needs it, we can delete it and spare some more maintainability trouble. The last line of this test is actually a camouflaged assertion that checks whether Insert method was called once with order object as parameter.</p>
 <p>I will get back to mocks, since, as I said, there is a huge philosophy behind them and we have only scratched the surface here.</p>
-<h3 id="anonymous-values-generator"><a href="#anonymous-values-generator">Anonymous values generator</a></h3>
+<h3 id="anonymous-values-generator">Anonymous values generator</h3>
 <p>Look at the test in the previous section. Does it not trouble you that we fill the order object with so many values that are totally irrelevant to the test logic itself? They actually hinder readability of the test. Also, they make us believe that the tested object really cares what these values are, although it does not (the database does, but we already got rid of it from the test). Let us move it to a method with descriptive name:</p>
 <pre><code>[Fact] public void 
 ShouldInsertNewOrderToDatabase()
@@ -495,11 +495,11 @@ private Fixture any = new Fixture();</code></pre>
   }
 }</code></pre>
 <p>In the next chapters, you will see me using a lot of different methods from the <code>Any</code> type. The more you use this class, the more it grows with other methods for creating customized objects. For now, however, let us stop here.</p>
-<h3 id="summary"><a href="#summary">Summary</a></h3>
+<h3 id="summary">Summary</h3>
 <p>In this chapter, I tried to show you the three essential tools which we will be using in this book and which, when mastered, will make your test-driven development smoother. If this chapter leaves you with insufficient justification for their use, do not worry - we will dive into the philosophy behind them in the coming chapters. For now, I just want you to get familiar with the tools themselves and their syntax. Go on, download these tools, launch them, try to write something simple with them. You do not need to understand their full purpose yet, just go out and play :-).</p>
-<h1 id="it-is-not-atest"><a href="#it-is-not-atest">It is not a test</a></h1>
+<h1 id="it-is-not-atest">It is not a test</h1>
 <p>Up to now, I was cheating on you. I told you that the little executable snippets of code are ‘tests’ and that they’re here to ‘check’ or ‘verify’ something. Now it is time to reveal the truth.</p>
-<h2 id="when-atest-becomes-something-else"><a href="#when-atest-becomes-something-else">When a test becomes something else</a></h2>
+<h2 id="when-atest-becomes-something-else">When a test becomes something else</h2>
 <p>I studied in Łódź, a large city in the center of Poland. As probably all other students in all other countries, we have had lectures, exercises and exams. The exams were pretty hard, especially considered that my computer science group was on the faculty of electronic and electric engineering, so we had to grasp a lot of classes that did not have anything to do with programming, for instance electrotechnics, solid-state physics or electronic and electrical metrology.</p>
 <p>Knowing that the exams were difficult and that it was hard to learn everything during preparation, the lecturers would give us exemplary exams from previous years. The questions were different than during actual exams, but the structure and types of questions asked (practice vs. theory etc.) was similar. We would usually get these exemplary questions before we started learning really hard (which was usually at the end of semester). Guess what happened then? As you might suspect, we did not use the tests we received just to ‘verify’ or ‘check’ our knowledge after we finished learning. Those tests were actually the first thing we went to before even starting to learn. Why was that so? What use were the tests when we knew we would not know most of the answers?</p>
 <p>I guess my lecturers would disagree with me, but I find it quite amusing that what we were really doing back then was ‘Lean’. Lean is an approach where, among others, there is a rigorous emphasis on eliminating waste. Every feature or product that is produced while not being needed by anyone is considered waste. That is because if something is not needed, there is no reason to assume it will ever be needed. In such case the entire feature or product is a waste - it has no value. Even if it WILL be ever needed, it will require some rework anyway to fit the real customer needs. In this case, the initial amount of work that went into the parts of solution that had to be replaced by another parts anyway is a waste - it never brought any money (I am not talking about such things as customer demos, but finished, polished features or products).</p>
@@ -511,7 +511,7 @@ private Fixture any = new Fixture();</code></pre>
 <li>they brought our attention away from what was <strong>not</strong> needed to reach our goal</li>
 </ol>
 <p>That was the value of a test before learning. Note that the tests we would usually receive were not exactly what we would encounter at the time of exam, so we still had to guess. Still, the role of a <strong>test as specification of a need</strong> was already visible.</p>
-<h2 id="taking-it-to-the-software-development-land"><a href="#taking-it-to-the-software-development-land">Taking it to the software development land</a></h2>
+<h2 id="taking-it-to-the-software-development-land">Taking it to the software development land</h2>
 <p>I chose this lengthy metaphor to show you that ‘test’ is really another way of specifying a requirement or a need and that it is not something that is counter-intuitive - it occurs in our everyday lives. This is also true in software development. Let us take the following ‘test’ and see what kind of needs it specifies:</p>
 <pre><code>var reporting = new ReportingFeature();
 var anyPowerUser = Any.Of(Users.Admin, Users.Auditor);
@@ -525,7 +525,7 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <li>Power users will need to be privileged to use the reporting feature (note that it does not specify which other users should or should not be able to use this feature - we would need a separate ‘test’ for that).</li>
 </ol>
 <p>Also, are already after the phase of designing an API that will fulfill the need. Don’t you think it is pretty much information about the application from just three lines of code?</p>
-<h2 id="a-specification-instead-of-atest-suite"><a href="#a-specification-instead-of-atest-suite">A Specification instead of a Test Suite</a></h2>
+<h2 id="a-specification-instead-of-atest-suite">A Specification instead of a Test Suite</h2>
 <p>I hope that you can see now that what we called ‘a test’ is really a kind of specification. The discovery is very recent, so there isn’t a clear terminology on it yet. Some like to call the process of using tests as specifications: Specification By Example, to say that the tests are really examples that help specify and clarify the behavior of developed part of functionality. The terminology is still not rock-solid, so you might encounter different naming for different things. For example, a ‘test’ is often referred to as ‘spec’, or an ‘example’, or a ‘behavior description’, or a ‘specification statement’ or a ‘fact about the developed system’ (the xUnit.NET framework marks each ‘test’ with a <code>[Fact]</code> attribute, suggesting that by writing it, we are stating a single fact about developed code. By the way, xUnit.NET also allows us to state ‘theories’ about our code, but let us leave it for now).</p>
 <p>The time has come to make a deal: I will establish some naming conventions for this book to be consistent, but leave you with the freedom to follow your own if you so desire. The terminology shift is for pedagogical reasons - I am not trying to create a movement to change established terms or to invent a new methodology or anything - my hope is that using this terminology throughout the book will let you look differently at some things. So, let us agree that for the sake of this book:</p>
 <dl>
@@ -549,8 +549,8 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 <li>it is executable - you can run it to see whether the code adheres to the specification or not.</li>
 <li>it is written in source code rather than in spoken language - which is both good (less room for misunderstanding - source code is the most formal and structured way of writing specifications) and bad (great care must be taken to keep the specification readable).</li>
 </ol>
-<h1 id="statement-first-programming"><a href="#statement-first-programming">Statement-first programming</a></h1>
-<h2 id="what-is-the-point-of-writing-specification-after-the-fact"><a href="#what-is-the-point-of-writing-specification-after-the-fact">What is the point of writing specification after the fact?</a></h2>
+<h1 id="statement-first-programming">Statement-first programming</h1>
+<h2 id="what-is-the-point-of-writing-specification-after-the-fact">What is the point of writing specification after the fact?</h2>
 <p>In the last chapter, I said that in TDD a ‘test’ takes another role - one of a statement being a part of a specification. If we put things this way, then the whole controversial concept of “writing a test before the code” does not pose a problem at all. Quite the contrary - it only seems natural to specify what we are going to write before we attempt to write it. Does the other way round even make sense? A specification written after completing the implementation is nothing more than an attempt at documenting the existing solution. Sure, such attempts can provide some value when done as a kind of reverse-engineering (i.e. writing specification for something that was implemented long ago and we do not really know the exact business rules or policies, which we discover as we document the existing solution) - it has an excitement of discovery in it, but doing it just after we, ourselves, made all the decisions seems like a waste of time, not to mention that it is dead boring (Do not believe me? Try implementing a simple calculator app and the write specification for it just after it is implemented and working). Anyway, specifying how something should work after the fact can hardly be considered creative.</p>
 <p>Oh, and did I tell you that without a specification of any kind we do not really know whether we are done implementing our changes or not (because in order to know it, we need to compare the implemented functionality to ‘something’, even if this ‘something’ is only in the customer’s head).</p>
 <p>Another thing I mentioned in the previous chapter was that one of the differences between a textual specification and our Specification consisting of executable Statements is that, although the code follows the Specification, we do not write our Specification fully up-front. The usual sequence is to specify a bit first and then code a bit, then repeat one Statement at a time. When doing TDD, we are traversing repeatedly through few phases that make up a cycle. We like these cycles to be short, so that we can get a quick feedback. Being able to get this quick feedback is essential, because it allows us to move forward with confidence that what we already have works as we intended. Also, it allows us to use the knowledge we gained in the previous cycle to make the next cycle more efficient (if you do not believe me that quick feedback is good, ask yourself a question: “how many times a day do I compile the code I work on?”).</p>
@@ -576,13 +576,13 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 </dd>
 </dl>
 <p>By the way, this process is sometimes referred to as “Red-Green-Refactor”. I am just mentioning it here for the record - I am not planning to use this term further in the book.</p>
-<h2 id="the-benefit-of-failure"><a href="#the-benefit-of-failure">The benefit of failure</a></h2>
+<h2 id="the-benefit-of-failure">The benefit of failure</h2>
 <p>When I showed you a drawing with a TDD process, I specifically said that you are supposed to write a Statement that you wish was true <strong>but is not</strong>. It means that when you write a Statement, you have to evaluate it (i.e. run it) and watch it fail its assertions before providing implementation that makes this Statement true. Why is that so important? Is it not just enough to write the Statement first? Why run it and watch it fail?</p>
 <p>There are multiple reasons and I will try to outline few of them briefly.</p>
-<h3 id="you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false"><a href="#you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false">You do not know whether the Statement can ever be false until you see it evaluate as false</a></h3>
+<h3 id="you-do-not-know-whether-the-statement-can-ever-be-false-until-you-see-it-evaluate-as-false">You do not know whether the Statement can ever be false until you see it evaluate as false</h3>
 <p>Every accurate Statement (do I have to tell you that such Statements are what we are interested in?) fails when it isn’t fulfilled and passes when it is. That is one of the main reasons we write it - to receive this feedback. Also, after being fulfilled, the Statement becomes a part of the executable specification and starts failing as soon as the code stops fulfilling it (e.g. as a result of mistake made during code rework). When your run a Statement after it is implemented and it is evaluated as true, how do you know whether it really describes a need accurately? You did not ever watch it fail, so how do you know it ever will?</p>
 <p>The first time I encountered this argument (it was before I started thinking of unit tests as executable specification), it quickly raised my self-defense mechanism: “seriously?” - I thought - “I am a wise person, I know what I am writing. If I make my unit tests small enough, it is self-evident that I am describing the correct behavior. This is paranoid”. However, life quickly verified my claims and I was forced to withdraw my arguments. Let me describe, from my experience, three ways (there are more, I just forgot the rest :-D) one can really put in a Statement that is always evaluated as true, regardless of the code being correct or not (i.e. a Statement that cheats you into thinking it is fulfilled even when it is not):</p>
-<h4 id="accidental-omission-of-adding-astatement-to-specification"><a href="#accidental-omission-of-adding-astatement-to-specification">1. Accidental omission of adding a Statement to Specification</a></h4>
+<h4 id="accidental-omission-of-adding-astatement-to-specification">1. Accidental omission of adding a Statement to Specification</h4>
 <p>However funny this may sound, it happened to me few times. The example I am going to give is from C#, but almost every xUnit framework in almost every language has some kind of mechanism of marking methods as Statements, whether by attributes (C#, e.g. xUnit.Net’s <code>Fact</code> attribute) or annotations (Java) or with macros (C and C++) or by inheriting from common class, or just a naming convention.</p>
 <p>Let us take xUnit.Net as an example. As I stated previously, In xUnit.Net, to turn a method into a Statement, you mark it with <code>[Fact]</code> attribute the following way:</p>
 <pre><code>public class CalculatorSpecification
@@ -606,7 +606,7 @@ Assert.True(reporting.CanBePerformedBy(anyPowerUser));</code></pre>
 }</code></pre>
 <p>And you do not even notice that this will not be evaluated with the rest of the Specification, because it already consists of so many Statements that it is almost irrational to search for your added Statement in the list and make sure it is there each time. Also, note that the fact that you omitted the addition, does not disturb your work flow: test - all pass, test - all pass, test - all pass… In other words, your process does not give you any feedback on your mistake. So, what you end up is a Statement that not only will never be false - <strong>it will never be evaluated</strong>.</p>
 <p>How does treating tests as Statements and evaluating them before making them true help here? <strong>Because then, a Statement that starts off being evaluated as true is what DOES disturb your work flow.</strong> In TDD, the work flow is: Statement - unfulfilled - fulfilled (ok, and refactor, but for the sake of THIS discussion, it does not matter so much), Statement - unfulfilled - fulfilled, Statement - unfulfilled - fulfilled… So every time you fail to see the “unfulfilled” stage, you get feedback from your process that something suspicious is happening. This lets you investigate and, if necessary, fix the situation at hand.</p>
-<h4 id="misplacing-mock-setup"><a href="#misplacing-mock-setup">2. Misplacing mock setup</a></h4>
+<h4 id="misplacing-mock-setup">2. Misplacing mock setup</h4>
 <p>Ok, this may sound even funnier (well, honestly, most mistakes sound funny), but it also happened to me a couple of times, so it makes sense to mention it. The example I am going to show uses manual mocks, but this can happen with dynamic mocks as well, especially if you are in a hurry.</p>
 <p>Let us take a look at the following Statement saying that setting a value higher than allowed to a field of a frame should produce error result:</p>
 <pre><code>[Fact]
@@ -629,7 +629,7 @@ public void ShouldRecognizeTimeSlotAboveMaximumAllowedAsInvalid()
     result.Reason);
 }</code></pre>
 <p>Note how the method <code>PerformForTimeSlotIn()</code>, which triggers the specified behavior is accidentally called BEFORE the mock is actually set up and the set up return value is never taken into account. By some strange coincidence, this error did not alter the expected end result so we did not even notice. It sometimes turns out like this, most often in case of various boundary values (nulls etc.).</p>
-<h4 id="using-static-data-inside-production-code"><a href="#using-static-data-inside-production-code">3. Using static data inside production code</a></h4>
+<h4 id="using-static-data-inside-production-code">3. Using static data inside production code</h4>
 <p>Once in a while, you have to jump in and add some new Statements to some class Specification and some logic to the class itself. Let us assume that the class and its existing specification was written by someone else. Imagine this code is a wrapper around your product XML configuration file. You decide to write your Statements AFTER applying the changes (“well”, you can say, “I am all protected by the Specification that is already in place, so I can make my change without risking regression, then just test my changes and it is all good…”).</p>
 <p>So, you start writing the new Statement. The Specification class already contains a field member like this:</p>
 <pre><code>public class XmlConfigurationSpecification
@@ -645,10 +645,10 @@ var configuration = new XmlConfiguration(customFixture);
 <p>And it passes - cool… not. Ok, what is wrong with this? Nothing big, unless you read the source code of XmlConfiguration class carefully. Inside, you can see, how the xml string is stored:</p>
 <pre><code>private static string xmlText; //note the static keyword!</code></pre>
 <p>What the…? Well, well, here is what happened: the author of this class coded in a small little optimization. He thought: “In this app, the configuration is only modified by members of the support staff and to do it, they have to shut down the system, so, there is no need to read the XML file every time an XmlConfiguration object is created. I can save some CPU cycles and I/O operations by reading it only once when the first object is created. Another created object will just use the same XML!”. Good for him, not so good for you. Why? Because (unless your Statement is evaluated prior to being fulfilled), your custom xml string will never actually be used!</p>
-<h3 id="test-after-ends-up-as-test-never"><a href="#test-after-ends-up-as-test-never">“Test-After” ends up as “Test-Never”</a></h3>
+<h3 id="test-after-ends-up-as-test-never">“Test-After” ends up as “Test-Never”</h3>
 <p>I will ask this question again: ever had to write a requirement or design document for something that you already implemented? Was it fun? Was it valuable? Was it creative? No, I do not think so. The same is with our executable specification. After we write the code, we have little motivation to specify what is already written - some of the pieces of code “we can just see are correct”, other pieces “we already saw working” when we copied our code over to our deployment machine and ran few sanity checks… The design is ready… Specification? Maybe next time…</p>
 <p>Another reason might be time pressure. Let us be honest - we are all in a hurry, we are all under pressure and when this pressure is too high, it triggers heroic behaviors in us, especially when there is a risk of not making it with the sprint commitment. Such heroic behavior usually goes by the following rules: drop all the “baggage”, stop learning and experimenting, revert to all of the old “safe” behaviors and “save what we can!”. If Specification is written at the end, it is often sacrificed on the altar of making it with the commitment, since the code is already written, “and it will be tested anyway by real tests” (box tests, smoke tests, sanity tests etc.). It is quite the contrary when starting with a Statement, where the Statement evaluating to false is <strong>a reason</strong> to write any code. Thus, if we want to write code, Specification become irremovable part of your development. By the way, I bet in big corporations no one sane ever thinks they can abandon checking in the code to source control, at the same time treating Specification as “an optional addition”.</p>
-<h3 id="not-starting-from-specification-leads-to-waste-of-time-on-making-objects-testable"><a href="#not-starting-from-specification-leads-to-waste-of-time-on-making-objects-testable">Not starting from specification leads to waste of time on making objects testable</a></h3>
+<h3 id="not-starting-from-specification-leads-to-waste-of-time-on-making-objects-testable">Not starting from specification leads to waste of time on making objects testable</h3>
 <p>It so happens, that I like watching and reading Uncle Bob. One day, I was listening to <a href="http://www.confreaks.com/videos/759-rubymidwest2011-keynote-architecture-the-lost-years">his keynote at Ruby Midwest 2011, called Architecture The Lost Years</a>. At the end, Robert made some digressions, one of them being about TDD. He said that writing unit tests after the code is not TDD. It is a waste of time.</p>
 <p>My initial thought was that the comment was only about missing all the benefits that starting with false Statement brings you: the ability to see the Statement fail, the ability to do a clean-sheet analysis etc., however, now I am of opinion that there is more to it. It is something I got from Amir Kolsky and Scott Bain - in order to be able to write maintainable Specification for a piece of code, the code has to have a high level of a quality called <strong>testability</strong> (we will talk about testability later on, do not worry - for now let us assume that the easier it is to write a Statement for a behavior of a class, the higher testability it has). That does not tell us much about where is the waste I mentioned, does it? To see it, let us see how dealing with testability looks like in Statement-first workflow (let us assume that we are creating new code, not adding stuff to dirty, ugly legacy code):</p>
 <ol style="list-style-type: decimal">
@@ -665,23 +665,23 @@ var configuration = new XmlConfiguration(customFixture);
 </ol>
 <p>What is the equivalent of the marked steps in Statement-first approach? Nothing! Doing these things is a waste of time! Sadly, this is a waste I see done over and over again.</p>
 <p>Do you like wasting your time?</p>
-<h1 id="practicing-what-we-already-learned"><a href="#practicing-what-we-already-learned">Practicing what we already learned</a></h1>
+<h1 id="practicing-what-we-already-learned">Practicing what we already learned</h1>
 <blockquote>
 <p>And now, a taste of things to come!</p>
 <p>– Shang Tsung, Mortal Kombat The Movie</p>
 </blockquote>
 <p>The above quote took place just before a fighting scene in which a nameless warrior jumped at Sub-Zero only to be frozen and broken into multiple pieces upon hitting the wall. The scene was not spectacular in terms of fighting technique or length. Also, the nameless guy did not even try hard - the only thing he did was to jump only to be hit by a freezing ball, which, by the way, he actually saw coming. It looked a lot like the fight was set up only to showcase Sub-Zero’s freezing ability. Guess what? In this chapter, we are gonna do roughly the same thing - set up a fake, easy scenario just to showcase some of the basic TDD elements!</p>
 <p>The previous chapter was filled with a lot of theory and philosophy, don’t you think? I really hope you did not fall asleep while reading it. To tell you the truth, we need to grasp much more theory until we are really able to write real-world applications using TDD. To compensate for this somehow, I propose we make a side trip from the trail and try what we already learned on a quick and easy example. As we go through the example, you might wonder how on earth could you possibly write real applications the way we will write our simple program. Do not worry, I will not show you all the tricks yet, so treat it as a “taste of things to come”. In other words, the example will be as close to real world problems as the fight between Sub-Zero and nameless ninja was to real martial arts fight, but will show you some of the elements of TDD process.</p>
-<h2 id="let-me-tell-you-astory"><a href="#let-me-tell-you-astory">Let me tell you a story</a></h2>
+<h2 id="let-me-tell-you-astory">Let me tell you a story</h2>
 <p>Meet Johnny and Benjamin, two developers from Buthig Company. Johnny is quite fluent in programming and Test-Driven Development, while Benjamin is an intern under Johnny’s mentorship and is eager to learn TDD. They are on their way to their customer, Jane, who requested their presence as she wants them to do write a small program for her. Together with them, we will see how they interact with the customer and how Benjamin tries to understand the basics of TDD. Just as you, Benjamin is a novice so his questions may reflect yours. However, if you find anything explained in not enough details, do not worry - in the next chapters, we will be expanding on this material.</p>
-<h2 id="act-1-the-car"><a href="#act-1-the-car">Act 1: The Car</a></h2>
+<h2 id="act-1-the-car">Act 1: The Car</h2>
 <p><strong>Johnny:</strong> How do you feel on your first assignment?</p>
 <p><strong>Benjamin:</strong> I am pretty excited! I hope I can learn some of the TDD stuff you promised to teach me.</p>
 <p><strong>Johnny:</strong> Not only TDD, but we are also gonna use some of the practices associated with a process called Acceptance Test Driven Development, albeit in a simplified form.</p>
 <p><strong>Benjamin:</strong> Acceptance Test-Driven Development? What is that?</p>
 <p><strong>Johnny:</strong> While TDD is usually referred to as a development technique, ATDD is something more of a collaboration method. Both ATDD and TDD have a bit of analysis in them and work very well together as both use the same underlying principles, just on different levels. We will need only a small subset of what ATDD has to offer, so do not get over-excited.</p>
 <p><strong>Benjamin:</strong> Sure.</p>
-<h2 id="act-2-the-customer"><a href="#act-2-the-customer">Act 2: The Customer</a></h2>
+<h2 id="act-2-the-customer">Act 2: The Customer</h2>
 <p><strong>Johnny:</strong> Hi, Jane, how are you?</p>
 <p><strong>Jane:</strong> Thanks, I am fine, how about you?</p>
 <p><strong>Johnny:</strong> Same here, thanks. So, can you tell us a bit about the software you need us to write?</p>
@@ -709,7 +709,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Johnny:</strong> Trust me, Benjamin, if there is one word I fear most in communication, it is “obvious”. Miscommunication happens most often around things that people consider obvious, simply because other people do not.</p>
 <p><strong>Jane:</strong> Ok, I am in. What do I do?</p>
 <p><strong>Johnny:</strong> Let us go through stories one by one and see if we can find some key examples of how the features work. The first story is…</p>
-<h3 id="in-order-to-know-that-the-calculator-is-turned-on-as-a-tax-payer-i-want-to-see-0-on-the-screen-as-soon-as-iturn-it-on."><a href="#in-order-to-know-that-the-calculator-is-turned-on-as-a-tax-payer-i-want-to-see-0-on-the-screen-as-soon-as-iturn-it-on."><strong>In order to</strong> know that the calculator is turned on, <strong>As a</strong> tax payer <strong>I want</strong> to see “0” on the screen as soon as I turn it on.</a></h3>
+<h3 id="in-order-to-know-that-the-calculator-is-turned-on-as-a-tax-payer-i-want-to-see-0-on-the-screen-as-soon-as-iturn-it-on."><strong>In order to</strong> know that the calculator is turned on, <strong>As a</strong> tax payer <strong>I want</strong> to see “0” on the screen as soon as I turn it on.</h3>
 <p><strong>Jane:</strong> I do not think there is much to talk about. If you display “0”, I will be happy. That is all.</p>
 <p><strong>Johnny:</strong> Let us write down this example:</p>
 <table>
@@ -731,7 +731,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Benjamin:</strong> That makes me wonder… what should happen when I press “0” again at this stage?</p>
 <p><strong>Johnny:</strong> Good catch, that is what these examples are for - they make our thinking concrete. As Ken Pugh says: “Often the complete understanding of a concept does not occur until someone tries to use the concept”. We would normally put it on a TODO list, because it is part of a different story, but we are actually done with this one, so let us move straight to the story about displaying entered digits. How about it, Jane?</p>
 <p><strong>Jane:</strong> Agree.</p>
-<h3 id="in-order-to-see-what-numbers-iam-currently-operating-on-as-a-tax-payer-i-want-the-calculator-to-display-the-values-ienter"><a href="#in-order-to-see-what-numbers-iam-currently-operating-on-as-a-tax-payer-i-want-the-calculator-to-display-the-values-ienter"><strong>In order to</strong> see what numbers I am currently operating on, <strong>As a</strong> tax payer, <strong>I want</strong> the calculator to display the values I enter</a></h3>
+<h3 id="in-order-to-see-what-numbers-iam-currently-operating-on-as-a-tax-payer-i-want-the-calculator-to-display-the-values-ienter"><strong>In order to</strong> see what numbers I am currently operating on, <strong>As a</strong> tax payer, <strong>I want</strong> the calculator to display the values I enter</h3>
 <p><strong>Johnny:</strong> Let us begin with the case raised by Benjamin. What should happen when I input “0” multiple times after I have only “0” on the display?</p>
 <p><strong>Jane:</strong> Just one “0” should be displayed</p>
 <p><strong>Johnny:</strong> Do you mean this?</p>
@@ -806,7 +806,7 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Benjamin:</strong> I think I am beginning to understand why you like working with examples!</p>
 <p><strong>Johnny:</strong> Good. Is there anything else, Jane?</p>
 <p><strong>Jane:</strong> No, that is pretty much it. Let us take another story.</p>
-<h3 id="in-order-to-calculate-sum-of-my-different-incomes-as-a-tax-payer-i-want-the-calculator-to-enable-addition-of-multiple-numbers"><a href="#in-order-to-calculate-sum-of-my-different-incomes-as-a-tax-payer-i-want-the-calculator-to-enable-addition-of-multiple-numbers"><strong>In order to</strong> calculate sum of my different incomes, <strong>As a</strong> tax payer <strong>I want</strong> the calculator to enable addition of multiple numbers</a></h3>
+<h3 id="in-order-to-calculate-sum-of-my-different-incomes-as-a-tax-payer-i-want-the-calculator-to-enable-addition-of-multiple-numbers"><strong>In order to</strong> calculate sum of my different incomes, <strong>As a</strong> tax payer <strong>I want</strong> the calculator to enable addition of multiple numbers</h3>
 <p><strong>Johnny:</strong> Is the following all we have to support?</p>
 <table>
 <thead>
@@ -955,12 +955,12 @@ var configuration = new XmlConfiguration(customFixture);
 <p><strong>Jane:</strong> Fine with me. Looks like a lot of work. Nice that we discovered it up-front. For me, the limiting capability seemed so obvious that I did not even think it would be worth mentioning.</p>
 <p><strong>Johnny:</strong> See? That is why I do not like the word “obvious”. Jane, we will get back to you if any more questions arise. For now, I think we know enough to implement these three stories for you.</p>
 <p><strong>Jane:</strong> good luck!</p>
-<h2 id="act-3-test-driven-development"><a href="#act-3-test-driven-development">Act 3: Test-Driven Development</a></h2>
+<h2 id="act-3-test-driven-development">Act 3: Test-Driven Development</h2>
 <p><strong>Benjamin:</strong> Wow, that was cool. Was that Acceptance Test-Driven Development?</p>
 <p><strong>Johnny:</strong> In a greatly simplified version, yes. The reason I took you with me was to show you the similarities between working with customer the way we did and working with the code using TDD process. They are both applying the same set of principles, just on different levels.</p>
 <p><strong>Benjamin:</strong> I am dying to see it with my own eyes. Shall we start?</p>
 <p><strong>Johnny:</strong> Sure. If we followed the ATDD process, we would start writing what we call acceptance-level specification. In our case, however, a unit-level specification will be enough. Let us take the first example:</p>
-<h3 id="statement-1-calculator-should-display-0-on-creation"><a href="#statement-1-calculator-should-display-0-on-creation">Statement 1: Calculator should display 0 on creation</a></h3>
+<h3 id="statement-1-calculator-should-display-0-on-creation">Statement 1: Calculator should display 0 on creation</h3>
 <table>
 <thead>
 <tr class="header">
@@ -1118,7 +1118,7 @@ ShouldDisplayInitialValueWhenCreated()
 <p>That is right. We need to add it to our TODO list to handle this case. Can you write it down?</p>
 <p><strong>Benjamin:</strong> Sure. I will write it as “TODO: 0 should be used as an initial value.”</p>
 <p><strong>Johnny:</strong> Ok. We should handle it now, especially that it is part of the story we are currently implementing, but I will leave it for later just to show you the power of TODO list in TDD - whatever is on the list, we can forget and get back to when we have nothing better to do. Our next item from the list is this:</p>
-<h3 id="statement-2-calculator-should-display-entered-digits"><a href="#statement-2-calculator-should-display-entered-digits">Statement 2: Calculator should display entered digits</a></h3>
+<h3 id="statement-2-calculator-should-display-entered-digits">Statement 2: Calculator should display entered digits</h3>
 <table>
 <thead>
 <tr class="header">
@@ -1308,7 +1308,7 @@ ShouldDisplayAllEnteredDigitsThatAreNotLeadingZeroes()
  }</code></pre>
 <p><strong>Benjamin:</strong> Running… Ok, it is false now. Expected “243”, got “0”.</p>
 <p><strong>Johnny:</strong> good, now we are pretty sure that it works OK. Let us uncomment the lines we just commented out and move forward.</p>
-<h3 id="statement-3-calculator-should-display-only-one-zero-digit-if-it-is-the-only-entered-digit-even-if-it-is-entered-multiple-times"><a href="#statement-3-calculator-should-display-only-one-zero-digit-if-it-is-the-only-entered-digit-even-if-it-is-entered-multiple-times">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</a></h3>
+<h3 id="statement-3-calculator-should-display-only-one-zero-digit-if-it-is-the-only-entered-digit-even-if-it-is-entered-multiple-times">Statement 3: Calculator should display only one zero digit if it is the only entered digit even if it is entered multiple times</h3>
 <p><strong>Johnny:</strong> Benjamin, this should be easy for you, so go ahead and try it. It is really a variation of previous Statement.</p>
 <p><strong>Benjamin:</strong> Let me try… ok, here it is:</p>
 <pre><code>[Fact] public void 
@@ -1357,9 +1357,9 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 <p><strong>Johnny:</strong> Depends on how confident you want to feel. I would say that it is usually worth it - at least you know that you got everything right. It might seem like a lot of work, but it actually took me about a minute to add this code and imagine you got it wrong and had to debug it on a production environment. _That_ would be a waste of time.</p>
 <p><strong>Benjamin:</strong> Ok, I think I get it. Since we saw this Statement turn false, I will undo this modification to make it true again.</p>
 <p><strong>Johnny:</strong> Sure.</p>
-<h2 id="epilogue"><a href="#epilogue">Epilogue</a></h2>
+<h2 id="epilogue">Epilogue</h2>
 <p>Time to leave Johnny and Benjamin, at least for now. I actually planned to make this chapter longer, and cover all the other operations, but I fear I would make this too long and get you bored. You should have a feel of how the TDD cycle looks like, especially that Johnny and Benjamin had a lot of conversations on many other topics in the meantime. I will be revisiting these topics later in the book. For now, so if you felt lost or unconvinced on any of the topics mentioned by Johnny, do not worry - I do not expect you to be proficient with any of the techniques shown in this chapter just yet. Time will come for that.</p>
-<h1 id="sorting-out-the-bits"><a href="#sorting-out-the-bits">Sorting Out The Bits</a></h1>
+<h1 id="sorting-out-the-bits">Sorting Out The Bits</h1>
 <p>In the previous chapter, there has been a lively conversation between Johnny and Benjamin. Even in such a short session, Benjamin, as a TDD novice, had a lot of questions and a lot of things he needed sorted out. We will pick up all those questions and explain them one by one. Here they are:</p>
 <ul>
 <li>How to name a Statement?</li>
@@ -1373,12 +1373,12 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 <li>Why such a strange approach to create enumerated constants?</li>
 </ul>
 <p>A lot of questions, isn’t it? It is unfortunate that TDD has this high entry barrier, at least for someone used to the traditional way of writing code. Anyway, that is what this tutorial is for - to answer such questions and lower this barrier. Thus, we will try to answer those questions one by one.</p>
-<h1 id="how-to-start"><a href="#how-to-start">How to start?</a></h1>
+<h1 id="how-to-start">How to start?</h1>
 <p>Whenever I sat down with a person that was about to write their first code in a Statement-first manner, the person would first stare at the screen, then at me, then would say: “what now?”. It is easy to say: “You know how to write code, you know how to write a unit test for it, just this time start with the latter rather than the first”, but for many people, this is something that blocks them completely. If you are one of them, do not worry - you are not alone. I decided to dedicate this chapter solely to techniques for kicking off a Statement when there is no code.</p>
-<h2 id="start-with-agood-name"><a href="#start-with-agood-name">Start with a good name</a></h2>
+<h2 id="start-with-agood-name">Start with a good name</h2>
 <p>It may sound obvious, but some people are having serious trouble describing the behavior they expect from their code. If you can name such behavior, it is a great starting point.</p>
 <p>I know not everybody pays attention to naming their Statements, mainly because the Statements are considered as tests and second-level citizens - as long as they run and “prove the code does not contain defects”, they are considered sufficient. We will take a look at some examples of bad names and then I will introduce to you some rules of good naming.</p>
-<h3 id="consequences-of-bad-naming"><a href="#consequences-of-bad-naming">Consequences of bad naming</a></h3>
+<h3 id="consequences-of-bad-naming">Consequences of bad naming</h3>
 <p>As I said, many people do not really care how their Statements are named. This is a symptom of treating the Specification as garbage or leftovers - such situation is dangerous, because as soon as this kind of thinking is established, it leads to bad, unmaintainable Specification that looks more like lumps of accidental code put together in a haste than a living documentation. Imagine that your Specification consists of names like this:</p>
 <ul>
 <li><code>TrySendPacket()</code></li>
@@ -1399,7 +1399,7 @@ ShouldDisplayOnlyOneZeroDigitWhenItIsTheOnlyEnteredDigitEvenIfItIsEnteredMultipl
 <li>How do you answer a new developer in your team when they ask you “what is this Statement for?”</li>
 <li>How can you keep track of the Statements already made about the specified class vs those that still need to be made?</li>
 </ol>
-<h3 id="what-does-agood-name-contain"><a href="#what-does-agood-name-contain">What does a good name contain?</a></h3>
+<h3 id="what-does-agood-name-contain">What does a good name contain?</h3>
 <p>For the name of the Statement to be of any use, it has to describe the expected behavior. At minimum, it should describe what happens under what circumstances. Let us take a look at one of the names Steve freeman and Nat Pryce came up in their great book Growing Object Oriented Software Guided By Tests:</p>
 <pre><code>notifiesListenersThatServerIsUnavailableWhenCannotConnectToItsMonitoringPort()</code></pre>
 <p>Note few things about the name of the Statement:</p>
@@ -1419,7 +1419,7 @@ public void Statement_002()
 <p>because then a lot of information about the Statement that fails is available from the runner window.</p></li>
 <li><p>Using a name that describes a (single) behavior allows you to track quickly why the Statement is false when it is. Suppose a Statement is true when you start refactoring, but at one point it starts being evaluated as false and the report in the runner looks like this: <code>TrySendingHttpRequest: FAILED</code> - it does not really tell you anything more than that an attempt is made to send a HTTP request, but, for instance, does not tell you whether your specified object is the sender (that should try to send this request under some circumstances) or the receiver (that should handle such request properly). To actually know what went wrong, you have to go Statement body and scan its source code. Now compare it to the following name: <code>ShouldRespondWithAnAckWheneverItReceivesAHttpRequest</code>. Now when it evaluates to false, you can tell what is broken - the object no longer responds with an ACK to HTTP request. Sometimes this is enough to identify which part of the code is in fault of this evaluation failure.</p></li>
 </ol>
-<h3 id="my-favourite-convention"><a href="#my-favourite-convention">My favourite convention</a></h3>
+<h3 id="my-favourite-convention">My favourite convention</h3>
 <p>There are many conventions for naming Statements appropriately. My favorite is the one developed by Dan North, which makes each Statement name begin with the word <code>Should</code>. So for example, I would name a Statement:</p>
 <p><code>ShouldReportAllErrorsSortedAlphabeticallyWhenErrorsOccurDuringSearch()</code></p>
 <p>The name of the Specification (i.e. class name) answers the question “who should do it?”, i.e. when I have a class named <code>SortingOperation</code> and want to say that it “should sort all items in ascending order when performed”, I say it like this:</p>
@@ -1435,9 +1435,9 @@ public void Statement_002()
 <p><code>EqualOperationShouldPassForTwoInstancesWithTheSameUserName()</code>.</p>
 <p>Note that this is not from the perspective of a single object, but rather from the perspective of an operation that is executed on it, which means that we stopped thinking in terms of object responsibilities and started thinking in terms of operation correctness, which is farther away from our assumption that we are writing a Specification consisting of Statements. This name should be something more like:</p>
 <p><code>ShouldReportThatItIsEqualToAnotherIdThatHasTheSameUserName()</code>.</p>
-<h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious"><a href="#start-by-filling-the-given-when-then-structure-with-the-obvious">Start by filling the GIVEN-WHEN-THEN structure with the obvious</a></h2>
+<h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious">Start by filling the GIVEN-WHEN-THEN structure with the obvious</h2>
 <p>This is a technique that is applicable when you come up with a GIVEN-WHEN-THEN structure for the Statement or a good name for it (GIVEN-WHEN-THEN structure can be easily derived from a good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
-<h3 id="example"><a href="#example">Example</a></h3>
+<h3 id="example">Example</h3>
 <p>Let us try this on a simple problem of comparing two users. We assume that a user should be equal to another when it has the same name as the other one:</p>
 <pre><code>Given a user with any name
 When I compare it to another user with the same name
@@ -1502,10 +1502,10 @@ ShouldAppearEqualToAnotherUserWithTheSameName()
   Assert.True(areUsersEqual);
 }</code></pre>
 <p>And that is it - the Statement is complete!</p>
-<h2 id="start-from-the-end"><a href="#start-from-the-end">Start from the end</a></h2>
+<h2 id="start-from-the-end">Start from the end</h2>
 <p>This is a technique that I suggest to people that seem to have absolutely no idea how to start. I got it from Kent Beck’s book Test Driven Development by Example. It seems funny at start, but is quite powerful. The trick is to write the Statement ‘backwards’, i.e. starting with what the Statement asserts to be true (in terms of the GIVEN-WHEN-THEN structure, we would say that we start with our THEN).</p>
 <p>This works because, while we are many times quite sure of our goal (i.e. what the outcome of the behavior should be), but are unsure of how to get there.</p>
-<h3 id="example-1"><a href="#example-1">Example</a></h3>
+<h3 id="example-1">Example</h3>
 <p>Imagine we are writing a class for granting access to a reporting functionality based on roles. We do not have any idea what the API should look like and how to write our Statement, but we know one thing: in our domain the access can be either granted or denied. Let us take the successful case (just because it is the first one we can think of) and, starting backwards, start with the following assertion:</p>
 <pre><code>//THEN
 Assert.True(accessGranted);</code></pre>
@@ -1541,9 +1541,9 @@ ShouldAllowAccessToReportingWhenAskedForEitherAdministratorOrAuditor()
  //THEN
  Assert.True(accessGranted);
 }</code></pre>
-<h2 id="start-by-invoking-amethod-when-you-have-one"><a href="#start-by-invoking-amethod-when-you-have-one">Start by invoking a method when you have one</a></h2>
+<h2 id="start-by-invoking-amethod-when-you-have-one">Start by invoking a method when you have one</h2>
 <p>Sometimes, we have to add a new class that implements an existing interface required by another class. The fact of implementing an interface imposes what methods should the new class support. If this point is already decided, we can start our Statement by first calling the method and then discovering what we need to supply.</p>
-<h3 id="example-2"><a href="#example-2">Example</a></h3>
+<h3 id="example-2">Example</h3>
 <p>Suppose we have an application holding a lot of data that, among other things, handles importing am existing database from another instance of the application. As importing a database can be a lengthy process, a message box is displayed each time when user chooses to perform the import and this message box displays the following message: “Johnny, please sit down and enjoy your coffee for a few minutes as we take time to import your database” (given user name is Johnny). The class that implements it looks like this:</p>
 <pre><code>public class FriendlyMessages
 {
@@ -1617,10 +1617,10 @@ public void TODO()
  Assert.Equal(expectedMessage, message);
 }</code></pre>
 <p>and all that is left is to find a good name for the Statement. This isn’t an issue since we already specified the desired behavior in the code, so we can just summarize it as something like <code>ShouldYieldAMessageSayingThatFeatureIsLockedWhenAskedForImportDatabaseMessage</code>.</p>
-<h2 id="summary-1"><a href="#summary-1">Summary</a></h2>
+<h2 id="summary-1">Summary</h2>
 <p>These few techniques can be useful when you are stuck and do not know how to start. Note that the examples given are simplistic and assume that there is one object that takes some kind of input parameter and returns a well defined result. This is not how most of the object-oriented world is built. In object oriented world, we have a lot of objects communicating with other objects, sending messages, invoking methods on each other and often having no return values. Do not worry, all of these techniques work in this concept and we’ll be revisiting them as soon as we learn how to do TDD in fully object-oriented world (that is, after we introduce a concept of mock objects). For now, I’m trying to keep it simple.</p>
-<h1 id="how-is-tdd-about-analysis-and-what-does-given-when-then-mean"><a href="#how-is-tdd-about-analysis-and-what-does-given-when-then-mean">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</a></h1>
-<h2 id="is-there-really-acommonality-between-analysis-and-tdd"><a href="#is-there-really-acommonality-between-analysis-and-tdd">Is there really a commonality between analysis and TDD?</a></h2>
+<h1 id="how-is-tdd-about-analysis-and-what-does-given-when-then-mean">How is TDD about analysis and what does “GIVEN-WHEN-THEN” mean?</h1>
+<h2 id="is-there-really-acommonality-between-analysis-and-tdd">Is there really a commonality between analysis and TDD?</h2>
 <p>From Wikipedia:</p>
 <blockquote>
 <p>Analysis is the process of breaking a complex topic or substance into smaller parts to gain a better understanding of it.</p>
@@ -1648,7 +1648,7 @@ public void TODO()
 </ol>
 <p>Note that some items are already crossed out as done, while other remain undone and waiting to be addressed.</p>
 <p>Ok, that is it for the discussion. Now that we are sure that TDD is about analysis, let us focus on the tools we can use to aid and inform it. You already saw both of them in this book, now we are going to have a closer look.</p>
-<h2 id="gherkin"><a href="#gherkin">Gherkin</a></h2>
+<h2 id="gherkin">Gherkin</h2>
 <p>Hungry? Too bad, because the Gkerkin I am gonna talk about is not edible. It is a notation and a way of thinking about behaviors of the specified piece of code. It can be applied on different levels of granularity - any behavior, whether of a whole system or a single class, may be described using it.</p>
 <p>We actually talked about Gherkin before in this book, just did not name it. It is the GIVEN-WHEN-THEN structure that you can see everywhere, even in code samples as comments. This time, we are stamping a name on it and analyzing it further.</p>
 <p>In Gherkin, a behavior description consists of three parts:</p>
@@ -1693,20 +1693,20 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
   );
 }</code></pre>
 <p>By thinking in terms of these three parts of behavior, we may arrive at different circumstances (GIVEN) at which the behavior takes place, or additional ones that are needed. The same goes for triggers (WHEN) and effects (THEN). If anything like this comes to our mind, we add it to the TODO list.</p>
-<h2 id="todo-list-again"><a href="#todo-list-again">TODO list… again!</a></h2>
+<h2 id="todo-list-again">TODO list… again!</h2>
 <p>As we said previously, a TODO list is a repository for anything that comes to our mind when writing or thinking about a Statement, but is not a part o the current Statement we are writing. We do not want to forget it, neither do we want it to haunt us and distract us from our current task, so we write it down as soon as possible and continue with our current task.</p>
 <p>Suppose you are writing a piece of small logic that allows user access when he is an employee of a zoo, but denies access if he is a guest of the zoo. Then, after starting writing a Statement it gets to you that actually any employee can be a guest as well - for example, he might choose to visit the zoo with his family during his vacation. Still, the two previous rules hold, so not to allow this case to distract you, you quickly add an item to the TODO list (like “TODO: what if someone is an employee, but comes to the zoo as a guest?”) and finish the current Statement. When you are finished, you can always come back to the list and pick item to do next.</p>
 <p>There are two important questions related to TODO lists: “what exactly should we add as a TODO list item?” and “How to efficiently manage the TODO list?”. We will take care of these two questions now.</p>
-<h3 id="what-to-put-on-the-todo-list"><a href="#what-to-put-on-the-todo-list">What to put on the TODO list?</a></h3>
+<h3 id="what-to-put-on-the-todo-list">What to put on the TODO list?</h3>
 <p>Everything that you need addressed but is not part of the current Statement. Those items may be related to implementing unimplemented methods, to add whole functionalities (such items are usually followed my more fine-grained sub tasks as soon as you start implementing the item), there might be reminders to take a better look at something (e.g. “investigate what is this component’s policy for logging errors”) or questions about the domain that need to get answered. If you get carried away too much in coding that you forget to eat, you can even add a reminder (“TODO: get something to eat!”). The list is yours!</p>
-<h3 id="how-to-pick-items-from-todo-list"><a href="#how-to-pick-items-from-todo-list">How to pick items from TODO list?</a></h3>
+<h3 id="how-to-pick-items-from-todo-list">How to pick items from TODO list?</h3>
 <p>Which item to choose from the TODO list when you have several? I have no clear rule, although I tend to take into account the following factors:</p>
 <ol style="list-style-type: decimal">
 <li>Risk - if what I learn by implementing or discussing a particular item from the list can have big impact on design or behavior of the system, I tend to pick such items first. An example of such item is that you start implementing validation of a request that arrives to your application and want to return different error depending on which part of the request is wrong. Then, during the development, you discover that more than one part of the request can be wrong at a time and you have to answer yourself a question: which error code should be returned in such case? Or maybe the return codes should be accumulated for all validations and then returned as a list?</li>
 <li>Difficulty - depending on my mental condition (how tired I am, how much noise is currently around my desk etc.), I tend to pick items with difficulty that best matches this condition. For example, after finishing an item that requires a lot of thinking and figuring out things, I tend to take on some small and easy items to feel wind blowing in my sails and to rest a little bit.</li>
 <li>Completeness - in simplest words, when I finish test-driving an “if” case, I usually pick up the “else” next. For example, after I finish implementing a Statement saying that something should return true for values less than 50, then the next item to pick up is the “greater or equal to 50” case. Usually, when I start test-driving a class, I take items related to this class until I run out of them, then go on to another one.</li>
 </ol>
-<h3 id="where-to-put-atodo-list"><a href="#where-to-put-atodo-list">Where to put a TODO list?</a></h3>
+<h3 id="where-to-put-atodo-list">Where to put a TODO list?</h3>
 <p>There are two ways of maintaining a TODO list. The first one is on a sheet of paper, which is nice, but requires you to take your hands off the keyboard, grab a pen or pencil and then get back to coding every time you think of something. Also, the only way a TODO item written on a sheet of paper can tell you which place in code it is related to, is (obviously) by its text.</p>
 <p>Another alternative is to use a TODO list functionality built-in into an IDE. Most IDEs, such as Visual Studio (and Resharper plugin has its own enhanced version), Xamarin Studio or eclipse-based IDEs have such functionality. The rules are simple - you put special comments in the code and a special view in your IDE aggregates them for you, allowing you to navigate to each. Such lists are great because:</p>
 <ol style="list-style-type: decimal">
@@ -1714,7 +1714,7 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 <li>You can put such item in a certain place in the code where is makes sense and then navigate back to it with a click of a mouse. This, apart from other advantages, lets you write shorter notes than if you had to do it on paper. For example, a TODO item saying “TODO: what if it throws an exception?” looks out of place on the paper, but when added as a comment to your code in the right place, it is mighty sufficient.</li>
 <li>Many TODO lists automatically add items for certain things. E.g. in C#, when you are yet to implement a method that was automatically generated by a tool, its body usually consists of a line that throws a <code>NotImplementedException</code> exception. Guess what - <code>NotImplementedException</code> occurences are added to the TODO list automatically, so we do not have to manually add items to the TODO list for implementing the methods where they occur.</li>
 </ol>
-<h3 id="expanded-tdd-process-with-atodo-list"><a href="#expanded-tdd-process-with-atodo-list">Expanded TDD process with a TODO list</a></h3>
+<h3 id="expanded-tdd-process-with-atodo-list">Expanded TDD process with a TODO list</h3>
 <p>In one of the previous chapters, I introduced you to the basic TDD process that contained three steps: write unfulfilled Statement, fulfill it and refactor the code. TODO list adds new steps to this process leading to the following list of steps:</p>
 <ol style="list-style-type: decimal">
 <li>Examine TODO list and pick an item that makes most sense to implement next</li>
@@ -1725,17 +1725,17 @@ public void ShouldThrowExceptionWhenAskedToStoreNull()
 <li>Repeat until no item is left on the TODO list</li>
 </ol>
 <p>Of course, we are free to add new items to the TODO list as we make progress with the existing ones and at the beginning of each cycle the list is re-evaluated to choose the most important item to implement next taking into account what was added during the previous cycle.</p>
-<h3 id="potential-downsides"><a href="#potential-downsides">Potential downsides</a></h3>
+<h3 id="potential-downsides">Potential downsides</h3>
 <p>There are also some downsides. The biggest is that people often add TODO items for other means than to support TDD and they never go back to such items. Some people joke that a TODO left in the code means “Once, I wanted to…”. Anyway, such items may pollute your TDD-related TODO list with so much cruft that your own items are barely findable. To work around it, I tend to use a different tag than TODO (many IDEs let you define your own tags, or support multiple tag types out of the box. E.g. with Resharper, I like to use “bug” tag, because this is something no one would leave in the code) and filter by it. Another options is, of course, getting rid of the leftover TODO items - if no one addressed it for a year, then probably no one ever will.</p>
 <p>Another downside is that when you work with multiple workspaces/solutions, your IDE will gather TODO items only from current solution/workspace, so you will have few TODO lists - one per workspace or solution. Fortunately, this isn’t usually a big deal.</p>
-<h1 id="developing-a-tdd-style-and-constrained-non-determinism"><a href="#developing-a-tdd-style-and-constrained-non-determinism">Developing a TDD style and Constrained Non-Determinism</a></h1>
+<h1 id="developing-a-tdd-style-and-constrained-non-determinism">Developing a TDD style and Constrained Non-Determinism</h1>
 <p>In one of the first chapters, I introduced to you the idea of anonymous values generator idea, which I have wrapped in a static class called <code>Any</code>. Throughout the next chapters, you have seen me using it quite extensively in many of the Statements I wrote.</p>
 <p>The time has come to explain a little bit more carefully what principles lie under this technique and tool. I will also use this technique as a case study to show you how one develops a style of Test-Driven Development.</p>
-<h2 id="a-style"><a href="#a-style">A style?</a></h2>
+<h2 id="a-style">A style?</h2>
 <p>Yep. Why am I wasting your time writing about style instead of giving you the hardcore technical details? The answer is simple. Before I started writing this tutorial, I read four or five books solely on TDD and maybe two others that contain chapters on TDD. All of this sums up to about two or three thousands of paper pages, plus numerous posts on many blogs. And you know what I noticed? No two authors use exactly the same sets of techniques for test-driving their code! I mean, sometimes, when you look at the techniques they are suggesting, two authorities contradict each other. As each authority has their followers, it is not uncommon to observe and take part in discussions about whether this or that technique is better than a competing one or which one leads to trouble in the long run.</p>
 <p>I did this, too. I also tried to understand how come people praise techniques I KNEW were wrong and led to disaster. Then, Finally, I got it. I understood that it is not a “technique A vs. technique B” debate. There are certain sets of techniques that work together and choosing one technique leaves us with issues we have to resolve by adopting other techniques. This is how a style is created.</p>
 <p>Developing a style starts with a set of problems to solve and an underlying set of principles we consider important. These principles lead us to adopt our first technique, which makes us adopt another one and, ultimately, a coherent style emerges. Using Constrained Non-Determinism as an example, I will try to show you how part of a style gets derived from a technique that is derived from a principle.</p>
-<h2 id="principle-tests-as-specification"><a href="#principle-tests-as-specification">Principle: Tests As Specification</a></h2>
+<h2 id="principle-tests-as-specification">Principle: Tests As Specification</h2>
 <p>As I already stressed, I strongly believe that unit tests constitute an executable specification. Thus, they should not only pass input values to an object and assert on the output, they should also convey to their reader the rules according to which objects and functions work. The following oversimplified example shows a Statement where it is not explicitly stated what is the relationship between input and output:</p>
 <pre><code>[Fact] public void 
 ShouldCreateBackupFileNameContainingPassedHostName()
@@ -1751,7 +1751,7 @@ ShouldCreateBackupFileNameContainingPassedHostName()
 }</code></pre>
 <p>Although the relationship can be guessed quite easily, remember it is just an example. Also, seeing code like that makes me ask questions like: is the “backup_” prefix always applied? What if I actually pass “backup_” instead of “MY_HOST_NAME”? Will the name be “backup_backup_.zip”, or “backup_.zip”? Also, is this object responsible for any validation of passed string?</p>
 <p>This makes me invent a first technique to provide my Statements with better support for the principle I believe in.</p>
-<h2 id="first-technique-anonymous-input"><a href="#first-technique-anonymous-input">First technique: Anonymous Input</a></h2>
+<h2 id="first-technique-anonymous-input">First technique: Anonymous Input</h2>
 <p>I can wrap the actual value “MY_HOST_NAME” with a method and give it a name that better documents the constraints imposed on it by the specified functionality. In our case, we can pass whatever string we want (the object is not responsible for input validation), so we will name our method <code>AnyString()</code>:</p>
 <pre><code>[Fact] public void 
 ShouldCreateBackupFileNameContainingPassedHostName()
@@ -1773,7 +1773,7 @@ public string AnyString()
 }</code></pre>
 <p>By using <strong>anonymous input</strong>, we provide a better documentation of the input value. Here, I wrote <code>AnyString()</code>, but of course, there can be a situation where I use more constrained data, e.g. <code>AnyAlphaNumericString()</code> when I need a string that does not contain any characters other than letters and digits. Note that this technique <strong>is applicable only when the particular value of the variable is not important, but rather its “trait”</strong>. Taking authorization as an example, when a certain behavior occurs only when the input value is <code>Users.Admin</code>, there is <strong>no sense</strong> making it anonymous. On the other hand, for a behavior that occurs for all values other than <code>Users.Admin</code>, it makes sense to use a method like <code>AnyUserOtherThan(Users.Admin)</code> or even <code>AnyNonAdminUser()</code>.</p>
 <p>Now that the Statement itself is freed from the knowledge of the concrete value of <code>hostName</code> variable, the concrete value of “backup_MY_HOST_NAME.zip” looks kind of weird. There is no clear indication of the kind of relationship between input and output and whether there is any at all (one may reason whether the output is always the same string or maybe it depends on the string length). It is unclear which part is added by the production code and which part depends on the input we pass to the method. This leads us to another technique.</p>
-<h2 id="second-technique-derived-values"><a href="#second-technique-derived-values">Second technique: Derived Values</a></h2>
+<h2 id="second-technique-derived-values">Second technique: Derived Values</h2>
 <p>To better document the relationship between input and output, we have to simply derive the expected value we assert on from the input value. Here is the same Statement with the assertion changed:</p>
 <pre><code>[Fact] public void 
 ShouldCreateBackupFileNameContainingPassedHostName()
@@ -1796,7 +1796,7 @@ public string AnyString()
 }</code></pre>
 <p>This looks more like a part of specification, because we are documenting the format of the backup file name and show which part of the format is variable and which part is fixed. This is something you would probably find documented in a paper specification for the application you are writing - it would probably contain a sentence saying: “The format of a backup file should be <strong>backup_H.zip</strong>, where <strong>H</strong> is the current local host name”.</p>
 <p><strong>Derived values</strong> are about defining expected output in terms of the input that was passed to provide a clear indication on what is the “transformation” of the input required of the specified production code.</p>
-<h2 id="third-technique-distinct-generated-values"><a href="#third-technique-distinct-generated-values">Third technique: Distinct Generated Values</a></h2>
+<h2 id="third-technique-distinct-generated-values">Third technique: Distinct Generated Values</h2>
 <p>Let us assume that some time after our initial version is shipped, we are asked to make the backup feature applied locally per user only for this user’s data. As the customer does not want to confuse files from different users, we are asked to add name of the user doing backup to the backup file name. Thus, the new format is “backup_H_U.zip”, where H is still the host name and U is the user name. Our Statement for the pattern must change as well to include this information. Of course, we are trying to use the anonymous input again as a proven technique and we end up with:</p>
 <pre><code>[Fact] public void 
 ShouldCreateBackupFileNameContainingPassedHostNameAndUserName()
@@ -1870,7 +1870,7 @@ public string AnyString()
 }</code></pre>
 <p>This time, we are not returning an understandable string, but rather a guid, which gives us the fairly strong guarantee of generating distinct value each time. The string not being understandable (contrary to something like “MY_HOST_NAME”) may leave you worried that maybe we are losing something, but hey, didn’t we say <strong>Any</strong>String()?</p>
 <p><strong>Distinct generated values</strong> means that each time we need a value of a particular type, we get something different (if possible) than the last time and each value is generated automatically using some kind of heuristics.</p>
-<h2 id="fourth-technique-constant-specification"><a href="#fourth-technique-constant-specification">Fourth technique: Constant Specification</a></h2>
+<h2 id="fourth-technique-constant-specification">Fourth technique: Constant Specification</h2>
 <p>Let us consider another modification that we are requested to make - this time, the backup file name needs to contain version number of our application as well. Remembering that we want to use Derived Values, we will not hardcode the version number into our Statement. Instead, we are going to use a constant that is already defined somewhere else in the application (this way we also avoid duplication of this version number across the application):</p>
 <pre><code>[Fact] public void 
 ShouldCreateBackupFileNameContainingPassedHostNameAndUserNameAndVersion()
@@ -1903,7 +1903,7 @@ ShouldContainNumberEqualTo1_0()
   Assert.Equal(&quot;1.0&quot;, Version.Number);
 }</code></pre>
 <p>By doing so, we make the value in the production code just echo what is in our executable Specification, which we can fully trust.</p>
-<h2 id="summary-of-the-example"><a href="#summary-of-the-example">Summary of the example</a></h2>
+<h2 id="summary-of-the-example">Summary of the example</h2>
 <p>In this example, I tried to show you how a style can evolve from the principles you value when doing TDD. I did so for two reasons:</p>
 <ol style="list-style-type: decimal">
 <li>To introduce to you a set of techniques I personally use and recommend and to do it in a fluent and logical way.</li>
@@ -1924,7 +1924,7 @@ ShouldContainNumberEqualTo1_0()
 <dd><p>Write a separate Statement for a constant and use the constant instead of its literal value in all other Statements to create a Derived Value.</p>
 </dd>
 </dl>
-<h2 id="constrained-non-determinism"><a href="#constrained-non-determinism">Constrained non-determinism</a></h2>
+<h2 id="constrained-non-determinism">Constrained non-determinism</h2>
 <p>When we combine anonymous input together with distinct generated values, we get something that is called <strong>Constrained Non-Determinism</strong>. This is a term coined by Mark Seemann and basically means three things:</p>
 <ol style="list-style-type: decimal">
 <li>Values are anonymous i.e. we do not know the actual value we are using</li>
@@ -1935,13 +1935,13 @@ ShouldContainNumberEqualTo1_0()
 <pre><code>Fixture fixture = new Fixture();
 var anonymousInteger = fixture.Create&lt;int&gt;();</code></pre>
 <p>I, after Amir Kolsky and Scott Bain, like to use Any class as seen in the previous chapters of this book. Any takes a slightly different approach than AutoFixture (although it uses AutoFixture internally). My implementation of Any class is <a href="https://github.com/grzesiek-galezowski/tdd-toolkit">available to download as well</a>.</p>
-<h2 id="summary-2"><a href="#summary-2">Summary</a></h2>
+<h2 id="summary-2">Summary</h2>
 <p>That was a long ride, wasn’t it? I hope that this chapter, gave you some understanding of how different TDD styles came into existence and why I use some of the techniques I do (and how these techniques are not just a series of random choices). In the next chapters, I will try to introduce some more techniques to help you grow a bag of neat tricks - a coherent style.</p>
-<h1 id="what-is-the-scope-of-aunit-level-statement-in-tdd"><a href="#what-is-the-scope-of-aunit-level-statement-in-tdd">What is the scope of a unit-level Statement in TDD?</a></h1>
+<h1 id="what-is-the-scope-of-aunit-level-statement-in-tdd">What is the scope of a unit-level Statement in TDD?</h1>
 <p>Ha, now I have to admit that I deferred for a long time an answer to a pretty fundamental question: what should be the scope of a single Statement? If I put the whole system together, can I write a Statement for its behavior? Or maybe the other way round - there should be a Statement for each method of each class, including the private ones? Well, first thing I want to explain is that there are multiple levels we can write our Statements on. This varies depending on the TDD authority, but in this book, we will cover two of such levels - unit level and acceptance level. For now, let us stick to the unit level, which is what we have done so far anyway. The time will come for the rest.</p>
 <p>For unit level, let us consider the kind of Statements that you already saw in this book - where we take one object, invoke a method on it and assert on the result. This is actually a special case of unit-level Statement and we will cover more in the coming chapters. This is, however, a good moment to stop and consider the “scope” of a single unit-level Statement in TDD. Is it method scope? Class scope? Feature scope?</p>
 <p>Let us try to answer the question by examining some TDD unit-level Statements:</p>
-<h3 id="is-it-class-scope"><a href="#is-it-class-scope">Is it class scope?</a></h3>
+<h3 id="is-it-class-scope">Is it class scope?</h3>
 <p>Let us see the first example and try to answer this question:</p>
 <pre><code>[Fact] public void
 ShouldThrowValidationExceptionWithFatalErrorLevelWhenValidatedStringIsEmpty()
@@ -1959,7 +1959,7 @@ ShouldThrowValidationExceptionWithFatalErrorLevelWhenValidatedStringIsEmpty()
   Assert.True(exceptionThrown.IsFatalError);
 }</code></pre>
 <p>This is an example of a well-written unit-level Statement. Ok, so let us see… how many real classes take part in this spec? Three: a string, an exception and the validation. So the class scope is not the most accurate description.</p>
-<h3 id="or-amethod-scope"><a href="#or-amethod-scope">Or a method scope?</a></h3>
+<h3 id="or-amethod-scope">Or a method scope?</h3>
 <p>So, maybe the scope covers a single method, meaning a Statement always exercises one method of a specified object?</p>
 <p>Let us consider the following example:</p>
 <pre><code>[Fact] public void 
@@ -1977,7 +1977,7 @@ ShouldBeFulfilledWhenEventOccursThreeTimes()
   Assert.True(rule.IsFulfilled());
 }</code></pre>
 <p>Count with me: how many methods are called? Depending on how we count, it is two (<code>Queued()</code> and <code>IsFulfilled()</code>) or four (<code>Queued(), Queued(), Queued(), IsFulfilled()</code>). In any case, not one. So it is not method scope either.</p>
-<h3 id="it-is-the-scope-of-class-behavior"><a href="#it-is-the-scope-of-class-behavior">It is the scope of class behavior!</a></h3>
+<h3 id="it-is-the-scope-of-class-behavior">It is the scope of class behavior!</h3>
 <p>The proper answer is: behavior! Each TDD Statement specifies a single behavior. I like how <a href="http://sustainabletdd.com">Amir Kolsky and Scott Bain</a> phrase it, by saying that each unit-level Statement should “introduce a behavioral distinction not existing before”.</p>
 <p>It may look that “behavior” scope is actually broader than method or class levels, since such Statement can span multiple classes and multiple methods. This is only partially true. That is because e.g. Statements with method scope can span multiple behaviors (which, by the way, is a sign of poorly written Statement). Let us take a look at an example:</p>
 <pre><code>[Fact] public void 
@@ -2025,10 +2025,10 @@ ShouldReportItIsStartedAndItDoesNotYetTransmitVoiceWhenItStarts()
 }</code></pre>
 <p>Again, there are two behaviors here: reporting the call status after start and not being able to transmit frames after start. That is why this test should be split into two.</p>
 <p>How to catch that you are writing a Statement about two or more behaviors rather than one? First, take a look at the test name - if it looks strange and contains some “And” or “Or” words, it may (but does not have to) be about more than one behavior. Another way is to write the description of a behavior in a Given-When-Then way. If you have more than one item in the “When” section or the structure is not Given-When-Then, but rather a “Given-When-Then-When-Then” - that is also a signal.</p>
-<h1 id="specifying-boundaries-and-conditions"><a href="#specifying-boundaries-and-conditions">Specifying Boundaries and Conditions</a></h1>
-<h3 id="a-disclaimer-1"><a href="#a-disclaimer-1">A Disclaimer</a></h3>
+<h1 id="specifying-boundaries-and-conditions">Specifying Boundaries and Conditions</h1>
+<h3 id="a-disclaimer-1">A Disclaimer</h3>
 <p>Before I begin, I have to admit that this chapter is mostly based on the material from a series of posts by Scot Bain and Amir Kolsky from the blog Sustainable Test Driven Development and their upcoming book by the same title. I like their idea of boundaries so much that I just follow the guidelines they outlined. This chapter is going to be a rephrase of these guidelines. I placed it here so that you have all the important topics covered in one place, but I encourage you to read the original blog posts on this subject on http://www.sustainabletdd.com (and the upcoming book).</p>
-<h2 id="sometimes-anonymous-value-is-not-enough"><a href="#sometimes-anonymous-value-is-not-enough">Sometimes, anonymous value is not enough</a></h2>
+<h2 id="sometimes-anonymous-value-is-not-enough">Sometimes, anonymous value is not enough</h2>
 <p>When we specify a behavior, there are times when this behavior should be the same no matter what arguments we pass to the constructor or invoked methods. An example would be an addition of two numbers - whatever numbers we would supply, the answer would always be a sum of those numbers:</p>
 <pre><code>[Fact] public void
 ShouldCalculateTheSumOfTwoNumbers()
@@ -2046,7 +2046,7 @@ ShouldCalculateTheSumOfTwoNumbers()
 <p>In this case, the integer numbers can really be “any” - the described relationship between input and output is independent of the actual values we use. As indicated in one of the previous chapters, this is the canonical case where Constrained Non-Determinism applies.</p>
 <p>Sometimes, however, objects exhibit different behaviors based on what is passed to their constructor and to their methods (OK, we also have static methods and singletons. Longer discussion on those will be included in one of the next chapters - for now we can safely ignore them). For example, in our application we may have a licensing policy where a feature is allowed to use only if the license is valid, and denied after it has expired. Another example would be that some shops are open from 10:00 to 18:00, so if we had a query in our application whether the shop is currently open, we would expect it to be answered differently based on what the current time is.</p>
 <p>In such cases, Scott and Amir offer us other guidelines for choosing input values.</p>
-<h2 id="exceptions-to-the-rule"><a href="#exceptions-to-the-rule">Exceptions to the rule</a></h2>
+<h2 id="exceptions-to-the-rule">Exceptions to the rule</h2>
 <p>There are times, when a Statement is true for every value except one (or more) explicitly specified. For example, in Poland, high school students are graded for exams between “mediocre” and “very good”. Every grade means the exam is passed except for “mediocre” grade which means the exam is failed. If we imagine we have to specify an object that decides whether the exam is passed based on rating, we would have to write two Statements: one for the mediocre rating and other for all the others.</p>
 <p>Here is the Statement for mediocre grade (let us imagine that all grades are members of an enum):</p>
 <pre><code>[Fact] public void
@@ -2078,7 +2078,7 @@ ShouldPassTheExamWhenGradeIsOtherThanMediocre()
 }</code></pre>
 <p>Here, <code>Any.Besides()</code> takes care of the enum value generation, producing a nice, readable code as a side effect.</p>
 <p>The example shown above assumes there is only one exception to the rule (the mediocre grade). However, this concept can be scaled up to more values, as long as it is a finished, discrete set. If there are multiple exceptional values that produce the same behavior, a single Statement is sufficient to cover them all (using <code>Any</code> class and making the following call for exception Statement: <code>Any.Of(value1, value2)</code> and the following for the rest: <code>Any.OtherThan(value1, value2)</code>). However, when there are multiple exceptions to the rule and each one triggers a different behavior, each one deserves its own Statement.</p>
-<h2 id="rules-valid-within-boundaries"><a href="#rules-valid-within-boundaries">Rules valid within boundaries</a></h2>
+<h2 id="rules-valid-within-boundaries">Rules valid within boundaries</h2>
 <p>Sometimes, a behavior varies around a numerical boundary. the simplest example would be a set of rules on how to calculate an absolute value of a number:</p>
 <ol style="list-style-type: decimal">
 <li>for any X less than 0, the result is -X (e.g. absolute value of -1.5 is 1.5)</li>
@@ -2162,7 +2162,7 @@ ShouldNotNegateNumberWhenItIsGreaterOrEqualToSmallestValueNotToNegate()
 }</code></pre>
 <p>As you can see, the first Statement contains the following expression: <code>Constants.SmallestValueNotToNegate - 1</code>, where 1 is the exact length of the boundary. Like I said, the situation is so trivial that it may look silly and funny, however, in real life scenarios, this is a great technique to apply anytime, anywhere.</p>
 <p>Boundaries may look like they apply only to integer input, but they occur at many other places. There are boundaries associated with date/time (e.g. an action is performed again when time from last action is at least 30 seconds - the decision would need to be made whether we need precision in seconds or maybe in ticks), to strings (e.g. validation of user name where it must be at least 2 characters, or password that must contain at least 2 special characters) etc.</p>
-<h2 id="combination-of-boundaries---ranges"><a href="#combination-of-boundaries---ranges">Combination of boundaries - ranges</a></h2>
+<h2 id="combination-of-boundaries---ranges">Combination of boundaries - ranges</h2>
 <p>So, what about a behavior that is valid in a range? Let us assume that we live in a country where a citizen can get a driving license only after their 17th birthday, but before 65th (the government decided that people after 65 have worse sight and it’s safer not to give them new driving licenses). Let us also assume that we try to develop a class that answers the question whether we can apply for driving license and the return values of this query are as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Age &lt; 17 - returns enum value <code>QueryResults.TooYoung</code></li>
@@ -2249,10 +2249,10 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
     ()=&gt; clock.SetAlarmHour(inputHour)
   );
 }</code></pre>
-<h2 id="summary-3"><a href="#summary-3">Summary</a></h2>
+<h2 id="summary-3">Summary</h2>
 <p>In this chapter, we covered specifying numerical boundaries with a minimal amount of code, so that the Specification is more maintainable and runs fast. There is one more kind of situation left: when we have compound conditions (e.g. a password must be at least 10 characters and contain at least 2 special characters) - we’ll get back to those when we introduce mocks.</p>
-<h1 id="triangulation"><a href="#triangulation">Triangulation</a></h1>
-<h3 id="a-disclaimer-2"><a href="#a-disclaimer-2">A disclaimer</a></h3>
+<h1 id="triangulation">Triangulation</h1>
+<h3 id="a-disclaimer-2">A disclaimer</h3>
 <p>The first occurence of the term triangulation I know about is in Kent Beck’s book <a href="http://www.pearsonhighered.com/educator/product/Test-Driven-Development-By-Example/9780321146533.page">Test Driven Development: By Example</a>).</p>
 <p>As one of the last topics of the core TDD techniques that do not require us to delve into the object oriented world, I’d like to show you triangulation.</p>
 <p>Triangulation is often described as the most conservative of three approaches of test-driving implementation. These approaches are:</p>
@@ -2262,7 +2262,7 @@ ShouldThrowOutOfRangeExceptionWhenTryingToSetAlarmHourOutsideValidRange(
 <li>Triangulate</li>
 </ol>
 <p>All of these techniques are simple (triangulaion being a little more complex), so I’ll show you all of them one by one, putting more emphasis on triangulation:</p>
-<h2 id="type-the-obvious-implementation"><a href="#type-the-obvious-implementation">Type The Obvious Implementation</a></h2>
+<h2 id="type-the-obvious-implementation">Type The Obvious Implementation</h2>
 <p>The first of the three techniques is just writing an obvious implementation in response to a Statetement. If the implementation is simple, this approach makes a lot of sense. Let’s take a trivial example of adding two numbers:</p>
 <pre><code>[Fact] public void
 ShouldAddTwoNumbersTogether()
@@ -2301,7 +2301,7 @@ ShouldAddTwoNumbersTogether()
   Assert.Equal(a + b, result);
 }</code></pre>
 <p>Here, we don’t have any choice. The most obvious implementation that would make this Statement true is the correct implementation. We are unable to return some constant value as we previously could (but we did not), because we just don’t know what the expected result is and it is strictly dependent on the input values which we don’t know as well.</p>
-<h2 id="fake-it-til-you-make-it"><a href="#fake-it-til-you-make-it">Fake It (‘Til You Make It)</a></h2>
+<h2 id="fake-it-til-you-make-it">Fake It (‘Til You Make It)</h2>
 <p>This technique is kind of funny. I do not recall myself ever using it, but it is so interesting I want to show it to you anyway. It is so simple you will not regret these few minutes even if just for broadening your horizons.</p>
 <p>There are two core things that we need to pay attention when using these technique:</p>
 <ol style="list-style-type: decimal">
@@ -2355,7 +2355,7 @@ ShouldAddTwoNumbersTogether()
   }
 }</code></pre>
 <p>And that’s it. I used a trivial example, since I don’t want to spend too much time on this, but you can find more advanced ones in Kent Beck’s book if you like.</p>
-<h2 id="triangulation-1"><a href="#triangulation-1">Triangulation</a></h2>
+<h2 id="triangulation-1">Triangulation</h2>
 <p>As I wrote, triangulation is the most conservative technique, because following it involves the tiniest possible steps to arrive at the right solution. The technique is called triangulation by analogy to <a href="http://encyclopedia2.thefreedictionary.com/radar+triangulation">radar triangulation</a> where outputs from at least two radars must be used to determine the position of a unit. Also, in radar triangulation, the position is measured indirectly, by combining the following data: range (not position!) between two radars, measurement done by each radar and the positions of the radars (which we know, because we are the ones who put the radars there). From this data, we can derive a triangle, so we can use trigonometry to calculate the position of the third point of the triangle, which is the desired position of the unit (two remaining points are the positions of radars). Such measurement is indirect in nature, because we do not measure the position directly, but calculate it from other helper measurements.</p>
 <p>These two characteristics: indirect measurement and using at least two sources of information are at the core of TDD triangulation. Basically, it says:</p>
 <ol style="list-style-type: decimal">
@@ -2363,7 +2363,7 @@ ShouldAddTwoNumbersTogether()
 <li><strong>Using at least two sources of information</strong>: start with the simplest possible implementation and make it more general <strong>only</strong> when you have two or more different examples (i.e. Statements that describe the desired functionality for specific inputs). Then new examples can be added and generalization can be done again. This process is repeated until we reach the desired implementation. Robert C. Martin developed a maxim on this, saying that “As the tests get more specific, the code gets more generic.</li>
 </ol>
 <p>Usually, when TDD is showcased on simple examples, triangulation is the primary technique used, so many novices mistakenly believe TDD is all about triangulation. This isn’t true, although triangulation is important.</p>
-<h4 id="example-3"><a href="#example-3">Example</a></h4>
+<h4 id="example-3">Example</h4>
 <p>Suppose we want to write a logic that creates an aggregate sum of the list. Let’s assume that we have no idea how to design the internals of our custom list class so that it fulfills its responsibility. Thus, we start with the simplest example of calculating a sum of 0 elements:</p>
 <pre><code>[Fact] public void 
 ShouldReturn0AsASumOfNoElements()
@@ -2526,18 +2526,18 @@ ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
 <p>When we do this, we can see our last Statement evaluate to false with a message like “expected 21, got 22”. We can now undo this one little change and go back to correct implementation.</p>
 <p>The examples (“zero elements”, “one element” and “two elements”) still evaluate to true, but it’s now safe to remove the last two, leaving only the Statement about a behavior we expect when we calculate sum of no elements and the Statement about N elements we just wrote.</p>
 <p>And voilà! We have arrived at the final, generic solution. Note that the steps we took were tiny - so you might get the impression that the effort was not worth it. Indeed, this example was only to show the mechanics of triangulation - in real life, if we encountered such simple situation we’d know straight away what the design would be and we’d start with the general Statement straight away and just type in the obvious implementation. Triangulation shows its power in more complex problems with multiple design axes and where taking tiny steps helps avoid “analysis paralysis”.</p>
-<h2 id="summary-4"><a href="#summary-4">Summary</a></h2>
+<h2 id="summary-4">Summary</h2>
 <p>As I stated before, triangulation is most useful when you have no idea how the internal design of a piece of functionality will look like (e.g. even if there are work-flows, they cannot be easily derived from your knowledge of the domain) and it’s not obvious along which axes your design must provide generality, but you are able to give some examples of the observable behavior of that functionality given certain inputs. These are usually situations where you need to slow down and take tiny steps that slowly bring you closer to the right design and functionality - and that’s what triangulation is for!</p>
-<h1 id="part-2-test-driven-development-in-object-oriented-world"><a href="#part-2-test-driven-development-in-object-oriented-world">Part 2: Test-Driven Development in Object Oriented World</a></h1>
+<h1 id="part-2-test-driven-development-in-object-oriented-world">Part 2: Test-Driven Development in Object Oriented World</h1>
 <p>Most of the examples I gave you during the previous part were about a single object that did not have dependencies on other objects (with an exception of some values - strings, integers, enums etc.). This is not how a real OO systems are built. In this part, we are finally going to look at scenarios where multiple objects collaborate together as a system.</p>
 <p>This brings about some issues that need to be discussed. One of them is the approach to object oriented design and how it influences the tools we use to test-drive our code. You probably heard something about a tool called mock objects (at least from one of the introductory chapters of this book) or, in more broaded sense, test doubles. If you open your web browser and type “mock objects break encapsulation”, you will find a lot of different opinions - some saying that mocks are great, others blaming them for everything bad in the world, and a lot of opinions inbetween those. The discussions are still heated, even though mocks were introduced more than ten years ago. My goal in this chapter is to outline the real context and forces that lead to adoption of mocks and how to use them for your benefit, not failure.</p>
 <p>Steve Freeman, one of the godfathers of using mock objects with TDD, <a href="https://groups.google.com/d/msg/growing-object-oriented-software/rwxCURI_3kM/2UcNAlF_Jh4J">wrote</a>: “mocks arise naturally from doing responsibility-driven OO. All these mock/not-mock arguments are completely missing the point. If you’re not writing that kind of code, people, please don’t give me a hard time”. I am going to introduce mocks in a way that will not give Steve a hard time, I hope.</p>
 <p>In order to do this, I need to cover some topics of object oriented design. That is why not all chapters in this part are specifically about TDD, but some are about object oriented techniques, practices and qualities you need to know to use TDD effectively in object oriented world. First of them being objects composability.</p>
 <p>After reading part 2, you will understand how mocks fit into test-driving object oriented code, how to make Statements using mocks maintainable and how some of the practices I introduced in the chapters of part 1 apply to mocks. You will also be able to test-drive simple object oriented systems.</p>
-<h1 id="on-objects-composability"><a href="#on-objects-composability">On Objects Composability</a></h1>
+<h1 id="on-objects-composability">On Objects Composability</h1>
 <p>In this chapter, I will try to outline briefly why objects’ composability is a goal worth achieving and how it can be achieved. I am going to start with an example of unmaintainable code and will gradually fix its flaws in the next chapters. For now, we are going to fix just one of the flaws, so the code we will end up will not be perfect by any means, still, it will be better by one quality.</p>
 <p>In the coming chapters, we will learn more valuable lessons resulting from changing this little piece of code.</p>
-<h2 id="another-task-for-johnny-and-benjamin"><a href="#another-task-for-johnny-and-benjamin">Another task for Johnny and Benjamin</a></h2>
+<h2 id="another-task-for-johnny-and-benjamin">Another task for Johnny and Benjamin</h2>
 <p>Remember Johnny and Benjamin? Looks like they managed their previous task and are up to something else. Let us listen to their conversation as they are working on another project…</p>
 <p><strong>Benjamin:</strong> So, what’s this assignment about?</p>
 <p><strong>Johnny:</strong> Actually, it’s nothing exciting - we’ll have to add two features to a legacy application that’s not prepared for the changes.</p>
@@ -2621,7 +2621,7 @@ ShouldReturnSumOfAllItsElementsWhenAskedForAggregateSum()
       _repository = new NoSqlRepository();
     }
   }</code></pre>
-<p><strong>Johnny:</strong> True, but this option has few deficiencies. First of all, remember we’re trying to follow the scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let’s say tommorow someone writes another class for, say, reporting and this class will also need to access the repository - they will need to make the same decision on repositories in their code as we do in ours. This effectively means duplicating code. Thus, I’d rather evaluate further options and check if we can come up with something better. What’s our next option?</p>
+<p><strong>Johnny:</strong> True, but this option has few deficiencies. First of all, remember we’re trying to follow the scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let’s say tomorrow someone writes another class for, say, reporting and this class will also need to access the repository - they will need to make the same decision on repositories in their code as we do in ours. This effectively means duplicating code. Thus, I’d rather evaluate further options and check if we can come up with something better. What’s our next option?</p>
 <p><strong>Benjamin:</strong> Another option would be to change the SqlRepository itself to be just a wrapper around the actual database access, like this:</p>
 <pre><code>public class SqlRepository : IDisposable
 {
@@ -2745,13 +2745,13 @@ public class CompanyPolicies
 <p><strong>Johnny:</strong> Ok, so what we need is to create just another implementation and pass it through the constructor depending on what data source is chosen and we’re finished with this part of the task.</p>
 <p><strong>Benjamin:</strong> You mean there’s more?</p>
 <p><strong>Johnny:</strong> Yeah, but that’s something for tomorrow. I’m exhausted today.</p>
-<h2 id="a-quick-retrospective"><a href="#a-quick-retrospective">A Quick Retrospective</a></h2>
+<h2 id="a-quick-retrospective">A Quick Retrospective</h2>
 <p>In this chapter, Benjamin learned to appreciate the composability of objects, i.e. the ability to replace object dependencies, providing different behaviors, without the need to change the code of the object class itself. Thus, an object, given replaced dependencies, starts using the new behaviors without noticing that any change occurred at all.</p>
 <p>As I said, the code mentioned has some serious flaws. For now, Johnny and Benjamin did not encounter a desperate need to address those flaws, but this is going to change in the next chapter.</p>
 <p>Also, after we part again with Johnny and Benjamin, we are going to reiterate the ideas they stumble upon in a more disciplined manner.</p>
-<h1 id="telling-not-asking"><a href="#telling-not-asking">Telling, not asking</a></h1>
+<h1 id="telling-not-asking">Telling, not asking</h1>
 <p>In this chapter, we’ll get back to Johnny and Benjamin as they introduce another change in the code they are working on. In the process, they discover the impact that return values and getters have on composability of objects.</p>
-<h2 id="contractors"><a href="#contractors">Contractors</a></h2>
+<h2 id="contractors">Contractors</h2>
 <p><strong>Johnny:</strong> G’morning. Ready for another task?</p>
 <p><strong>Benjamin:</strong> Of course! What’s next?</p>
 <p><strong>Johnny:</strong> Remember the code we worked on yesterday? It contains a policy for regular employees of the company. But the company wants to start hiring contractors as well and needs to include a policy for them in the application.</p>
@@ -2942,19 +2942,19 @@ if(employee.GetYearsOfService() == 5)
 </ul>
 <p>As you see, by asking the objects less, and telling it more, we get greater flexibility to create alternative implementations and the composability, which we talked about yesterday, increases!</p>
 <p><strong>Benjamin:</strong> I see… So telling objects what to do instead of asking them for their data makes the interactions between objects more abstract, and so, more stable, increasing composability of interacting objects. This is a valuable lesson - it is the first time I hear this and it seems a pretty powerful concept.</p>
-<h2 id="a-quick-retrospective-1"><a href="#a-quick-retrospective-1">A Quick Retrospective</a></h2>
+<h2 id="a-quick-retrospective-1">A Quick Retrospective</h2>
 <p>In this chapter, Benjamin learned that the composability of objects (not to mention clarity) is reinforced when interactions between them are: abstract, logical and stable. Also, he discovered, with Johnny’s help, that it is further strengthened by following a design style where objects are told what to do instead of asked to give away information to somebody who the makes the decision on their behalf. This is because if an API of an abstraction is built around answering to specific questions, the clients of the abstraction tend to ask it a lot of questions an are coupled to both those questions and some aspects of the answers (i.e. what it in the return values). This makes creating another implementation of abstraction harder, because each new implementation of the abstraction needs to not only provide answers to all those questions, but the answers are constrained to what the client expects. When abstraction is merely told what its client wants it to achieve, the clients is decoupled from most of the details of how this happens. This makes introducing new implementations of abstraction easier - it often even lets us define implementations with all methods empty without the client noticing at all.</p>
 <p>These are all important conclusions that will lead us towards TDD with mock objects.</p>
 <p>Time to leave Johnny and Benjamin for now. In the next chapter, I’m going to reiterate on their discoveries and put them in a broader context.</p>
-<h1 id="the-need-for-mock-objects"><a href="#the-need-for-mock-objects">The need for mock objects</a></h1>
+<h1 id="the-need-for-mock-objects">The need for mock objects</h1>
 <p>We already experienced mock objects in the chapter about tools, although at that point, I gave you an oversimplified and deceiving explanation of what a mock object is, promising that I will make up for it later. Now is the time.</p>
 <p>Mock objects were made with specific goal in mind. My hope is that when you understand the real goal, you will probably understand the means to the goal far better.</p>
 <p>In this chapter, we will explore the qualities of object oriented design which make mock objects a viable tool.</p>
-<h2 id="composability-again"><a href="#composability-again">Composability… again!</a></h2>
+<h2 id="composability-again">Composability… again!</h2>
 <p>In the two previous chapters, we followed Johnny and Benjamin in discovering the benefits of and prerequisites for composability of objects. Actually, composability is number one quality of the design we’re after. After reading Johhny and Benjamin’s story, you might have some questions regarding composability. Hopefully, they are among the ones answered in the next few chapters. Ready?</p>
-<h1 id="why-do-we-need-composability"><a href="#why-do-we-need-composability">Why do we need composability?</a></h1>
+<h1 id="why-do-we-need-composability">Why do we need composability?</h1>
 <p>It might seem stupid to ask this question here - if you have managed to stay with me this long, then you’re probably motivated enough not to need a justification? Well, anyway, it’s still worth discussing it a little. Hopefully, you’ll learn as much reading this back-to-basics chapter as I did writing it.</p>
-<h2 id="pre-object-oriented-approaches"><a href="#pre-object-oriented-approaches">Pre-object oriented approaches</a></h2>
+<h2 id="pre-object-oriented-approaches">Pre-object oriented approaches</h2>
 <p>Back in the days of procedural programming<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, when we wanted to execute a different code based on some factor, it was usually achieved using an ‘if’ statement. For example, if our application was in need to be able to use different kinds of alarms, like a loud alarm (that plays a loud sound) and a silent alarm (that does not play any sound, but instead silently contacts the police) interchangeably, then usually, we could achieve this using a conditional like in the following function:</p>
 <pre><code>void triggerAlarm(Alarm* alarm)
 {
@@ -3010,7 +3010,7 @@ if(employee.GetYearsOfService() == 5)
 </table>
 <p>So, at least conceptually, as soon as we know the alarm kind, we already know which set of behaviors (represented as a row in the above table) it needs. We could just decide the alarm kind once and associate the right set of behaviors with the data structure. Then, we would not have to query the alarm kind in few places as we did, but instead, we could say: “execute triggering behavior from the set of behaviors associated with this alarm, whatever it is”.</p>
 <p>Unfortunately, procedural programming does not let us bind behaviors with data. As a matter of fact, the whole paradigm of procedural programming is about separating behaviors and data! Well, honestly, they had some answers to those concerns, but these answers were mostly awkward (for those of you that still remember C language: I’m talking about macros and function pointers). So, as data and behaviors are separated, we need to query the data each time we want to pick a behavior based on it. That’s why we have the duplication.</p>
-<h2 id="object-oriented-programming-to-the-rescue"><a href="#object-oriented-programming-to-the-rescue">Object oriented programming to the rescue!</a></h2>
+<h2 id="object-oriented-programming-to-the-rescue">Object oriented programming to the rescue!</h2>
 <p>On the other hand, object oriented programming has for a long time made available two mechanisms that enable what we didn’t have in procedural languages:</p>
 <ol style="list-style-type: decimal">
 <li>Classes - that allow binding behavior together with data</li>
@@ -3053,7 +3053,7 @@ alarm = new LoudAlarm(); </code></pre>
 <p>so it looks like I am not eliminating the ‘else-if’ after all, just moving it somewhere else! This may be true (we will talk more about it in future chapters), but the good news is that I eliminated at least the duplication by making our dream of “picking the right set of behaviors to use with certain data once” come true.</p>
 <p>Thanks to this, I create the alarm once, and then I can take it and pass it to ten, a hundred or a thousand different places where I will not have to determine the alarm kind anymore to use it correctly.</p>
 <p>This allows writing a lot of classes that have no knowledge whatsoever about the real class of the alarm they are dealing with, yet are able to use the alarm just fine only by knowing a common abstract type - <code>Alarm</code>. If we are able to do that, we arrive at a situation where we can add more alarms implementing <code>Alarm</code> and watch existing objects that are already using <code>Alarm</code> work with these new alarms without any change in their source code! There is one condition, however - the <strong>creation of the alarm instances must be moved out of the classes that use them</strong>. That’s because, as we already observed, to create an alarm using a <code>new</code> operator, we have to know the exact type of the alarm we are creating. So whoever creates an instance of <code>LoudAlarm</code> or <code>SilentAlarm</code>, loses its uniformity, since it is not able to depend solely on the <code>Alarm</code> interface.</p>
-<h2 id="the-power-of-composition"><a href="#the-power-of-composition">The power of composition</a></h2>
+<h2 id="the-power-of-composition">The power of composition</h2>
 <p>Moving creation of alarm instances away from the classes that use those alarms brings up an interesting problem - if an object does not create the objects it uses, then who does it? A solution is to make some special places in the code that are only responsible for composing a system from context-independent objects<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. We saw this already as Johnny was explaining composability to Benjamin. He used the following example:</p>
 <pre><code>new SqlRepository(
   new ConnectionString(&quot;...&quot;), 
@@ -3181,12 +3181,12 @@ alarm = new LoudAlarm(); </code></pre>
 )</code></pre>
 <p>Noticed something funny about the last few examples? If not, here goes an explanation: in the last few examples, we have twisted the behaviors of our application in wacky ways, but all of this took place in the composition code! We did not have to modify any other existing classes! True, we had to write a new class called <code>NoAlarm</code>, but did not need to modify any other code than the composition code to make objects if this new class work with objects of existing classes!</p>
 <p>This ability to change the behavior of our application just by changing the way objects are composed together is extremely powerful (although you will always be able to achieve it only to certain extent), especially in evolutionary, incremental design, where we want to evolve some pieces of code with as little as possible other pieces of code having to realize that the evolution takes place. This ability can be achieved only if our system consists of composable objects, thus the need for composability - an answer to a question raised at the beginning of this chapter.</p>
-<h2 id="summary---are-you-still-with-me"><a href="#summary---are-you-still-with-me">Summary - are you still with me?</a></h2>
+<h2 id="summary---are-you-still-with-me">Summary - are you still with me?</h2>
 <p>We started with what seemed to be a repetition from basic object oriented programming course, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
 <p>In the next chapter, we will take a closer look at composing objects itself.</p>
-<h1 id="web-messages-and-protocols"><a href="#web-messages-and-protocols">Web, messages and protocols</a></h1>
+<h1 id="web-messages-and-protocols">Web, messages and protocols</h1>
 <p>In the last chapter, we talked a little bit about why composability is valuable, now let’s flesh a little bit of terminology to get more precise understanding.</p>
-<h2 id="so-again-what-does-it-mean-to-compose-objects"><a href="#so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</a></h2>
+<h2 id="so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</h2>
 <p>Basically it means that an object has obtained a reference to another object and is able to invoke methods on it. By being composed together, two objects form a small system that can be expanded with more objects as needed. Thus, a bigger object oriented system forms something similar to a web:</p>
 <div class="figure">
 <img src="images/WebOfObjects.png" alt="Web of objects - the circles are the objects and the arrows are methods invocations from one object on another" /><p class="caption">Web of objects - the circles are the objects and the arrows are methods invocations from one object on another</p>
@@ -3197,7 +3197,7 @@ alarm = new LoudAlarm(); </code></pre>
 <li>In order to send a message to a recipient, a sender has to acquire an <strong>address</strong> of the recipient, which, in object oriented world, we call a reference (actually, in languages such as C++, references are just that - addresses in memory).</li>
 <li>A communication between sender and recipients has to obey certain <strong>protocol</strong>. For example, a sender usually cannot invoke a method passing nulls as all arguments, or should expect an exception if it does so. Don’t worry if you do not see the analogy now - I’ll follow up with more explanation of this topic later).</li>
 </ol>
-<h2 id="alarms-again"><a href="#alarms-again">Alarms, again!</a></h2>
+<h2 id="alarms-again">Alarms, again!</h2>
 <p>Let us try to apply this terminology to an example. Let’s say that we have an anti-fire alarm system in an office that, when triggered, makes all lifts go to bottom floor, opens them and then disables them. Among others, the office contains automatic lifts, that contain their own remote control systems and mechanical lifts, that are controlled from the outside by a special custom-made mechanism.</p>
 <p>Let’s try to model this behavior in code. As you might have guessed, we will have some objects like alarm, automatic lift and mechanical lift. The alarm will control the lifts when triggered.</p>
 <p>First, we do not want the alarm to have to distinguish between an automatic and a mechanical lift - this would only add complexity to alarm system, especially that there are plans to add a third kind of lift - a more modern one, so if we made the alarm aware of the different kinds, we would have to modify it each time a new kind of lift is introduced. Thus, we need a special <strong>interface</strong> (let’s call it <code>Lift</code>) to communicate with both <code>AutoLift</code> and <code>MechanicalLift</code> (and <code>ModernLift</code> in the future). Through this interface, an alarm will be able to send messages to both types of lifts without having to know the difference between them.</p>
@@ -3273,15 +3273,15 @@ public class MechanicalLift : Lift
   }
 }</code></pre>
 <p>This is a second example of a <strong>protocol</strong> existing between <code>Alarm</code> and <code>Lift</code> that must be adhered to by both sides.</p>
-<h2 id="summary-5"><a href="#summary-5">Summary</a></h2>
+<h2 id="summary-5">Summary</h2>
 <p>Each of the objects in the web can receive messages and most of them send messages to other objects. Throughout the next chapters, I will refer to an object sending a message as <strong>sender</strong> and an object receiving a message as <strong>recipient</strong>.</p>
 <p>For now, it may look unjustified to introduce this metaphor of webs, protocols, interfaces etc. but:</p>
 <ul>
 <li>This is the way <a href="http://c2.com/cgi/wiki?AlanKayOnMessaging">object oriented programming inventors</a> have thought about object oriented systems</li>
 <li>It will prove useful as I explain making connections between objects and achieving strong composability in the next chapters</li>
 </ul>
-<h1 id="composing-a-web-of-objects"><a href="#composing-a-web-of-objects">Composing a web of objects</a></h1>
-<h2 id="three-important-questions"><a href="#three-important-questions">Three important questions</a></h2>
+<h1 id="composing-a-web-of-objects">Composing a web of objects</h1>
+<h2 id="three-important-questions">Three important questions</h2>
 <p>Ok, I told you that such a thing as a web of objects exists, that there are connections, protocols and such, but there is one thing I left out: how does a web of objects come into existence?</p>
 <p>This is, of course, a fundamental question, because if we are not able to build a web, we do not have a web. In addition, this is a question that is a little more tricky that you may think and it contains three other questions that we need to answer:</p>
 <ol style="list-style-type: decimal">
@@ -3290,7 +3290,7 @@ public class MechanicalLift : Lift
 <li>Where are objects composed (i.e. where connections are made)?</li>
 </ol>
 <p>For now, you may have some trouble understanding the difference between those questions, but the good news is that they are the topic of this chapter, so I hope we will have that cleared shortly. Let’s go!</p>
-<h2 id="a-preview"><a href="#a-preview">A preview</a></h2>
+<h2 id="a-preview">A preview</h2>
 <p>Before we take a deep dive, let’s try to answer these three questions for a really simple example code of a console application:</p>
 <pre><code>public static void Main(string[] args)
 {
@@ -3305,7 +3305,7 @@ public class MechanicalLift : Lift
 <li>Where are objects composed? Answer: at application entry point (<code>Main()</code> method)</li>
 </ol>
 <p>Depending on circumstances, we have different sets of best answers. To find them, let us take the questions on one by one.</p>
-<h2 id="when-are-objects-composed"><a href="#when-are-objects-composed">When are objects composed?</a></h2>
+<h2 id="when-are-objects-composed">When are objects composed?</h2>
 <p>The quick answer to this question is: as early as possible. Now, that wasn’t too helpful, was it? So here goes a clarification.</p>
 <p>Many of the objects we use in our applications can be created and connected up-front when the application starts and can stay this way until the application finishes executing (unless we are doing a web app - then most of the important stuff happens “per request”). Let’s call this part the <strong>static part</strong> of the web.</p>
 <p>Apart from that, there’s a <strong>dynamic part</strong> - a part that undergoes constant changes - objects are created, destroyed, connected temporarily, and then disconnected. There are at least two reasons this dynamic part exists:</p>
@@ -3314,7 +3314,7 @@ public class MechanicalLift : Lift
 <li>There are objects that have a life span as long as the application itself, but are connected only for the needs of a single interaction (e.g. when one object is passed to a method of another as an argument) or at some point during the application runtime.</li>
 </ol>
 <p>It is perfectly possible for an object to be part of both static and dynamic part - some of its connections may be made up-front, while others may be created later, e.g. when it is passed inside a message sent to another object (i.e. passed as method parameter).</p>
-<h2 id="how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made"><a href="#how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made">How does a sender obtain a reference to a recipient (i.e. how connections are made)?</a></h2>
+<h2 id="how-does-a-sender-obtain-a-reference-to-a-recipient-i.e.how-connections-are-made">How does a sender obtain a reference to a recipient (i.e. how connections are made)?</h2>
 <p>There are few ways this can happen, each of them useful in certain circumstances. These ways are:</p>
 <ol style="list-style-type: decimal">
 <li>Receive as constructor parameter</li>
@@ -3323,7 +3323,7 @@ public class MechanicalLift : Lift
 <li>Register a recipient with already created sender</li>
 </ol>
 <p>Let us have a closer look at what each of them is about and which one to choose in what circumstances.</p>
-<h3 id="receive-as-constructor-parameter"><a href="#receive-as-constructor-parameter">Receive as constructor parameter</a></h3>
+<h3 id="receive-as-constructor-parameter">Receive as constructor parameter</h3>
 <p>Two objects can be composed by passing one into the constructor of another:</p>
 <pre><code>sender = new Sender(recipient);</code></pre>
 <p>A sender that receives the recipient then saves a reference to it in a private field for later, like this:</p>
@@ -3342,7 +3342,7 @@ public Sender(Recipient recipient)
   
   //... other code
 }</code></pre>
-<h4 id="advantage-what-you-hide-you-can-change"><a href="#advantage-what-you-hide-you-can-change">Advantage: “what you hide, you can change”</a></h4>
+<h4 id="advantage-what-you-hide-you-can-change">Advantage: “what you hide, you can change”</h4>
 <p>Composing using constructors has one significant advantage. By separating object use from construction, we end up with the code that creates a <code>Sender</code> being in a totally different place than the code that uses it. And, as <code>Recipient</code> is passed to <code>Sender</code> during its creation, it is the only place external to the <code>Sender</code> that needs to know that <code>Sender</code> uses <code>Recipient</code>. The part of code that uses <code>Sender</code> is not aware at all that <code>Sender</code> stores a reference to <code>Recipient</code> inside it. This basically means that when <code>Sender</code> is used, e.g. like this:</p>
 <pre><code>sender.DoSomething()</code></pre>
 <p>the <code>Sender</code> may then react by sending message to <code>Recipient</code>, but the code invoking the <code>DoSomething()</code> method is completely unaware of that - it is hidden. This is good, because “what you hide, you can change”<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> - e.g. if we decide that the <code>Sender</code> needs not use the <code>Recipient</code> to do its duty, the code that uses <code>Sender</code> does not need to change at all - it still looks the same as before:</p>
@@ -3351,15 +3351,15 @@ public Sender(Recipient recipient)
 <pre><code>//no need to pass a reference to Recipient anymore
 new Sender();</code></pre>
 <p>and the <code>Sender</code> class itself to work in a different way.</p>
-<h4 id="communication-of-intent-required-recipient"><a href="#communication-of-intent-required-recipient">Communication of intent: required recipient</a></h4>
+<h4 id="communication-of-intent-required-recipient">Communication of intent: required recipient</h4>
 <p>Another advantage of the constructor approach is that if a reference to <code>Recipient</code> is required for a <code>Sender</code> to work correctly and it does not make sense to create a <code>Sender</code> without a <code>Recipient</code>, the signature of the constructor makes it explicit - the compiler will not let us create a <code>Sender</code> without passing <em>something</em> as a <code>Recipient</code>.</p>
-<h4 id="where-to-apply"><a href="#where-to-apply">Where to apply</a></h4>
+<h4 id="where-to-apply">Where to apply</h4>
 <p>Passing into constructor is a great solution in cases we want to compose sender with a recipient permanently (i.e. for the lifetime of <code>Sender</code>). In order to be able to do this, a <code>Recipient</code> must, of course, exist before a <code>Sender</code> does. Another less obvious requirement for this composition is that <code>Recipient</code> must be usable at least as long as <code>Sender</code> is usable. In other words, the following is nonsense:</p>
 <pre><code>sender = new Sender(recipient);
 recipient.Dispose(); //but sender is unaware of it 
                      //and may still use recipient in:
 sender.DoSomething();</code></pre>
-<h3 id="receive-inside-a-message-i.e.as-a-method-parameter"><a href="#receive-inside-a-message-i.e.as-a-method-parameter">Receive inside a message (i.e. as a method parameter)</a></h3>
+<h3 id="receive-inside-a-message-i.e.as-a-method-parameter">Receive inside a message (i.e. as a method parameter)</h3>
 <p>Another common way of composing objects together is passing one object as a parameter of another object’s method call:</p>
 <pre><code>sender.DoSomethingWithHelpOf(recipient);</code></pre>
 <p>In such case, the objects are most often composed temporarily, just for the time of execution of this single method:</p>
@@ -3371,7 +3371,7 @@ sender.DoSomething();</code></pre>
   
   //... perform some logic
 }</code></pre>
-<h4 id="where-to-apply-1"><a href="#where-to-apply-1">Where to apply</a></h4>
+<h4 id="where-to-apply-1">Where to apply</h4>
 <p>Contrary to the constructor approach, where a <code>Sender</code> could hide from its user the fact that it needs <code>Recipient</code>, in this case the user of <code>Sender</code> is explicitly responsible for supplying a <code>Recipient</code>. It may look like the coupling of user to <code>Recipient</code> is a disadvantage, but there are scenarios where it is actually <strong>required</strong> for a code using <code>Sender</code> to be able to provide its own <code>Recipient</code> - it lets us use the same sender with different recipients at different times (most often from different parts of the code):</p>
 <pre><code>//in one place
 sender.DoSomethingWithHelpOf(recipient);
@@ -3382,7 +3382,7 @@ sender.DoSomethingWithHelpOf(anotherRecipient);
 //in yet another place:
 sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
 <p>If this ability is not required, the constructor approach is better as it removes the then unnecessary coupling between code using <code>Sender</code> and a <code>Recipient</code>.</p>
-<h3 id="receive-in-response-to-a-message-i.e.as-method-return-value"><a href="#receive-in-response-to-a-message-i.e.as-method-return-value">Receive in response to a message (i.e. as method return value)</a></h3>
+<h3 id="receive-in-response-to-a-message-i.e.as-method-return-value">Receive in response to a message (i.e. as method return value)</h3>
 <p>This method of composing objects relies on an intermediary object - often a factory<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> - to supply recipients on request. To simplify things, I will use factories as an example for the rest of this section, although what I tell you is true for some other creation patterns as well.</p>
 <p>To be able to ask a factory for recipients, the sender needs to obtain a reference to it first. Typically, a factory is composed with a sender through constructor (an approach we already discussed). For example:</p>
 <pre><code>var sender = new Sender(recipientFactory);</code></pre>
@@ -3400,7 +3400,7 @@ sender.DoSomethingWithHelpOf(yetAnotherRecipient);</code></pre>
     recipient.DoSomethingElse();
   }
 }</code></pre>
-<h4 id="where-to-apply-2"><a href="#where-to-apply-2">Where to apply</a></h4>
+<h4 id="where-to-apply-2">Where to apply</h4>
 <p>This kind of composition is beneficial when a new recipient is needed each time <code>DoSomething()</code> is called. In this sense it may look much like in case of previously discussed approach of receiving a recipient inside a message. There is one difference, however. Contrary to passing a recipient inside a message, where the code using the <code>Sender</code> passed a <code>Recipient</code> “from outside” of the <code>Sender</code>, in this approach, we rely on a separate object that is used by a <code>Sender</code> “from the inside”.</p>
 <p>To be more clear, let us compare the two approaches. Passing recipient inside a message looks like this:</p>
 <pre><code>//Sender gets a Recipient from the &quot;outside&quot;:
@@ -3417,15 +3417,15 @@ public DoSomething()
   recipient.DoSomethingElse();
 }</code></pre>
 <p>So in the first example, the decision on which <code>Recipient</code> is used is made by whoever calls <code>DoSomething()</code>. In the factory example, whoever calls <code>DoSomething()</code> does not know at all about the <code>Recipient</code> and cannot directly influence which <code>Recipient</code> is used. The factory makes this decision.</p>
-<h4 id="factories-with-parameters"><a href="#factories-with-parameters">Factories with parameters</a></h4>
+<h4 id="factories-with-parameters">Factories with parameters</h4>
 <p>So far, all the factories we considered had creation methods with empty parameter list, but this is not required. As the factory remains the decision maker on which <code>Recipient</code> is used, it can rely on some external parameters to help it make the decision.</p>
-<h4 id="not-only-factories"><a href="#not-only-factories">Not only factories</a></h4>
+<h4 id="not-only-factories">Not only factories</h4>
 <p>Throughout this section, we have used a factory as our role model, but the approach of obtaining a recipient in response to a message is wider than that. Other types of objects that fall into this category include: repositories, caches, builders and collections.</p>
-<h3 id="register-a-recipient-with-already-created-sender"><a href="#register-a-recipient-with-already-created-sender">Register a recipient with already created sender</a></h3>
+<h3 id="register-a-recipient-with-already-created-sender">Register a recipient with already created sender</h3>
 <p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” - after Kent Beck<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> I find this convention too much implementation-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
 <p>Note that there is one similarity to “passing inside a message” approach - in both, a recipient is passed inside a message. The difference is that this time, contrary to “pass inside a message” approach, the passed recipient is not immediately used (and then forgotten), but rather only remembered (registered) for later use.</p>
 <p>I hope I can clear up the confusion with a quick example.</p>
-<h4 id="example-4"><a href="#example-4">Example</a></h4>
+<h4 id="example-4">Example</h4>
 <p>Suppose we have a temperature sensor that can report its current and historically mean value to whoever subscribes with it. If no one subscribes, the sensor still does its job, because it still has to collect the data for calculating a history-based mean value in case anyone subscribes later.</p>
 <p>We may solve the problem by introducing an observer registration mechanism in the sensor implementation. If no observer is registered, the values are not reported (in other words, a registered observer is not required for the object to function, but if there is one, it can take advantage of the reports). For this purpose, let’s make our sensor depend on an interface called <code>TemperatureObserver</code> that could be implemented by various concrete observer classes. The interface declaration looks like this:</p>
 <pre><code>public interface TemperatureObserver
@@ -3459,7 +3459,7 @@ public DoSomething()
   }
 }</code></pre>
 <p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> for a default value instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few times before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) - <code>NullObserver</code> is just another incarnation of this pattern.</p>
-<h4 id="registering-observers"><a href="#registering-observers">Registering observers</a></h4>
+<h4 id="registering-observers">Registering observers</h4>
 <p>Still, we want to be able to supply our own observer one day, when we start caring about the measured and calculated values (the fact that we “started caring” may be indicated to our application e.g. by a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument. Here are the relevant parts of <code>TemperatureSensor</code> class:</p>
 <pre><code>public class TemperatureSensor
 {
@@ -3476,7 +3476,7 @@ public DoSomething()
   //... ... ...
 }</code></pre>
 <p>This lets us overwrite the observer with a new one should we ever need to do it. Note that, as I mentioned, this is the place where registration approach differs from the “pass inside a message” approach, where we also received a recipient in a message, but for immediate use. Here, we don’t use the recipient (i.e. the observer) when we get it, but instead we save it for later.</p>
-<h4 id="communication-of-intent-optional-dependency"><a href="#communication-of-intent-optional-dependency">Communication of intent: optional dependency</a></h4>
+<h4 id="communication-of-intent-optional-dependency">Communication of intent: optional dependency</h4>
 <p>Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional - if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for <strong>required</strong> recipients - these should all be passed through constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”. Let’s practice - just look at how the following class members signatures talk to you:</p>
 <pre><code>public class Sender
 {
@@ -3488,7 +3488,7 @@ public DoSomething()
   //of some features&quot;
   public void Register(Recipient2 recipient2) {...}
 }</code></pre>
-<h4 id="more-than-one-observer"><a href="#more-than-one-observer">More than one observer</a></h4>
+<h4 id="more-than-one-observer">More than one observer</h4>
 <p>Now, the observer API we just skimmed over gives us the possibility to have a single observer at any given time. When we register a new observer, the reference to the old one is overwritten. This is not really useful in our context, is it? With real sensors, we often want them to report their measurements to multiple places (e.g. we want the measurements printed on screen, saved to database, used as part of more complex calculations). This can be achieved in two ways.</p>
 <p>The first way would be to just hold a collection of observers in our sensor, and add to this collection whenever a new observer is registered:</p>
 <pre><code>private IList&lt;TemperatureObserver&gt; _observers 
@@ -3550,14 +3550,14 @@ var broadcastingObserver
 
 sensor.FromNowOnReportTo(broadcastingObserver);</code></pre>
 <p>Anyway, as I said, use registering instances very wisely and only if you specifically need it. Also, if you do use it, evaluate how allowing changing observers at runtime is affecting your multithreading scenarios. This is because a collection of observers might potentially be modified by two threads at the same time.</p>
-<h2 id="where-are-objects-composed"><a href="#where-are-objects-composed">Where are objects composed?</a></h2>
+<h2 id="where-are-objects-composed">Where are objects composed?</h2>
 <p>Ok, we went through some ways of passing a recipient to a sender. We did it from the “internal” perspective of a sender that is given a recipient. What we left out for the most part is the “external” perspective, i.e. who should pass the recipient into the sender?</p>
 <p>For almost all of the approaches described above there is no limitation - you pass the recipient from where you need to pass it.</p>
 <p>There is one approach, however, that is more limited, and this approach is <strong>passing as constructor parameter</strong>.</p>
 <p>Why is that? Because, we are trying to be true to the principle of “separating objects creation from use” and this, in turn, is a result of us striving for composability.</p>
 <p>Anyway, if an object cannot both use and create another object, we have to make special objects just for creating other objects (there are some design patterns for how to design such objects, but the most popular and useful is a <strong>factory</strong>) or defer the creation up to the application entry point (there is also a pattern for this, called <strong>composition root</strong>).</p>
 <p>So, we have two cases to consider. I’ll start with the second one.</p>
-<h3 id="composition-root"><a href="#composition-root">Composition Root</a></h3>
+<h3 id="composition-root">Composition Root</h3>
 <p>Let us assume for fun that we are creating a mobile game where a player has to defend a castle. This game has two levels. Each level has a castle to defend. So, we can break down the domain logic into three classes: a <code>Game</code> that has two <code>Level</code>s and each of them that contain a <code>Castle</code>. Let us also assume that the first two classes violate the principle of separating use from construction, i.e. that a <code>Game</code> creates its own levels and each <code>Level</code> creates its own castle.</p>
 <p>A <code>Game</code> class is created in the <code>Main()</code> method of the application:</p>
 <pre><code>public static void Main(string[] args)
@@ -3590,7 +3590,7 @@ public class Level2
   //some methods here that use the castle
 }</code></pre>
 <p>Now, I said (and I hope you see it in the code above) that the <code>Game</code>, <code>Level1</code> and <code>Level2</code> classes violate the principle of separating use from construction. We don’t like this, do we? So now we will try to make them more compliant with the principle.</p>
-<h4 id="achieving-separation-of-use-from-construction"><a href="#achieving-separation-of-use-from-construction">Achieving separation of use from construction</a></h4>
+<h4 id="achieving-separation-of-use-from-construction">Achieving separation of use from construction</h4>
 <p>First, let us refactor the <code>Level1</code> and <code>Level2</code> according to the principle by moving instantiation of their castles out. As existence of a castle is required for a level to make sense at all - we will say this in code by using the approach of passing a castle through a <code>Level</code>’s constructor:</p>
 <pre><code>public class Level1
 {
@@ -3678,11 +3678,11 @@ public class Level2
 <p>We say that composition root is “as close as possible” to application entry point, because there may be different frameworks in control of your application and you will not always have the <code>Main()</code> method at your service<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
 <p>Apart from the constructor invocations, the composition root may also contain e.g. registrations of observers (see registration approach to passing recipients) if such observers are already known at this point. It is also responsible for disposing of all objects it created that require explicit disposal after the application finishes running. This is because it creates them and thus is the only place in the code that can safely determine when they are not needed.</p>
 <p>The composition root above looks quite small, but you can imagine it grow a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and cleaner - we will explore those techniques in further chapters.</p>
-<h3 id="factories"><a href="#factories">Factories</a></h3>
+<h3 id="factories">Factories</h3>
 <p>As I previously said, it is not always possible to pass everything through the constructor. One of the approach we discussed that we can use in such cases is <strong>a factory</strong>.</p>
 <p>When we previously talked about factories, we focused on it being just a source of objects. This time we will have a much closer look at what factory is and what are its benefits.</p>
 <p>But first, let’s look at an example of a factory emerging in code that was not using it, as a mere consequence of trying to follow the principle of separating objects use from construction.</p>
-<h4 id="emerging-factory---example"><a href="#emerging-factory---example">Emerging factory - example</a></h4>
+<h4 id="emerging-factory---example">Emerging factory - example</h4>
 <p>Consider the following code that receives a frame from the network (as raw data), then packs it into an object, validates and applies to the system:</p>
 <pre><code>public class MessageInbound
 {
@@ -3765,7 +3765,7 @@ public class Level2
 }</code></pre>
 <p>And this is it. We have a factory now and the way we got to this point is by trying to be true to the principle of separating use from construction.</p>
 <p>Now that we are through with the example, we are ready for some more general explanation on factories.</p>
-<h4 id="reasons-to-use-factories"><a href="#reasons-to-use-factories">Reasons to use factories</a></h4>
+<h4 id="reasons-to-use-factories">Reasons to use factories</h4>
 <p>As you saw in the example, factories are objects responsible for creating other objects. They are used to achieve the separation of object constructions from their use when not all of the context necessary to create an object is known up-front. We pass the part of the context we know up-front (so called <strong>global context</strong>) in the factory via its constructor and supply the rest that becomes available later (so called <strong>local context</strong>) in a form of factory method parameters when it becomes available:</p>
 <pre><code>var factory = new Factory(globalContextKnownUpFront);
 
@@ -3790,7 +3790,7 @@ factory.CreateInstance();</code></pre>
 <li>We were unable to create a <code>ChangeMessage</code> before knowing the actual <code>Frame</code>.</li>
 <li>For each <code>Frame</code> received, we needed to create a new <code>ChangeMessage</code> instance.</li>
 </ol>
-<h4 id="simplest-factory"><a href="#simplest-factory">Simplest factory</a></h4>
+<h4 id="simplest-factory">Simplest factory</h4>
 <p>The simplest possible example of a factory object is something along the following lines:</p>
 <pre><code>public class MyMessageFactory
 {
@@ -3815,7 +3815,7 @@ public class XmlMessageFactory : MessageFactory
 <li>its <code>CreateSessionInitialization()</code> method declares a return type to be an interface (another level of indirection is introduced)</li>
 </ul>
 <p>In order for you to use factories effectively, I need you to understand why and how these levels of indirection are useful, especially that when I talk with people, they often do not understand the benefits of using factories, “because we already have the <code>new</code> operator to create objects”. So, here are these benefits:</p>
-<h4 id="factories-allow-creating-objects-polymorphically-encapsulation-of-type"><a href="#factories-allow-creating-objects-polymorphically-encapsulation-of-type">Factories allow creating objects polymorphically (encapsulation of type)</a></h4>
+<h4 id="factories-allow-creating-objects-polymorphically-encapsulation-of-type">Factories allow creating objects polymorphically (encapsulation of type)</h4>
 <p>Each time we invoke a <code>new</code> operator, we have to put a name of a concrete type next to it:</p>
 <pre><code>new List&lt;int&gt;(); //OK!
 new IList&lt;int&gt;(); //won&#39;t compile...</code></pre>
@@ -3876,7 +3876,7 @@ message.ApplyTo(_sessions);</code></pre>
 }</code></pre>
 <p>and the rest of the code could remain untouched.</p>
 <p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (in our example - in case when we do not need to initiate a session anymore) <a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a> - the factory hides that and the rest of the application is coded against the general scenario.</p>
-<h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule"><a href="#factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</a></h4>
+<h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</h4>
 <p>Another benefit of factories over inline constructors is that they are composable. This allows replacing the rule used to create objects with another one, by replacing one factory implementation with another.</p>
 <p>In the example from the previous section, we examined a situation where we extended the existing factory with a <code>SessionRefresh</code> message. This was done with assumption that we do not need the previous version of the factory. But consider a situation where we need both versions of the behavior adn want to be able to use the old version sometimes, and other times the new one. The “version 1” of the factory (the old one) would look like this:</p>
 <pre><code>public class Version1ProtocolMessageFactory 
@@ -3927,7 +3927,7 @@ public class Version2ProtocolMessageFactory
 var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
 <p>The above code composes a <code>MessageProcessing</code> instance with either a <code>Version1ProtocolMessageFactory</code> or a <code>Version2ProtocolMessageFactory</code>, depending on the configuration.</p>
 <p>This example shows something I like calling “encapsulation of rule”. The logic inside the factory is actually a rule on how, when and which objects to create. Thus, if we make our factory implement an interface and have other objects depend on this interface, we will be able to switch the rules of object creation without having to modify these objects.</p>
-<h4 id="factories-can-hide-some-of-the-created-object-dependencies-encapsulation-of-global-context"><a href="#factories-can-hide-some-of-the-created-object-dependencies-encapsulation-of-global-context">Factories can hide some of the created object dependencies (encapsulation of global context)</a></h4>
+<h4 id="factories-can-hide-some-of-the-created-object-dependencies-encapsulation-of-global-context">Factories can hide some of the created object dependencies (encapsulation of global context)</h4>
 <p>Let us consider another simple example. We have an application that, again, can process messages. One of the things that is done with those messages is saving them in a database and another is validation. The processing of message is, like in previous examples, handled by a <code>MessageProcessing</code> class, which, this time, does not use any factory, but creates the messages based on the frame data itself. let us look at this class:</p>
 <pre><code>public class MessageProcessing
 {
@@ -4001,7 +4001,7 @@ var messageProcessing = new MessageProcessing(messageFactory);</code></pre>
 }</code></pre>
 <p>So, instead of <code>DataDestination</code> and <code>ValidationRules</code> interfaces, the <code>MessageProcessing</code> depends only on the factory. This may not sound as a very attractive tradeoff (taking away two dependencies and introducing one), but note that whenever the <code>MessageFactory</code> needs another dependency that is like the existing two, the factory is all that will need to change. The <code>MessageProcessing</code> will remain untouched and still coupled only to the factory.</p>
 <p>The last thing that needs to be said is that not all dependencies can be hidden inside a factory. Note that the factory still needs to receive the <code>MessageData</code> from whoever is asking for a <code>Message</code>, because the <code>MessageData</code> is not available when the factory is created. You may remember that I call such dependencies a <strong>local context</strong> (because it is specific to a single use of a factory). On the other hand, what a factory accepts through its constructor can be called a <strong>global context</strong> (because it is the same throughout the factory lifetime). Using this terminology, the local context cannot be hidden from users of the factory, but the global context can. Thanks to this, the classes using the factory do not need to know about the global context and can stay cleaner, coupled to less things and more focused.</p>
-<h4 id="factories-help-eliminate-redundancy"><a href="#factories-help-eliminate-redundancy">Factories help eliminate redundancy</a></h4>
+<h4 id="factories-help-eliminate-redundancy">Factories help eliminate redundancy</h4>
 <p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
 <pre><code>public int MetersToCentimeters(int value)
 {
@@ -4022,13 +4022,13 @@ public int DollarsToCents(int value)
 <p>Thus, if factories didn’t exist, all these concepts would leak to sorrounding classes (we saw an example when we were talking about encapsulation of global context). Now, as soon as there is more than one class that needs to create instances, these things leak to all of these classes, creating redundancy. In such case, any change to how instances are created would mean a change to all classes needing those instances.</p>
 <p>Thankfully, by having a factory - an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
 <p>There are more benefits of factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
-<h2 id="summary-6"><a href="#summary-6">Summary</a></h2>
+<h2 id="summary-6">Summary</h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
-<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial"><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></h1>
-<h1 id="designing-for-composability"><a href="#designing-for-composability">Designing for composability</a></h1>
-<p>Some classes are harder to compose with other classes, others are easier. Of course, we are striving for the higher composability. There are numerous factors influencing this:</p>
-<h3 id="classes-vs-interfaces"><a href="#classes-vs-interfaces">Classes vs interfaces</a></h3>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h1>
+<h1 id="designing-for-composability">Designing for composability</h1>
+<p>Some objects are harder to compose with other objects, others are easier. Of course, we are striving for the higher composability. There are numerous factors influencing this. I already discussed some of them indirectly, so time to sum things up and fill in the gaps.</p>
+<h3 id="classes-vs-interfaces">Classes vs interfaces</h3>
 <p>As we said, a sender is composed with a recipient by obtaining a reference to it. Also, we said that we want our senders to be able to send messages to many different recipients. This is, of course, done using polymorphism.</p>
 <p>So, one of the questions we have to ask ourselves in our quest for high composability is: on what should a sender depend on to be able to work with as many recipients as possible? Should it depend on classes or interfaces? In other words, when we plug in an object as a message receipient like this:</p>
 <pre><code>public Sender(Recipient recipient)
@@ -4036,20 +4036,20 @@ public int DollarsToCents(int value)
   this._recipient = recipient;
 }</code></pre>
 <p>Should the <code>Recipient</code> be a class or an interface?</p>
-<p>If we assume that Recipient is a class, we can get the composability we want by deriving another class from it and implementing abstract methods or overriding virtual ones. However, depending on a class as a base for composability has the following disadvantages:</p>
-<p>TODO below</p>
+<p>If we assume that <code>Recipient</code> is a class, we can get the composability we want by deriving another class from it and implementing abstract methods or overriding virtual ones. However, depending on a class as a base type for a recipient has the following disadvantages:</p>
 <ol style="list-style-type: decimal">
-<li>The class may have some real dependencies. For example, if <code>Recipient</code> class depends on WCF stack, then everywhere we take our Sender to compose it with different recipients, we must also take our <code>Recipient</code> and its WCF dependency.</li>
-<li>We force each recipient class we want to compose our sender with to invoke a constructor from superclass, which, depending on the complexity of the superclass, may be smaller or bigger trouble.</li>
-<li>In languages like C#, when only single inheritance exists all the classes that want to be composed with our <code>Sender</code>, we waste the only inheritance slot, further constraining the inheriting classes.</li>
-<li>We must take care to make all methods of <code>Recipient</code> superclass virtual to enable overriding by subclasses. otherwise, we won’t have full composability.</li>
+<li>The recipient class may have some real dependencies. For example, if <code>Recipient</code> class depends on Windows Communication Foundation stack, then all classes depending directly on <code>Recipient</code> will indirectly depend on WCF, including our <code>Sender</code>. TODO bypass the WCF logic.</li>
+<li>Each class deriving from <code>Recipient</code> must invoke <code>Recipient</code>’s constructor, which, depending on the complexity of the superclass, may be smaller or bigger trouble, depending on what kind of parameters the constructor accepts and what it does.</li>
+<li>In languages like C#, where only single inheritance exists, by deriving from <code>Recipient</code> class, we use up the only inheritance slot, further constraining our design.</li>
+<li>We must take care to make all methods of <code>Recipient</code> superclass virtual to enable overriding by subclasses. otherwise, we won’t have full composability. This is something we have by default in Java, but not in C#.</li>
 </ol>
-<p>As you see, there are some difficulties using classes as “slots for composability”, even if composition is possible this way. Thus, interfaces are far better, just because they are easier to use for this purpose.</p>
+<p>TODO</p>
+<p>As you see, there are some difficulties using classes as “slots for composability”, even if composition is possible this way. Interfaces are far better, just because they do not have the above disadvantages.</p>
 <p>It is decided then, If a sender wants to be composable with recipient, it has to accept a reference to recipient in form of interface reference. We can say that, by being lightweight and implementationless, <strong>interfaces can be treated as “slots” for plugging in different objects</strong>.</p>
 <p>In fact, when we look at how interfaces are depicted on UML class diagrams, it seems that the “interface as slot for composition” notion is not unusual:</p>
 <p>TODO insert a picture showing one notation of interfaces in UML.</p>
 <p>It is just that we try to take the notion of composability to its fullest, as not only a first-class citizen, but as THE most important aspect of our design approach.</p>
-<h3 id="eventscallbacks-vs-interfaces---few-words-on-roles"><a href="#eventscallbacks-vs-interfaces---few-words-on-roles">Events/callbacks vs interfaces - few words on roles</a></h3>
+<h3 id="eventscallbacks-vs-interfaces---few-words-on-roles">Events/callbacks vs interfaces - few words on roles</h3>
 <p>Hey, didn’t I just say that composability is “THE most important aspect of our design approach”? Wow, that’s quite a statement, isn’t it? Unfortunately for me, it also lets you jump with the following argument: “what about events that e.g. C# supports? Or callbacks that are supported almost everywhere? Wouldn’t it make the classes even more context-independent, if we made them communicate by events or callbacks, not by some strange interfaces?”</p>
 <p>Actually, it would, and we could, but it would also strip us from another very important aspect of our design approach that I did not mention explicitly until now. This aspect is: roles.</p>
 <p>When we take an example method that sends some messages to some recipients:</p>
@@ -4062,7 +4062,7 @@ DoY.Invoke();
 DoZ.Invoke();</code></pre>
 <p>We can see that we are losing the notion of which message belongs to which recipient - each event is standalone from the point of view of the sender. This is unfortunate, because in our design approach, we want to highlight the roles each receiver plays in the communication, to make the communication itself readable and logical. Also, ironically, decoupling this way using events or callbacks can hinder composability, because the set of responsibilities that fits a single role is usually cohesive. Thus, even if we separated it into several events or callbacks, their composition would be changing together anyway, and an overhead would be put on us to remember which events should be changed together, and which ones separately.</p>
 <p>This does not mean that events or callbacks are bad. It’s just that they are not a fit replacement for interfaces - in reality, their purpose is a little bit different. We use events or callbacks not to do somebody to do something, but to indicate what happened (that’s why we call them events, after all…). This fits the observer case we talked about quite well. So, instead of using observer objects, we may consider using events or callbacks instead (as in everything, there are some tradeoffs for each of the solutions). In other words, events and callbacks have their role in the composition, but fit a case so specific, that they cannot be used as a basis for the composition. The advantage of the interfaces is that they bind together messages, which should be implemented cohesively, and symbolize roles in the communication, which improves readability.</p>
-<h3 id="small-interfaces"><a href="#small-interfaces">Small interfaces</a></h3>
+<h3 id="small-interfaces">Small interfaces</h3>
 <p>Ok, so we said that he interfaces are “the way to go” for reaching the strong composability we’re striving for. Is it enough just to “have interfaces”? No, actually, it’s not.</p>
 <p>One of the other things we need to consider is the size of interfaces. Let’s state one thing that is obvious in regard to this:</p>
 <p><strong>All other things equal, smaller interfaces are easier to implement that bigger interfaces.</strong></p>
@@ -4077,7 +4077,7 @@ recipient.SomethingElseHappened();</code></pre>
   InterfaceForClient3
 { ... }</code></pre>
 <p>This notion of using a separate interface per client and not one bigger interface for different clients is known as the Interface Segregation Principle.</p>
-<h4 id="a-simple-example-separation-of-reading-from-writing"><a href="#a-simple-example-separation-of-reading-from-writing">A simple example: separation of reading from writing</a></h4>
+<h4 id="a-simple-example-separation-of-reading-from-writing">A simple example: separation of reading from writing</h4>
 <p>For example, we may have a class representing organizational structure in our application. On one hand, the application is notified on any changes that are made from administration interface. On the other hand, it supports client-side operations for ordinary users, e.g. listing all users. The interface for this organizational structure class may look like this:</p>
 <pre><code>public interface 
 OrganizationStructure
@@ -4127,7 +4127,7 @@ OrganizationalStructureClientCommands
   }
 }</code></pre>
 <p>If we did not separate interfaces for admin and client access, in our <code>NotifyingAdminComands</code> class, we would have to implement the <code>ListAllEmployees</code> method and make it delegate to the original wrapped instance. Splitting the interface into two smaller ones spared us this trouble.</p>
-<h4 id="interfaces-should-be-depend-on-abstractions-not-implementation-details"><a href="#interfaces-should-be-depend-on-abstractions-not-implementation-details">Interfaces should be depend on abstractions, not implementation details</a></h4>
+<h4 id="interfaces-should-be-depend-on-abstractions-not-implementation-details">Interfaces should be depend on abstractions, not implementation details</h4>
 <p>Some might think that interface is an abstraction by definition. I believe otherwise - while interfaces abstract away the concrete type of the class that is implementing the interface, it may still contain some other things not abstracted, especially implementation details. Let’s look at the following interface:</p>
 <pre><code>public interface Basket
 {
@@ -4141,9 +4141,9 @@ OrganizationalStructureClientCommands
   bool IsAllowedToEditBy(BasketOwner user);
 }</code></pre>
 <p>This is better. For example, as <code>ProductOutput</code> is a higher level abstraction (most probably an interface, as we discussed earlier), the implementations of the <code>Basket</code> interface can be developed independently from the specific output type and the <code>WriteTo()</code> method is more useful as it can be reused with different kinds of outputs.</p>
-<h3 id="protocols"><a href="#protocols">Protocols</a></h3>
+<h3 id="protocols">Protocols</h3>
 <p>So, we said that objects are connected (composed) together and communicate through interfaces, just as in IP network. There is another similarity though, that’s as important. It’s protocols (you can also encounter them by the name of contracts).</p>
-<h4 id="protocols-exist"><a href="#protocols-exist">Protocols exist</a></h4>
+<h4 id="protocols-exist">Protocols exist</h4>
 <p>I do not want to introduce any scientific definition, so let’s just establish an understanding that protocols are sets of rules about how objects communicate with each other. Really? Are there any rules? Is it not enough the the objects can be composed together through interfaces? Well, not, it’s not enough and let me give you a quick example.</p>
 <p>Let us imagine a class <code>Sender</code> that uses <code>Recipient</code> like this:</p>
 <pre><code>if(recipient.ExtractStatusCodeFrom(response) == -1)
@@ -4185,7 +4185,7 @@ connection.Close();</code></pre>
 <p>it would compile just fine, but fail badly when executed.</p>
 <p>So, again, there are certain rules that restrict the way two objects can communicate. Both sender and recipient of a message must adhere to the rules, or the they will not be able to work together.</p>
 <p>The good news is that WE are the ones who design these protocols, along with the interfaces, so we can design them to be harder or easier to adhere to by different implementations of an interface. Of course, we are wholeheartedly for the “easier” part. Thus, we want the communication between objects to be as stable as possible (see next section on the explanation of “as possible”).</p>
-<h4 id="communication-patterns-stability"><a href="#communication-patterns-stability">Communication patterns stability</a></h4>
+<h4 id="communication-patterns-stability">Communication patterns stability</h4>
 <p>Remember the change Johnny and Benjamin had to make in order to add another kind of employees to the application? In order to do that, they had to change existing interfaces and add new ones. This was a lot of work. We don’t want to do this much work every time we make a change. The reason they had to do so much changes was that the protocol between the objects they were dealing with was unstable. And they were unstable because they were:</p>
 <ol style="list-style-type: decimal">
 <li>complicated rather than simple</li>
@@ -4200,9 +4200,9 @@ connection.Close();</code></pre>
 <li>protocols should be small</li>
 </ol>
 <p>And there are some heuristics that let us get closer to these qualities:</p>
-<h4 id="short-interactions"><a href="#short-interactions">Short interactions</a></h4>
+<h4 id="short-interactions">Short interactions</h4>
 <p>TODO may be many small interfaces we interact with. Constructor bloat</p>
-<h4 id="method-calls-crafted-from-the-perspective-of-senders"><a href="#method-calls-crafted-from-the-perspective-of-senders">Method calls crafted from the perspective of senders</a></h4>
+<h4 id="method-calls-crafted-from-the-perspective-of-senders">Method calls crafted from the perspective of senders</h4>
 <p>The protocols are simpler if they are designed from the perspective of the object that sends the signal, not the one that receives it. In other words, methods should be adjusted to exactly meet the needs of the senders.</p>
 <p>As an example, let us look at a code for logging in:</p>
 <pre><code>accessGuard.SetLogin(login);
@@ -4212,7 +4212,7 @@ accessGuard.Login();</code></pre>
 <pre><code>accessGuard.LoginWith(login, password);</code></pre>
 <p>Another lesson from the above example is: setters rarely reflect senders’ intention. Most often, they reflect the structure of the recipient. <code>myObject.SetX(x)</code> call suggests that <code>myObject</code> holds value X. But it is rarely the intention of objects that use <code>myObject</code> to store information in it (unless it is a data structure, e.g. a collection or a data persistence abstraction), rather, they want <code>myObject</code> to do something for them and the setter is just an intermediate step required by <code>myObject</code>. In such cases, setters should be either avoided or changed to something that reflects the intention better. For example, when dealing with observer pattern, we don’t want to say: <code>object.SetObserver(screen)</code>, but rather <code>object.RegisterObserver(screen)</code>.</p>
 <p>Another thing is naming. The names of the methods (and interfaces for that matter) should be crafted from the perspective of the sender as well. In other words, the name of the method should not tell how thing is done (unless that matters from the perspective of the sender), but rather what is the intention of the sender that invokes the method. I love the example that Scott Bain gives in his Emergent Design book: if I told you “give me your driving license number”, you might’ve reacted differently based on whether the driving license is in your pocket, or your wallet, or your bag, or in your home and you have to call someone to give it to you. The point is: I, as a sender of this “give me your driving license number” message, do not care how you get it. I say <code>RetrieveDrivingLicenseNumber()</code>, not <code>OpenYourWalletAndReadTheNumber()</code>. This is important, because if the name represents the sender’s intention, the method will not have to be renamed when new classes are created that fulfill this intention in a different way.</p>
-<h4 id="interactions-should-reflect-the-domain"><a href="#interactions-should-reflect-the-domain">Interactions should reflect the domain</a></h4>
+<h4 id="interactions-should-reflect-the-domain">Interactions should reflect the domain</h4>
 <p>Sometimes at work, I am asked to conduct a design workshop. The example I often give to my colleagues is to design a system for order reservation. The thing that struck me the first few times I did this workshop was that nearly none of the attendees had an <code>Order</code> abstraction with <code>Reserve()</code> method on it. Most of the attendees assume that <code>Order</code> is a data structure and handle reservation by adding it to a “collection of reserved items”:</p>
 <pre><code>reservedOrders.Add(order)</code></pre>
 <p>While this achieves the functionality they need to implement, it does not reflect the domain. Thus, it can be affected by changes other than domain changes. Thus, the interactions between objects become less stable.</p>
@@ -4229,7 +4229,7 @@ catch(SecurityFailure failure)
 }</code></pre>
 <p>Then the risk of this code changing for other reasons than the change of how domain works (e.g. we do not close the gates anymore but activate laser guns instead) is small. Thus, interactions that use abstractions and methods that directly express domain rules are more stable.</p>
 <p>Object responsibilities change less often than their data and if they do, they affect the design in a more predictable way. If a design reflects the domain, a change in design that is a result of domain rules change is easier to predict. This contributes to maintainability and stability of the interactions and the design as a whole.</p>
-<h4 id="objects-should-be-told-what-to-do-instead-of-asked-for-information"><a href="#objects-should-be-told-what-to-do-instead-of-asked-for-information">Objects should be told what to do, instead of asked for information</a></h4>
+<h4 id="objects-should-be-told-what-to-do-instead-of-asked-for-information">Objects should be told what to do, instead of asked for information</h4>
 <p>This is probably one of the most important guidelines, known under the name of Tell Don’t Ask. When an object is asked to perform a task instead of asked questions, we have a change of switching the implementation of this task with another one.</p>
 <p>So remember the payroll system that Johnny and Benjamin were working on? As long as their code for giving raise looked like this:</p>
 <pre><code>if(employee.GetSalary() &lt; payGrade.Maximum)
@@ -4243,7 +4243,7 @@ catch(SecurityFailure failure)
 <p>They were unable to compose this code with another employees that had different raise rules applied to them, including voluntary employees that would not have raises, but may have bonuses.</p>
 <p>Again, quoting Scott Bain, “what you hide, you can change”. Thus, telling an object what to do requires less knowledge than asking for data and information. Going back to the driver license example: I may ask another person for a driving license number to actually make sure they have the license and that it is valid (by checking the number somewhere). I may also ask another person to provide me with the directions to the place I want the first person to drive. But isn’t it easier to just tell “buy me some bread and butter”? Then, whoever I ask, has the freedom to either drive, or walk (if they know a good store nearby) or ask yet another person to do it instead. I don’t care as long as tomorrow morning, I find the bread and butter in my fridge.</p>
 <p>This guideline should be trated very, very seriously and applied in almost an extreme way. There are few places where it does not apply and we’ll get back to them later.</p>
-<h4 id="getters-should-be-removed-return-values-should-be-avoided"><a href="#getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</a></h4>
+<h4 id="getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</h4>
 <p>The above stated guideline of “Tell Don’t Ask” has a practical implication of getting rid of (almost) all the getters.</p>
 <p>For me, this was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that allowed far better abstraction, but my style of coding didn’t really change much. I would still have procedures and functions, but now more abstract (divided into objects) and data structures, but now more abstract (i.e. objects with setters, getters and some other query methods).</p>
 <p>But what alternatives do we have? Let’s say that we have a piece of software that handles user sessions (e.g. modeled using a <code>Session</code> class). We want to be able to display the sessions on the GUI, send the sessions through the network and persist them. How can we do this without getters? Should we put all the code for displaying, sending and storing inside the <code>Session</code> class? If we did that, we would couple a core domain concept (session) to a nasty set of third-party libraries (e.g. a particular GUI library), which would force us to tinker in core domain rules every time some GUI displaying concept changed. Also, if we did that, the <code>Session</code> would be hard to reuse, because every place we would want to reuse the class, we would need to take all these heavy libraries it depends on with us. So, our (not so good, as we will see) remedy may be to introduce getters for the information pieces stored inside a session:</p>
@@ -4406,16 +4406,16 @@ foreach(var session in sessions)
 }</code></pre>
 <p>The most important thing is that when we are not forced to return anything, we are more free to do as we like. Again, “Tell, don’t ask”.</p>
 <p>The notion of passing context where the data is instead of pulling the data right into the context is often referred to as “context independence”. Context independence is not only about passing context in methods - it applies to constructors the same way. Being context independent is one of the most important requirements for a class to be composable with other classes.</p>
-<h3 id="single-responsibility"><a href="#single-responsibility">Single Responsibility</a></h3>
+<h3 id="single-responsibility">Single Responsibility</h3>
 <p>I already said that we want our system to be a web of composable objects. Also, I said that we want to be able to unplug a cluster of objects at any place and plug in something different. TODO</p>
 <p>TODO</p>
-<h4 id="law-of-demeter"><a href="#law-of-demeter">Law of Demeter</a></h4>
+<h4 id="law-of-demeter">Law of Demeter</h4>
 <p>As we discovered, exposing return values makes the protocols more complex and should be avoided if possible. TODO do we need this at all?</p>
 <p>Law of Demeter. Coupling to details of return values.</p>
 <p>Size of protocols. Even interface with a single method can return a lot of values. Example: different reports produced.</p>
-<h4 id="context-independence"><a href="#context-independence">Context independence</a></h4>
+<h4 id="context-independence">Context independence</h4>
 <p>TODO</p>
-<h4 id="instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is"><a href="#instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is">Instead of pulling the data where context is, pass the context where the data is</a></h4>
+<h4 id="instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is">Instead of pulling the data where context is, pass the context where the data is</h4>
 <p>If you are like me, you probably learned programming starting from procedural languages.</p>
 <p>this may sound like something non obvious</p>
 <ol style="list-style-type: decimal">
@@ -4429,16 +4429,16 @@ foreach(var session in sessions)
 </ol>
 <p>TODO example: with employees loop getters refactoring</p>
 <p>May be more coupling, but the coupling is very light - just an abstract interface, especially if we were following the rest guidelines. On the other hand, better information hiding and decoupling users from details.</p>
-<h4 id="protocols-should-rely-on-abstractions"><a href="#protocols-should-rely-on-abstractions">Protocols should rely on abstractions</a></h4>
+<h4 id="protocols-should-rely-on-abstractions">Protocols should rely on abstractions</h4>
 <p>e.g. Id abstraction can be either in or string or a combination of those. The protocol stays stable regardless of these changes</p>
 <p>Plural is also an abstraction</p>
 <hr />
-<h4 id="interactions-are-not-an-implementation-detail"><a href="#interactions-are-not-an-implementation-detail">Interactions are not an implementation detail</a></h4>
+<h4 id="interactions-are-not-an-implementation-detail">Interactions are not an implementation detail</h4>
 <p>Todo interfaces checked by compiler, protocols not</p>
-<h3 id="multiple-interfaces-multiple-roles"><a href="#multiple-interfaces-multiple-roles">multiple interfaces multiple roles</a></h3>
+<h3 id="multiple-interfaces-multiple-roles">multiple interfaces multiple roles</h3>
 <p>Protocols must be published! They are not private internal details</p>
-<h3 id="tell-dont-ask"><a href="#tell-dont-ask">Tell Don’t Ask</a></h3>
-<h3 id="level-of-abstraction-of-protocols"><a href="#level-of-abstraction-of-protocols">Level of abstraction of protocols</a></h3>
+<h3 id="tell-dont-ask">Tell Don’t Ask</h3>
+<h3 id="level-of-abstraction-of-protocols">Level of abstraction of protocols</h3>
 <p>weaker = harder to implement another implementation</p>
 <p>stad wynika ze lepiej uzywac interfejsow niz klas</p>
 <p>TOOODOOO</p>
@@ -4448,7 +4448,7 @@ foreach(var session in sessions)
 <li>Composition through setter</li>
 <li>Composition through passed in a method parameter</li>
 </ol>
-<h2 id="why-did-i-leave-out-inline-creation-and-singletons-context-independence"><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></h2>
+<h2 id="why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</h2>
 <ol style="list-style-type: decimal">
 <li>composability - learned from previous chapters</li>
 <li>what does it mean to compose - obtain reference. Plug objects together - show UML version of composition first, then the version with “plugs”.</li>
