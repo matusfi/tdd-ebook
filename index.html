@@ -4047,7 +4047,9 @@ public int DollarsToCents(int value)
 <p>As you see, there are some difficulties using classes as “slots for composability”, even if composition is possible this way. Interfaces are far better, just because they do not have the above disadvantages.</p>
 <p>It is decided then, If a sender wants to be composable with recipient, it has to accept a reference to recipient in form of interface reference. We can say that, by being lightweight and implementationless, <strong>interfaces can be treated as “slots” for plugging in different objects</strong>.</p>
 <p>In fact, when we look at how interfaces are depicted on UML class diagrams, it seems that the “interface as slot for composition” notion is not unusual:</p>
-<p>TODO insert a picture showing one notation of interfaces in UML.</p>
+<div class="figure">
+<img src="images/lollipop.png" alt="Recipient interfaces modeled as connectors" /><p class="caption">Recipient interfaces modeled as “connectors”</p>
+</div>
 <p>It is just that we try to take the notion of composability to its fullest, as not only a first-class citizen, but as THE most important aspect of our design approach.</p>
 <h3 id="eventscallbacks-vs-interfaces---few-words-on-roles">Events/callbacks vs interfaces - few words on roles</h3>
 <p>Hey, didn’t I just say that composability is “THE most important aspect of our design approach”? Wow, that’s quite a statement, isn’t it? Unfortunately for me, it also lets you jump with the following argument: “what about events that e.g. C# supports? Or callbacks that are supported almost everywhere? Wouldn’t it make the classes even more context-independent, if we made them communicate by events or callbacks, not by some strange interfaces?”</p>
