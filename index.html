@@ -4172,17 +4172,16 @@ OrganizationalStructureClientCommands
 }</code></pre>
 <p>This is better. For example, as <code>ProductOutput</code> is a higher level abstraction (most probably an interface, as we discussed earlier) no implementation of the <code>WriteTo</code> method must be tied to any particular storage kind. This means that we are more free to develop different implementations of this method. In addition, each implementation of the <code>WriteTo</code> method is more useful as it can be reused with different kinds of <code>ProducOutput</code>s.</p>
 <p>So the general rule is: make interfaces real abstractions by abstracting away the implementation details from them. Only then are you free to create different implementations of the interface that are not constrained by dependencies they do not want or need.</p>
-<p>TODO</p>
 <h3 id="protocols">Protocols</h3>
-<p>You already know that objects are connected (composed) together and communicate through interfaces, just as in IP network. There is another similarity though, that’s as important as this one. It’s <em>protocols</em>.</p>
+<p>You already know that objects are connected (composed) together and communicate through interfaces, just as in IP network. There is another similarity though, that’s as important as this one. It’s <em>protocols</em>. In this section, we will look at protocols between objects and their place on our design approach.</p>
 <h4 id="protocols-exist">Protocols exist</h4>
-<p>I do not want to introduce any scientific definition, so let’s just establish an understanding that protocols are sets of rules about how objects communicate with each other. Really? Are there any rules? Is it not enough the the objects can be composed together through interfaces? Well, not, it’s not enough and let me give you a quick example.</p>
-<p>Let us imagine a class <code>Sender</code> that uses <code>Recipient</code> like this:</p>
+<p>I do not want to introduce any scientific definition, so let’s just establish an understanding that protocols are sets of rules about how objects communicate with each other. Really? Are there any rules? Is it not enough the the objects can be composed together through interfaces, as I explained in previous sections? Well, no, it’s not enough and let me give you a quick example.</p>
+<p>Let us imagine a class <code>Sender</code> that, in one of its methods, asks <code>Recipient</code> (let’s assume <code>Recipient</code> is an interface) for status code extracted from some kind of response and makes a decision based on that code whether or not to notify an observer about an error:</p>
 <pre><code>if(recipient.ExtractStatusCodeFrom(response) == -1)
 {
   observer.NotifyErrorOccured();
 }</code></pre>
-<p>Stupid as it is, the example shows one important thing. Whoever the recipient is, it is expected to report error as -1. Otherwise, the <code>Sender</code> will not be able to react to the error situation appropriately. Similarly, the recipient must not report “no error” situation as -1, because if it does, this will be mistakenly recognized as error by <code>Sender</code>. So for example this implementation of <code>Recipient</code>, although implementing the required interface, is wrong from the point of view of <code>Sender</code>:</p>
+<p>Simplistic as it is, the example shows one important thing. Whoever the recipient is, it is expected to report error by returning a value of <code>-1</code>. Otherwise, the <code>Sender</code> (which is explicitly checking for this value) will not be able to react to the error situation appropriately. Similarly, if there is no error, the recipient must not report this using <code>-1</code>, because if it does, the <code>Sender</code> will be mistakenly recognize this as error. So for example this implementation of <code>Recipient</code>, although implementing the interface required by <code>Sender</code>, is still wrong, because it does not behave as <code>Sender</code> expects it to:</p>
 <pre><code>public class WrongRecipient : Recipient
 {
   public int ExtractStatusFrom(Response response)
@@ -4197,6 +4196,7 @@ OrganizationalStructureClientCommands
     }
   }
 }</code></pre>
+<p>TODO</p>
 <p>So as you see, we cannot just write anything in a class implementing an interface, because of protocol that imposes certain contract on both the sender and recipient. This contract may not only be about return values, it can also be on types of exceptions thrown, or the order of method calls. For example, anybody using some kind of connection object would imagine the following way of using the connection:</p>
 <pre><code>connection.Open();
 connection.Send(data);
