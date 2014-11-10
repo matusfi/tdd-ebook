@@ -4269,69 +4269,75 @@ catch(SecurityFailure failure)
 <p>Then the risk of this code changing for other reasons than the change of how domain works (e.g. we do not close the gates anymore but activate laser guns instead) is small. Thus, interactions that use abstractions and methods that directly express domain rules are more stable.</p>
 <p>So, to sum up - if a design reflects the domain, it is easier to predict how a change of domain rules affects the design. This contributes to maintainability and stability of the interactions and the design as a whole.</p>
 <h4 id="message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</h4>
-<p>Communication between objects does not always translate well into communication with people, but I find the following example helpful to explain what I mean: imagine I want to borrow some money from my brother. I already know he will lend me the money. I go into his room and start a conversation like this:</p>
-<ul>
-<li>Where is your money?</li>
-<li>It is in my locker.</li>
-<li>Is the locker open?</li>
-<li>No, it is closed.</li>
-<li>Do you have the key?</li>
-<li>Yes, I do.</li>
-<li>Where is the key?</li>
-<li>It is laying on the table.</li>
-<li>Please take the key.</li>
-<li>Sure.</li>
-<li>Open the locker.</li>
-<li>Ok.</li>
-<li>Is it open?</li>
-<li>Now it is.</li>
-<li>How much do you have?</li>
-<li>100$</li>
-<li>Then give me 40$</li>
-<li>Here.</li>
-</ul>
-<p>Sounds artificial, right? If this happened in the real life, the dialog would probably look more like this:</p>
-<ul>
-<li>Where is your money?</li>
-<li>Not your business!</li>
-</ul>
-<p>And my brother would be right in responding to me like this. This is not my business. I just want to borrow the money. Moreover, if I was to ask my sister to lend me some money, I could not use the same sequence of questions. This is how it could end up:</p>
-<ul>
-<li>Where is your money?</li>
-<li>It is on my bank account.</li>
-<li>Is the locker open? (same question as before)</li>
-<li>What??</li>
-</ul>
-<p>If we were objects and this would be the way we interact with the world outside us, we would have to have all the logic for different interactions coded inside our classes. Heck, this would be a lot of code!</p>
-<p>Instead, we can adopt a pattern that is also visible in human interaction: trust. We can tell somebody what we want and trust them to get the job done. For example, if I was to ask my brother to lend me some money, I would go about it this way:</p>
-<ul>
-<li>Please, lend me 40$</li>
-<li>Sure, no problem</li>
-</ul>
-<p>Of course, it could be that it would not be acceptable for him and he could as well tell me “No way” instead. But that’s essentially all I need to know. I do not need to know where he keeps the money. I do not need to know how he gets to them and how much he has. All I want to have is the money, so I tell him what I want and trust that he knows how to do it for me.</p>
-<p>Another thing about the new protocol I have established for borrowing money is that I can reuse it with my sister:</p>
-<ul>
-<li>Please, lend me 40$</li>
-<li>Sure, no problem</li>
-</ul>
-<p>Unlike my brother, she would not get the money from a locker, but take the money from her bank account, but that’s not really what I care about. Thus, it seems I have found a more stable protocol, and it is more stable because it assumes less knowledge about how someone will fulfill my need[humanptorocols].</p>
-<p>So, what I basically said is that the protocol will not need to change when I need to interact with other people (like my sister) when I need to. Another reason the new protocol is more stable is because it will not need to change when my brother stops hiding money in his locker and instead moves it to a bank account as well.</p>
-<p>Now, let us move to object oriented world.</p>
-<p>TODO money jest niepoliczalny TODO</p>
-<p>TODO assume recipient is interface. Start with example. The more we ask questions, the more we ask object to reveal.</p>
-<p>This is probably one of the most important guidelines, known under the name of <em>Tell Don’t Ask</em>. When a recipient is asked to perform a task, it can do it in a myriad of ways. Thus, we can make many different implementations of the sender and use them interchangeably using polymorphism. On the other hand, when sender interacts with recipients by asking them many questions, the implementers of recipient role are much more constrained - they have to make the new implementations provide answers to all these questions.</p>
-<p>So remember the payroll system that Johnny and Benjamin were working on? As long as their code for giving raise looked like this:</p>
-<pre><code>if(employee.GetSalary() &lt; payGrade.Maximum)
-{
- var newSalary 
+<p>Let’s say we are paying an annual income tax yearly and are too busy (i.e. have too many responsibilities) to do this ourselves. Thus, we hire a tax expert to calculate and pay the taxes for us. He is an expert on paying taxes, knows how to calculate everything, where to submit it etc. But there is one thing he does not know - the context. In other word, he does not know which bank we are using or what we have earned this year that we need to pay the tax for. This is something we need to give him.</p>
+<p>Here’s the deal between us and the tax expert summarized as a table:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Who?</th>
+<th align="left">Needs</th>
+<th align="left">Can provide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Us</td>
+<td align="left">The tax paid</td>
+<td align="left">context (bank, income documents), salary</td>
+</tr>
+<tr class="even">
+<td align="left">Tax Expert</td>
+<td align="left">context (bank, income documents)</td>
+<td align="left">The service of paying the tax</td>
+</tr>
+</tbody>
+</table>
+<p>It is us who hire the expert and us who initiate the deal. If we were to model this deal as an interaction between two objects, it could e.g. look like this:</p>
+<pre><code>taxExpert.PayAnnualIncomeTax(
+  ourIncomeDocuments,
+  ourBank);</code></pre>
+<p>One day, our friend, Joan, tells us she needs a tax expert as well. We are happy with the one we hired, so we recommend him to Joan. She has her own income documents, but they are the same as ours, just with different numbers here and there. Also, Joan uses a different bank, but interacting with any bank these days is almost identical. If we model this as interaction between objects, it may look like this:</p>
+<pre><code>taxExpert.PayAnnualIncomeTax(
+  joansIncomeDocuments,
+  joansBank);</code></pre>
+<p>Thus, when interacting with Joan, the tax expert can still use his abilities to calculate and pay taxes the same way as in our case. This is because his abilities are independent of the context.</p>
+<p>Another day, we decide we are not happy anymore with our tax expert, so we decide to make a deal with a new one. Thankfully, we do not need to know how the tax experts do their work - we just tell them to do it, so we can interact with the new one just as with the previous one:</p>
+<pre><code>//this is the new tax expert, 
+//but no change to communication:
+
+taxExpert.PayAnnualIncomeTax(
+  ourIncomeDocuments,
+  ourBank);</code></pre>
+<p>This small example should not be taken literally. Social interactions are far more complicated and complex than what objects usually do. But I hope I managed to illustrate with it an important aspect of the communication style that is preferred in object oriented design: the Tell Don’t Ask heuristic.</p>
+<p>Tell Don’t Ask basically means that we, as experts in our job, are not doing what is not our job, but instead relying on other objects that are experts in their respective jobs and provide them with all the context they need to achieve the tasks we want them to do as parameters of the messages we send to them.</p>
+<p>This way, a double benefit is gained: 1. Our recipient (e.g. <code>taxExpert</code>) can be used by other senders (e.g. pay tax for Joan) without needing to change. All it needs is a different context passed inside a constructor and messages. 2. We, as senders, can easily use different recipients (e.g. different tax experts that do the task they are assigned with differently) without learning how to interact with each new one. Actually, if you look at it, as much as bank and documents are a context for the tax expert, the tax expert is a context for us. Thus, we may say that <em>a design that follows the Tell Don’t Ask principle creates classes that are context-independent</em>.</p>
+<p>This has very profound influence on the stability of the protocols. As much as objects are context-independent, they (and their interactions) do not need to change when context changes.</p>
+<p>Again, quoting Scott Bain, “what you hide, you can change”. Thus, telling an object what to do requires less knowledge than asking for data and information. Going back to the driver license example: I may ask another person for a driving license number to actually make sure they have the license and that it is valid (by checking the number somewhere). I may also ask another person to provide me with the directions to the place I want the first person to drive. But isn’t it easier to just tell “buy me some bread and butter”? Then, whoever I ask, has the freedom to either drive, or walk (if they know a good store nearby) or ask yet another person to do it instead. I don’t care as long as tomorrow morning, I find the bread and butter in my fridge.</p>
+<p>All of these benefits are, by the way, exactly what Johnny and Benjamin were aiming at when refactoring the payroll system. They went from this code, where they <em>asked</em> <code>employee</code> a lot of questions:</p>
+<pre><code>var newSalary 
   = employee.GetSalary() 
   + employee.GetSalary() 
   * 0.1;
-  employee.SetSalary(newSalary);
+employee.SetSalary(newSalary);</code></pre>
+<p>to this design that <em>told</em> <code>employee</code> do do its job:</p>
+<pre><code>employee.EvaluateRaise();</code></pre>
+<p>This way, they were able to make this code interact with both <code>RegularEmployee</code> and <code>ContractorEmployee</code> the same way.</p>
+<p>This guideline should be treated very, very seriously and applied in almost an extreme way. There are, of course, few places where it does not apply and we’ll get back to them later.</p>
+<p>Oh, I almost forgot one thing! The context that we are passing is not necessarily data. It is even more frequent to pass around behavior. For example, in our interaction with the tax expert:</p>
+<pre><code>taxExpert.PayAnnualIncomeTax(
+  ourIncomeDocuments,
+  ourBank);</code></pre>
+<p>Bank is probably not a piece of data. Rather, I would imagine Bank to implement an interface that looks like this:</p>
+<pre><code>public interface Bank
+{
+  void TransferMoney(
+    Amount amount, 
+    AccountId sourceAccount,
+    AccountId destinationAccount); 
 }</code></pre>
-<p>They were unable to compose this code with another employees that had different raise rules applied to them, including voluntary employees that would not have raises, but may have bonuses.</p>
-<p>Again, quoting Scott Bain, “what you hide, you can change”. Thus, telling an object what to do requires less knowledge than asking for data and information. Going back to the driver license example: I may ask another person for a driving license number to actually make sure they have the license and that it is valid (by checking the number somewhere). I may also ask another person to provide me with the directions to the place I want the first person to drive. But isn’t it easier to just tell “buy me some bread and butter”? Then, whoever I ask, has the freedom to either drive, or walk (if they know a good store nearby) or ask yet another person to do it instead. I don’t care as long as tomorrow morning, I find the bread and butter in my fridge.</p>
-<p>This guideline should be trated very, very seriously and applied in almost an extreme way. There are few places where it does not apply and we’ll get back to them later.</p>
+<p>So as you can see, this is behavior, not data, and it itself follows the Tell Don’t Ask style as well.</p>
+<p>There is one nice advice about creating interactions following this style.</p>
+<p>TODO</p>
 <h4 id="getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</h4>
 <p>The above stated guideline of “Tell Don’t Ask” has a practical implication of getting rid of (almost) all the getters.</p>
 <p>For me, this was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that allowed far better abstraction, but my style of coding didn’t really change much. I would still have procedures and functions, but now more abstract (divided into objects) and data structures, but now more abstract (i.e. objects with setters, getters and some other query methods).</p>
