@@ -4295,13 +4295,29 @@ catch(SecurityFailure failure)
 <li>Where is your money?</li>
 <li>Not your business!</li>
 </ul>
-<p>And my brother would be right in responding to me like this. This is not my business. I just want to borrow the money. Moreover, if I was to ask my sister to lend me some money, I could not use the same sequence of questions. This is how it would end up:</p>
+<p>And my brother would be right in responding to me like this. This is not my business. I just want to borrow the money. Moreover, if I was to ask my sister to lend me some money, I could not use the same sequence of questions. This is how it could end up:</p>
 <ul>
 <li>Where is your money?</li>
 <li>It is on my bank account.</li>
-<li>Is the locker open?</li>
+<li>Is the locker open? (same question as before)</li>
 <li>What??</li>
 </ul>
+<p>If we were objects and this would be the way we interact with the world outside us, we would have to have all the logic for different interactions coded inside our classes. Heck, this would be a lot of code!</p>
+<p>Instead, we can adopt a pattern that is also visible in human interaction: trust. We can tell somebody what we want and trust them to get the job done. For example, if I was to ask my brother to lend me some money, I would go about it this way:</p>
+<ul>
+<li>Please, lend me 40$</li>
+<li>Sure, no problem</li>
+</ul>
+<p>Of course, it could be that it would not be acceptable for him and he could as well tell me “No way” instead. But that’s essentially all I need to know. I do not need to know where he keeps the money. I do not need to know how he gets to them and how much he has. All I want to have is the money, so I tell him what I want and trust that he knows how to do it for me.</p>
+<p>Another thing about the new protocol I have established for borrowing money is that I can reuse it with my sister:</p>
+<ul>
+<li>Please, lend me 40$</li>
+<li>Sure, no problem</li>
+</ul>
+<p>Unlike my brother, she would not get the money from a locker, but take the money from her bank account, but that’s not really what I care about. Thus, it seems I have found a more stable protocol, and it is more stable because it assumes less knowledge about how someone will fulfill my need[humanptorocols].</p>
+<p>So, what I basically said is that the protocol will not need to change when I need to interact with other people (like my sister) when I need to. Another reason the new protocol is more stable is because it will not need to change when my brother stops hiding money in his locker and instead moves it to a bank account as well.</p>
+<p>Now, let us move to object oriented world.</p>
+<p>TODO money jest niepoliczalny TODO</p>
 <p>TODO assume recipient is interface. Start with example. The more we ask questions, the more we ask object to reveal.</p>
 <p>This is probably one of the most important guidelines, known under the name of <em>Tell Don’t Ask</em>. When a recipient is asked to perform a task, it can do it in a myriad of ways. Thus, we can make many different implementations of the sender and use them interchangeably using polymorphism. On the other hand, when sender interacts with recipients by asking them many questions, the implementers of recipient role are much more constrained - they have to make the new implementations provide answers to all these questions.</p>
 <p>So remember the payroll system that Johnny and Benjamin were working on? As long as their code for giving raise looked like this:</p>
