@@ -105,8 +105,19 @@
 <li><a href="#where-are-objects-composed">Where are objects composed?</a></li>
 <li><a href="#summary-6">Summary</a></li>
 </ul></li>
+<li><a href="#designing-for-composability---interfaces">Designing for composability - Interfaces</a></li>
 <li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
-<li><a href="#designing-for-composability">Designing for composability</a><ul>
+<li><a href="#designing-for-composability---interfaces-1">Designing for composability - Interfaces</a><ul>
+<li><a href="#protocols-exist">Protocols exist</a></li>
+<li><a href="#communication-patterns-stability">Communication patterns stability</a></li>
+<li><a href="#craft-messages-to-reflect-senders-intention">Craft messages to reflect sender’s intention</a></li>
+<li><a href="#model-interactions-after-the-problem-domain">Model interactions after the problem domain</a></li>
+<li><a href="#message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</a></li>
+<li><a href="#getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</a></li>
+<li><a href="#single-responsibility">Single Responsibility</a></li>
+<li><a href="#law-of-demeter">Law of Demeter</a></li>
+<li><a href="#context-independence">Context independence</a></li>
+<li><a href="#instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is">Instead of pulling the data where context is, pass the context where the data is</a></li>
 <li><a href="#why-did-i-leave-out-inline-creation-and-singletons-context-independence">Why did I leave out inline creation and singletons? context independence!</a></li>
 </ul></li>
 </ul>
@@ -4025,9 +4036,8 @@ public int DollarsToCents(int value)
 <h2 id="summary-6">Summary</h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
-<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h1>
-<h1 id="designing-for-composability">Designing for composability</h1>
-<p>Some objects are harder to compose with other objects, others are easier. Of course, we are striving for the higher composability. There are numerous factors influencing this. I already discussed some of them indirectly, so time to sum things up and fill in the gaps.</p>
+<h1 id="designing-for-composability---interfaces">Designing for composability - Interfaces</h1>
+<p>Some objects are harder to compose with other objects, others are easier. Of course, we are striving for the higher composability. There are numerous factors influencing this. I already discussed some of them indirectly, so time to sum things up and fill in the gaps. This chapter will deal with the role interfaces play in achieving high composability and the next one will deal with something called <em>protocols</em>.</p>
 <h3 id="classes-vs-interfaces">Classes vs interfaces</h3>
 <p>As we said, a sender is composed with a recipient by obtaining a reference to it. Also, we said that we want our senders to be able to send messages to many different recipients. This is, of course, done using polymorphism.</p>
 <p>So, one of the questions we have to ask ourselves in our quest for high composability is: on what should a sender depend on to be able to work with as many recipients as possible? Should it depend on classes or interfaces? In other words, when we plug in an object as a message receipient like this:</p>
@@ -4172,9 +4182,10 @@ OrganizationalStructureClientCommands
 }</code></pre>
 <p>This is better. For example, as <code>ProductOutput</code> is a higher level abstraction (most probably an interface, as we discussed earlier) no implementation of the <code>WriteTo</code> method must be tied to any particular storage kind. This means that we are more free to develop different implementations of this method. In addition, each implementation of the <code>WriteTo</code> method is more useful as it can be reused with different kinds of <code>ProducOutput</code>s.</p>
 <p>So the general rule is: make interfaces real abstractions by abstracting away the implementation details from them. Only then are you free to create different implementations of the interface that are not constrained by dependencies they do not want or need.</p>
-<h3 id="protocols">Protocols</h3>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h1>
+<h1 id="designing-for-composability---interfaces-1">Designing for composability - Interfaces</h1>
 <p>You already know that objects are connected (composed) together and communicate through interfaces, just as in IP network. There is another similarity though, that’s as important as this one. It’s <em>protocols</em>. In this section, we will look at protocols between objects and their place on our design approach.</p>
-<h4 id="protocols-exist">Protocols exist</h4>
+<h2 id="protocols-exist">Protocols exist</h2>
 <p>I do not want to introduce any scientific definition, so let’s just establish an understanding that protocols are sets of rules about how objects communicate with each other. Really? Are there any rules? Is it not enough the the objects can be composed together through interfaces, as I explained in previous sections? Well, no, it’s not enough and let me give you a quick example.</p>
 <p>Let us imagine a class <code>Sender</code> that, in one of its methods, asks <code>Recipient</code> (let’s assume <code>Recipient</code> is an interface) for status code extracted from some kind of response and makes a decision based on that code whether or not to notify an observer about an error:</p>
 <pre><code>if(recipient.ExtractStatusCodeFrom(response) == -1)
@@ -4219,7 +4230,7 @@ connection.Close();</code></pre>
 <p>it would compile just fine, but fail badly when executed. This is, because the behavior would be against the protocol set between <code>Connection</code> abstraction and its user.</p>
 <p>So, again, there are certain rules that restrict the way two objects can communicate. Both sender and recipient of a message must adhere to the rules, or the they will not be able to work together.</p>
 <p>The good news is that, most of the time, WE are the ones who design these protocols, along with the interfaces, so we can design them to be harder or easier to adhere to by different implementations of an interface. Of course, we are wholeheartedly for the “easier” part.</p>
-<h4 id="communication-patterns-stability">Communication patterns stability</h4>
+<h2 id="communication-patterns-stability">Communication patterns stability</h2>
 <p>Remember our last story about Johnny and Benjamin when they had to make a design change in order to add another kind of employees to the application? In order to do that, they had to change existing interfaces and add new ones. This was a lot of work. We don’t want to do this much work every time we make a change, especially when we introduce a new variation of a concept that is already present in our design (e.g. Johnny and Benjamin already had the concept of “employee” and they were adding a new variation of it, called “contractor”).</p>
 <p>In order to achieve this, we need the protocols to be more stable, i.e. less prone to change. By drawing some conclusions from experiences of Johnny and Benjamin, we can say that they had problems with protocols stability because the protocols were:</p>
 <ol style="list-style-type: decimal">
@@ -4235,7 +4246,7 @@ connection.Close();</code></pre>
 <li>protocols should be small</li>
 </ol>
 <p>And there are some heuristics that let us get closer to these qualities:</p>
-<h4 id="craft-messages-to-reflect-senders-intention">Craft messages to reflect sender’s intention</h4>
+<h2 id="craft-messages-to-reflect-senders-intention">Craft messages to reflect sender’s intention</h2>
 <p>The protocols are simpler if they are designed from the perspective of the object that sends the message, not the one that receives it. In other words, methods should reflect the intention of senders rather than capabilities of recipients.</p>
 <p>As an example, let us look at a code for logging in that uses an instance of an <code>AccessGuard</code> class:</p>
 <pre><code>accessGuard.SetLogin(login);
@@ -4245,7 +4256,7 @@ accessGuard.Login();</code></pre>
 <pre><code>accessGuard.LoginWith(login, password);</code></pre>
 <p>Another lesson learned from the above example is: setters rarely reflect senders’ intention - more often they are artificial “things” introduced to directly manage object state. This may also have been the reason why someone introduced three messages instead of one - maybe the <code>AccessGuard</code> class has two fields inside, so the programmer might have thought someone would want to manipulate them separately… Anyway, setters should be either avoided or changed to something that reflects the intention better. For example, when dealing with observer pattern, we don’t want to say: <code>object.SetObserver(screen)</code>, but rather something like <code>object.FromNowOnReportCurrentWeatherTo(screen)</code>.</p>
 <p>The issue of naming can be summarized as: the names of interfaces should be named after the <em>roles</em> that their implementations play and methods should be named after the <em>responsibilities</em> we want them to have. I love the example that Scott Bain gives in his Emergent Design book<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>: if I told you “give me your driving license number”, you might’ve reacted differently based on whether the driving license is in your pocket, or your wallet, or your bag, or in your home (in which case you would need to call someone to give it to you). The point is: I, as a sender of this “give me your driving license number” message, do not care how you get it. I say <code>RetrieveDrivingLicenseNumber()</code>, not <code>OpenYourWalletAndReadTheNumber()</code>. This is important, because if the name represents the sender’s intention, the method will not have to be renamed when new classes are created that fulfill this intention in a different way.</p>
-<h4 id="model-interactions-after-the-problem-domain">Model interactions after the problem domain</h4>
+<h2 id="model-interactions-after-the-problem-domain">Model interactions after the problem domain</h2>
 <p>Sometimes at work, I am asked to conduct a design workshop. The example I often give to my colleagues is to design a system for order reservation (customers place orders and shop deliverers can reserve who gets to deliver which order). The thing that struck me the first few times I did this workshop was that even though the application was all about orders and their reservation, nearly none of the attendees introduced any kind of <code>Order</code> interface or class with <code>Reserve()</code> method on it. Most of the attendees assume that <code>Order</code> is a data structure and handle reservation by adding it to a “collection of reserved items” which can be imagined as the following code fragment:</p>
 <pre><code>// order is just a data structure,
 // added to a collection
@@ -4268,7 +4279,7 @@ catch(SecurityFailure failure)
 }</code></pre>
 <p>Then the risk of this code changing for other reasons than the change of how domain works (e.g. we do not close the gates anymore but activate laser guns instead) is small. Thus, interactions that use abstractions and methods that directly express domain rules are more stable.</p>
 <p>So, to sum up - if a design reflects the domain, it is easier to predict how a change of domain rules affects the design. This contributes to maintainability and stability of the interactions and the design as a whole.</p>
-<h4 id="message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</h4>
+<h2 id="message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</h2>
 <p>Let’s say we are paying an annual income tax yearly and are too busy (i.e. have too many responsibilities) to do this ourselves. Thus, we hire a tax expert to calculate and pay the taxes for us. He is an expert on paying taxes, knows how to calculate everything, where to submit it etc. But there is one thing he does not know - the context. In other word, he does not know which bank we are using or what we have earned this year that we need to pay the tax for. This is something we need to give him.</p>
 <p>Here’s the deal between us and the tax expert summarized as a table:</p>
 <table>
@@ -4292,7 +4303,7 @@ catch(SecurityFailure failure)
 </tr>
 </tbody>
 </table>
-<p>It is us who hire the expert and us who initiate the deal. If we were to model this deal as an interaction between two objects, it could e.g. look like this:</p>
+<p>It is us who hire the expert and us who initiate the deal, so we need to provide the context, as seen in the above table. If we were to model this deal as an interaction between two objects, it could e.g. look like this:</p>
 <pre><code>taxExpert.PayAnnualIncomeTax(
   ourIncomeDocuments,
   ourBank);</code></pre>
@@ -4337,27 +4348,30 @@ employee.SetSalary(newSalary);</code></pre>
 }</code></pre>
 <p>So as you can see, this is behavior, not data, and it itself follows the Tell Don’t Ask style as well.</p>
 <p>There is one nice advice about creating interactions following this style.</p>
-<p>TODO</p>
-<h4 id="getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</h4>
-<p>The above stated guideline of “Tell Don’t Ask” has a practical implication of getting rid of (almost) all the getters.</p>
-<p>For me, this was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that allowed far better abstraction, but my style of coding didn’t really change much. I would still have procedures and functions, but now more abstract (divided into objects) and data structures, but now more abstract (i.e. objects with setters, getters and some other query methods).</p>
-<p>But what alternatives do we have? Let’s say that we have a piece of software that handles user sessions (e.g. modeled using a <code>Session</code> class). We want to be able to display the sessions on the GUI, send the sessions through the network and persist them. How can we do this without getters? Should we put all the code for displaying, sending and storing inside the <code>Session</code> class? If we did that, we would couple a core domain concept (session) to a nasty set of third-party libraries (e.g. a particular GUI library), which would force us to tinker in core domain rules every time some GUI displaying concept changed. Also, if we did that, the <code>Session</code> would be hard to reuse, because every place we would want to reuse the class, we would need to take all these heavy libraries it depends on with us. So, our (not so good, as we will see) remedy may be to introduce getters for the information pieces stored inside a session:</p>
+<h2 id="getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</h2>
+<p>The above stated guideline of “Tell Don’t Ask” has a practical implication of getting rid of (almost) all the getters. We did say that each object should stick to its work and tell other objects to do their work, passing context to them, didn’t we? If so, then why should we “get” something from objects?</p>
+<p>For me, this was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that had far better mechanisms for abstraction, but my style of coding didn’t really change much. I would still have procedures and functions, but now more abstract (divided into objects) and data structures, but now more abstract (i.e. objects with setters, getters and some other query methods).</p>
+<p>But what alternatives do we have? Well, I already introduced Tell Don’t Ask, so you should know the answer. Even though you should, I want to show you another example, this time specifically about getters and setters.</p>
+<p>Let’s say that we have a piece of software that handles user sessions. A session is represented in code using a <code>Session</code> class. We want to be able to do three things with our sessions: display them on the GUI, send them through the network and persist them. In our application, we want each of these responsibilities handled by a separate class.</p>
+<p>This means that each of these classes should somehow obtain the data from the session. Otherwise, how can the data be e.g. persisted? So it seems we have no choice and we have to expose the session data using getters.</p>
+<p>Of course, we might re-think our choice of creating separate classes for sending, persistence etc. and consider a choice where we put all this logic inside a <code>Session</code> class. If we did that, however, we would make a core domain concept (a session) dependent on a nasty set of third-party libraries (e.g. a particular GUI library), which would mean that e.g. every time some GUI displaying concept changed, we would be forced to tinker in core domain code, which is pretty risky. Also, if we did that, the <code>Session</code> would be hard to reuse, because every place we would want to reuse this class, we would need to take all these heavy libraries it depends on with us. Plus, we would not be able to e.g. reuse <code>Session</code> with different GUI or persistence libraries. So, again, it seems like our (not so good, as we will see) only choice is to introduce getters for the information pieces stored inside a session, like this:</p>
 <pre><code>public interface Session
 {
   string GetOwner();
   string GetTarget();
   DateTime GetExpiryTime();
 }</code></pre>
-<p>So yeah, in a way, we have achieved context independence, because we can now pull all the data e.g. in a GUI code and display the data and the <code>Session</code> does not know anything about it:</p>
-<pre><code>// inside GUI code
+<p>So yeah, in a way, we have decoupled <code>Session</code> from these third-party libraries and we may even say that we have achieved context-independence as far as <code>Session</code> is concerned - we can now pull all its data e.g. in a GUI code and display it as a table. The <code>Session</code> does not know anything about it. Let’s see that:</p>
+<pre><code>// Display sessions as a table on GUI
 foreach(var session in sessions)
 {
   var tableRow = TableRow.Create();
-  tableRow[&quot;owner&quot;] = session.GetOwner();
-  tableRow[&quot;target&quot;] = session.GetTarget();
-  tableRow[&quot;expiryTime&quot;] = session.GetExpiryTime();
+  tableRow.SetCellContentFor(&quot;owner&quot;, session.GetOwner());
+  tableRow.SetCellContentFor(&quot;target&quot;, session.GetTarget());
+  tableRow.SetCellContentFor(&quot;expiryTime&quot;, session.GetExpiryTime());
   table.Add(tableRow);
 }</code></pre>
+<p>TODO finished here</p>
 <p>It seems we solved the problem, by pulling data to a place that has the context, i.e. knows what to do with this data. Are we happy? We may be unless we look at how the other parts look like - the sending one:</p>
 <pre><code>//part of sending logic
 foreach(var session in sessions)
@@ -4428,17 +4442,17 @@ foreach(var session in sessions)
 
   public void AcceptOwner(string owner)
   {
-    _row[&quot;owner&quot;] = owner;
+    _row.SetCellContentFor(&quot;owner&quot;, owner);
   }
 
   public void AcceptTarget(string target)
   {
-    _row[&quot;target&quot;] = target;
+    _row.SetCellContentFor(&quot;target&quot;, target);
   }
 
   public void AcceptExpiryTime(DateTime expiryTime)
   {
-    _row[&quot;expiryTime&quot;] = expiryTime;
+    _row.SetCellContentFor(&quot;expiryTime&quot;, expiryTime);
   }
 
   public void Done()
@@ -4501,16 +4515,17 @@ foreach(var session in sessions)
 }</code></pre>
 <p>The most important thing is that when we are not forced to return anything, we are more free to do as we like. Again, “Tell, don’t ask”.</p>
 <p>The notion of passing context where the data is instead of pulling the data right into the context is often referred to as “context independence”. Context independence is not only about passing context in methods - it applies to constructors the same way. Being context independent is one of the most important requirements for a class to be composable with other classes.</p>
-<h3 id="single-responsibility">Single Responsibility</h3>
+<p>TODO sometimes ask</p>
+<h2 id="single-responsibility">Single Responsibility</h2>
 <p>I already said that we want our system to be a web of composable objects. Also, I said that we want to be able to unplug a cluster of objects at any place and plug in something different. TODO</p>
 <p>TODO</p>
-<h4 id="law-of-demeter">Law of Demeter</h4>
+<h2 id="law-of-demeter">Law of Demeter</h2>
 <p>As we discovered, exposing return values makes the protocols more complex and should be avoided if possible. TODO do we need this at all?</p>
 <p>Law of Demeter. Coupling to details of return values.</p>
 <p>Size of protocols. Even interface with a single method can return a lot of values. Example: different reports produced.</p>
-<h4 id="context-independence">Context independence</h4>
+<h2 id="context-independence">Context independence</h2>
 <p>TODO</p>
-<h4 id="instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is">Instead of pulling the data where context is, pass the context where the data is</h4>
+<h2 id="instead-of-pulling-the-data-where-context-is-pass-the-context-where-the-data-is">Instead of pulling the data where context is, pass the context where the data is</h2>
 <p>If you are like me, you probably learned programming starting from procedural languages.</p>
 <p>this may sound like something non obvious</p>
 <ol style="list-style-type: decimal">
