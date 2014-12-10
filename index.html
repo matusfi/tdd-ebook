@@ -4657,9 +4657,20 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
   employee.<span class="fu">EvaluateRaise</span>();
   employee.<span class="fu">EvaluateBonus</span>();
 }</code></pre>
-<p>The looping is handled by separate code.</p>
+<p>The looping, which is a separate responsibility, is handled by a different class.</p>
 <h3 id="how-far-do-we-go">How far do we go?</h3>
-<p>A valid question becomes: do we know a way to be sure we separated all responsibilities?</p>
+<p>The above example begs three questions:</p>
+<ol style="list-style-type: decimal">
+<li>Is there a point where we are sure we have separated all responsibilities?</li>
+<li>If there is, how can we be sure we have reached it?</li>
+</ol>
+<p>The answer to the first question is: probably no. While some reasons to change are common sense, others can be drawn from our experience as developers, there are always some that are unexpected and until they surface, we cannot foresee them. Thus, the answer is “no” for the second question as well.</p>
+<h3 id="the-mutual-relationship-between-single-responsibility-principle-and-composability">The mutual relationship between Single Responsibility Principle and composability</h3>
+<ol start="3" style="list-style-type: decimal">
+<li>If there isn’t, where do we stop in separating responsibilities?</li>
+</ol>
+<p>This makes the third question interesting.</p>
+<p>TODO composability reinforces SRP, SRP reinforces composability</p>
 <p>TODO: answer no, never</p>
 <p>TODO the notion of unit (hour, second, microsecond) - responsibility is granular - parallelism may also be a responsibility</p>
 <p>TODO independent deployability</p>
