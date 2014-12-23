@@ -139,8 +139,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#classes">Classes</a><ul>
 <li><a href="#single-responsibility">Single Responsibility</a></li>
 <li><a href="#static-fields-and-methods">Static fields and methods</a></li>
-<li><a href="#work-in-constructors">Work in constructors</a></li>
-<li><a href="#how-to-name-a-class">How to name a class</a></li>
 </ul></li>
 <li><a href="#mock-objects">Mock Objects</a></li>
 </ul>
@@ -4666,25 +4664,12 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 </ol>
 <p>The answer to the first question is: probably no. While some reasons to change are common sense, others can be drawn from our experience as developers, there are always some that are unexpected and until they surface, we cannot foresee them. Thus, the answer for the second question is: “there is no way”. Which does not mean we should not try to separate the different reasons we see - quite the contrary.</p>
 <h3 id="the-mutual-relationship-between-single-responsibility-principle-and-composability">The mutual relationship between Single Responsibility Principle and composability</h3>
-<p>Why am I writing about all this? It is because there is a symbiosis between SRP and composability. As I said, there’s no way to compose half of an object with half of another one. When we pick an object, that’s it - we get everything that’s “in stock”. I also said that object is a granule of composability. The truth is, responsibility is a granule of composability as well. On one hand, it doesn’t make sense to e.g. compose half of responsibility with another half. If we have a situation like that, these “halves” are in reality separate responsibilities.</p>
-<p>We need composability between objects to achieve composability between responsibilities - this is our real goal.</p>
-<p>Separating things that change for the same reason makes it easier to replace things changing for different reasons than our class.</p>
-<p>In order to have composable objects, we somehow need to divide responsibilities between them</p>
-<ol start="3" style="list-style-type: decimal">
-<li>If there isn’t, where do we stop in separating responsibilities?</li>
-</ol>
-<p>This makes the third question interesting.</p>
-<p>TODO composability reinforces SRP, SRP reinforces composability</p>
-<p>TODO: answer no, never</p>
-<p>TODO the notion of unit (hour, second, microsecond) - responsibility is granular - parallelism may also be a responsibility</p>
+<p>The reason I am writing all this is that responsibilities are the real granules of composability. The composability of objects that I talked about a lot already is actually a mean to achieve composability of responsibilities, which is our real goal. If we have two collaborating objects, each having a single responsibility, we can easily replace the way our application achieves one of these responsibilities without touching the other. Thus, objects conforming to SRP are the most comfortably composable. As the real reason for change in application is the change of responsibilities and the real reuse is reuse of responsibilities, this is a concept that determines the size of our objects<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>.</p>
+<h2 id="static-fields-and-methods">Static fields and methods</h2>
 <p>TODO independent deployability</p>
 <p>TODO principle at different level of abstraction - single level of abstraction principle</p>
 <p>TODO small amount of private methods</p>
-<p>This leads to a question: what is the granule of composability? How much should a class do to be composable?</p>
 <p>TODO how are we to determine responsibility? From experience: we know to count something in hours, not minutes. Second way: composition becomes awkward. Third way: tests (Statements) will tell us.</p>
-<h2 id="static-fields-and-methods">Static fields and methods</h2>
-<h2 id="work-in-constructors">Work in constructors</h2>
-<h2 id="how-to-name-a-class">How to name a class</h2>
 <ol style="list-style-type: decimal">
 <li>Factory method</li>
 <li>variadic covering method – creating collection using variadic parameter method</li>
@@ -4713,7 +4698,8 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <li id="fn16"><p>We can even further refactor this into a state machine using a Gang of Four <em>State</em> pattern. There would be two states in such a state machine: started and expired. # THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL<a href="#fnref16">↩</a></p></li>
 <li id="fn17"><p>This principle can be applied to methods as well, but we are not going to cover this part, because it is not directly tied to the notion of composability and this is not a design book ;-).<a href="#fnref17">↩</a></p></li>
 <li id="fn18"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref18">↩</a></p></li>
-<li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030 # Value Objects #Refactoring Object Composition<a href="#fnref19">↩</a></p></li>
+<li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref19">↩</a></p></li>
+<li id="fn20"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API. # Value Objects #Refactoring Object Composition<a href="#fnref20">↩</a></p></li>
 </ol>
 </div>
 </body>
