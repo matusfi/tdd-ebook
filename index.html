@@ -140,6 +140,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#single-responsibility">Single Responsibility</a></li>
 <li><a href="#static-fields-and-methods">Static fields and methods</a></li>
 </ul></li>
+<li><a href="#value-objects">Value Objects</a><ul>
+<li><a href="#example-problem">Example problem</a></li>
+</ul></li>
+<li><a href="#refactoring-object-composition">Refactoring Object Composition</a></li>
 <li><a href="#mock-objects">Mock Objects</a></li>
 </ul>
 </div>
@@ -4670,6 +4674,255 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <p>TODO principle at different level of abstraction - single level of abstraction principle</p>
 <p>TODO small amount of private methods</p>
 <p>TODO how are we to determine responsibility? From experience: we know to count something in hours, not minutes. Second way: composition becomes awkward. Third way: tests (Statements) will tell us.</p>
+<h1 id="value-objects">Value Objects</h1>
+<p>Hi, today I’m gonna tell a bit about value objects, why they’re so useful and what rules apply to creating and using them. This post is inspired by some work by Kent Beck, Steve Freeman and Nat Pryce.</p>
+<h2 id="example-problem">Example problem</h2>
+<p>Imagine you’re developing a web shop for your customer. There are different kinds of products sold and your customers have the ability to add new products.</p>
+<p>Each product has at least two important attributes: name and price (actually there are others like quantity, but let’s leave them alone for now).</p>
+<p>Let’s say that you’ve decided to use <em>a decimal to hold the price</em>, and <em>a string to hold the name</em>. Note that both are generic library types, not connected to any domain. Is it a good choice to use “library types” for domain abstractions? We shall soon find out…</p>
+<h3 id="time-passes">Time passes…</h3>
+<p>Actually, it turns out that these values must be shared across few subdomains of the system. For example:</p>
+<ol style="list-style-type: decimal">
+<li>The website needs to display them</li>
+<li>They are used in calculations</li>
+<li>They are taken into account when defining and checking promotion rules (e.g. “buy three, pay for two”)</li>
+<li>They must be supplied when printing invoices</li>
+</ol>
+<p>etc.</p>
+<p>The code grows larger and larger and, as the concepts of product name and price are among the main concepts of the application, they tend to land everywhere.</p>
+<p>Now, imagine that one of the following changes must make its way into the system:</p>
+<ol style="list-style-type: decimal">
+<li>The product name must be compared as case insensitive, since the names of the products are always printed in uppercase on the invoice. Thus, creating two products that differ only in a letter case (eg. “laptop” and “LAPTOP”) would confuse the customers as both these products look the same on the invoice. Also, the only way one would create two products that differ by letter case only is by mistake and we want to avoid that.</li>
+<li>The product name is not enough to differentiate a product. For example, a notebook manufacturers have the same models of notebooks in different configurations (e.g. different amount of RAM or different processor models inside). So each product will receive additional identifier that will have to be taken into account during comparisons.</li>
+<li>In order to support customers from different countries, new currencies must be supported everywhere money are already used.</li>
+</ol>
+<p>These changes are a horror to make. Why? It’s because we’re coupled in multiple places to a particular implementation of product name (string) and a particular implementation of money (decimal). This wouldn’t be so bad, if not for the fact that we’re coupled to implementation we cannot change!</p>
+<p>From now on, let’s put the money concept aside and consider only the product name, as both of these cases are similar, so it’s sufficient to consider just one of them.</p>
+<h3 id="what-options-do-we-have">What options do we have?</h3>
+<p>So, what choice do we have now? In order to support new requirements, we have to find all places where we use the product name and price and make the same change. Every time we need to do something like this, it means that <em>we’ve introduced redundancy</em>.</p>
+<h4 id="option-one---just-modify-the-implementation-in-all-places">Option one - just modify the implementation in all places</h4>
+<p>So let’s say we want to add comparison with letter case ignored. The worst idea to have would be to find all places where we do something like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span>(productName == productName2))
+{
+..</code></pre>
+<p>And change it to:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span>(String.<span class="fu">Equals</span>(productName, productName2, 
+   StringComparison.<span class="fu">OrdinalIgnoreCase</span>))
+{
+..</code></pre>
+<p>This is bad for at least three reasons:</p>
+<ol style="list-style-type: decimal">
+<li>According to <a href="http://www.netobjectives.com/blogs/shalloway%E2%80%99s-law-and-shalloway%E2%80%99s-principle">Shalloway’s Law</a>, it will be very hard to find all these places and chances are you’ll miss at least one.</li>
+<li>Everyone who adds new comparisons of product names to the code in the future, will have to remember to use <code>IgnoreCase</code> comparison (TODO). If you want to know my opinion, accidental violation of this convention is just a matter of time.</li>
+<li>Even if this time you’ll be able to find and correct all the places, every time this aspect changes (e.g. we’ll have to support <code>InvariantIgnoreCase</code> option instead of OrdinalIgnoreCase for some reasons, or the case I mentioned earlier with comparison including an identifier), you’ll have to do it over.</li>
+<li>Also, there are other changes that will be tied to the concept of product name (like generating a hash code or something) and you’ll need to introduce them too in all the places where the product name value is used.</li>
+</ol>
+<h4 id="option-two---use-a-helper-class">Option two - use a helper class</h4>
+<p>We can address the third issue of the above list by moving the comparison operation into a helper class. Thus, the comparison would look like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">if</span>(ProductName.<span class="fu">Equals</span>(productName, productName2))
+{
+..</code></pre>
+<p>Now, the details of the comparison are hidden inside the newly created class. Each time the comparison needs to change, we have to modify only this one class.</p>
+<p>However, while it protects us from the change of comparison policy, it’s still not enough. The concept of product name is not encapsulated - it’s still a string and all its methods are publicly available. Hence, another developer who starts working on the code may not even notice that product names are compared differently than other strings and just use the comparison methods from string type. Other deficiencies of the previous approach apply as well (as I said, except from the issue number 3).</p>
+<h4 id="option-three---encapsulate-the-domain-concept-and-create-a-value-object">Option three - encapsulate the domain concept and create a “Value Object”</h4>
+<p>I think it’s more than clear now that product name is a not “just a string”, but a domain concept and as such, it deserves its own class. Given this, the comparison snippet is now:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">//both are of class ProductName</span>
+<span class="kw">if</span>(productName.<span class="fu">Equals</span>(productName2))
+{
+..</code></pre>
+<p>How is it different from the previous approach with helper class? While previously the implementation of a product name (a string) was publicly visible and we only added external functionality that operated on this implementation (and anybody could add their own), this time the nature of the product name is completely hidden from the outside world. The only available way of working with product names is through the <code>ProductName</code>’s public interface (which exposes only those methods we want and no more). In other words, whereas before we were dealing with a general-purpose type we couldn’t change, now we have a domain-specific type that’s completely under our control.</p>
+<h3 id="how-value-objects-help-dealing-with-change">How value objects help dealing with change</h3>
+<p>Let’s see how this move makes it easier to introduce the changes I already mentioned (ignoring case, comparing by ID as well as by string name and getting uppercase version for printing on invoice).</p>
+<h4 id="initial-implementation">Initial implementation</h4>
+<p>The first implementation may look like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> ProductName
+{
+  string _value;
+
+  internal <span class="fu">ProductName</span>(string value)
+  {
+    _value = value;
+  }
+
+  <span class="kw">public</span> <span class="dt">static</span> ProductName <span class="fu">For</span>(string value)
+  {
+    <span class="kw">if</span>(string.<span class="fu">IsNullOrWhiteSpace</span>(value))
+    {
+      <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span>(
+        <span class="st">&quot;Product names must be human readable!&quot;</span>);
+    }
+    <span class="kw">else</span>
+    {
+      <span class="kw">return</span> <span class="kw">new</span> <span class="fu">ProductName</span>(value);
+    }
+  }
+  
+  <span class="co">//for on-screen printing</span>
+  <span class="kw">public</span> string HumanReadablePart
+  {
+    get
+    {
+      <span class="kw">return</span> _value;
+    }
+  }
+
+  <span class="co">//for invoices</span>
+  <span class="kw">public</span> string <span class="fu">ToNameForInvoice</span>()
+  {
+    <span class="kw">return</span> _value.<span class="fu">ToUpper</span>();
+  }
+
+  <span class="kw">public</span> override bool <span class="fu">Equals</span>(Object obj)
+  {
+    <span class="kw">if</span> (obj == <span class="kw">null</span>)
+    {
+      <span class="kw">return</span> <span class="kw">false</span>;
+    }
+
+    var otherProductName = obj as ProductName;
+    <span class="kw">if</span> ((Object)otherProductName == <span class="kw">null</span>)
+    {
+      <span class="kw">return</span> <span class="kw">false</span>;
+    }
+
+    <span class="kw">return</span> _value.<span class="fu">Equals</span>(otherProductName.<span class="fu">_value</span>);
+  }
+
+  <span class="kw">public</span> override <span class="dt">int</span> <span class="fu">GetHashCode</span>()
+  {
+    <span class="kw">return</span> _value.<span class="fu">GetHashCode</span>();
+  }
+
+  <span class="kw">public</span> <span class="dt">static</span> bool operator ==(ProductName a, ProductName b)
+  {
+    <span class="kw">if</span> (System.<span class="fu">Object</span>.<span class="fu">ReferenceEquals</span>(a, b))
+    {
+      <span class="kw">return</span> <span class="kw">true</span>;
+    }
+
+    <span class="kw">if</span> (((object)a == <span class="kw">null</span>) || ((object)b == <span class="kw">null</span>))
+    {
+      <span class="kw">return</span> <span class="kw">false</span>;
+    }
+
+    <span class="kw">return</span> a.<span class="fu">Equals</span>(b);
+  }
+
+  <span class="kw">public</span> <span class="dt">static</span> bool operator !=(ProductName a, ProductName b)
+  {
+    <span class="kw">return</span> !(a == b);
+  }
+}</code></pre>
+<p>Note few things about this implementation:</p>
+<ol style="list-style-type: decimal">
+<li>The class has internal constructor and static factory method for general use. The factory method holds all the rules that must be satisfied in order to create a valid object and the constructor just sets the fields. This is a preferred way for value objects to be created. One reason for this is that the rules for creating valid objects might grow and we don’t want it to cause maintenance burden on our unit tests (we usually don’t mock value objects, so they will be all over our unit testing suite). Thus, the clients will always use the factory methods and unit tests will have the freedom to use the constructor if they wish so. Also, it’s good for readability (e.g. you can write <code>ProductName.For(&quot;Soap&quot;)</code>)</li>
+<li>It looks like the effort on creating such a wrapper around just one value is huge, however, most of the methods are straightforward and others can be auto-generated by an IDE (like Equals(), GetHashCode() and equality operators).</li>
+<li>Objects of <code>ProductName</code> class behave as if they were values, e.g. comparison is state-based instead of reference-based. Note that this is similar as in case of C# strings, which are a canonical example of value objects.</li>
+<li><p>Product names are immutable. There is no operation that can overwrite its state once the object is created. This is on purpose and is a design constraint that we want to maintain. For example, we may want to sell sets of products in the future (“2 in 1” etc.) and treat it as a separate product with a name being a merger of the component names. In such case, we could write:</p>
+<pre class="csharp"><code>var productSetName = productName1.MergeWith(productName2);</code></pre>
+and this operation would create a new product name instead of modifying any of the component product names. Note that this is also the same as in case of strings, which, in C#, are immutable (every operation like <code>Trim()</code>, <code>Replace()</code> etc. creates a new object).</li>
+<li><p>While being freshly created, the ProductName abstraction already contains bits that are domain-specific, namely the <code>ToNameForInvoice()</code> method. Whether it’s a good decision to put such method in here is heavily dependent on the context (there are other interesting options, but I’ll leave this topic for another time).</p></li>
+</ol>
+<p>Ok, now for the first change:</p>
+<h4 id="first-change---case-insensitivity">First change - case-insensitivity</h4>
+<p>This is actually very easy to perform - we just have to modify the <code>Equals()</code> and <code>GetHashCode()</code> operations like so:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> override bool <span class="fu">Equals</span>(Object obj)
+{
+  <span class="kw">if</span> (obj == <span class="kw">null</span>)
+  {
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+
+  var otherProductName = obj as ProductName;
+  <span class="kw">if</span> ((Object)otherProductName == <span class="kw">null</span>)
+  {
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+
+  <span class="kw">return</span> string.<span class="fu">Equals</span>(<span class="kw">this</span>.<span class="fu">_value</span>, 
+                       otherProductName.<span class="fu">_value</span>,
+                       StringComparison.<span class="fu">OrdinalIgnoreCase</span>);
+}
+
+<span class="kw">public</span> override <span class="dt">int</span> <span class="fu">GetHashCode</span>()
+{
+  <span class="kw">return</span> _value.<span class="fu">ToUpper</span>(
+    CultureInfo.<span class="fu">InvariantCulture</span>).<span class="fu">GetHashCode</span>();
+}</code></pre>
+<p>(a disclaimer - I’m not 100% sure that this implementation deals with all of the weird locale-specific issues, so don’t treat it as a reference implementation, but rather as a simple example)</p>
+<p>Thanks to this, no change outside the ProductName class is necessary. Two methods need to be modified, but in just one place, which means that the encapsulation we’ve introduced works out pretty well.</p>
+<h4 id="second-change---additional-identifier">Second change - additional identifier</h4>
+<p>In order to do this, we’ll have to modify the creation of <code>ProductName</code> classes:</p>
+<pre class="sourceCode java"><code class="sourceCode java">internal <span class="fu">ProductName</span>(string value, string id)
+{
+  _value = value;
+  _id = id;
+}
+
+<span class="kw">public</span> <span class="dt">static</span> ProductName <span class="fu">For</span>(string value, string id)
+{
+  <span class="kw">if</span>(string.<span class="fu">IsNullOrWhiteSpace</span>(value))
+  {
+    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span>(
+          <span class="st">&quot;Product names must be human readable!&quot;</span>);
+  }
+  <span class="kw">else</span> <span class="kw">if</span>(string.<span class="fu">IsNullOrWhiteSpace</span>(id))
+  {
+    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span>(
+          <span class="st">&quot;Identifiers must be human readable!&quot;</span>);
+  }
+  <span class="kw">else</span>
+  {
+    <span class="kw">return</span> <span class="kw">new</span> <span class="fu">ProductName</span>(value, id);
+  }
+}</code></pre>
+<p>Note that this modification requires changes all over the code base (because additional argument is needed to create an object), however, this is not the kind of change that we’re afraid of. That’s because the compiler will create a nice little TODO list (i.e. compile errors) for us and won’t let us go further without addressing it first, so there’s no chance the Shalloway’s Law might come to effect. Thus, we’re pretty much safe. By the way, if the requirements change in the future so that we will have to support product names without an ID, this is the only place we’ll need to change.</p>
+<p>In addition, <code>Equals()</code> and <code>GetHashCode()</code> will have to be changed again:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> override bool <span class="fu">Equals</span>(Object obj)
+{
+  <span class="kw">if</span> (obj == <span class="kw">null</span>)
+  {
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+
+  var otherProductName = obj as ProductName;
+  <span class="kw">if</span> ((Object)otherProductName == <span class="kw">null</span>)
+  {
+    <span class="kw">return</span> <span class="kw">false</span>;
+  }
+
+  var valuesEqual = string.<span class="fu">Equals</span>(<span class="kw">this</span>.<span class="fu">_value</span>, 
+                       otherProductName.<span class="fu">_value</span>,
+                       StringComparison.<span class="fu">OrdinalIgnoreCase</span>);
+  var identifiersEqual = <span class="kw">this</span>.<span class="fu">_id</span>.<span class="fu">Equals</span>(otherProductName.<span class="fu">_id</span>);
+
+  <span class="kw">return</span> valuesEqual &amp;&amp; identifiersEqual;
+}
+
+<span class="kw">public</span> override <span class="dt">int</span> <span class="fu">GetHashCode</span>()
+{
+  <span class="kw">return</span> 
+    _value.<span class="fu">ToUpper</span>(CultureInfo.<span class="fu">InvariantCulture</span>).<span class="fu">GetHashCode</span>()
+      ^ _id.<span class="fu">GetHashCode</span>();;
+}</code></pre>
+<p>This modification won’t require any changes to the code outside <code>ProductName</code> class.</p>
+<p>The last change is adding a new member for the ID to allow printing on invoices or on screen:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> string Identifier
+{
+  get
+  {
+    <span class="kw">return</span> _id;
+  }
+}</code></pre>
+<p>This will probably require changes to the rest of the code base but the change will be for different reason (i.e. that we want to display product identifiers on web page and print them on the invoice), which is OK, since they’re connected to responsibilities beyond those of product name.</p>
+<h3 id="summary-8">Summary</h3>
+<p>By examining the above example, we can see the following principle emerging:</p>
+<blockquote>
+<p>When you give a value a name that belongs to the problem domain, it means that its type should be a separate domain-specific class which is under your control instead of a general-purpose library class that’s out of your control.</p>
+</blockquote>
+<p>And it’s a nice one to remember, especially because we often tend to model such values as a library types and wake up when it’s already too late to make the transition to value object effectively. I’m an example of this and that’s why I re-learned this principle by hard many times.</p>
+<p>And that’s it for today. I’ll be happy to hear your thoughts. Until then, see ya!</p>
+<h1 id="refactoring-object-composition">Refactoring Object Composition</h1>
 <ol style="list-style-type: decimal">
 <li>Factory method</li>
 <li>variadic covering method – creating collection using variadic parameter method</li>
@@ -4699,7 +4952,7 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <li id="fn17"><p>This principle can be applied to methods as well, but we are not going to cover this part, because it is not directly tied to the notion of composability and this is not a design book ;-).<a href="#fnref17">↩</a></p></li>
 <li id="fn18"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref18">↩</a></p></li>
 <li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref19">↩</a></p></li>
-<li id="fn20"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API. # Value Objects #Refactoring Object Composition<a href="#fnref20">↩</a></p></li>
+<li id="fn20"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref20">↩</a></p></li>
 </ol>
 </div>
 </body>
