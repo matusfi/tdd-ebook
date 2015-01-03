@@ -4714,21 +4714,51 @@ var base64Encoding = <span class="kw">new</span> <span class="fu">Base64Encoding
 var quotedPrintableEncoding = <span class="kw">new</span> <span class="fu">QuotedPrintableEncoding</span>();
 
 <span class="co">//...other initialization</span></code></pre>
-<p>Now, in our case, we need to create new messages dynamically, one demand, so we need a factory for them. We will also instantiate this factory in the composition root and pass both encodings inside:</p>
+<p>Now, in our case, we need to create new messages dynamically, on demand, so we need a factory for them. We will also instantiate this factory in the composition root and pass both encodings inside:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="co">//...other initialization</span>
 
 var messageFactory 
   = <span class="kw">new</span> <span class="fu">StmpMessageFactory</span>(base64Encoding, quotedPrintableEncoding);
 
 <span class="co">//...other initialization</span></code></pre>
-<p>The factory itself, when asked to create a message with a given encoding, will just pass the single instances passed from composition root:</p>
-<p>TODO hard to compose. The only choice - static setter.</p>
-<h3 id="where-they-dont-work">Where they don’t work</h3>
-<h3 id="better-solution---pass-through-constructor">better solution - pass through constructor</h3>
-<h3 id="todo-disposing-of-statics---who-is-the-owner-include-in-static-setter">TODO disposing of statics - who is the owner (include in static setter)</h3>
-<h3 id="where-they-work---readonly-constant-value-objects">Where they work - readonly constant value objects</h3>
+<p>The factory itself, when asked to create a message with a given encoding, will just pass the single instances received from composition root:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SmtpMessageFactory : MessageFactory
+{
+  <span class="kw">private</span> Encoding _quotedPrintable;
+  <span class="kw">private</span> Encoding _base64;
+  
+  <span class="kw">public</span> <span class="fu">SmtpMessageFactory</span>(
+    Encoding quotedPrintable, 
+    Encoding base64)
+  {
+    _quotedPrintable = quotedPrintable;
+    _base64 = base64;
+  }
+  
+  <span class="kw">public</span> Message <span class="fu">CreateFrom</span>(string content, MessageLanguage language)
+  {
+    <span class="kw">if</span>(language.<span class="fu">IsLatinBased</span>)
+    {
+      <span class="co">//each message gets the same instance of encoding:</span>
+      <span class="kw">return</span> <span class="kw">new</span> <span class="fu">StmpMessage</span>(content, _quotedPrintable); 
+    }
+    <span class="kw">else</span>
+    {
+      <span class="co">//each message gets the same instance of encoding:</span>
+      <span class="kw">return</span> <span class="kw">new</span> <span class="fu">StmpMessage</span>(content, _base64);
+    }
+  }
+}  </code></pre>
+<p>The performance and memory saving is not exactly as big as when using a static field (e.g. each <code>SmtpMessage</code> instance uses must store a separate reference to the received encoding), but it is still a huge improvement over creating a separate encoding for each message.</p>
+<h3 id="where-statics-work">Where statics work?</h3>
+<p>What I wrote does not mean that statics do not have their uses. They do, but these uses are very specific. I will show you one of such uses in the next chapters after I introduce value objects.</p>
 <h2 id="no-work-in-constructors">No work in constructors</h2>
-<p>A conclusion from</p>
+<p>A constructor of a class should do little or no work. This is a conclusion from Single Responsibility Principle and also enhances composability.</p>
+<p>If, aside from implementing the methods a class exposes, you feel you need to do additional work in a constructor, that may be a sign that this “additional work” changes for other reason than the main logic. Thus it should be put elsewhere.</p>
+<h3 id="what-can-a-constructor-do">What can a constructor do?</h3>
+<p>Most of the times, we can get away using the following guideline: assigning fields or null checks.</p>
+<h3 id="what-a-constructor-cannot-do">What a constructor cannot do?</h3>
+<p>if it does too much, it means it’s a separate responsibility. Move it to the factory.</p>
 <p>TODO give open connection instead of opening it in constructor TODO validation - put in factories, except nulls - an object requires valid peers. http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/</p>
 <p>TODO static collaborators - not context independent - each service cannot obtain its own context, but rather context is forced on them. TODO independent deployability</p>
 <p>TODO principle at different level of abstraction - single level of abstraction principle</p>
@@ -4982,6 +5012,7 @@ and this operation would create a new product name instead of modifying any of t
 </blockquote>
 <p>And it’s a nice one to remember, especially because we often tend to model such values as a library types and wake up when it’s already too late to make the transition to value object effectively. I’m an example of this and that’s why I re-learned this principle by hard many times.</p>
 <p>And that’s it for today. I’ll be happy to hear your thoughts. Until then, see ya!</p>
+<p>TODO talk about static const value objects. const can be used only for types that have literals. Thus static readonly is used.</p>
 <h1 id="refactoring-object-composition">Refactoring Object Composition</h1>
 <ol style="list-style-type: decimal">
 <li>Factory method</li>
