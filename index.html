@@ -138,6 +138,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#classes">Classes</a><ul>
 <li><a href="#single-responsibility">Single Responsibility</a></li>
+<li><a href="#static-recipients">Static recipients</a></li>
 <li><a href="#no-work-in-constructors">No work in constructors</a></li>
 </ul></li>
 <li><a href="#value-objects">Value Objects</a><ul>
@@ -149,6 +150,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div class="figure">
 <img src="images/homemade_title_page.png" />
+
 </div>
 <h1 id="dedications">Dedications</h1>
 <p><em>Ad Deum qui laetificat iuventutem meam.</em></p>
@@ -192,7 +194,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 id="how-tdd-feels-like">How TDD feels like</h2>
 <p>Me and my brother liked to play video games in our childhood – one of the most memorable being Tekken 3 – a Japanese tournament beat’em up for Sony Playstation. To finish the game with all warriors, unlock all hidden characters, mini-games etc. took about a day. Some could say the game had nothing to offer since then. Why then did we spend over a year on it?</p>
 <div class="figure">
-<img src="images/Tekken3-gray.png" alt="Tekken3" /><p class="caption">Tekken3</p>
+<img src="images/Tekken3-gray.png" alt="Tekken3" />
+<p class="caption">Tekken3</p>
 </div>
 <p>It is because each fighter in the game had a lot of combos, kicks and punches that could be mixed in a variety of ways. Some were only usable in some situations, others were something you could throw at your opponent almost anytime without a big risk of being exposed to counterattacks. You could side-step to evade enemy’s attacks and, most of all, you could kick another fighter up in the air where they could not block your attacks and you were able to land some nice attacks on them before they fell down. These in-the-air techniques were called “juggles”. There were magazines that published lists of new possible juggles each month and the hype has stayed in the gaming community for well over a year.</p>
 <p>Yes, Tekken was easy to learn – you could put one hour into training the core moves of a character and then be able to “use them”, but what made you a great fighter was the experience and knowledge on which techniques were risky or not, which ones could be used in which situations, which ones, if used one after another, gave the opponent little chance to counterattack etc. No wonder that soon, many tournaments sprang, where players could clash for glory, fame and rewards. Even today, you can watch some of the matches on youtube.</p>
@@ -327,7 +330,8 @@ C:\MultiplicationApp\</code></pre>
 </ol>
 <p>Phew, I hope I made the transition quite painless for you. Now the last thing to add – as there is not <code>Main()</code> method anymore in the last example, you surely must wonder how we run those tests, right? Ok, the last big secret unveiled – we use an external application for this (we will refer to it using a term <strong>Test Runner</strong>) – we tell it which assemblies to run and it loads them, runs them, reports results etc. It can take various forms, e.g. it can be a console application, a GUI application or a plugin to our IDEs. Here is an example of a stand-alone runner for xUnit.NET framework:</p>
 <div class="figure">
-<img src="images/XUnit_NET_Window.png" alt="XUnit.NET window" /><p class="caption">XUnit.NET window</p>
+<img src="images/XUnit_NET_Window.png" alt="XUnit.NET window" />
+<p class="caption">XUnit.NET window</p>
 </div>
 <h3 id="mocking-library">Mocking library</h3>
 <p>Mocking libraries automate runtime creation of objects (called “mocks”) that adhere to specified interface. Aside from the creation itself, the libraries provide an API to configure our mocks on how they behave when certain methods are called on them and to let us inspect which calls they received.</p>
@@ -595,11 +599,13 @@ Assert.<span class="fu">True</span>(reporting.<span class="fu">CanBePerformedBy<
 <p>Another thing I mentioned in the previous chapter was that one of the differences between a textual specification and our Specification consisting of executable Statements is that, although the code follows the Specification, we do not write our Specification fully up-front. The usual sequence is to specify a bit first and then code a bit, then repeat one Statement at a time. When doing TDD, we are traversing repeatedly through few phases that make up a cycle. We like these cycles to be short, so that we can get a quick feedback. Being able to get this quick feedback is essential, because it allows us to move forward with confidence that what we already have works as we intended. Also, it allows us to use the knowledge we gained in the previous cycle to make the next cycle more efficient (if you do not believe me that quick feedback is good, ask yourself a question: “how many times a day do I compile the code I work on?”).</p>
 <p>Reading so much about cycles, it is probably no surprise to you that the traditional illustration of the TDD process is modeled visually as a circle-like flow:</p>
 <div class="figure">
-<img src="images/RedGreenRefactor.png" alt="Basic TDD cycle" /><p class="caption">Basic TDD cycle</p>
+<img src="images/RedGreenRefactor.png" alt="Basic TDD cycle" />
+<p class="caption">Basic TDD cycle</p>
 </div>
 <p>Note that the above form uses the traditional terminology of TDD, so before I explain the steps, I will translate it to use our terms of Specification and Statements:</p>
 <div class="figure">
-<img src="images/RedGreenRefactor2.png" alt="Basic TDD cycle with changed terminology" /><p class="caption">Basic TDD cycle with changed terminology</p>
+<img src="images/RedGreenRefactor2.png" alt="Basic TDD cycle with changed terminology" />
+<p class="caption">Basic TDD cycle with changed terminology</p>
 </div>
 <p>The second version seems more like common sense than the first one – specifying how something should behave before putting that behavior in place is way more intuitive than testing something that does not exist.</p>
 <p>Anyway, these three steps demand some explanation. In the coming chapters, I will give you some examples of how this process works in practice and introduce an expanded version, but in the meantime, its sufficient to say that:</p>
@@ -2573,7 +2579,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
 <p>Steve Freeman, one of the godfathers of using mock objects with TDD, <a href="https://groups.google.com/d/msg/growing-object-oriented-software/rwxCURI_3kM/2UcNAlF_Jh4J">wrote</a>: “mocks arise naturally from doing responsibility-driven OO. All these mock/not-mock arguments are completely missing the point. If you’re not writing that kind of code, people, please don’t give me a hard time”. I am going to introduce mocks in a way that will not give Steve a hard time, I hope.</p>
 <p>In order to do this, I need to cover some topics of object oriented design. That is why not all chapters in this part are specifically about TDD, but some are about object oriented techniques, practices and qualities you need to know to use TDD effectively in object oriented world. First of them being objects composability.</p>
 <blockquote>
-<h2>Teaching one thing at a time</h2>
+<h2 id="teaching-one-thing-at-a-time">Teaching one thing at a time</h2>
 <p>For several next chapters, you will see me do a lot of code and design examples without writing any test. This may make you wonder whether you are still reading a TDD book.</p>
 <p>I want to make it very clear that by omitting tests in these chapters I am not advocating writing code or refactoring without tests. The only reason I am doing this is that teaching and learning several things at the same time makes everything harder, both for the teacher and for the student. Thus, until I explain the necessary object oriented design topics, I want you to be focused only on them.</p>
 <p>Do not worry. After I am done laying ground for mock objects, I am going to re-introduce TDD and write lots of tests. Please trust me and be patient.</p>
@@ -3234,7 +3240,8 @@ alarm = <span class="kw">new</span> <span class="fu">LoudAlarm</span>(); </code>
 <h2 id="so-again-what-does-it-mean-to-compose-objects">So, again, what does it mean to compose objects?</h2>
 <p>Basically it means that an object has obtained a reference to another object and is able to invoke methods on it. By being composed together, two objects form a small system that can be expanded with more objects as needed. Thus, a bigger object oriented system forms something similar to a web:</p>
 <div class="figure">
-<img src="images/WebOfObjects.png" alt="Web of objects – the circles are the objects and the arrows are methods invocations from one object on another" /><p class="caption">Web of objects – the circles are the objects and the arrows are methods invocations from one object on another</p>
+<img src="images/WebOfObjects.png" alt="Web of objects – the circles are the objects and the arrows are methods invocations from one object on another" />
+<p class="caption">Web of objects – the circles are the objects and the arrows are methods invocations from one object on another</p>
 </div>
 <p>If we take the web metaphor a little bit further, we can note some similarities to e.g. a TCP/IP network:</p>
 <ol style="list-style-type: decimal">
@@ -3293,7 +3300,8 @@ alarm = <span class="kw">new</span> <span class="fu">LoudAlarm</span>(); </code>
 <p>In this communication, <code>Alarm</code> is a <strong>sender</strong> – it knows what it is sending (controlling lifts), it knows why (because the alarm is triggered), but does not know what exactly are the recipients going to do when they receive the message – it only knows what it <strong>wants</strong> them to do, but does not know <strong>how</strong> they are going to achieve it. The rest is left to objects that implement <code>Lift</code> (namely, <code>AutoLift</code> and <code>MechanicalLift</code>). They are <strong>recipients</strong> – they do not know who they got the message from (unless they are told in the content of the message somehow – but even then they can be cheated), but they know how to react, based on who they are (<code>AutoLift</code> has its own way of reacting and <code>MechanicalLift</code> has its own), what kind of the message they received (a lift does different thing when asked to go to bottom floor than when it is asked to open its door) and what’s the message content (i.e. method arguments – in this simplistic example there are none, actually).</p>
 <p>To illustrate that this separation between a sender and a recipient does, in fact, exist, it is sufficient to say that we could even write an implementation of <code>Lift</code> interface that would just ignore the messages it got from the <code>Alarm</code> (or fake that it did what it was asked for) and the <code>Alarm</code> will not even notice. We sometimes say that this is not the <code>Alarm</code>’s responsibility.</p>
 <div class="figure">
-<img src="images/SenderRecipientMessage.png" alt="Sender, interface, and recipient" /><p class="caption">Sender, interface, and recipient</p>
+<img src="images/SenderRecipientMessage.png" alt="Sender, interface, and recipient" />
+<p class="caption">Sender, interface, and recipient</p>
 </div>
 <p>Ok, I hope we got that part straight. Time for some new requirements. It has been decided that whenever any malfunction happens in the lift when it is executing the alarm emergency procedure, the lift object should report this by throwing an exception called <code>LiftUnoperationalException</code>. This affects both <code>Alarm</code> and implementations of <code>Lift</code>:</p>
 <ol style="list-style-type: decimal">
@@ -4091,7 +4099,8 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
 <p>It is decided then, If a sender wants to be composable with different recipients, it has to accept a reference to a recipient in form of interface reference. We can say that, by being lightweight and behaviorless, <strong>interfaces can be treated as “slots” or “sockets” for plugging in different objects</strong>.</p>
 <p>As a matter of fact, on UML diagrams, one way to depict a a class implementing an interface is by drawing it with a plug. Thus, it seems that the “interface as slot for pluggability” concept is not so unusual.</p>
 <div class="figure">
-<img src="images/lollipop.png" alt="ConcreteRecipient class implementing three interfaces in UML. The interfaces are shown as plugs exposed by the class meaning it can be plugged into anything that uses any of the three interfaces" /><p class="caption">ConcreteRecipient class implementing three interfaces in UML. The interfaces are shown as “plugs” exposed by the class meaning it can be plugged into anything that uses any of the three interfaces</p>
+<img src="images/lollipop.png" alt="ConcreteRecipient class implementing three interfaces in UML. The interfaces are shown as plugs exposed by the class meaning it can be plugged into anything that uses any of the three interfaces" />
+<p class="caption">ConcreteRecipient class implementing three interfaces in UML. The interfaces are shown as “plugs” exposed by the class meaning it can be plugged into anything that uses any of the three interfaces</p>
 </div>
 <p>As you may have already guessed from the previous chapters, we are taking the idea of pluggability and composability to the extreme, making it one of the top priorities.</p>
 <h2 id="eventscallbacks-vs-interfaces-few-words-on-roles">Events/callbacks vs interfaces – few words on roles</h2>
@@ -4601,7 +4610,7 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <p>We already covered interfaces and protocols. In our quest for composability, We need to look at classes as well.</p>
 <p>Classes implement and use interfaces, and communicate using protocols, so it may seem we are already done with them. The truth is that classes are still interesting on their own and there are few concepts related to them that need explanation.</p>
 <h2 id="single-responsibility">Single Responsibility</h2>
-<p>I already said that we want our system to be a web of composable objects. Obviously, an object is a granule of composability - we cannot e.g. unplug a half of an object and plug in another half. Thus, a valid question to ask is this: how big should an object be to make the composability comfortable - to let us unplug as much logic as we want, leaving the rest untouched.</p>
+<p>I already said that we want our system to be a web of composable objects. Obviously, an object is a granule of composability - we cannot e.g. unplug a half of an object and plug in another half. Thus, a valid question to ask is this: how big should an object be to make the composability comfortable - to let us unplug as much logic as we want, leaving the rest untouched and ready tow rok with the new things we plug in.</p>
 <p>The answer comes with a Single Responsibility Principle for classes<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>, that basically says<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>:</p>
 <blockquote>
 <p>A code of a Class should have only one reason to change.</p>
@@ -4661,20 +4670,67 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 }</code></pre>
 <p>The looping, which is a separate responsibility, is handled by a different class.</p>
 <h3 id="how-far-do-we-go">How far do we go?</h3>
-<p>The above example begs three questions:</p>
+<p>The above example begs some questions:</p>
 <ol style="list-style-type: decimal">
 <li>Is there a point where we are sure we have separated all responsibilities?</li>
 <li>If there is, how can we be sure we have reached it?</li>
 </ol>
 <p>The answer to the first question is: probably no. While some reasons to change are common sense, others can be drawn from our experience as developers, there are always some that are unexpected and until they surface, we cannot foresee them. Thus, the answer for the second question is: “there is no way”. Which does not mean we should not try to separate the different reasons we see - quite the contrary.</p>
 <p>I like the comparison to our usage of time in real life. Brewing time of black tea is usually around three to five minutes. This is what is printed on the package we buy: “3 — 5 minutes”. Nobody gives the time in seconds, because such granularity is not needed. If seconds made a difference in the process of brewing tea, we would probably be given time in seconds. But they don’t. When we estimate tasks in software engineering, we also use different time granularity depending on the need.</p>
-<p>A simplest software program that prints “hello world” on the screen may fit into a single “main” method we will probably not see it as several responsibilities. But as soon as we get a requirement to write “hello world” in a native language of the currently running operating system, obtaining the text becomes a separate responsibility from putting it on the screen. It all depends on what granularity we need at the moment (which, as I said, may be spotted from code or known up-front from our experience as developers).</p>
+<p>A simplest software program that prints “hello world” on the screen may fit into a single “main” method we will probably not see it as several responsibilities. But as soon as we get a requirement to write “hello world” in a native language of the currently running operating system, obtaining the text becomes a separate responsibility from putting it on the screen. It all depends on what granularity we need at the moment (which, as I said, may be spotted from code or, in some cases, known up-front from our experience as developers).</p>
 <h3 id="the-mutual-relationship-between-single-responsibility-principle-and-composability">The mutual relationship between Single Responsibility Principle and composability</h3>
 <p>The reason I am writing all this is that responsibilities are the real granules of composability. The composability of objects that I talked about a lot already is actually a mean to achieve composability of responsibilities, which is our real goal. If we have two collaborating objects, each having a single responsibility, we can easily replace the way our application achieves one of these responsibilities without touching the other. Thus, objects conforming to SRP are the most comfortably composable. As the real reason for change in application is the change of responsibilities and the real reuse is reuse of responsibilities, this is a concept that determines the size of our objects<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>.</p>
+<h2 id="static-recipients">Static recipients</h2>
+<p>While static fields may sometimes seem like a good idea of “sharing” recipient references between objects of the same class and something that is more “memory efficient”, they actually hurt composability. Let’s take a look at a simple example to get a feeling of how this may be.</p>
+<h3 id="smtp-server">SMTP Server</h3>
+<p>Let’s consider a scenario where we need to write an e-mail server that receives and send SMTP messages. In our code, have an <code>OutboundSmtpMessage</code> class which symbolizes SMTP messages we send to other parties. To send the message, we need to encode it. We always use a Base64 encoding, so we have the class <code>OutboundSmtpMessage</code> declare a private field of type <code>Base64Encoding</code>:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> OutboundSmtpMessage
+{
+  <span class="co">//... other code</span>
+  
+  <span class="kw">private</span> Encoding _encoding = <span class="kw">new</span> <span class="fu">Base64Encoding</span>();
+  
+  <span class="co">//... other code</span>
+}</code></pre>
+<p>One day we notice that it is a waste for each message to define its own encoding objects, since they are plain algorithms and each use of encoding does not affect further uses in any way - so we can as well have a single instance and use it in all messages. Also, it may save us some performance, since creating an encoding each time we create a new message has its cost in high throughput scenarios. Thus, it seems like a good idea to use static field for this purpose, so we modify our <code>OutboundSmtpMessage</code> message class to hold <code>Base64Encoding</code> instance as static field:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> OutboundSmtpMessage
+{
+  <span class="co">//... other code</span>
+  
+  <span class="kw">private</span> <span class="dt">static</span> Encoding _encoding = <span class="kw">new</span> <span class="fu">Base64Encoding</span>();
+  
+  <span class="co">//... other code</span>
+}</code></pre>
+<p>There, we fixed it! But didn’t our mommies tell us not to optimize prematurely? Oh well…</p>
+<h3 id="welcome-change">Welcome, change!</h3>
+<p>One day it turns out that we need to support not only Base64 encoding but also another one, called Quoted-Printable. With our current design, we cannot do that, because single encoding is shared between all messages. Thus, if we change the encoding for message that requires Quoted-Printable encoding, it will also change the encoding for the messages that require Base64. Thus, we constraint the composability with this premature optimization.</p>
+<h3 id="so-what-about-optimizations">So what about optimizations?</h3>
+<p>So, are we doomed to return to the previous solution to have one encoding per message? What if this really becomes a performance of memory problem? Is our observation that we don’t need to create the same encoding many times useless?</p>
+<p>Not at all. We can still use this observation and get a lot (albeit not all) of the benefits of static field. How do we do it? Well, we already answered this question few chapters ago - create a single instance of each encoding in composition root and pass it to each message in constructor.</p>
+<p>Let’s examine this solution. First, we need to create the encodings in the composition root:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">//...other initialization</span>
+
+var base64Encoding = <span class="kw">new</span> <span class="fu">Base64Encoding</span>();
+var quotedPrintableEncoding = <span class="kw">new</span> <span class="fu">QuotedPrintableEncoding</span>();
+
+<span class="co">//...other initialization</span></code></pre>
+<p>Now, in our case, we need to create new messages dynamically, one demand, so we need a factory for them. We will also instantiate this factory in the composition root and pass both encodings inside:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">//...other initialization</span>
+
+var messageFactory 
+  = <span class="kw">new</span> <span class="fu">StmpMessageFactory</span>(base64Encoding, quotedPrintableEncoding);
+
+<span class="co">//...other initialization</span></code></pre>
+<p>The factory itself, when asked to create a message with a given encoding, will just pass the single instances passed from composition root:</p>
+<p>TODO hard to compose. The only choice - static setter.</p>
+<h3 id="where-they-dont-work">Where they don’t work</h3>
+<h3 id="better-solution---pass-through-constructor">better solution - pass through constructor</h3>
+<h3 id="todo-disposing-of-statics---who-is-the-owner-include-in-static-setter">TODO disposing of statics - who is the owner (include in static setter)</h3>
+<h3 id="where-they-work---readonly-constant-value-objects">Where they work - readonly constant value objects</h3>
 <h2 id="no-work-in-constructors">No work in constructors</h2>
 <p>A conclusion from</p>
 <p>TODO give open connection instead of opening it in constructor TODO validation - put in factories, except nulls - an object requires valid peers. http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/</p>
-<p>TODO independent deployability</p>
+<p>TODO static collaborators - not context independent - each service cannot obtain its own context, but rather context is forced on them. TODO independent deployability</p>
 <p>TODO principle at different level of abstraction - single level of abstraction principle</p>
 <p>TODO small amount of private methods</p>
 <p>TODO how are we to determine responsibility? From experience: we know to count something in hours, not minutes. Second way: composition becomes awkward. Third way: tests (Statements) will tell us.</p>
