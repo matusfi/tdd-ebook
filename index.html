@@ -137,14 +137,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#summary-7">Summary</a></li>
 </ul></li>
 <li><a href="#classes">Classes</a><ul>
-<li><a href="#single-responsibility">Single Responsibility</a></li>
+<li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
 <li><a href="#static-recipients">Static recipients</a></li>
-<li><a href="#no-work-in-constructors">No work in constructors</a></li>
-</ul></li>
-<li><a href="#value-objects">Value Objects</a><ul>
 <li><a href="#example-problem">Example problem</a></li>
 </ul></li>
-<li><a href="#refactoring-object-composition">Refactoring Object Composition</a></li>
 <li><a href="#mock-objects">Mock Objects</a></li>
 </ul>
 </div>
@@ -3226,11 +3222,22 @@ alarm = <span class="kw">new</span> <span class="fu">LoudAlarm</span>(); </code>
     <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
   )
 )</code></pre>
-<p>And, last but not least, we could completely remove all alarms from the guards building using the following code:</p>
+<p>And, last but not least, we could completely remove all alarms from the guards building using the following <code>NoAlarm</code> class (which is also an <code>Alarm</code>):</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> NoAlarm : Alarm
+{
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Trigger</span>()
+  {
+  }
+
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Disable</span>()
+  {
+  }
+}</code></pre>
+<p>and passing it as the alarm to guards building:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
   <span class="kw">new</span> <span class="fu">NoAlarm</span>()
 )</code></pre>
-<p>Noticed something funny about the last few examples? If not, here goes an explanation: in the last few examples, we have twisted the behaviors of our application in wacky ways, but all of this took place in the composition code! We did not have to modify any other existing classes! True, we had to write a new class called <code>NoAlarm</code>, but did not need to modify any other code than the composition code to make objects if this new class work with objects of existing classes!</p>
+<p>Noticed something funny about the last few examples? If not, here goes an explanation: in the last few examples, we have twisted the behaviors of our application in wacky ways, but all of this took place in the composition code! We did not have to modify any other existing classes! True, we had to write a new class called <code>NoAlarm</code>, but did not need to modify any other code than the composition code to make objects of this new class work with objects of existing classes!</p>
 <p>This ability to change the behavior of our application just by changing the way objects are composed together is extremely powerful (although you will always be able to achieve it only to certain extent), especially in evolutionary, incremental design, where we want to evolve some pieces of code with as little as possible other pieces of code having to realize that the evolution takes place. This ability can be achieved only if our system consists of composable objects, thus the need for composability – an answer to a question raised at the beginning of this chapter.</p>
 <h2 id="summary-are-you-still-with-me">Summary – are you still with me?</h2>
 <p>We started with what seemed to be a repetition from basic object oriented programming course, using a basic example. It was necessary though to make a fluent transition to the benefits of composability we eventually introduced at the end. I hope you did not get overwhelmed and can understand now why I am putting so much stress on composability.</p>
@@ -4607,18 +4614,23 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <h2 id="summary-7">Summary</h2>
 <p>In this lengthy chapter I tried to show you the often underrated value of designing communication protocols between objects. They are not a “nice thing to have”, but rather a fundamental part of the design approach that makes mock objects useful, as you will see when finally we get to them. But first, I need you to swallow few more object-oriented design ideas. I promise it will pay off.</p>
 <h1 id="classes">Classes</h1>
-<p>We already covered interfaces and protocols. In our quest for composability, We need to look at classes as well.</p>
-<p>Classes implement and use interfaces, and communicate using protocols, so it may seem we are already done with them. The truth is that classes are still interesting on their own and there are few concepts related to them that need explanation.</p>
-<h2 id="single-responsibility">Single Responsibility</h2>
-<p>I already said that we want our system to be a web of composable objects. Obviously, an object is a granule of composability - we cannot e.g. unplug a half of an object and plug in another half. Thus, a valid question to ask is this: how big should an object be to make the composability comfortable - to let us unplug as much logic as we want, leaving the rest untouched and ready tow rok with the new things we plug in.</p>
-<p>The answer comes with a Single Responsibility Principle for classes<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>, that basically says<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>:</p>
+<p>We already covered interfaces and protocols. In our quest for composability, We need to look at classes as well. Classes:</p>
+<ul>
+<li>implement interfaces (i.e. play roles)</li>
+<li>communicate through interfaces to other services</li>
+<li>follow protocols in this communication</li>
+</ul>
+<p>So in a way, what is “inside” a class is a byproduct of how objects of this class acts on the “outside”. Still, it does not mean there is nothing to say about classes themselves that contributes to better composability.</p>
+<h2 id="single-responsibility-principle">Single Responsibility Principle</h2>
+<p>I already said that we want our system to be a web of composable objects. Obviously, an object is a granule of composability - we cannot e.g. unplug a half of an object and plug in another half. Thus, a valid question to ask is: how big should an object be to make the composability comfortable - to let us unplug as much logic as we want, leaving the rest untouched and ready to work with the new recipients we plug in?</p>
+<p>The answer comes with a <em>Single Responsibility Principle</em> (in short: SRP) for classes<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>, which basically says<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>:</p>
 <blockquote>
 <p>A code of a Class should have only one reason to change.</p>
 </blockquote>
-<p>There has been a lot written about the principle on the web, so I am not going to be wiser than google. Still, I believe it is useful to explain this principle in terms of composability.</p>
-<p>Usually, the hard part about this principle is the what is “a reason to change”. Robert C. Martin explains<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> that this is about a single source of entropy that generates changes to the class. And we will study it on an example we already know.</p>
+<p>There has been a lot written about the principle on the web, so I am not going to be wiser than your favourite web search engine (my recent search yielded over 74 thousands results). Still, I believe it is useful to explain this principle in terms of composability.</p>
+<p>Usually, the hard part about this principle is how to understand “a reason to change”. Robert C. Martin explains<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> that this is about a single source of entropy that generates changes to the class. Which leads us to another trouble of defining a “source of entropy”. So I think it’s better to just give you an example.</p>
 <h3 id="separating-responsibilities">Separating responsibilities</h3>
-<p>Remember the code Johnny and Benjamin used to apply incentine plans to employees? In case not, here it is (it’s just a single method, but it will suffice):</p>
+<p>Remember the code Johnny and Benjamin used to apply incentive plans to employees? In case you don’t, here it is (it’s just a single method, not a whole class, but it should be enough for our needs):</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyYearlyIncentivePlan</span>()
 {
   var employees = _repository.<span class="fu">CurrentEmployees</span>();
@@ -4630,8 +4642,8 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
     employee.<span class="fu">Save</span>();
   }
 }</code></pre>
-<p>So… how many reasons to change does this piece of code have? If “reason to change” was defined as a “way to change”, there would be multiple such ways. For example, someone may decide that we are not giving raises anymore and the <code>employee.EvaluateRaise()</code> line would be gone. Likewise, a decision could be made that we are not giving bonuses, then the <code>employee.EvaluateBonus()</code> line would have to be removed. So, there are undoubtedly many ways this method could change. But would it be for different reasons? Actually, no. The reason in both cases would be that the CEO approved a new incentive plan. So, there is one reason to change, although there are many ways the code can change.</p>
-<p>Now happens the more interesting discussion: what about saving the employees - is the reason for changing the way we save employees the same as for the bonuses and pays? For example, we may decide that we are not saving each employee separately, because it would cause a huge load on our data store, but instead, we will save them together in a single batch. This causes the code to change, e.g. like this:</p>
+<p>So… how many reasons to change does this piece of code have? If we weren’t talking about “reason to change” but simply a “change”, the answer would be “many”. For example, someone may decide that we are not giving raises anymore and the <code>employee.EvaluateRaise()</code> line would be gone. Likewise, a decision could be made that we are not giving bonuses, then the <code>employee.EvaluateBonus()</code> line would have to be removed. So, there are undoubtedly many ways this method could change. But would it be for different reasons? Actually, no. The reason in both cases would be (probably) that the CEO approved a new incentive plan. So, there is one “source of entropy” for these two changes, although there are many ways the code can change. Hence, the two changes are for the same reason.</p>
+<p>Now the more interesting part of the discussion: what about saving the employees - is the reason for changing how we save employees the same as for the bonuses and pays? For example, we may decide that we are not saving each employee separately, because it would cause a huge performance load on our data store, but instead, we will save them together in a single batch after we finish processing the last one. This causes the code to change, e.g. like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyYearlyIncentivePlan</span>()
 {
   var employees = _repository.<span class="fu">CurrentEmployees</span>();
@@ -4642,9 +4654,10 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
     employee.<span class="fu">EvaluateBonus</span>();
   }
   
+  <span class="co">//now all employees saved once</span>
   _repository.<span class="fu">SaveAll</span>(employees);
 }</code></pre>
-<p>So, as you might’ve already guessed, the reason for this change is different, thus, it is a separate responsibility and the logic for reading and storing employees should be separated from this class. The method would look something like this:</p>
+<p>So, as you might’ve already guessed, the reason for this change is different as for changing incentive plan, thus, it is a separate responsibility and the logic for reading and storing employees should be separated from this class. The method after the separation would look something like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyYearlyIncentivePlanTo</span>(IEnumerable&lt;Employee&gt; employees)
 {
   <span class="fu">foreach</span>(var employee in employees)
@@ -4653,7 +4666,7 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
     employee.<span class="fu">EvaluateBonus</span>();
   }
 }</code></pre>
-<p>Reading and writing would be handled by different code - thus, the responsibilities are separated. Do we now have a code that adheres to Single Reponsibility Principle? We may, but consider this situation: the evaluation of the raises and bonuses begins getting slow and, instead of doing this for all employees in a <code>for</code> loop, we would rather parallelize it. After this change, the code could look like this (this will the the C# parallel looping):</p>
+<p>In the example above, we moved reading and writing employees out, so that it is handled by different code - thus, the responsibilities are separated. Do we now have a code that adheres to Single Reponsibility Principle? We may, but consider this situation: the evaluation of the raises and bonuses begins getting slow and, instead of doing this for all employees in a sequential <code>for</code> loop, we would rather parallelize it to process every employee at the same time in a separate thread. After applying this change, the code could look like this (This uses C#-specific API for parallel looping, but I hope you get the idea):</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyYearlyIncentivePlanTo</span>(IEnumerable&lt;Employee&gt; employees)
 {
   Parallel.<span class="fu">ForEach</span>(employees, employee =&gt;
@@ -4662,26 +4675,27 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
     employee.<span class="fu">EvaluateBonus</span>();
   });
 }</code></pre>
-<p>Is this a new reason to change? Of course it is! So, we may say we have encountered another responsibility and separate it. The code looks like this now:</p>
+<p>Is this a new reason to change? Of course it is! Decisions on parallelizing processing come from different source than incentive plan modifications. So, we may say we encountered another responsibility and separate it. The code that remains in the <code>ApplyYearlyIncentivePlanTo()</code> method looks like this now:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ApplyYearlyIncentivePlanTo</span>(Employee employee)
 {
   employee.<span class="fu">EvaluateRaise</span>();
   employee.<span class="fu">EvaluateBonus</span>();
 }</code></pre>
-<p>The looping, which is a separate responsibility, is handled by a different class.</p>
+<p>The looping, which is a separate responsibility, is now handled by a different class.</p>
 <h3 id="how-far-do-we-go">How far do we go?</h3>
 <p>The above example begs some questions:</p>
 <ol style="list-style-type: decimal">
-<li>Is there a point where we are sure we have separated all responsibilities?</li>
-<li>If there is, how can we be sure we have reached it?</li>
+<li>Can we reach a point where we have separated all responsibilities?</li>
+<li>If we can, how can we be sure we have reached it?</li>
 </ol>
-<p>The answer to the first question is: probably no. While some reasons to change are common sense, others can be drawn from our experience as developers, there are always some that are unexpected and until they surface, we cannot foresee them. Thus, the answer for the second question is: “there is no way”. Which does not mean we should not try to separate the different reasons we see - quite the contrary.</p>
-<p>I like the comparison to our usage of time in real life. Brewing time of black tea is usually around three to five minutes. This is what is printed on the package we buy: “3 — 5 minutes”. Nobody gives the time in seconds, because such granularity is not needed. If seconds made a difference in the process of brewing tea, we would probably be given time in seconds. But they don’t. When we estimate tasks in software engineering, we also use different time granularity depending on the need.</p>
-<p>A simplest software program that prints “hello world” on the screen may fit into a single “main” method we will probably not see it as several responsibilities. But as soon as we get a requirement to write “hello world” in a native language of the currently running operating system, obtaining the text becomes a separate responsibility from putting it on the screen. It all depends on what granularity we need at the moment (which, as I said, may be spotted from code or, in some cases, known up-front from our experience as developers).</p>
+<p>The answer to the first question is: probably no. While some reasons to change are common sense, and others can be drawn from our experience as developers or knowledge about the domain of the problem, there are always some that are unexpected and until they surface, we cannot foresee them. Thus, the answer for the second question is: “there is no way”. Which does not mean we should not try to separate the different reasons we see - quite the contrary. We just don’t get overzealous trying to predict every possible change.</p>
+<p>I like the comparison of responsibilities to our usage of time in real life. Brewing time of black tea is usually around three to five minutes. This is what is usually printed on the package we buy: “3 — 5 minutes”. Nobody gives the time in seconds, because such granularity is not needed. If seconds made a noticeable difference in the process of brewing tea, we would probably be given time in seconds. But they don’t. When we estimate tasks in software engineering, we also use different time granularity depending on the need<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a> and the granularity becomes finer as we reach a point where the smaller differences matter more.</p>
+<p>Likewise, a simplest software program that prints “hello world” on the screen may fit into a single “main” method and we will probably not see it as several responsibilities. But as soon as we get a requirement to write “hello world” in a native language of the currently running operating system, obtaining the text becomes a separate responsibility from putting it on the screen. It all depends on what granularity we need at the moment (which, as I said, may be spotted from code or, in some cases, known up-front from our experience as developers or domain knowledge).</p>
 <h3 id="the-mutual-relationship-between-single-responsibility-principle-and-composability">The mutual relationship between Single Responsibility Principle and composability</h3>
-<p>The reason I am writing all this is that responsibilities are the real granules of composability. The composability of objects that I talked about a lot already is actually a mean to achieve composability of responsibilities, which is our real goal. If we have two collaborating objects, each having a single responsibility, we can easily replace the way our application achieves one of these responsibilities without touching the other. Thus, objects conforming to SRP are the most comfortably composable. As the real reason for change in application is the change of responsibilities and the real reuse is reuse of responsibilities, this is a concept that determines the size of our objects<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>.</p>
+<p>The reason I am writing all this is that responsibilities are the real granules of composability. The composability of objects that I have talked about a lot already is actually a mean to achieve composability of responsibilities. So, this is what’s our real goal. If we have two collaborating objects, each having a single responsibility, we can easily replace the way our application achieves one of these responsibilities without touching the other. Thus, objects conforming to SRP are the most comfortably composable and the right size.<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>.</p>
 <h2 id="static-recipients">Static recipients</h2>
-<p>While static fields may sometimes seem like a good idea of “sharing” recipient references between objects of the same class and something that is more “memory efficient”, they actually hurt composability. Let’s take a look at a simple example to get a feeling of how this may be.</p>
+<p>While static fields in a class body may sometimes seem like a good idea of “sharing” recipient references between its instances and smart way to make the code more “memory efficient”, they actually hurt composability more often than not. Let’s take a look at a simple example to get a feeling of how static fields constraint our design.</p>
+<p>TODO</p>
 <h3 id="smtp-server">SMTP Server</h3>
 <p>Let’s consider a scenario where we need to write an e-mail server that receives and send SMTP messages. In our code, have an <code>OutboundSmtpMessage</code> class which symbolizes SMTP messages we send to other parties. To send the message, we need to encode it. We always use a Base64 encoding, so we have the class <code>OutboundSmtpMessage</code> declare a private field of type <code>Base64Encoding</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> OutboundSmtpMessage
@@ -4703,7 +4717,7 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 }</code></pre>
 <p>There, we fixed it! But didn’t our mommies tell us not to optimize prematurely? Oh well…</p>
 <h3 id="welcome-change">Welcome, change!</h3>
-<p>One day it turns out that we need to support not only Base64 encoding but also another one, called Quoted-Printable. With our current design, we cannot do that, because single encoding is shared between all messages. Thus, if we change the encoding for message that requires Quoted-Printable encoding, it will also change the encoding for the messages that require Base64. Thus, we constraint the composability with this premature optimization.</p>
+<p>One day it turns out that we need to support not only Base64 encoding but also another one, called Quoted-Printable. With our current design, we cannot do that, because single encoding is shared between all messages. Thus, if we change the encoding for message that requires Quoted-Printable encoding, it will also change the encoding for the messages that require Base64. Thus, we constraint the composability with this premature optimization. Any instance of such class is not context-independent - it cannot obtain its own context, but rather, context is forced on it.</p>
 <h3 id="so-what-about-optimizations">So what about optimizations?</h3>
 <p>So, are we doomed to return to the previous solution to have one encoding per message? What if this really becomes a performance of memory problem? Is our observation that we don’t need to create the same encoding many times useless?</p>
 <p>Not at all. We can still use this observation and get a lot (albeit not all) of the benefits of static field. How do we do it? Well, we already answered this question few chapters ago - create a single instance of each encoding in composition root and pass it to each message in constructor.</p>
@@ -4752,19 +4766,12 @@ var messageFactory
 <p>The performance and memory saving is not exactly as big as when using a static field (e.g. each <code>SmtpMessage</code> instance uses must store a separate reference to the received encoding), but it is still a huge improvement over creating a separate encoding for each message.</p>
 <h3 id="where-statics-work">Where statics work?</h3>
 <p>What I wrote does not mean that statics do not have their uses. They do, but these uses are very specific. I will show you one of such uses in the next chapters after I introduce value objects.</p>
-<h2 id="no-work-in-constructors">No work in constructors</h2>
-<p>A constructor of a class should do little or no work. This is a conclusion from Single Responsibility Principle and also enhances composability.</p>
-<p>If, aside from implementing the methods a class exposes, you feel you need to do additional work in a constructor, that may be a sign that this “additional work” changes for other reason than the main logic. Thus it should be put elsewhere.</p>
-<h3 id="what-can-a-constructor-do">What can a constructor do?</h3>
-<p>Most of the times, we can get away using the following guideline: assigning fields or null checks.</p>
-<h3 id="what-a-constructor-cannot-do">What a constructor cannot do?</h3>
-<p>if it does too much, it means it’s a separate responsibility. Move it to the factory.</p>
-<p>TODO give open connection instead of opening it in constructor TODO validation - put in factories, except nulls - an object requires valid peers. http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/</p>
-<p>TODO static collaborators - not context independent - each service cannot obtain its own context, but rather context is forced on them. TODO independent deployability</p>
-<p>TODO principle at different level of abstraction - single level of abstraction principle</p>
-<p>TODO small amount of private methods</p>
-<p>TODO how are we to determine responsibility? From experience: we know to count something in hours, not minutes. Second way: composition becomes awkward. Third way: tests (Statements) will tell us.</p>
-<h1 id="value-objects">Value Objects</h1>
+<ol style="list-style-type: decimal">
+<li>Factory method</li>
+<li>variadic covering method – creating collection using variadic parameter method</li>
+<li>variable as terminator</li>
+<li>Explaining method (i.e. returns its argument. Use with care) # Value Objects</li>
+</ol>
 <p>Hi, today I’m gonna tell a bit about value objects, why they’re so useful and what rules apply to creating and using them. This post is inspired by some work by Kent Beck, Steve Freeman and Nat Pryce.</p>
 <h2 id="example-problem">Example problem</h2>
 <p>Imagine you’re developing a web shop for your customer. There are different kinds of products sold and your customers have the ability to add new products.</p>
@@ -5013,13 +5020,6 @@ and this operation would create a new product name instead of modifying any of t
 <p>And it’s a nice one to remember, especially because we often tend to model such values as a library types and wake up when it’s already too late to make the transition to value object effectively. I’m an example of this and that’s why I re-learned this principle by hard many times.</p>
 <p>And that’s it for today. I’ll be happy to hear your thoughts. Until then, see ya!</p>
 <p>TODO talk about static const value objects. const can be used only for types that have literals. Thus static readonly is used.</p>
-<h1 id="refactoring-object-composition">Refactoring Object Composition</h1>
-<ol style="list-style-type: decimal">
-<li>Factory method</li>
-<li>variadic covering method – creating collection using variadic parameter method</li>
-<li>variable as terminator</li>
-<li>Explaining method (i.e. returns its argument. Use with care)</li>
-</ol>
 <h1 id="mock-objects">Mock Objects</h1>
 <div class="footnotes">
 <hr />
@@ -5043,7 +5043,8 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn17"><p>This principle can be applied to methods as well, but we are not going to cover this part, because it is not directly tied to the notion of composability and this is not a design book ;-).<a href="#fnref17">↩</a></p></li>
 <li id="fn18"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref18">↩</a></p></li>
 <li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref19">↩</a></p></li>
-<li id="fn20"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref20">↩</a></p></li>
+<li id="fn20"><p>Provided we are not using a measure such as story points. #Refactoring Object Composition<a href="#fnref20">↩</a></p></li>
+<li id="fn21"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref21">↩</a></p></li>
 </ol>
 </div>
 </body>
