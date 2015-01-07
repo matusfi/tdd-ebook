@@ -139,6 +139,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#classes">Classes</a><ul>
 <li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
 <li><a href="#static-recipients">Static recipients</a></li>
+<li><a href="#summary-8">Summary</a></li>
 </ul></li>
 <li><a href="#refactoring-object-composition">Refactoring Object Composition</a><ul>
 <li><a href="#example-problem">Example problem</a></li>
@@ -4774,6 +4775,8 @@ var messageFactory
 <p>The performance and memory saving is not exactly as big as when using a static field (e.g. each <code>OutboundSmtpMessage</code> instance uses must store a separate reference to the received encoding), but it is still a huge improvement over creating a separate encoding object per message.</p>
 <h3 id="where-statics-work">Where statics work?</h3>
 <p>What I wrote does not mean that statics do not have their uses. They do, but these uses are very specific. I will show you one of such uses in the next chapters after I introduce value objects.</p>
+<h2 id="summary-8">Summary</h2>
+<p>In this chapter, I tried to give you some advice on designing classes that does not come so naturally from the concept of composability and interactions as those described in previous chapters. Still, as I hope I was able to show, they enhance composability and are valuable to us.</p>
 <h1 id="refactoring-object-composition">Refactoring Object Composition</h1>
 <ol style="list-style-type: decimal">
 <li>Factory method</li>
@@ -5021,7 +5024,7 @@ and this operation would create a new product name instead of modifying any of t
   }
 }</code></pre>
 <p>This will probably require changes to the rest of the code base but the change will be for different reason (i.e. that we want to display product identifiers on web page and print them on the invoice), which is OK, since they’re connected to responsibilities beyond those of product name.</p>
-<h3 id="summary-8">Summary</h3>
+<h3 id="summary-9">Summary</h3>
 <p>By examining the above example, we can see the following principle emerging:</p>
 <blockquote>
 <p>When you give a value a name that belongs to the problem domain, it means that its type should be a separate domain-specific class which is under your control instead of a general-purpose library class that’s out of your control.</p>
@@ -5053,7 +5056,7 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn18"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref18">↩</a></p></li>
 <li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref19">↩</a></p></li>
 <li id="fn20"><p>Provided we are not using a measure such as story points.<a href="#fnref20">↩</a></p></li>
-<li id="fn21"><p>note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref21">↩</a></p></li>
+<li id="fn21"><p>Note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref21">↩</a></p></li>
 <li id="fn22"><p>SMTP stands for Simple Mail Transfer Protocol and is a standard protocol for sending and receiving e-mail. You can read more on <a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Wikipedia</a>.<a href="#fnref22">↩</a></p></li>
 </ol>
 </div>
