@@ -135,12 +135,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</a></li>
 <li><a href="#getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</a></li>
 <li><a href="#summary-7">Summary</a></li>
-</ul></li>
-<li><a href="#classes">Classes</a><ul>
 <li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
 <li><a href="#static-recipients">Static recipients</a></li>
 <li><a href="#summary-8">Summary</a></li>
 </ul></li>
+<li><a href="#this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</a></li>
 <li><a href="#refactoring-object-composition">Refactoring Object Composition</a><ul>
 <li><a href="#example-problem">Example problem</a></li>
 </ul></li>
@@ -4616,7 +4615,6 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <p>When we are not forced to return anything, we are more free to do as we like. Again, “Tell, don’t ask”.</p>
 <h2 id="summary-7">Summary</h2>
 <p>In this lengthy chapter I tried to show you the often underrated value of designing communication protocols between objects. They are not a “nice thing to have”, but rather a fundamental part of the design approach that makes mock objects useful, as you will see when finally we get to them. But first, I need you to swallow few more object-oriented design ideas. I promise it will pay off.</p>
-<h1 id="classes">Classes</h1>
 <p>We already covered interfaces and protocols. In our quest for composability, We need to look at classes as well. Classes:</p>
 <ul>
 <li>implement interfaces (i.e. play roles)</li>
@@ -4777,6 +4775,7 @@ var messageFactory
 <p>What I wrote does not mean that statics do not have their uses. They do, but these uses are very specific. I will show you one of such uses in the next chapters after I introduce value objects.</p>
 <h2 id="summary-8">Summary</h2>
 <p>In this chapter, I tried to give you some advice on designing classes that does not come so naturally from the concept of composability and interactions as those described in previous chapters. Still, as I hope I was able to show, they enhance composability and are valuable to us.</p>
+<h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h1>
 <h1 id="refactoring-object-composition">Refactoring Object Composition</h1>
 <ol style="list-style-type: decimal">
 <li>Factory method</li>
@@ -5051,7 +5050,7 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn13"><p>Scott Bain, Emergent Design<a href="#fnref13">↩</a></p></li>
 <li id="fn14"><p>This topic is outside the scope of the book, but you can take a look at: M. Fowler, Domain-Specific Languages, Addison-Wesley 2010<a href="#fnref14">↩</a></p></li>
 <li id="fn15"><p>This is sometimes called Feature Envy. It means that a class is more interested in other class’ data than in its own.<a href="#fnref15">↩</a></p></li>
-<li id="fn16"><p>We can even further refactor this into a state machine using a Gang of Four <em>State</em> pattern. There would be two states in such a state machine: started and expired. # THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL<a href="#fnref16">↩</a></p></li>
+<li id="fn16"><p>We can even further refactor this into a state machine using a Gang of Four <em>State</em> pattern. There would be two states in such a state machine: started and expired. # Classes<a href="#fnref16">↩</a></p></li>
 <li id="fn17"><p>This principle can be applied to methods as well, but we are not going to cover this part, because it is not directly tied to the notion of composability and this is not a design book ;-).<a href="#fnref17">↩</a></p></li>
 <li id="fn18"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref18">↩</a></p></li>
 <li id="fn19"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref19">↩</a></p></li>
