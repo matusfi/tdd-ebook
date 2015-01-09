@@ -4727,21 +4727,21 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <p>Let’s examine this solution. First, we need to create one of each encoding in the composition root, like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="co">// We are in a composition root!</span>
 
-<span class="co">//...other initialization</span>
+<span class="co">//...some initialization</span>
 
 var base64Encoding = <span class="kw">new</span> <span class="fu">Base64Encoding</span>();
 var quotedPrintableEncoding = <span class="kw">new</span> <span class="fu">QuotedPrintableEncoding</span>();
 
-<span class="co">//...other initialization</span></code></pre>
+<span class="co">//...some more initialization</span></code></pre>
 <p>Ok, encodings are created, but we still have to pass them to the messages. In our case, we need to create new <code>OutboundSmtpMessage</code> object at the time we need to send a new message, i.e. on demand, so we need a factory to produce the message objects. This factory can (and should) be created in the composition root. When we create the factory, we can pass both encodings to its constructor as global context (remember that factories encapsulate global context?):</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="co">// We are in a composition root!</span>
 
-<span class="co">//...other initialization</span>
+<span class="co">//...some initialization</span>
 
 var messageFactory 
   = <span class="kw">new</span> <span class="fu">StmpMessageFactory</span>(base64Encoding, quotedPrintableEncoding);
 
-<span class="co">//...other initialization</span></code></pre>
+<span class="co">//...some more initialization</span></code></pre>
 <p>The factory itself can be used for the on-demand message creation that we talked about. As the factory receives both encodings via its constructor, it can store them as private fields and pass whichever one is appropriate to a message object it creates:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SmtpMessageFactory : MessageFactory
 {
