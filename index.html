@@ -2646,7 +2646,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
   }
 }</code></pre>
 <p><strong>Benjamin:</strong> Wow, there is a lot of literal constants all around and functional decomposition is barely done!</p>
-<p><strong>Johnny:</strong> Yeah. We won’t be fixing all of that today. Still, we will follow the scout rule and “leave the campground cleaner than we found it”.</p>
+<p><strong>Johnny:</strong> Yeah. We won’t be fixing all of that today. Still, we will follow the boy scout rule and “leave the campground cleaner than we found it”.</p>
 <p><strong>Benjamin:</strong> What’s our assignment?</p>
 <p><strong>Johnny:</strong> First of all, we need to provide our users a choice between an SQL database and a NoSQL one. To achieve our goal, we need to be somehow able to make the <code>CompanyPolicies</code> class database type-agnostic. For now, as you can see, the implementation is coupled to the specific <code>SqlRepository</code>, because it creates a specific instance itself:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> CompanyPolicies : IDisposable
@@ -2670,7 +2670,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
       _repository = <span class="kw">new</span> <span class="fu">NoSqlRepository</span>();
     }
   }</code></pre>
-<p><strong>Johnny:</strong> True, but this option has few deficiencies. First of all, remember we’re trying to follow the scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let’s say tomorrow someone writes another class for, say, reporting and this class will also need to access the repository – they will need to make the same decision on repositories in their code as we do in ours. This effectively means duplicating code. Thus, I’d rather evaluate further options and check if we can come up with something better. What’s our next option?</p>
+<p><strong>Johnny:</strong> True, but this option has few deficiencies. First of all, remember we’re trying to follow the boy scout rule and by using this option we introduce more complexity to the CommonPolicies class. Also, let’s say tomorrow someone writes another class for, say, reporting and this class will also need to access the repository – they will need to make the same decision on repositories in their code as we do in ours. This effectively means duplicating code. Thus, I’d rather evaluate further options and check if we can come up with something better. What’s our next option?</p>
 <p><strong>Benjamin:</strong> Another option would be to change the SqlRepository itself to be just a wrapper around the actual database access, like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SqlRepository : IDisposable
 {
@@ -2836,7 +2836,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
 </ol>
 <p>the implementation of some of the steps will be different for each type of employee.</p>
 <p><strong>Benjamin:</strong> Correct me if I am wrong, but these “load” and “save” steps do not look like they belong with the remaining two – they describe something technical, while the other steps describe something strictly related to how the company operates…</p>
-<p><strong>Johnny:</strong> Good catch, however, this is something we’ll deal with later. Remember the scout rule – just don’t make it worse. Still, we’re going to fix some of the design flaws today.</p>
+<p><strong>Johnny:</strong> Good catch, however, this is something we’ll deal with later. Remember the boy scout rule – just don’t make it worse. Still, we’re going to fix some of the design flaws today.</p>
 <p><strong>Benjamin:</strong> Aww… I’d just fix all of it right away.</p>
 <p><strong>Johnny:</strong> Ha ha, patience, Luke. For now, let’s look at the code we have now before we plan further steps.</p>
 <p><strong>Benjamin:</strong> Let me just open my IDE… OK, here it is:</p>
@@ -2992,7 +2992,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
 <p>As you see, by asking the objects less, and telling it more, we get greater flexibility to create alternative implementations and the composability, which we talked about yesterday, increases!</p>
 <p><strong>Benjamin:</strong> I see… So telling objects what to do instead of asking them for their data makes the interactions between objects more abstract, and so, more stable, increasing composability of interacting objects. This is a valuable lesson – it is the first time I hear this and it seems a pretty powerful concept.</p>
 <h2 id="a-quick-retrospective-1">A Quick Retrospective</h2>
-<p>In this chapter, Benjamin learned that the composability of objects (not to mention clarity) is reinforced when interactions between them are: abstract, logical and stable. Also, he discovered, with Johnny’s help, that it is further strengthened by following a design style where objects are told what to do instead of asked to give away information to somebody who the makes the decision on their behalf. This is because if an API of an abstraction is built around answering to specific questions, the clients of the abstraction tend to ask it a lot of questions an are coupled to both those questions and some aspects of the answers (i.e. what it in the return values). This makes creating another implementation of abstraction harder, because each new implementation of the abstraction needs to not only provide answers to all those questions, but the answers are constrained to what the client expects. When abstraction is merely told what its client wants it to achieve, the clients is decoupled from most of the details of how this happens. This makes introducing new implementations of abstraction easier – it often even lets us define implementations with all methods empty without the client noticing at all.</p>
+<p>In this chapter, Benjamin learned that the composability of objects (not to mention clarity) is reinforced when interactions between them are: abstract, logical and stable. Also, he discovered, with Johnny’s help, that it is further strengthened by following a design style where objects are told what to do instead of asked to give away information to somebody who then makes the decision on their behalf. This is because if an API of an abstraction is built around answering to specific questions, the clients of the abstraction tend to ask it a lot of questions and are coupled to both those questions and some aspects of the answers (i.e. what is in the return values). This makes creating another implementation of abstraction harder, because each new implementation of the abstraction needs to not only provide answers to all those questions, but the answers are constrained to what the client expects. When abstraction is merely told what its client wants it to achieve, the clients are decoupled from most of the details of how this happens. This makes introducing new implementations of abstraction easier – it often even lets us define implementations with all methods empty without the client noticing at all.</p>
 <p>These are all important conclusions that will lead us towards TDD with mock objects.</p>
 <p>Time to leave Johnny and Benjamin for now. In the next chapter, I’m going to reiterate on their discoveries and put them in a broader context.</p>
 <h1 id="the-need-for-mock-objects">The need for mock objects</h1>
@@ -3000,7 +3000,7 @@ var anonymousInteger = fixture.<span class="fu">Create</span>&lt;<span class="dt
 <p>Mock objects were made with specific goal in mind. My hope is that when you understand the real goal, you will probably understand the means to the goal far better.</p>
 <p>In this chapter, we will explore the qualities of object oriented design which make mock objects a viable tool.</p>
 <h2 id="composability-again">Composability… again!</h2>
-<p>In the two previous chapters, we followed Johnny and Benjamin in discovering the benefits of and prerequisites for composability of objects. Actually, composability is number one quality of the design we’re after. After reading Johhny and Benjamin’s story, you might have some questions regarding composability. Hopefully, they are among the ones answered in the next few chapters. Ready?</p>
+<p>In the two previous chapters, we followed Johnny and Benjamin in discovering the benefits of and prerequisites for composability of objects. Actually, composability is the number one quality of the design we’re after. After reading Johhny and Benjamin’s story, you might have some questions regarding composability. Hopefully, they are among the ones answered in the next few chapters. Ready?</p>
 <h1 id="why-do-we-need-composability">Why do we need composability?</h1>
 <p>It might seem stupid to ask this question here – if you have managed to stay with me this long, then you’re probably motivated enough not to need a justification? Well, anyway, it’s still worth discussing it a little. Hopefully, you’ll learn as much reading this back-to-basics chapter as I did writing it.</p>
 <h2 id="pre-object-oriented-approaches">Pre-object oriented approaches</h2>
@@ -3412,7 +3412,7 @@ alarm = <span class="kw">new</span> <span class="fu">LoudAlarm</span>(); </code>
 <p>All we have to change is the composition code to remove the <code>Recipient</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="co">//no need to pass a reference to Recipient anymore</span>
 <span class="kw">new</span> <span class="fu">Sender</span>();</code></pre>
-<p>and the <code>Sender</code> class itself to work in a different way.</p>
+<p>and the <code>Sender</code> class itself will work in a different way.</p>
 <h4 id="communication-of-intent-required-recipient">Communication of intent: required recipient</h4>
 <p>Another advantage of the constructor approach is that if a reference to <code>Recipient</code> is required for a <code>Sender</code> to work correctly and it does not make sense to create a <code>Sender</code> without a <code>Recipient</code>, the signature of the constructor makes it explicit – the compiler will not let us create a <code>Sender</code> without passing <em>something</em> as a <code>Recipient</code>.</p>
 <h4 id="where-to-apply">Where to apply</h4>
@@ -3482,10 +3482,10 @@ sender.<span class="fu">DoSomethingWithHelpOf</span>(yetAnotherRecipient);</code
 <h4 id="factories-with-parameters">Factories with parameters</h4>
 <p>So far, all the factories we considered had creation methods with empty parameter list, but this is not required. As the factory remains the decision maker on which <code>Recipient</code> is used, it can rely on some external parameters to help it make the decision.</p>
 <h4 id="not-only-factories">Not only factories</h4>
-<p>Throughout this section, we have used a factory as our role model, but the approach of obtaining a recipient in response to a message is wider than that. Other types of objects that fall into this category include: repositories, caches, builders and collections.</p>
+<p>Throughout this section, we have used a factory as our role model, but the approach of obtaining a recipient in response to a message is wider than that. Other types of objects that fall into this category include: repositories, caches, builders and collections. [[I suggest to add quick explantions and references to these new presented important concepts]]</p>
 <h3 id="register-a-recipient-with-already-created-sender">Register a recipient with already created sender</h3>
-<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to convention “setWhatever()” – after Kent Beck<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> I find this convention too much implementation-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
-<p>Note that there is one similarity to “passing inside a message” approach – in both, a recipient is passed inside a message. The difference is that this time, contrary to “pass inside a message” approach, the passed recipient is not immediately used (and then forgotten), but rather only remembered (registered) for later use.</p>
+<p>This means passing a recipient to an <strong>already created</strong> sender (contrary to passing as constructor parameter where recipient was passed <strong>during</strong> creation) as a parameter of a method that stores the reference for later use. This may be a “setter” method, although I do not like naming it according to the convention “setWhatever()” – after Kent Beck<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> I find this convention too much implementation-focused instead of purpose-focused. Thus, I pick different names based on what domain concept is modeled by the registration method or what is its purpose.</p>
+<p>Note that there is one similarity to the “passing inside a message” approach – in both, a recipient is passed inside a message. The difference is that this time, contrary to “pass inside a message” approach, the passed recipient is not immediately used (and then forgotten), but rather only remembered (registered) for later use.</p>
 <p>I hope I can clear up the confusion with a quick example.</p>
 <h4 id="example-4">Example</h4>
 <p>Suppose we have a temperature sensor that can report its current and historically mean value to whoever subscribes with it. If no one subscribes, the sensor still does its job, because it still has to collect the data for calculating a history-based mean value in case anyone subscribes later.</p>
@@ -3520,9 +3520,9 @@ sender.<span class="fu">DoSomethingWithHelpOf</span>(yetAnotherRecipient);</code
     } 
   }
 }</code></pre>
-<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> for a default value instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few times before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) – <code>NullObserver</code> is just another incarnation of this pattern.</p>
+<p>As you can see, by default, the sensor reports its values to nowhere (<code>NullObserver</code>), which is a safe default value (using a <code>null</code> for a default value instead would cause exceptions or force us to put an ugly null check inside the <code>Run()</code> method). We have already seen such “null objects” a few levels before (e.g. in the previous chapter, when we introduced the <code>NoAlarm</code> class) – <code>NullObserver</code> is just another incarnation of this pattern. [[I thinks the “null object pattern” is quite a common name so can be mentioned]]</p>
 <h4 id="registering-observers">Registering observers</h4>
-<p>Still, we want to be able to supply our own observer one day, when we start caring about the measured and calculated values (the fact that we “started caring” may be indicated to our application e.g. by a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument. Here are the relevant parts of <code>TemperatureSensor</code> class:</p>
+<p>Still, we want to be able to supply our own observer one day, when we start caring about the measured and calculated values (the fact that we “started caring” may be indicated to our application e.g. by a network message or an event from the user interface). This means we need to have a method inside the <code>TemperatureSensor</code> class to overwrite this default “do-nothing” observer with a custom one <strong>after</strong> the <code>TemperatureSensor</code> instance is created. As I said, I do not like the “SetXYZ()” convention, so I will name the registration method <code>FromNowOnReportTo()</code> and make the observer an argument. Here are the relevant parts of the <code>TemperatureSensor</code> class:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> TemperatureSensor
 {
   <span class="kw">private</span> TemperatureObserver _observer 
@@ -3537,9 +3537,9 @@ sender.<span class="fu">DoSomethingWithHelpOf</span>(yetAnotherRecipient);</code
   
   <span class="co">//... ... ...</span>
 }</code></pre>
-<p>This lets us overwrite the observer with a new one should we ever need to do it. Note that, as I mentioned, this is the place where registration approach differs from the “pass inside a message” approach, where we also received a recipient in a message, but for immediate use. Here, we don’t use the recipient (i.e. the observer) when we get it, but instead we save it for later.</p>
+<p>This lets us overwrite the observer with a new one should we ever need to do it. Note that, as I mentioned, this is the place where registration approach differs from the “pass inside a message” approach, where we also received a recipient in a message, but for immediate use. Here, we don’t use the recipient (i.e. the observer) when we get it, but instead we save it for later use.</p>
 <h4 id="communication-of-intent-optional-dependency">Communication of intent: optional dependency</h4>
-<p>Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional – if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for <strong>required</strong> recipients – these should all be passed through constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”. Let’s practice – just look at how the following class members signatures talk to you:</p>
+<p>Allowing registering recipients after a sender is created is a way of saying: “the recipient is optional – if you provide one, fine, if not, I will do my work without it”. Please, do not use this kind of mechanism for <strong>required</strong> recipients – these should all be passed through a constructor, making it harder to create invalid objects that are only partially ready to work. Placing a recipient in a constructor signature is effectively saying that “I will not work without it”. Let’s practice – just look at how the following class members signatures talk to you:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Sender
 {
   <span class="co">//&quot;I will not work without a Recipient1&quot;</span>
@@ -3551,7 +3551,7 @@ sender.<span class="fu">DoSomethingWithHelpOf</span>(yetAnotherRecipient);</code
   <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Register</span>(Recipient2 recipient2) {...}
 }</code></pre>
 <h4 id="more-than-one-observer">More than one observer</h4>
-<p>Now, the observer API we just skimmed over gives us the possibility to have a single observer at any given time. When we register a new observer, the reference to the old one is overwritten. This is not really useful in our context, is it? With real sensors, we often want them to report their measurements to multiple places (e.g. we want the measurements printed on screen, saved to database, used as part of more complex calculations). This can be achieved in two ways.</p>
+<p>[[Also here I think it is worth mentioning that this is the observer pattern. Also that for more complex scenarion there are messaging, pubsub etc. frameworks and patterns]] Now, the observer API we just skimmed over gives us the possibility to have a single observer at any given time. When we register a new observer, the reference to the old one is overwritten. This is not really useful in our context, is it? With real sensors, we often want them to report their measurements to multiple places (e.g. we want the measurements printed on screen, saved to database, used as part of more complex calculations). This can be achieved in two ways.</p>
 <p>The first way would be to just hold a collection of observers in our sensor, and add to this collection whenever a new observer is registered:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">private</span> IList&lt;TemperatureObserver&gt; _observers 
   = <span class="kw">new</span> List&lt;TemperatureObserver&gt;();
@@ -3620,7 +3620,7 @@ sensor.<span class="fu">FromNowOnReportTo</span>(broadcastingObserver);</code></
 <p>Anyway, if an object cannot both use and create another object, we have to make special objects just for creating other objects (there are some design patterns for how to design such objects, but the most popular and useful is a <strong>factory</strong>) or defer the creation up to the application entry point (there is also a pattern for this, called <strong>composition root</strong>).</p>
 <p>So, we have two cases to consider. I’ll start with the second one.</p>
 <h3 id="composition-root">Composition Root</h3>
-<p>let’s assume for fun that we are creating a mobile game where a player has to defend a castle. This game has two levels. Each level has a castle to defend. So, we can break down the domain logic into three classes: a <code>Game</code> that has two <code>Level</code>s and each of them that contain a <code>Castle</code>. let’s also assume that the first two classes violate the principle of separating use from construction, i.e. that a <code>Game</code> creates its own levels and each <code>Level</code> creates its own castle.</p>
+<p>let’s assume, just for fun, that we are creating a mobile game where a player has to defend a castle. This game has two levels. Each level has a castle to defend. When we manage to defend the castle long enough, the level is considered completed and we move to the next one. So, we can break down the domain logic into three classes: a <code>Game</code> that has two <code>Level</code>s and each of them that contain a <code>Castle</code>. let’s also assume that the first two classes violate the principle of separating use from construction, i.e. that a <code>Game</code> creates its own levels and each <code>Level</code> creates its own castle.</p>
 <p>A <code>Game</code> class is created in the <code>Main()</code> method of the application:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">Main</span>(string[] args)
 {
@@ -3692,7 +3692,7 @@ sensor.<span class="fu">FromNowOnReportTo</span>(broadcastingObserver);</code></
   
   <span class="co">//some methods here that use the levels</span>
 }</code></pre>
-<p>But remember – this class suffers from the same violation of not separating objects use from construction as the levels did. Thus, to make this class compliant to the principle as well, we have do the same to it that we did to the level classes – move the creation of levels out of it:</p>
+<p>But remember – this class suffers from the same violation of not separating objects use from construction as the levels did. Thus, to make this class compliant to the principle as well, we have to do the same to it that we did to the level classes – move the creation of levels out of it:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Game
 {
   <span class="kw">private</span> Level[] _levels;
@@ -3718,7 +3718,7 @@ sensor.<span class="fu">FromNowOnReportTo</span>(broadcastingObserver);</code></
   
   game.<span class="fu">Play</span>();
 }</code></pre>
-<p>By the way, the <code>Level1</code> and <code>Level2</code> differed only by the castle types and this difference is no more as we refactored it out, so we can make them a single class and call it e.g. <code>TimedLevel</code> (because it is considered passed when we defend our castle for a specific period of time). After this move, now we have:</p>
+<p>By the way, the <code>Level1</code> and <code>Level2</code> are differed only by the castle types and this difference is no more as we refactored it out, so we can make them a single class and call it e.g. <code>TimedLevel</code> (because such level is considered completed when we manage to defend our castle for a specific period of time). After this move, now we have:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">Main</span>(string[] args)
 {
   var game = 
@@ -3736,12 +3736,12 @@ sensor.<span class="fu">FromNowOnReportTo</span>(broadcastingObserver);</code></
 <li>There is no further place we can defer the creation. Sure, we could move the creation of the <code>Game</code> object and its dependencies into a separate object responsible only for the creation (we call such object <strong>a factory</strong>, as you already know), but it’s a dead end, because it would leave us with the question: where do we create the factory?</li>
 <li>The whole point of the principle we are trying to apply is decoupling, i.e. giving ourselves the ability to change one thing without having to change another. When we think of it, there is no point of decoupling the entry point of the application from the application itself, since this is the most application-specific and non-reusable part of the application we can imagine.</li>
 </ol>
-<p>What is important is that we reached a place where the web of objects is created using constructor approach and we have no place left to defer the the creation of the web (in other words, it is as close as possible to application entry point). Such place is called <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/"><strong>a composition root</strong></a>.</p>
+<p>What is important is that we reached a place where the web of objects is created using constructor approach and we have no place left to defer the the creation of the web (in other words, it is as close as possible to application entry point). Such a place is called <a href="http://blog.ploeh.dk/2011/07/28/CompositionRoot/"><strong>a composition root</strong></a>.</p>
 <p>We say that composition root is “as close as possible” to application entry point, because there may be different frameworks in control of your application and you will not always have the <code>Main()</code> method at your service<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>.</p>
-<p>Apart from the constructor invocations, the composition root may also contain e.g. registrations of observers (see registration approach to passing recipients) if such observers are already known at this point. It is also responsible for disposing of all objects it created that require explicit disposal after the application finishes running. This is because it creates them and thus is the only place in the code that can safely determine when they are not needed.</p>
-<p>The composition root above looks quite small, but you can imagine it grow a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and cleaner – we will explore those techniques in further chapters.</p>
+<p>Apart from the constructor invocations, the composition root may also contain, e.g., registrations of observers (see registration approach to passing recipients) if such observers are already known at this point. It is also responsible for disposing of all objects it created that require explicit disposal after the application finishes running. This is because it creates them and thus it is the only place in the code that can safely determine when they are not needed.</p>
+<p>The composition root above looks quite small, but you can imagine it growing a lot in bigger applications. There are techniques of refactoring the composition root to make it more readable and cleaner – we will explore such techniques in further chapters.</p>
 <h3 id="factories">Factories</h3>
-<p>As I previously said, it is not always possible to pass everything through the constructor. One of the approach we discussed that we can use in such cases is <strong>a factory</strong>.</p>
+<p>As I previously said, it is not always possible to pass everything through the constructor. One of the approaches we discussed that we can use in such cases is <strong>a factory</strong>.</p>
 <p>When we previously talked about factories, we focused on it being just a source of objects. This time we will have a much closer look at what factory is and what are its benefits.</p>
 <p>But first, let’s look at an example of a factory emerging in code that was not using it, as a mere consequence of trying to follow the principle of separating objects use from construction.</p>
 <h4 id="emerging-factory-example">Emerging factory – example</h4>
@@ -3846,7 +3846,7 @@ factory.<span class="fu">CreateInstance</span>();
 
 <span class="co">//we need another fresh instance</span>
 factory.<span class="fu">CreateInstance</span>();</code></pre>
-<p>In the above example, two independent instances are created, eve though both are created in identical way (there is no local context that would differ them).</p>
+<p>In the above example, two independent instances are created, even though both are created in an identical way (there is no local context that would differ them).</p>
 <p>Both these reasons were present in our example:</p>
 <ol style="list-style-type: decimal">
 <li>We were unable to create a <code>ChangeMessage</code> before knowing the actual <code>Frame</code>.</li>
@@ -3876,12 +3876,12 @@ factory.<span class="fu">CreateInstance</span>();</code></pre>
 <li>it implements an interface (a level of indirection is introduced)</li>
 <li>its <code>CreateSessionInitialization()</code> method declares a return type to be an interface (another level of indirection is introduced)</li>
 </ul>
-<p>In order for you to use factories effectively, I need you to understand why and how these levels of indirection are useful, especially that when I talk with people, they often do not understand the benefits of using factories, “because we already have the <code>new</code> operator to create objects”. So, here are these benefits:</p>
+<p>In order for you to use factories effectively, I need you to understand why and how these levels of indirection are useful, especially when I talk with people, they often do not understand the benefits of using factories, “because we already have the <code>new</code> operator to create objects”. So, here are these benefits:</p>
 <h4 id="factories-allow-creating-objects-polymorphically-encapsulation-of-type">Factories allow creating objects polymorphically (encapsulation of type)</h4>
 <p>Each time we invoke a <code>new</code> operator, we have to put a name of a concrete type next to it:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> List&lt;<span class="dt">int</span>&gt;(); <span class="co">//OK!</span>
 <span class="kw">new</span> IList&lt;<span class="dt">int</span>&gt;(); <span class="co">//won&#39;t compile...</span></code></pre>
-<p>This means that henver we want to use the class that does this instantiation with another concrete object (e.g. a sorted list), we have to wither change the code to delete the old type name and put new type name, or provide some kind of conditional (<code>if-else</code>).</p>
+<p>This means that whenver we want to use the class that does this instantiation with another concrete object (e.g. a sorted list), we have to either change the code to delete the old type name and put new type name, or provide some kind of conditional (<code>if-else</code>).</p>
 <p>Factories do not have this defficiency. Because we get objects from factories by invoking a method, not by saying explicitly which class we want to get instantiated, we can take advantage of polymorphism, i.e. our factory may have a method like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java">IList&lt;<span class="dt">int</span>&gt; <span class="fu">CreateContainerForData</span>() {...}</code></pre>
 <p>which returns any instance of a real class that implements <code>IList&lt;int&gt;</code> (say, <code>List&lt;int&gt;</code>):</p>
@@ -3940,7 +3940,7 @@ message.<span class="fu">ApplyTo</span>(_sessions);</code></pre>
 <p>Using the factory to hide the real type of message returned makes maintaining the code easier, because there is less code to change when adding new types of messages to the system or removing existing ones (in our example – in case when we do not need to initiate a session anymore) <a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> – the factory hides that and the rest of the application is coded against the general scenario.</p>
 <h4 id="factories-are-themselves-polymorphic-encapsulation-of-rule">Factories are themselves polymorphic (encapsulation of rule)</h4>
 <p>Another benefit of factories over inline constructors is that they are composable. This allows replacing the rule used to create objects with another one, by replacing one factory implementation with another.</p>
-<p>In the example from the previous section, we examined a situation where we extended the existing factory with a <code>SessionRefresh</code> message. This was done with assumption that we do not need the previous version of the factory. But consider a situation where we need both versions of the behavior adn want to be able to use the old version sometimes, and other times the new one. The “version 1” of the factory (the old one) would look like this:</p>
+<p>In the example from the previous section, we examined a situation where we extended the existing factory with a <code>SessionRefresh</code> message. This was done with assumption that we do not need the previous version of the factory. But consider a situation where we need both versions of the behavior and want to be able to use the old version sometimes, and other times the new one. The “version 1” of the factory (the old one) would look like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Version1ProtocolMessageFactory 
   : MessageFactory
 {
@@ -4083,7 +4083,7 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
 </ol>
 <p>Thus, if factories didn’t exist, all these concepts would leak to sorrounding classes (we saw an example when we were talking about encapsulation of global context). Now, as soon as there is more than one class that needs to create instances, these things leak to all of these classes, creating redundancy. In such case, any change to how instances are created would mean a change to all classes needing those instances.</p>
 <p>Thankfully, by having a factory – an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
-<p>There are more benefits of factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
+<p>There are more benefits to factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h2 id="summary-6">Summary</h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
