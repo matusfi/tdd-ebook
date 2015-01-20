@@ -4818,7 +4818,9 @@ var messageFactory
 ),</code></pre>
 <p>meant that we are arming an office building with an alarm that calls 222-333-444 when triggered during the day and plays loud sirens when activated during the night. We could read this straight from the composition code, provided we knew what each object adds to the overall composite behavior. So, again, composition of parts describes the behavior of the whole. There is, however, one more thing to note about this piece of code: it describes the behavior without explicitly stating its control flow (<code>if</code>, <code>else</code>, <code>for</code>, etc.). Such description is often called <em>declarative</em> - by composing objects, we write <em>what</em> we want to achieve without writing <em>how</em> to achieve it - the control flow itself is hidden inside the objects.</p>
 <p>Let’s sum up these two conclusions with the following statement:</p>
-<p>i&gt; The composition code is a declarative description of the overall behavior of our application.</p>
+<blockquote>
+<p>The composition code is a declarative description of the overall behavior of our application.</p>
+</blockquote>
 <p>Wow, this is quite a statement, isn’t it? But there is another problem with the composition code: readability. Even though the composition <em>is</em> the description of the system, it does not read naturally. We want to see the description of behavior, but most of what we see is: new, new new new new… There is a lot of syntactic noise involved, especially in real systems, where composition code is long. Can’t we do something about it?</p>
 <h2 id="refactoring-for-readability">Refactoring for readability</h2>
 <p>TODO example</p>
