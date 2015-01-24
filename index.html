@@ -4089,7 +4089,7 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
 <p>Thankfully, by having a factory – an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
 <p>There are more benefits to factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h4 id="factories-can-help-increase-readability-and-reveal-intention-encapsulation-of-terminology">Factories can help increase readability and reveal intention (encapsulation of terminology)</h4>
-<p>Let’s assume we are writing an action-rpg game which consists of many levels. Players can start a new game or continue a saved game. When they choose to start a new game, they are immediately taken to the first level with empty inventory and no skills. Otherwise, when they choose to continue an old game, they have to select the file with saved game (then their level, skills and inventory are loaded from the file). Thus, we have two separate workflows in our game that end up with two different methods being invoked: <code>OnNewGame()</code> for new game mode and <code>OnContinue()</code> for resuming a saved game:</p>
+<p>Let’s assume we are writing an action-RPG game which consists of many game levels (not to be mistaken with experience levels) . Players can start a new game or continue a saved game. When they choose to start a new game, they are immediately taken to the first level with empty inventory and no skills. Otherwise, when they choose to continue an old game, they have to select a file with a saved state (then the game level, skills and inventory are loaded from the file). Thus, we have two separate workflows in our game that end up with two different methods being invoked: <code>OnNewGame()</code> for new game mode and <code>OnContinue()</code> for resuming a saved game:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnNewGame</span>()
 {
   <span class="co">//...</span>
@@ -4099,7 +4099,7 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
 {
   <span class="co">//...</span>
 }</code></pre>
-<p>In each of these methods, we have to somehow assemble a <code>Game</code> class instance. The constructor of <code>Game</code> allows composing it with a starting level, player’s inventory and a set of skills the player’s character can use:</p>
+<p>In each of these methods, we have to somehow assemble a <code>Game</code> class instance. The constructor of <code>Game</code> allows composing it with a starting level, character’s inventory and a set of skills the character can use:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> FantasyGame : Game 
 {
   <span class="kw">public</span> <span class="fu">FantasyGame</span>(
@@ -4109,23 +4109,28 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
   {
   }
 }</code></pre>
-<p>There is no special class for “new game” in our code. A new game is just a game starting from the first level with empty inventory and no skills:</p>
+<p>There is no special class for “new game” or for “resumed game” in our code. A new game is just a game starting from the first level with empty inventory and no skills:</p>
 <pre class="sourceCode java"><code class="sourceCode java">var newGame = <span class="kw">new</span> <span class="fu">FantasyGame</span>(
   <span class="kw">new</span> <span class="fu">FirstLevel</span>(), 
   <span class="kw">new</span> <span class="fu">BackpackInventory</span>(),
   <span class="kw">new</span> <span class="fu">KnightSkills</span>());</code></pre>
 <p>In other words, the “new game” concept is expressed by a composition of objects rather than by a single class, called e.g. <code>NewGame</code>.</p>
-<p>On the other hand, when we want to create a game object representing resumed game, we do it like this:</p>
-<pre class="sourceCode java"><code class="sourceCode java">saveFile.<span class="fu">Open</span>();
-
-var loadedGame = <span class="kw">new</span> <span class="fu">FantasyGame</span>(
-  saveFile.<span class="fu">LoadLevel</span>(),
-  saveFile.<span class="fu">LoadInventory</span>(),
-  saveFile.<span class="fu">LoadSkills</span>());
+<p>Likewise, when we want to create a game object representing resumed game, we do it like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">try</span>
+{
+  saveFile.<span class="fu">Open</span>();
   
-saveFile.<span class="fu">Close</span>();</code></pre>
-<p>Again, the concept of “resumed game” is represented by the composition rather than a single class, just like in case of “new game”. On the other hand, the concepts are part of the domain, so we must make them explicit somehow.</p>
-<p>One of the ways to do this is to use a factory<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. We can create one with two methods: one for creating new game, another for creating a resumed game. The code of the factory could look like this:</p>
+  var loadedGame = <span class="kw">new</span> <span class="fu">FantasyGame</span>(
+    saveFile.<span class="fu">LoadLevel</span>(),
+    saveFile.<span class="fu">LoadInventory</span>(),
+    saveFile.<span class="fu">LoadSkills</span>());
+}
+<span class="kw">finally</span>
+{  
+  saveFile.<span class="fu">Close</span>();
+}</code></pre>
+<p>Again, the concept of “resumed game” is represented by a composition rather than a single class, just like in case of “new game”. On the other hand, the concepts of “new game” and “resumed game” are part of the domain, so we must make them explicit somehow or we loose readability.</p>
+<p>One of the ways to do this is to use a factory<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. We can create such factory and put inside two methods: one for creating a new game, another for creating a resumed game. The code of the factory could look like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> FantasyGameFactory : GameFactory
 {
   <span class="kw">public</span> Game <span class="fu">NewGame</span>()
@@ -4136,7 +4141,7 @@ saveFile.<span class="fu">Close</span>();</code></pre>
       <span class="kw">new</span> <span class="fu">KnightSkills</span>());
   }
   
-  <span class="kw">public</span> Game <span class="fu">LoadedGame</span>(PathToFile savedGameFilePath)
+  <span class="kw">public</span> Game <span class="fu">GameSavedIn</span>(PathToFile savedGameFilePath)
   {
     var saveFile = <span class="kw">new</span> <span class="fu">SaveFile</span>(savedGameFilePath); 
     <span class="kw">try</span>
@@ -4166,20 +4171,20 @@ saveFile.<span class="fu">Close</span>();</code></pre>
 {
   <span class="co">//...</span>
 }</code></pre>
-<p>When we fill the gaps with the factory usage, the code ends up like this:</p>
+<p>When we fill the method bodies with the factory usage, the code ends up like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnNewGame</span>()
 {
-  var game = _gameFactory.<span class="fu">NewGame</span>()
+  var game = _gameFactory.<span class="fu">NewGame</span>();
   game.<span class="fu">Start</span>();
 }
 
 <span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnContinue</span>(PathToFile savedGameFilePath)
 {
-  var game = _gameFactory.<span class="fu">LoadFrom</span>(savedGameFilePath);
+  var game = _gameFactory.<span class="fu">GameSavedIn</span>(savedGameFilePath);
   game.<span class="fu">Start</span>();
 }</code></pre>
-<p>Note that using factory helps make the code more readable and intention-revealing. Instead of using a nameless set of connected objects, the two methods shown above ask using terminology from the domain. Thus, the domain concepts of “new game” and “resumed game” become explicit. This justifies the first part of the name of this section (i.e. “Factories can help increase readability and reveal intention”).</p>
-<p>There is, however, the second part of the section name, called “encapsulating terminology” which I need to explain, so here’s an explanation: note that the factory is responsible for knowing what exactly the terms “new game” and “resumed game” mean. We can change the meaning of these terms throughout the application merely by changing the code in the factory. For example, we can say that new game starts with inventory that is not empty, but contains a basic sword and a shield, by changing the <code>NewGame()</code> method of the factory to this:</p>
+<p>Note that using factory helps make the code more readable and intention-revealing. Instead of using a nameless set of connected objects, the two methods shown above ask using terminology from the domain (explicitly requesting either <code>NewGame()</code> or <code>GameSavedIn(path)</code>). Thus, the domain concepts of “new game” and “resumed game” become explicit. This justifies the first part of the name I gave this section (i.e. “Factories can help increase readability and reveal intention”).</p>
+<p>There is, however, the second part of the section name: “encapsulating terminology” which I need to explain. Here’s an explanation: note that the factory is responsible for knowing what exactly the terms “new game” and “resumed game” mean. As the meaning of the terms is encapsulated in the factory, we can change the meaning of these terms throughout the application merely by changing the code inside the factory. For example, we can say that new game starts with inventory that is not empty, but contains a basic sword and a shield, by changing the <code>NewGame()</code> method of the factory to this:</p>
 <pre class="sourceCode java"><code class="sourceCode java">  <span class="kw">public</span> Game <span class="fu">NewGame</span>()
   {
     <span class="kw">return</span> <span class="kw">new</span> <span class="fu">FantasyGame</span>(
