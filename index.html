@@ -145,6 +145,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#refactoring-for-readability">Refactoring for readability</a></li>
 <li><a href="#number-of-decisions-in-app-is-unchanged">number of decisions in app is unchanged</a></li>
 <li><a href="#useful-patterns">Useful patterns</a></li>
+</ul></li>
+<li><a href="#value-objects">Value Objects</a><ul>
 <li><a href="#example-problem">Example problem</a></li>
 </ul></li>
 <li><a href="#mock-objects">Mock Objects</a></li>
@@ -4930,7 +4932,84 @@ var messageFactory
 </blockquote>
 <p>Wow, this is quite a statement, isn’t it? But there is another problem with the composition code: readability. Even though the composition <em>is</em> the description of the system, it does not read naturally. We want to see the description of behavior, but most of what we see is: new, new new new new… There is a lot of syntactic noise involved, especially in real systems, where composition code is long. Can’t we do something about it?</p>
 <h2 id="refactoring-for-readability">Refactoring for readability</h2>
-<p>TODO example</p>
+<p>The declarativeness of composition code goes hand in hand with an approach of defining so called <em>fluent interfaces</em>. A fluent interface is an API made with readability and flow-like reading in mind. It is usually declarative and targeted towards specific domain, thus another name: <em>internal domain specific languages</em>.</p>
+<p>There are some simple patterns for creating such domain-specific language. One of them that can be applied to our situation is called <em>nested function</em><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>. Let’s see how it plays out in practice. We will do this step by step, so there will be a lot of repeated code, but hopefully, you will be able to closely watch the process of improving the readability of composition code.</p>
+<p>Ok, Let’s see the code again before making any changes to it:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
+  <span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+    <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(
+      <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;222-333-444&quot;</span>),
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//call police</span>
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  )
+);</code></pre>
+<p>Note that we have few places where we create <code>SilentAlarm</code>. Let’s move creation of these objects into a separate method:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">Calls</span>(string number)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(number);
+}</code></pre>
+<p>This step may look silly, (after all, we are introducing a method wrapping one line), but there is a lot of sense to it. First of all, it lets us reduce the syntax noise - when we need to create a silent alarm, we do not have to say <code>new</code> anymore. Another benefit is that we can describe the role a <code>SilentAlarm</code> instance plays in our composition (I will explain later why we are doing it using passive voice).</p>
+<p>After replacing each invocation of <code>SilentAlarm</code> constructor with a call to this method, we get:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
+  <span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+    <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+      <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+    )
+  )
+);</code></pre>
+<p>Next, let’s do the same with <code>LoudAlarm</code>, wrapping its creation with a method:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">MakesLoudNoise</span>()
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">LoudAlarm</span>();
+}</code></pre>
+<p>and the composition code after applying this methos looks like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
+  <span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+    <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  )
+);</code></pre>
+<p>Note that we have removed some more <code>new</code>s. This is exactly what I meant by “reducing syntax noise”.</p>
+<p>TODO the rest</p>
 <h2 id="number-of-decisions-in-app-is-unchanged">number of decisions in app is unchanged</h2>
 <ol style="list-style-type: decimal">
 <li>remove unwanted decisions</li>
@@ -4948,8 +5027,10 @@ var messageFactory
 <li>Factory method &amp; method composition</li>
 <li>variadic covering method – creating collection using variadic parameter method or variadic constructors</li>
 <li>variable as terminator</li>
-<li>Explaining method (i.e. returns its argument. Use with care) # Value Objects</li>
+<li>Explaining method (i.e. returns its argument. Use with care)</li>
 </ol>
+<p>strive for achieving repeatable patterns - the best gain may be drawn from there.</p>
+<h1 id="value-objects">Value Objects</h1>
 <p>Hi, today I’m gonna tell a bit about value objects, why they’re so useful and what rules apply to creating and using them. This post is inspired by some work by Kent Beck, Steve Freeman and Nat Pryce.</p>
 <h2 id="example-problem">Example problem</h2>
 <p>Imagine you’re developing a web shop for your customer. There are different kinds of products sold and your customers have the ability to add new products.</p>
@@ -5210,10 +5291,10 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn6"><p>Kent Beck, Implementation Patterns<a href="#fnref6">↩</a></p></li>
 <li id="fn7"><p>Actually, this pattern has a name and the name is… Null Object (surprise!). You can read more on this pattern at http://www.cs.oberlin.edu/~jwalker/nullObjPattern/ and http://www.cs.oberlin.edu/~jwalker/refs/woolf.ps (a little older document)<a href="#fnref7">↩</a></p></li>
 <li id="fn8"><p>For details, check Dependency Injection in .NET by Mark Seemann.<a href="#fnref8">↩</a></p></li>
-<li id="fn9"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref9">↩</a></p></li>
+<li id="fn9"><p>A. Shalloway et al., Essential Skills For The Agile Developer.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>although it does need to change when the rule “first validate, then apply to sessions” changes<a href="#fnref10">↩</a></p></li>
 <li id="fn11"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref11">↩</a></p></li>
-<li id="fn12"><p>A. Shalloway et al., Essential Skills For The Agile Developer<a href="#fnref12">↩</a></p></li>
+<li id="fn12"><p>A. Shalloway et al., Essential Skills For The Agile Developer.<a href="#fnref12">↩</a></p></li>
 <li id="fn13"><p>There are simple ways, yet none is as flexible as using factories.<a href="#fnref13">↩</a></p></li>
 <li id="fn14"><p>http://www.objectmentor.com/resources/articles/isp.pdf<a href="#fnref14">↩</a></p></li>
 <li id="fn15"><p>Scott Bain, Emergent Design<a href="#fnref15">↩</a></p></li>
@@ -5226,6 +5307,7 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn22"><p>Provided we are not using a measure such as story points.<a href="#fnref22">↩</a></p></li>
 <li id="fn23"><p>Note that I am talking about responsibilities the way SRP talks about them, not the way they are understood by e.g. Responsibility Driven Design. Thus, I am talking about responsibilities of a class, not responsibilities of its API.<a href="#fnref23">↩</a></p></li>
 <li id="fn24"><p>SMTP stands for Simple Mail Transfer Protocol and is a standard protocol for sending and receiving e-mail. You can read more on <a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Wikipedia</a>.<a href="#fnref24">↩</a></p></li>
+<li id="fn25"><p>M. Fowler, Domain-Specific Languages, Addison-Wesley 2010.<a href="#fnref25">↩</a></p></li>
 </ol>
 </div>
 </body>
