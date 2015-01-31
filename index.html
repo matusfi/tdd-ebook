@@ -143,7 +143,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#refactoring-object-composition">Refactoring Object Composition</a><ul>
 <li><a href="#why-bother">Why bother?</a></li>
 <li><a href="#refactoring-for-readability">Refactoring for readability</a></li>
-<li><a href="#number-of-decisions-in-app-is-unchanged">number of decisions in app is unchanged</a></li>
+<li><a href="#composition-as-a-language">Composition as a language</a></li>
+<li><a href="#number-of-decisions-in-app-is-unchanged">Number of decisions in app is unchanged</a></li>
 <li><a href="#useful-patterns">Useful patterns</a></li>
 </ul></li>
 <li><a href="#value-objects">Value Objects</a><ul>
@@ -4069,27 +4070,6 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
 }</code></pre>
 <p>So, instead of <code>DataDestination</code> and <code>ValidationRules</code> interfaces, the <code>MessageProcessing</code> depends only on the factory. This may not sound as a very attractive tradeoff (taking away two dependencies and introducing one), but note that whenever the <code>MessageFactory</code> needs another dependency that is like the existing two, the factory is all that will need to change. The <code>MessageProcessing</code> will remain untouched and still coupled only to the factory.</p>
 <p>The last thing that needs to be said is that not all dependencies can be hidden inside a factory. Note that the factory still needs to receive the <code>MessageData</code> from whoever is asking for a <code>Message</code>, because the <code>MessageData</code> is not available when the factory is created. You may remember that I call such dependencies a <strong>local context</strong> (because it is specific to a single use of a factory). On the other hand, what a factory accepts through its constructor can be called a <strong>global context</strong> (because it is the same throughout the factory lifetime). Using this terminology, the local context cannot be hidden from users of the factory, but the global context can. Thanks to this, the classes using the factory do not need to know about the global context and can stay cleaner, coupled to less things and more focused.</p>
-<h4 id="factories-help-eliminate-redundancy">Factories help eliminate redundancy</h4>
-<p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">MetersToCentimeters</span>(<span class="dt">int</span> value)
-{
-  <span class="kw">return</span> value*<span class="dv">100</span>;
-}
-
-<span class="kw">public</span> <span class="dt">int</span> <span class="fu">DollarsToCents</span>(<span class="dt">int</span> value)
-{
-  <span class="kw">return</span> value*<span class="dv">100</span>;
-}</code></pre>
-<p>As I said, this is not redundancy, because the two methods represent different concepts that would change for different reasons. Even if we were to extract “common logic” from the two methods, the only sensible name we could come up with would be something like <code>MultiplyBy100()</code> which wouldn’t add any value at all.</p>
-<p>Note that up to now, we considered three things factories encapsulate about creation of objects:</p>
-<ol style="list-style-type: decimal">
-<li>Type</li>
-<li>Rule</li>
-<li>Global context</li>
-</ol>
-<p>Thus, if factories didn’t exist, all these concepts would leak to surrounding classes (we saw an example when we were talking about encapsulation of global context). Now, as soon as there is more than one class that needs to create instances, these things leak to all of these classes, creating redundancy. In such case, any change to how instances are created would mean a change to all classes needing those instances.</p>
-<p>Thankfully, by having a factory – an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
-<p>There are more benefits to factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h4 id="factories-can-help-increase-readability-and-reveal-intention-encapsulation-of-terminology">Factories can help increase readability and reveal intention (encapsulation of terminology)</h4>
 <p>Let’s assume we are writing an action-RPG game which consists of many game levels (not to be mistaken with experience levels) . Players can start a new game or continue a saved game. When they choose to start a new game, they are immediately taken to the first level with empty inventory and no skills. Otherwise, when they choose to continue an old game, they have to select a file with a saved state (then the game level, skills and inventory are loaded from the file). Thus, we have two separate workflows in our game that end up with two different methods being invoked: <code>OnNewGame()</code> for new game mode and <code>OnContinue()</code> for resuming a saved game:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">OnNewGame</span>()
@@ -4132,7 +4112,7 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
   saveFile.<span class="fu">Close</span>();
 }</code></pre>
 <p>Again, the concept of “resumed game” is represented by a composition rather than a single class, just like in case of “new game”. On the other hand, the concepts of “new game” and “resumed game” are part of the domain, so we must make them explicit somehow or we loose readability.</p>
-<p>One of the ways to do this is to use a factory<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. We can create such factory and put inside two methods: one for creating a new game, another for creating a resumed game. The code of the factory could look like this:</p>
+<p>One of the ways to do this is to use a factory<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. We can create such factory and put inside two methods: one for creating a new game, another for creating a resumed game. The code of the factory could look like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> FantasyGameFactory : GameFactory
 {
   <span class="kw">public</span> Game <span class="fu">NewGame</span>()
@@ -4197,6 +4177,28 @@ var messageProcessing = <span class="kw">new</span> <span class="fu">MessageProc
       <span class="kw">new</span> <span class="fu">KnightSkills</span>());
   }</code></pre>
 <p>Putting it all together, factories allow giving names to some specific object compositions to increase readability and introducing terminology that can be changed by changing code inside the factory methods.</p>
+<h4 id="factories-help-eliminate-redundancy">Factories help eliminate redundancy</h4>
+<p>Redundancy in code means that at least two things need to change for the same reason in the same way<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>. Usually it is understood as code duplication, but actually, “conceptual duplication” is a better term. For example, the following two methods are not redundant, even though the code seems duplicated (by the way, the following is not an example of good code, just a simple illustration):</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">MetersToCentimeters</span>(<span class="dt">int</span> value)
+{
+  <span class="kw">return</span> value*<span class="dv">100</span>;
+}
+
+<span class="kw">public</span> <span class="dt">int</span> <span class="fu">DollarsToCents</span>(<span class="dt">int</span> value)
+{
+  <span class="kw">return</span> value*<span class="dv">100</span>;
+}</code></pre>
+<p>As I said, this is not redundancy, because the two methods represent different concepts that would change for different reasons. Even if we were to extract “common logic” from the two methods, the only sensible name we could come up with would be something like <code>MultiplyBy100()</code> which wouldn’t add any value at all.</p>
+<p>Note that up to now, we considered four things factories encapsulate about creation of objects:</p>
+<ol style="list-style-type: decimal">
+<li>Type</li>
+<li>Rule</li>
+<li>Global context</li>
+<li>Terminology</li>
+</ol>
+<p>Thus, if factories didn’t exist, all these concepts would leak to surrounding classes (we saw an example when we were talking about encapsulation of global context). Now, as soon as there is more than one class that needs to create instances, these things leak to all of these classes, creating redundancy. In such case, any change to how instances are created would mean a change to all classes needing those instances.</p>
+<p>Thankfully, by having a factory – an object that takes care of creating other objects and nothing else, we can reuse the ruleset, the global context and the type-related decisions across many classes without any unnecessary overhead. All we need to do is reference the factory and ask it for an object.</p>
+<p>There are more benefits to factories, but I hope I already convinced you that this is a pretty darn beneficial concept for such a reasonably low cost.</p>
 <h2 id="summary-6">Summary</h2>
 <p>In this chapter, I tried to show you a variety of ways of composing objects together. Do not worry if you feel overwhelmed, for the most part, just remember to follow the principle of separating use from construction and you will be fine.</p>
 <p>The rules outlined here apply to the overwhelming part of the objects in our application. Wait, did I say overwhelming? Not all? So there are exceptions? Yes, there are and we’ll talk about them shortly, but first, we need to further examine the influence composability has on our object-oriented design approach.</p>
@@ -5009,8 +5011,201 @@ var messageFactory
   )
 );</code></pre>
 <p>Note that we have removed some more <code>new</code>s. This is exactly what I meant by “reducing syntax noise”.</p>
-<p>TODO the rest</p>
-<h2 id="number-of-decisions-in-app-is-unchanged">number of decisions in app is unchanged</h2>
+<p>Now let’s focus a bit on this part:</p>
+<pre class="sourceCode java"><code class="sourceCode java">  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  )</code></pre>
+<p>and try to apply the same trick to <code>HybridAlarm</code> creation and extract a method that handles the creation. You know, we are always told that class names should be nouns and that’s why <code>HybridAlarm</code> is named like this. But it does not act well as a description of what the system does. Its real functionality is to trigger both alarms when it is triggered. Thus, should we name the method <code>TriggersBothAlarms()</code>? Naah, it’s too much noise - we already know it’s alarms that we are triggering, so we can leave the “alarms” part out. What about “triggers”? It says what the hybrid alarm does, which might seem good, but when we look at the composition, <code>Calls()</code> and <code>MakesLoudNoise()</code> already say what is being done. The <code>HybridAlarm</code> only says that both of those things happen simultaneously. We could leave <code>Trigger</code> if we changed the names of the other methods in the composition to look like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java">  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="fu">TriggersBoth</span>(
+      <span class="fu">Calling</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+      <span class="fu">LoudNoise</span>()
+    )
+  )</code></pre>
+<p>But that would make the names <code>Calling()</code> and <code>LoudNoise()</code> out of place without being nested as <code>TriggersBoth()</code> arguments. For example, if we wanted to make another building that would only use a loud alarm, the composition would look like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OtherBuilding</span>(<span class="fu">LoudNoise</span>());</code></pre>
+<p>or if we wanted to use silent one:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OtherBuilding</span>(<span class="fu">Calling</span>(<span class="st">&quot;919&quot;</span>));</code></pre>
+<p>Instead, let’s try to name the method wrapping construction of <code>HybridAlarm</code> just <code>Both()</code>. This way, our composition code is now:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+  <span class="fu">Both</span>(
+    <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+    <span class="fu">MakesLoudNoise</span>()
+  )
+)</code></pre>
+<p>and the <code>Both()</code> method is obviously defined as:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">Both</span>(Alarm alarm1, Alarm alarm2)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">HybridAlarm</span>(alarm1, alarm2);
+}</code></pre>
+<p>Remember that <code>HybridAlarm</code> was also used in the <code>StorageBuilding</code> instance composition:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+  <span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+    <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+    <span class="fu">MakesLoudNoise</span>()
+  )
+),</code></pre>
+<p>which now becomes:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+  <span class="fu">Both</span>(
+    <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+    <span class="fu">MakesLoudNoise</span>()
+  )
+),</code></pre>
+<p>Now the most difficult part - finding a way to make the following piece of code readable:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+  <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(
+    <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+    <span class="fu">MakesLoudNoise</span>()
+  )
+),</code></pre>
+<p>The difficulty here is that <code>DayNightSwitchedAlarm</code> accepts two alarms that are used alternatively. We need to invent a term that:</p>
+<ol style="list-style-type: decimal">
+<li>Says it’s an alternative</li>
+<li>Says what kind of alternative it is (i.e. that one happens at day, and the other during the night).</li>
+<li>Says which alarm is attached to which condition (silent alarm is used during the day and at night, loud alarm is used)</li>
+</ol>
+<p>If we introduce a single name, e.g. <code>FirstDuringDayAndSecondAtNight()</code>, it will feel awkward and we will loose the flow. Just look:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+  <span class="fu">FirstDuringDayAndSecondAtNight</span>(
+    <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+    <span class="fu">MakesLoudNoise</span>()
+  )
+),</code></pre>
+<p>We need to find another approach to this situation. There are two approaches we may consider:</p>
+<h3 id="approach-1-use-named-parameters">Approach 1: use named parameters</h3>
+<p>Named parameters are a feature of languages like Python or C#. In short, when we have a method like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">DoSomething</span>(<span class="dt">int</span> first, <span class="dt">int</span> second)
+{
+  <span class="co">//...</span>
+}</code></pre>
+<p>we can call it like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">DoSomething</span>(first: <span class="dv">12</span>, second: <span class="dv">33</span>);</code></pre>
+<p>We can use this technique to refactor the creation of <code>DayNightSwitchedAlarm</code> into the following method:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">DependingOnTimeOfDay</span>(
+    Alarm duringDay, Alarm atNight)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(duringDay, atNight);
+} </code></pre>
+<p>This lets us write the composition code like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+  <span class="fu">DependingOnTimeOfDay</span>(
+    duringDay: <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+    atNight: <span class="fu">MakesLoudNoise</span>()
+  )
+),</code></pre>
+<p>which is quite readable. Now, on to the second approach.</p>
+<h3 id="approach-2-use-method-chaining">Approach 2: use method chaining</h3>
+<p>This approach is better translatable to different languages and can be used e.g. in Java and C++. This time, before I show you the implementation, let’s look at the final result we want to achieve:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+  DependingOnTimeOfDay
+    .<span class="fu">DuringDay</span>(<span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>))
+    .<span class="fu">AtNight</span>(<span class="fu">MakesLoudNoise</span>())
+  )
+),</code></pre>
+<p>So as you see, this is very similar, the main difference being that it’s more work.</p>
+<p>Ok, let’s decypher this strange construction:</p>
+<pre class="sourceCode java"><code class="sourceCode java">DependingOnTimeOfDay
+  .<span class="fu">DuringDay</span>(...)
+  .<span class="fu">AtNight</span>(...)</code></pre>
+<p>First, <code>DependingOnTimeOfDay</code> is a class:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> DependingOnTimeOfDay
+{
+}</code></pre>
+<p>which has a static method called <code>DuringDay()</code>:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> 
+DependingOnTimeOfDay <span class="fu">DuringDay</span>(Alarm alarm)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">DependingOnTimeOfDay</span>(alarm);
+}
+
+<span class="kw">private</span> <span class="fu">DependingOnTimeOfDay</span>(Alarm dayAlarm)
+{
+  _dayAlarm = dayAlarm;
+}</code></pre>
+<p>Now, this method seems strange, doesn’t it? It is a static method that returns an instance of its enclosing class. Also, the private constructor stores the passed alarm inside for later… why?</p>
+<p>The mystery resolves itself when we look at another method defined in the <code>DependingOnTimeOfDay</code> class:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">//note: this method is NOT static</span>
+<span class="kw">public</span> Alarm <span class="fu">AtNight</span>(Alarm nightAlarm)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(_dayAlarm, nightAlarm);
+}</code></pre>
+<p>This method is not static and it returns the alarm that we were trying to create. To do so, it uses the first alarm passed through the constructor and the second one passed as its parameter. So if we were to take this construct:</p>
+<pre class="sourceCode java"><code class="sourceCode java">DependingOnTimeOfDay
+  .<span class="fu">DuringDay</span>(dayAlarm)
+  .<span class="fu">AtNight</span>(nightAlarm)</code></pre>
+<p>and assign a result of each operation to a separate variable, it would look like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java">DependingOnTimeOfDay firstPart 
+  = DependingOnTimeOfDay.<span class="fu">DuringDay</span>(dayAlarm);
+Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre>
+<p>Now, we can just chaing these calls and get the result we wanted to:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+  DependingOnTimeOfDay
+    .<span class="fu">DuringDay</span>(<span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>))
+    .<span class="fu">AtNight</span>(<span class="fu">MakesLoudNoise</span>())
+  )
+),</code></pre>
+<h3 id="discussion-continued">Discussion continued</h3>
+<p>For now, I will assume we have chosen approach 1 because it is simpler.</p>
+<p>Our composition code looks like this so far:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
+  <span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
+    <span class="fu">DependingOnTimeOfDay</span>(
+      duringDay: <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
+      atNight: <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">StorageBuilding</span>(
+    <span class="fu">Both</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
+    <span class="fu">Both</span>(
+      <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  )
+);</code></pre>
+<p>There are few more finishing touches we need to make. First of all, let’s try and extract these dial numbers like <code>222-333-444</code> into constants. For example, this code:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
+  <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
+  <span class="fu">MakesLoudNoise</span>()
+)</code></pre>
+<p>becomes</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
+  <span class="fu">Calls</span>(Police),
+  <span class="fu">MakesLoudNoise</span>()
+)</code></pre>
+<p>And the last thing is to hide creation of the following classes: <code>SecureArea</code>, <code>OfficeBuilding</code>, <code>StorageBuilding</code>, <code>GuardsBuilding</code> and we have this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">SecureAreaContaining</span>(
+  <span class="fu">OfficeBuildingWithAlarmThat</span>(
+    <span class="fu">DependingOnTimeOfDay</span>(
+      duringDay: <span class="fu">Calls</span>(Guards), 
+      atNight: <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="fu">StorageBuildingWithAlarmThat</span>(
+    <span class="fu">Both</span>(
+      <span class="fu">Calls</span>(Guards),
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  ),
+  <span class="fu">GuardsBuildingWithAlarmThat</span>(
+    <span class="fu">Both</span>(
+      <span class="fu">Calls</span>(Police),
+      <span class="fu">MakesLoudNoise</span>()
+    )
+  )
+);</code></pre>
+<p>And here it is: the real, declarative description of our application! The composition reads better than when we started, doesn’t it?</p>
+<h2 id="composition-as-a-language">Composition as a language</h2>
+<h2 id="number-of-decisions-in-app-is-unchanged">Number of decisions in app is unchanged</h2>
+<p>Thus far we were talkiung about readability now we take different angle.</p>
 <ol style="list-style-type: decimal">
 <li>remove unwanted decisions</li>
 <li>optimize redundant decisions (i.e. polymorphism, factories)</li>
@@ -5022,6 +5217,7 @@ var messageFactory
 <li>CASE tools/modelling tools</li>
 <li>DSL - program on higher level</li>
 </ol>
+<p>Designing such dsls is a big challenge - a lot of discipline and a sense of direction is required</p>
 <h2 id="useful-patterns">Useful patterns</h2>
 <ol style="list-style-type: decimal">
 <li>Factory method &amp; method composition</li>
@@ -5294,8 +5490,8 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn9"><p>A. Shalloway et al., Essential Skills For The Agile Developer.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>although it does need to change when the rule “first validate, then apply to sessions” changes<a href="#fnref10">↩</a></p></li>
 <li id="fn11"><p>Note that this is an application of Gang of Four guideline: “encapsulate what varies”.<a href="#fnref11">↩</a></p></li>
-<li id="fn12"><p>A. Shalloway et al., Essential Skills For The Agile Developer.<a href="#fnref12">↩</a></p></li>
-<li id="fn13"><p>There are simple ways, yet none is as flexible as using factories.<a href="#fnref13">↩</a></p></li>
+<li id="fn12"><p>There are simple ways, yet none is as flexible as using factories.<a href="#fnref12">↩</a></p></li>
+<li id="fn13"><p>A. Shalloway et al., Essential Skills For The Agile Developer.<a href="#fnref13">↩</a></p></li>
 <li id="fn14"><p>http://www.objectmentor.com/resources/articles/isp.pdf<a href="#fnref14">↩</a></p></li>
 <li id="fn15"><p>Scott Bain, Emergent Design<a href="#fnref15">↩</a></p></li>
 <li id="fn16"><p>This topic is outside the scope of the book, but you can take a look at: M. Fowler, Domain-Specific Languages, Addison-Wesley 2010<a href="#fnref16">↩</a></p></li>
