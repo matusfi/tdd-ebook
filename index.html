@@ -135,6 +135,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</a></li>
 <li><a href="#getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</a></li>
 <li><a href="#summary-7">Summary</a></li>
+</ul></li>
+<li><a href="#classes">Classes</a><ul>
 <li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
 <li><a href="#static-recipients">Static recipients</a></li>
 <li><a href="#summary-8">Summary</a></li>
@@ -4730,6 +4732,7 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
 <p>When we are not forced to return anything, we are more free to do as we like. Again, “Tell, don’t ask”.</p>
 <h2 id="summary-7">Summary</h2>
 <p>In this lengthy chapter I tried to show you the often underrated value of designing communication protocols between objects. They are not a “nice thing to have”, but rather a fundamental part of the design approach that makes mock objects useful, as you will see when finally we get to them. But first, I need you to swallow few more object-oriented design ideas. I promise it will pay off.</p>
+<h1 id="classes">Classes</h1>
 <p>We already covered interfaces and protocols. In our quest for composability, We need to look at classes as well. Classes:</p>
 <ul>
 <li>implement interfaces (i.e. play roles)</li>
@@ -5496,7 +5499,7 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn15"><p>Scott Bain, Emergent Design<a href="#fnref15">↩</a></p></li>
 <li id="fn16"><p>This topic is outside the scope of the book, but you can take a look at: M. Fowler, Domain-Specific Languages, Addison-Wesley 2010<a href="#fnref16">↩</a></p></li>
 <li id="fn17"><p>This is sometimes called Feature Envy. It means that a class is more interested in other class’ data than in its own.<a href="#fnref17">↩</a></p></li>
-<li id="fn18"><p>We can even further refactor this into a state machine using a Gang of Four <em>State</em> pattern. There would be two states in such a state machine: started and expired. # Classes<a href="#fnref18">↩</a></p></li>
+<li id="fn18"><p>We can even further refactor this into a state machine using a Gang of Four <em>State</em> pattern. There would be two states in such a state machine: started and expired.<a href="#fnref18">↩</a></p></li>
 <li id="fn19"><p>This principle can be applied to methods as well, but we are not going to cover this part, because it is not directly tied to the notion of composability and this is not a design book ;-).<a href="#fnref19">↩</a></p></li>
 <li id="fn20"><p>http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod.<a href="#fnref20">↩</a></p></li>
 <li id="fn21"><p>https://stackoverflow.fogbugz.com/default.asp?W29030<a href="#fnref21">↩</a></p></li>
