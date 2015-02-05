@@ -5210,8 +5210,21 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 );</code></pre>
 <p>And here it is: the real, declarative description of our application! The composition reads better than when we started, doesn’t it?</p>
 <h2 id="composition-as-a-language">Composition as a language</h2>
-<h2 id="number-of-decisions-in-app-is-unchanged">Number of decisions in app is unchanged</h2>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
+  <span class="fu">Calls</span>(Police),
+  <span class="fu">MakesLoudNoise</span>()
+)</code></pre>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
+  <span class="fu">Both</span>(
+    <span class="fu">Calls</span>(Police),
+    <span class="fu">Calls</span>(Security)),
+  <span class="fu">Both</span>(
+    <span class="fu">Calls</span>(Boss),
+    <span class="fu">MakesLoudNoise</span>()))
+)</code></pre>
+<p>we have defined a grammar</p>
 <p>TODO 1+2 = new Addition(new OneInteger(), new TwoInteger()) = plus(one(), two())</p>
+<h2 id="number-of-decisions-in-app-is-unchanged">Number of decisions in app is unchanged</h2>
 <p>Thus far we were talkiung about readability now we take different angle.</p>
 <ol style="list-style-type: decimal">
 <li>remove unwanted decisions</li>
