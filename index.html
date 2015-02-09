@@ -5229,7 +5229,7 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <li>Defines some kind of <em>vocabulary</em> - in our case, the following “words” are form part of the vocabulary: <code>Both(), Calls(), MakesLoudNoise(), DependingOnTimeOfDay(), atNight, duringDay, SecureAreaContaining(), GuardsBuildingWithAlarmThat(), OfficeBuildingWithAlarmThat()</code>.</li>
 <li>Allows combining the words from the vocabulary in certain combinations as which also have a meaning. For example: <code>Both(Calls(Police), Calls(Guards))</code> has the meaning of “calls both police and guards when triggered” - thus, this thing we invented allows creating <em>sentences</em>.</li>
 <li>Although we are quite liberal in defining behaviors for alarms, there are some rule as what can be composed with what (for example, we cannot compose guards building with an office, but each of them can only be composed with alarms). Thus, we can say we have created something that looks like a <em>grammar</em>.</li>
-<li>The vocabulary is <em>constrained to the domain</em> of alarms. On the other hand, it <em>is more powerful and expressive</em> as a description of this domain than a combination of <code>if</code> statements, <code>for</code> loops, variable assignments etc. available in a general-purpose language.</li>
+<li>The vocabulary is <em>constrained to the domain</em> of alarms. On the other hand, it <em>is more powerful and expressive</em> as a description of this domain than a combination of <code>if</code> statements, <code>for</code> loops, variable assignments and other elements of a general-purpose language.</li>
 <li>The sentences written define a behavior of the application - so by writing sentences like this, we still write software!</li>
 </ol>
 <p>All of these points suggest that we have created a <em>Domain-Specific Language</em><a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>, which, by the way, is a <em>higher level language</em>.</p>
@@ -5244,7 +5244,13 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <li>Hide the decisions by programming on higher level of abstraction - this may span a whole range of techniques (one of them being e.g. garbage collection that takes away the decision about when to free memory from us).</li>
 </ol>
 <p>So, as you see, only the last of the above points really helps in reducing complexity. This is where the idea of domain-specific languages falls in. If we carefully refactor our object composition into a set of domain-specific languages (one is often too little), one day we may find that we are adding new features by writing new sentences in these languages in a declarative way rather than adding new imperative code. Thus, if we have a good language and a firm understanding of its vocabulary and grammar, we can program on higher level of abstraction which is more expressive and less complex.</p>
-<p>This is very hard - it requires, among all: 1. A huge discipline across a develoment team. 1. A sense of direction of how to structure the composition and where to lead the languages as they evolve. 1. Merciless refactoring. 1. Some minimal knowledge of language design and experience in doing so.</p>
+<p>This is very hard - it requires, among others:</p>
+<ol style="list-style-type: decimal">
+<li>A huge discipline across a develoment team.</li>
+<li>A sense of direction of how to structure the composition and where to lead the languages as they evolve.</li>
+<li>Merciless refactoring.</li>
+<li>Some minimal knowledge of language design and experience in doing so.</li>
+</ol>
 <p>Of course, not all parts of the composition make a good material to being structured like a language. Despite these difficulties, I think it’s well worth the effort. Programming on higher level of abstraction with declarative code rather than imperative is my hope for writing maintainable and understandable systems.</p>
 <h2 id="some-useful-techniques">Some useful techniques</h2>
 <p>In his wonderful book<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> about creating domain-specific languages, Martin Fowler lists a set of techniques that help achieve “fluency” of syntax. Some of them include:</p>
