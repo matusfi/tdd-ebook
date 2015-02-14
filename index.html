@@ -148,6 +148,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#composition-as-a-language">Composition as a language</a></li>
 <li><a href="#the-significance-of-higher-level-language">The significance of higher level language</a></li>
 <li><a href="#some-useful-techniques">Some useful techniques</a></li>
+<li><a href="#a-series-of-fluent-interfaces-instead-of-one">A series of fluent interfaces instead of one</a></li>
 </ul></li>
 <li><a href="#value-objects">Value Objects</a><ul>
 <li><a href="#example-problem">Example problem</a></li>
@@ -1456,8 +1457,8 @@ var configuration = <span class="kw">new</span> <span class="fu">XmlConfiguratio
 <pre class="sourceCode java"><code class="sourceCode java"><span class="fu">notifiesListenersThatServerIsUnavailableWhenCannotConnectToItsMonitoringPort</span>()</code></pre>
 <p>Note few things about the name of the Statement:</p>
 <ol style="list-style-type: decimal">
-<li>It describes a behavior of an instance of a specified class. Note that it does not contain method name that triggers the behavior, because what is specified is not a method, but the behavior itself. The name simply tells what an instance does (“notifies listeners that server is unavailable”) under certain circumstances (“when cannot connect to its monitoring port”). It is important because such description is what you can derive from thinking about responsibilities of a class, so you do not need to know any of its method signature or the code that is inside of the class. Hence, this is something you can come up with before implementing – you just need to know why you created this class and build on this knowledge.</li>
-<li><p>The name is relatively long. Really, really, <strong>really</strong> do not worry about it. As long as you are describing a single behavior, it is alright. I know usually people are hesitant to give long names to the Statements, because they try to apply the same rules to those names as to method names in production code (and in production code too long method name can be a sign of it having too many responsibilities). Let me make it clear – these two cases are different. In case of Statements, methods are not invoked by anyone besides the automatic runner applications, so they will not obfuscate any code that would need to call them with their long names. Sure, we could put all the information in the comment instead of Statement name and leave the name short, like this:</p>
+<li>It describes a behavior of an instance of a specified class. Note that it does not contain method name that triggers the behavior, because what is specified is not a method, but the behavior itself. The Statement name simply tells what an instance does (“notifies listeners that server is unavailable”) under certain circumstances (“when cannot connect to its monitoring port”). It is important because such description is what you can derive from thinking about responsibilities of a class, so you do not need to know any of its method signature or the code that is inside of the class. Hence, this is something you can come up with before implementing – you just need to know why you created this class and build on this knowledge.</li>
+<li><p>The name is relatively long. Really, really, <strong>really</strong> do not worry about it. As long as you are describing a single behavior, it’s fine. I know usually people are hesitant to give long names to the Statements, because they try to apply the same rules to those names as to method names in production code (and in production code too long method name can be a sign of it having too many responsibilities). Let me make it clear – these two cases are different. In case of Statements, methods are not invoked by anyone besides the automatic runner applications, so they will not obfuscate any code that would need to call them with their long names. Sure, we could put all the information in the comment instead of Statement name and leave the name short, like this:</p>
 <pre class="csharp"><code>[Fact]
 //Notifies listeners that server 
 //is unavailable when cannot connect
@@ -1482,11 +1483,20 @@ public void Statement_002()
  {
  }
 }</code></pre>
-<p>The “should” word was introduced by Dan to weaken the statement following it and thus, to allow questioning what you are stating and ask yourself the question: “should it really?”. If this causes uncertainty, then it is high time to talk to a domain expert and make sure you understand well what you need to accomplish. If you are not a native English speaker, the “should” prefix will probably have a weaker influence on you – that is why I do not insist on you using it. I like it though.</p>
+<p>The “should” word was introduced by Dan to weaken the statement following it and thus, to allow questioning what you are stating and ask yourself the question: “should it really?”. If this causes uncertainty, then it is high time to talk to a domain expert and make sure you understand well what you need to accomplish. If you are not a native English speaker, the “should” prefix will probably have a weaker influence on you – that is why I don’t insist on you using it. I like it though.</p>
 <p>When inventing a name, It is important to put the main focus on what result or action is expected from an object. If you do not, you quickly find it troublesome. As an example, one of my colleagues was specifying a class <code>UserId</code> and wrote the following name for the Statement about comparison of two identifiers:</p>
 <p><code>EqualOperationShouldPassForTwoInstancesWithTheSameUserName()</code>.</p>
 <p>Note that this is not from the perspective of a single object, but rather from the perspective of an operation that is executed on it, which means that we stopped thinking in terms of object responsibilities and started thinking in terms of operation correctness, which is farther away from our assumption that we are writing a Specification consisting of Statements. This name should be something more like:</p>
 <p><code>ShouldReportThatItIsEqualToAnotherIdThatHasTheSameUserName()</code>.</p>
+<p>In general, when I find myself having trouble with naming like this, I am suspicious of the following things possibly happening:</p>
+<ol style="list-style-type: decimal">
+<li>I am not specifying a behavior class, but rather an outcome of a method</li>
+<li>I am specifying more than one behavior</li>
+<li>The behavior is too complicated and hence I need to change my design (more on this later)</li>
+<li>I am naming the behavior on too low level of abstraction, putting too many details in the name - my personal rule is that I can only come to this conclusion when all the previous points fail me.</li>
+</ol>
+<h3 id="but-cant-the-name-really-get-too-long">But can’t the name really get too long?</h3>
+<p>Few paragraphs ago, I told you not to worry about a length of Statement names. But I have to admit that there are times when the name really gets too long. A rule I try to follow is that a name of a Statement should be more readable than its content. Thus, if it takes me less time to understand the point of a Statement by reading its body than by reading its name, then the name is too long. In such case, I try to apply the heuristics described above to find and fix the root cause of the problem.</p>
 <h2 id="start-by-filling-the-given-when-then-structure-with-the-obvious">Start by filling the GIVEN-WHEN-THEN structure with the obvious</h2>
 <p>This is a technique that is applicable when you come up with a GIVEN-WHEN-THEN structure for the Statement or a good name for it (GIVEN-WHEN-THEN structure can be easily derived from a good name and vice versa). Anyway, this technique is about taking the GIVEN, WHEN and THEN parts and translating them into code in almost literal, brute-force way, then add all the missing pieces that are required for the code to compile and run.</p>
 <h3 id="example">Example</h3>
@@ -5256,11 +5266,22 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <p>In his wonderful book<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> about creating domain-specific languages, Martin Fowler lists a set of techniques that help achieve “fluency” of syntax. Some of them include:</p>
 <ol style="list-style-type: decimal">
 <li>Factory method &amp; method composition</li>
-<li>variadic covering method – creating collection using variadic parameter method or variadic constructors</li>
-<li>variable as terminator</li>
-<li>Explaining method (i.e. returns its argument. Use with care)</li>
 </ol>
+<ul>
+<li>not necessarily one method per each constructor</li>
+<li>hide ambient context in fields (logger, configuration) e.g. method ConfiguredLength()</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Literal Collections (variadic covering method) – creating collection using variadic parameter method or variadic constructors</li>
+<li>Method chaining - expression builders build up context</li>
+<li>variable as terminator ??? Explaining variables - for sharing</li>
+<li>constants - can be useful like Police, but sometimes can be less useful - introducing constant not always leads to more readable code - but do we have another choice? If not, just not name it like pentium2.cores(numberOfCoresInPentium2)</li>
+<li>Explaining method (i.e. returns its argument. Use with care)</li>
+<li>use simple anfd few elements - the language will be maintained by a team</li>
+</ol>
+<h2 id="a-series-of-fluent-interfaces-instead-of-one">A series of fluent interfaces instead of one</h2>
 <p>strive for achieving repeatable patterns - the best gain may be drawn from there.</p>
+<p>Not all of composition can be a DSL - maybe look for a way to stress the configurable parts</p>
 <h1 id="value-objects">Value Objects</h1>
 <p>Hi, today I’m gonna tell a bit about value objects, why they’re so useful and what rules apply to creating and using them. This post is inspired by some work by Kent Beck, Steve Freeman and Nat Pryce.</p>
 <h2 id="example-problem">Example problem</h2>
