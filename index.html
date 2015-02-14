@@ -46,7 +46,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#what-is-the-point-of-writing-specification-after-the-fact">What is the point of writing specification after the fact?</a></li>
 <li><a href="#the-benefit-of-failure">The benefit of failure</a></li>
 </ul></li>
-<li><a href="#practicing-what-we-already-learned">Practicing what we already learned</a><ul>
+<li><a href="#practicing-what-we-have-already-learned">Practicing what we have already learned</a><ul>
 <li><a href="#let-me-tell-you-astory">Let me tell you a story</a></li>
 <li><a href="#act-1-the-car">Act 1: The Car</a></li>
 <li><a href="#act-2-the-customer">Act 2: The Customer</a></li>
@@ -147,7 +147,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#refactoring-for-readability">Refactoring for readability</a></li>
 <li><a href="#composition-as-a-language">Composition as a language</a></li>
 <li><a href="#the-significance-of-higher-level-language">The significance of higher level language</a></li>
-<li><a href="#some-useful-techniques">Some useful techniques</a></li>
+<li><a href="#some-advice">Some advice</a></li>
 <li><a href="#a-series-of-fluent-interfaces-instead-of-one">A series of fluent interfaces instead of one</a></li>
 </ul></li>
 <li><a href="#value-objects">Value Objects</a><ul>
@@ -718,7 +718,7 @@ var configuration = <span class="kw">new</span> <span class="fu">XmlConfiguratio
 </ol>
 <p>What is the equivalent of the marked steps in Statement-first approach? Nothing! Doing these things is a waste of time! Sadly, this is a waste I see done over and over again.</p>
 <p>Do you like wasting your time?</p>
-<h1 id="practicing-what-we-already-learned">Practicing what we already learned</h1>
+<h1 id="practicing-what-we-have-already-learned">Practicing what we have already learned</h1>
 <blockquote>
 <p>And now, a taste of things to come!</p>
 <p>– Shang Tsung, Mortal Kombat The Movie</p>
@@ -1113,7 +1113,7 @@ var configuration = <span class="kw">new</span> <span class="fu">XmlConfiguratio
 }</code></pre>
 <p><strong>Johnny:</strong> Hey hey, not so fast!</p>
 <p><strong>Benjamin:</strong> What?</p>
-<p><strong>Johnny:</strong> You already provided an implementation that will make our current Statement true. Remember its name? <code>ShouldDisplay0WhenCreated</code> – and that is exactly what the code you wrote does. Before we arrive at this point, let’s make sure this Statement can ever be evaluates as false. So for now, let’s change it to this:</p>
+<p><strong>Johnny:</strong> You already provided an implementation that will make our current Statement true. Remember its name? <code>ShouldDisplay0WhenCreated</code> – and that is exactly what the code you wrote does. Before we arrive at this point, let’s make sure this Statement can ever be evaluated as false. You won’t achieve this by providing a correct implementation out of the box. So for now, let’s change it to this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> Calculator
 {
   <span class="kw">public</span> string <span class="fu">Display</span>()
@@ -5262,8 +5262,48 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <li>Some minimal knowledge of language design and experience in doing so.</li>
 </ol>
 <p>Of course, not all parts of the composition make a good material to being structured like a language. Despite these difficulties, I think it’s well worth the effort. Programming on higher level of abstraction with declarative code rather than imperative is my hope for writing maintainable and understandable systems.</p>
-<h2 id="some-useful-techniques">Some useful techniques</h2>
-<p>In his wonderful book<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> about creating domain-specific languages, Martin Fowler lists a set of techniques that help achieve “fluency” of syntax. Some of them include:</p>
+<h2 id="some-advice">Some advice</h2>
+<p>So, eager to try this approach? Let me give you a few pieces of advice first:</p>
+<h3 id="evolve-the-language-as-you-evolve-code">Evolve the language as you evolve code</h3>
+<p>even though I named this chapter refactoring, it really is better when the language evolves.</p>
+<h3 id="composition-is-not-a-single-dsl-but-a-series-of-mini-dsls">Composition is not a single DSL, but a series of mini DSLs</h3>
+<h3 id="do-not-use-an-extensive-amount-of-dsl-tricks">Do not use an extensive amount of DSL tricks</h3>
+<p>Remember - this will be maintained by a whole team</p>
+<h3 id="factory-method-nesting-is-your-best-friend">Factory method nesting is your best friend</h3>
+<p>This is the technique we have used the most in the example above. Basically, it means wrapping a constructor invocation with a factory method that has a name more fitting a context it is used in. So, this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">HybridAlarm</span>(
+  <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;222-333-444&quot;</span>),
+  <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
+)</code></pre>
+<p>Becomes:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
+  <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
+  <span class="fu">MakesLoudNoise</span>()
+)</code></pre>
+<p>As you probably remember, each method wraps a constructor, e.g. <code>Calls()</code> is defined as:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">Calls</span>(string number)
+{
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(number);
+}</code></pre>
+<p>This technique is great for describing any kind of tree and graph-like structures as each method provides a natural scope for its arguments:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Method1</span>( <span class="co">//beginning of scope</span>
+  <span class="fu">NestedMethod1</span>(),
+  <span class="fu">NestedMethod2</span>()
+);       <span class="co">//end of scope</span></code></pre>
+<p>Thus, it is a natural fit for object composition, which <em>is</em> a graph-like structure.</p>
+<p>This approach looks great on paper but it’s not like everything just fits all the time. There are two issues with factory methods that need some kind of solution.</p>
+<h4 id="where-to-put-these-methods">Where to put these methods?</h4>
+<p>use context superclass? - check the name</p>
+<h4 id="shared-objects">Shared objects</h4>
+<p>use explaining variables xxxxx</p>
+<h3 id="use-implicit-collections-instead-of-explicit-ones">Use implicit collections instead of explicit ones</h3>
+<p>i.e. params in C#</p>
+<h3 id="hide-irrelevant-parts-of-composition">Hide irrelevant parts of composition</h3>
+<h4 id="infrastructure-variables-e.g.logger">Infrastructure variables (e.g. logger)</h4>
+<p>use fields in composition root</p>
+<h4 id="less-important-constructor-invocations">Less important constructor invocations</h4>
+<p>Each method does not always need to cover single constructor.</p>
+<h3 id="use-constants-with-care">Use constants with care</h3>
 <ol style="list-style-type: decimal">
 <li>Factory method &amp; method composition</li>
 </ol>
@@ -5277,7 +5317,6 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <li>variable as terminator ??? Explaining variables - for sharing</li>
 <li>constants - can be useful like Police, but sometimes can be less useful - introducing constant not always leads to more readable code - but do we have another choice? If not, just not name it like pentium2.cores(numberOfCoresInPentium2)</li>
 <li>Explaining method (i.e. returns its argument. Use with care)</li>
-<li>use simple anfd few elements - the language will be maintained by a team</li>
 </ol>
 <h2 id="a-series-of-fluent-interfaces-instead-of-one">A series of fluent interfaces instead of one</h2>
 <p>strive for achieving repeatable patterns - the best gain may be drawn from there.</p>
@@ -5561,7 +5600,6 @@ and this operation would create a new product name instead of modifying any of t
 <li id="fn24"><p>SMTP stands for Simple Mail Transfer Protocol and is a standard protocol for sending and receiving e-mail. You can read more on <a href="http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Wikipedia</a>.<a href="#fnref24">↩</a></p></li>
 <li id="fn25"><p>M. Fowler, Domain-Specific Languages, Addison-Wesley 2010.<a href="#fnref25">↩</a></p></li>
 <li id="fn26"><p>M. Fowler, Domain-Specific Languages, Addison-Wesley 2010.<a href="#fnref26">↩</a></p></li>
-<li id="fn27"><p>M. Fowler, Domain-Specific Languages, Addison-Wesley 2010.<a href="#fnref27">↩</a></p></li>
 </ol>
 </div>
 </body>
