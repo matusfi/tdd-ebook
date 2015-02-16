@@ -5132,7 +5132,8 @@ var messageFactory
 {
 }</code></pre>
 <p>which has a static method called <code>DuringDay()</code>:</p>
-<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">static</span> 
+<pre class="sourceCode java"><code class="sourceCode java"><span class="co">//note: this method is static</span>
+<span class="kw">public</span> <span class="dt">static</span> 
 DependingOnTimeOfDay <span class="fu">DuringDay</span>(Alarm alarm)
 {
   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">DependingOnTimeOfDay</span>(alarm);
@@ -5265,8 +5266,16 @@ Alarm <span class="dt">final</span> alarm = firstPart.<span class="fu">AtNight</
 <h2 id="some-advice">Some advice</h2>
 <p>So, eager to try this approach? Let me give you a few pieces of advice first:</p>
 <h3 id="evolve-the-language-as-you-evolve-code">Evolve the language as you evolve code</h3>
-<p>even though I named this chapter refactoring, it really is better when the language evolves.</p>
+<p>My usage of the term “refactoring” in the name of this chapter does not at all mean waiting for a lot of composition code to appear and then trying to wrap all of it. It is true that I did just that in the alarm example, but this was just an example.</p>
+<p>In reality, the language is better off evolving along the composition it wraps. One reason for this is because there is a lot of feedback about the composability of the design gained by actually trying to put a language on top of it. As I said in the chapter on single responsibility, if objects are not comfortably composable, something is probably wrong with the division of responsibilities between them. Don’t miss out on this feedback!</p>
+<p>The second reason is because even if you can safely refactor all the code because you have an executable Specification protecting you from making mistakes, it’s just too many decisions to handle at once (plus it takes a lot of time and your colleagues keep adding new code, don’t they?). Good language grows and matures organically rather than being created in a big bang effort. Some decisions take time and a lot of thought to be made.</p>
 <h3 id="composition-is-not-a-single-dsl-but-a-series-of-mini-dsls">Composition is not a single DSL, but a series of mini DSLs</h3>
+<p>While it may be tempting to invent a single DSL to describe whole application, in practice it is hardly possible. Rather, there will be some areas that will open itself for crafting as DSLs. The alarm example shown above would probably be just a small part of a real composition. Not all parts would lend themselves to shape this way.</p>
+<p>Despite this, we still want to apply the DSL techniques even to those parts of the composition that are not easily turned into DSLs and hunt for an occasion when we will be able to do so.</p>
+<p>As <a href="http://www.natpryce.com/articles/000783.html">Nat Pryce puts it</a>, it’s all about:</p>
+<blockquote>
+<p>(…) clearly expressing the dependencies between objects in the code that composes them, so that the system structure can easily be refactored, and aggressively refactoring that compositional code to remove duplication and express intent, and thereby raising the abstraction level at which we can program (…). The end goal is to need less and less code to write more and more functionality as the system grows.</p>
+</blockquote>
 <h3 id="do-not-use-an-extensive-amount-of-dsl-tricks">Do not use an extensive amount of DSL tricks</h3>
 <p>Remember - this will be maintained by a whole team</p>
 <h3 id="factory-method-nesting-is-your-best-friend">Factory method nesting is your best friend</h3>
