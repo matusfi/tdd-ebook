@@ -133,7 +133,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#craft-messages-to-reflect-senders-intention">Craft messages to reflect sender’s intention</a></li>
 <li><a href="#model-interactions-after-the-problem-domain">Model interactions after the problem domain</a></li>
 <li><a href="#message-recipients-should-be-told-what-to-do-instead-of-being-asked-for-information">Message recipients should be told what to do, instead of being asked for information</a></li>
-<li><a href="#getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</a></li>
+<li><a href="#most-of-the-getters-should-be-removed-return-values-should-be-avoided">Most of the getters should be removed, return values should be avoided</a></li>
+<li><a href="#protocols-should-be-small-and-abstract">Protocols should be small and abstract</a></li>
 <li><a href="#summary-7">Summary</a></li>
 </ul></li>
 <li><a href="#classes">Classes</a><ul>
@@ -4576,7 +4577,7 @@ primaryUsersList.<span class="fu">Add</span>(userName);</code></pre>
 <pre class="sourceCode java"><code class="sourceCode java">Radio radio = <span class="fu">radioRepository</span>().<span class="fu">GetRadio</span>(<span class="dv">12</span>);
 radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pre>
 <p>It does not have any of the weaknesses of the previous example. Thus, it is more stable in face of change.</p>
-<h2 id="getters-should-be-removed-return-values-should-be-avoided">Getters should be removed, return values should be avoided</h2>
+<h2 id="most-of-the-getters-should-be-removed-return-values-should-be-avoided">Most of the getters should be removed, return values should be avoided</h2>
 <p>The above stated guideline of “Tell Don’t Ask” has a practical implication of getting rid of (almost) all the getters. We did say that each object should stick to its work and tell other objects to do their work, passing context to them, didn’t we? If so, then why should we “get” anything from other objects?</p>
 <p>For me the idea of no getters was very extreme at first, but in a short time I learned that this is actually how I am supposed to write object-oriented code. You see, I started learning programming using structural languages such as C, where a program was divided into procedures or functions and data structures. Then I moved on to object-oriented languages that had far better mechanisms for abstraction, but my style of coding didn’t really change much. I would still have procedures and functions, just divided into objects. I would still have data structures, but now more abstract, e.g. objects with setters, getters and some other query methods.</p>
 <p>But what alternatives do we have? Well, I already introduced Tell Don’t Ask, so you should know the answer. Even though you should, I want to show you another example, this time specifically about getters and setters.</p>
@@ -4740,6 +4741,32 @@ radio.<span class="fu">AddPrimaryUserNameTo</span>(primaryUsersList);</code></pr
   <span class="co">//...</span>
 }</code></pre>
 <p>When we are not forced to return anything, we are more free to do as we like. Again, “Tell, don’t ask”.</p>
+<h2 id="protocols-should-be-small-and-abstract">Protocols should be small and abstract</h2>
+<p>I already said that interfaces should be small and abstract, so am I not just repeating myself here? The answer is: there is a difference between the size of protocols and the size of interfaces. As an extreme example, let’s take the following interface:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">interface</span> Interpreter
+{
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Execute</span>(string command);
+}</code></pre>
+<p>Is the interface small? Of course! Is it abstract? Well, kind of, yes. Tell Don’t Ask? Sure! But let’s see how it’s used by one of its collaborators:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">RunScript</span>()
+{
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd dir1&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.cs ../../dir2/src&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.xml ../../dir2/config&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd ../../dir2/&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;compile *.cs&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd dir3&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.cs ../../dir4/src&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.xml ../../dir4/config&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd ../../dir4/&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;compile *.cs&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd dir5&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.cs ../../dir6/src&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;copy *.xml ../../dir6/config&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;cd ../../dir6/&quot;</span>);
+  _interpreter.<span class="fu">Execute</span>(<span class="st">&quot;compile *.cs&quot;</span>);
+}</code></pre>
+<p>The point is: the protocol is neither abstract nor small. Thus, making implementations of interface that is used as such can be pretty painful.</p>
 <h2 id="summary-7">Summary</h2>
 <p>In this lengthy chapter I tried to show you the often underrated value of designing communication protocols between objects. They are not a “nice thing to have”, but rather a fundamental part of the design approach that makes mock objects useful, as you will see when finally we get to them. But first, I need you to swallow few more object-oriented design ideas. I promise it will pay off.</p>
 <h1 id="classes">Classes</h1>
