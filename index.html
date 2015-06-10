@@ -4935,7 +4935,7 @@ var messageFactory
 <p>In this chapter, I tried to give you some advice on designing classes that does not come so naturally from the concept of composability and interactions as those described in previous chapters. Still, as I hope I was able to show, they enhance composability and are valuable to us.</p>
 <h1 id="this-is-all-i-have-for-now.-what-follows-is-raw-unordered-material-thats-not-yet-ready-to-be-consumed-as-part-of-this-tutorial">THIS IS ALL I HAVE FOR NOW. WHAT FOLLOWS IS RAW, UNORDERED MATERIAL THAT’S NOT YET READY TO BE CONSUMED AS PART OF THIS TUTORIAL</h1>
 <h1 id="object-composition-as-a-language">Object Composition as a Language</h1>
-<p>While most of the earlier chapters talked a lot about viewing object composition as a web, this one will take a different view - one of a language. These two views are remarkably similar in nature and complement each other in guiding design.</p>
+<p>While most of the earlier chapters talked a lot about viewing object composition as a web, this one will take a different view – one of a language. These two views are remarkably similar in nature and complement each other in guiding design.</p>
 <p>It might surprise you that I am comparing object composition to a language, but, as I hope you’ll see, there are many similarities. Don’t worry, we’ll get there step by step, the first step being taking a second look at the composition root.</p>
 <h2 id="more-readable-composition-root">More readable composition root</h2>
 <p>When describing object compositon and composition root in particular, I promised to get back to the topic of making the composition code cleaner and more readable.</p>
@@ -4959,7 +4959,7 @@ var messageFactory
 }</code></pre>
 <p>Here, the session knows that whatever the destination is, <code>Destination</code> it accepts owner, target and expiry time and needs to be told when all information is passed to it. Still, reading this code, we cannot tell where the destination leads to, since <code>Destination</code> is an interface that abstracts away the details. It is a role that can be played by a file, a network connection, a console screen or a GUI widget. Context-independence enables composability.</p>
 <p>On the other hand, as much as context-independent classes and interfaces are important, the behavior of the application as a whole is important as well. Didn’t I say that the goal of composability is to be able to change the behavior of application more easily? But how can we consciously make decision about changing application behavior when we do not understand it? And no longer than a paragraph ago we came to conclusion that just reading a class after class is not enough. We have to have a view of how these classes work together as a system. So, where is the overall context that defines the behavior of the application?</p>
-<p>The context is in the composition code - the code that connects objects together, passing a real collaborators to each object and showing the connected parts make a whole.</p>
+<p>The context is in the composition code – the code that connects objects together, passing a real collaborators to each object and showing the connected parts make a whole.</p>
 <h3 id="example-5">Example</h3>
 <p>I assume you barely remember the alarms example I gave you in one of the first chapters of this part of the book to explain changing behavior by changing object composition. Anyway, just to remind you, we ended with a code that looked like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
@@ -4989,7 +4989,7 @@ var messageFactory
     <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
   )
 ),</code></pre>
-<p>meant that we were arming an office building with an alarm that calls number <code>222-333-444</code> when triggered during the day, but plays loud sirens when activated during the night. We could read this straight from the composition code, provided we knew what each object added to the overall composite behavior. So, again, composition of parts describes the behavior of the whole. There is, however, one more thing to note about this piece of code: it describes the behavior without explicitly stating its control flow (<code>if</code>, <code>else</code>, <code>for</code>, etc.). Such description is often called <em>declarative</em> - by composing objects, we write <em>what</em> we want to achieve without writing <em>how</em> to achieve it - the control flow itself is hidden inside the objects.</p>
+<p>meant that we were arming an office building with an alarm that calls number <code>222-333-444</code> when triggered during the day, but plays loud sirens when activated during the night. We could read this straight from the composition code, provided we knew what each object added to the overall composite behavior. So, again, composition of parts describes the behavior of the whole. There is, however, one more thing to note about this piece of code: it describes the behavior without explicitly stating its control flow (<code>if</code>, <code>else</code>, <code>for</code>, etc.). Such description is often called <em>declarative</em> – by composing objects, we write <em>what</em> we want to achieve without writing <em>how</em> to achieve it – the control flow itself is hidden inside the objects.</p>
 <p>Let’s sum up these two conclusions with the following statement:</p>
 <blockquote>
 <p>The composition code is a declarative description of the overall behavior of our application.</p>
@@ -5024,7 +5024,7 @@ var messageFactory
 {
   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(number);
 }</code></pre>
-<p>This step may look silly, (after all, we are introducing a method wrapping a single line of code), but there is a lot of sense to it. First of all, it lets us reduce the syntax noise - when we need to create a silent alarm, we do not have to say <code>new</code> anymore. Another benefit is that we can describe the role a <code>SilentAlarm</code> instance plays in our composition (I will explain later why we are doing it using passive voice).</p>
+<p>This step may look silly, (after all, we are introducing a method wrapping a single line of code), but there is a lot of sense to it. First of all, it lets us reduce the syntax noise – when we need to create a silent alarm, we do not have to say <code>new</code> anymore. Another benefit is that we can describe the role a <code>SilentAlarm</code> instance plays in our composition (I will explain later why we are doing it using passive voice).</p>
 <p>After replacing each invocation of <code>SilentAlarm</code> constructor with a call to this method, we get:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
   <span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
@@ -5080,7 +5080,7 @@ var messageFactory
       <span class="fu">MakesLoudNoise</span>()
     )
   )</code></pre>
-<p>and try to apply the same trick of introducing factory method to <code>HybridAlarm</code> creation. You know, we are always told that class names should be nouns and that’s why <code>HybridAlarm</code> is named like this. But it does not act well as a description of what the system does. Its real functionality is to trigger both alarms when it is triggered itself. Thus, we need to come up with a better name. Should we name the method <code>TriggersBothAlarms()</code>? Naah, it’s too much noise - we already know it’s alarms that we are triggering, so we can leave the “alarms” part out. What about “triggers”? It says what the hybrid alarm does, which might seem good, but when we look at the composition, <code>Calls()</code> and <code>MakesLoudNoise()</code> already say what is being done. The <code>HybridAlarm</code> only says that both of those things happen simultaneously. We could leave <code>Trigger</code> if we changed the names of the other methods in the composition to look like this:</p>
+<p>and try to apply the same trick of introducing factory method to <code>HybridAlarm</code> creation. You know, we are always told that class names should be nouns and that’s why <code>HybridAlarm</code> is named like this. But it does not act well as a description of what the system does. Its real functionality is to trigger both alarms when it is triggered itself. Thus, we need to come up with a better name. Should we name the method <code>TriggersBothAlarms()</code>? Naah, it’s too much noise – we already know it’s alarms that we are triggering, so we can leave the “alarms” part out. What about “triggers”? It says what the hybrid alarm does, which might seem good, but when we look at the composition, <code>Calls()</code> and <code>MakesLoudNoise()</code> already say what is being done. The <code>HybridAlarm</code> only says that both of those things happen simultaneously. We could leave <code>Trigger</code> if we changed the names of the other methods in the composition to look like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java">  <span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
     <span class="fu">TriggersBoth</span>(
       <span class="fu">Calling</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
@@ -5091,7 +5091,7 @@ var messageFactory
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OtherBuilding</span>(<span class="fu">LoudNoise</span>());</code></pre>
 <p>or if we wanted to use silent one:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OtherBuilding</span>(<span class="fu">Calling</span>(<span class="st">&quot;919&quot;</span>));</code></pre>
-<p>Instead, let’s try to name the method wrapping construction of <code>HybridAlarm</code> just <code>Both()</code> - it is simple and communicates well the role hybrid alarms play - after all, they are just a kind of combining operators, not real alarms. This way, our composition code is now:</p>
+<p>Instead, let’s try to name the method wrapping construction of <code>HybridAlarm</code> just <code>Both()</code> – it is simple and communicates well the role hybrid alarms play – after all, they are just a kind of combining operators, not real alarms. This way, our composition code is now:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">GuardsBuilding</span>(
   <span class="fu">Both</span>(
     <span class="fu">Calls</span>(<span class="st">&quot;919&quot;</span>), <span class="co">//police number</span>
@@ -5117,7 +5117,7 @@ var messageFactory
     <span class="fu">MakesLoudNoise</span>()
   )
 ),</code></pre>
-<p>Now the most difficult part - finding a way to make the following piece of code readable:</p>
+<p>Now the most difficult part – finding a way to make the following piece of code readable:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">OfficeBuilding</span>(
   <span class="kw">new</span> <span class="fu">DayNightSwitchedAlarm</span>(
     <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>), 
@@ -5278,9 +5278,9 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
     )
   )
 );</code></pre>
-<p>And here it is - the real, declarative description of our application! The composition reads better than when we started, doesn’t it?</p>
+<p>And here it is – the real, declarative description of our application! The composition reads better than when we started, doesn’t it?</p>
 <h2 id="composition-as-a-language">Composition as a language</h2>
-<p>Written this way, object composition has another important property - it is extensible and can be extended using the same terms that are already used (of course we can add new ones as well). For example, using the methods we invented to make the composition more readable, we may write something like this:</p>
+<p>Written this way, object composition has another important property – it is extensible and can be extended using the same terms that are already used (of course we can add new ones as well). For example, using the methods we invented to make the composition more readable, we may write something like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="fu">Both</span>(
   <span class="fu">Calls</span>(Police),
   <span class="fu">MakesLoudNoise</span>()
@@ -5296,11 +5296,11 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 )</code></pre>
 <p>to obtain different behavior. Note that we have invented something that has these properties:</p>
 <ol style="list-style-type: decimal">
-<li>It defines some kind of <em>vocabulary</em> - in our case, the following “words” are form part of the vocabulary: <code>Both</code>, <code>Calls</code>, <code>MakesLoudNoise</code>, <code>DependingOnTimeOfDay</code>, <code>atNight</code>, <code>duringDay</code>, <code>SecureAreaContaining</code>, <code>GuardsBuildingWithAlarmThat</code>, <code>OfficeBuildingWithAlarmThat</code>.</li>
-<li>It allows combining the words from the vocabulary. These combinations have meaning, which is based solely on the meaning of used words and the way they are combined. For example: <code>Both(Calls(Police), Calls(Guards))</code> has the meaning of “calls both police and guards when triggered” - thus, what this thing we invented really does is allowing us to combine words into <em>sentences</em>.</li>
+<li>It defines some kind of <em>vocabulary</em> – in our case, the following “words” are form part of the vocabulary: <code>Both</code>, <code>Calls</code>, <code>MakesLoudNoise</code>, <code>DependingOnTimeOfDay</code>, <code>atNight</code>, <code>duringDay</code>, <code>SecureAreaContaining</code>, <code>GuardsBuildingWithAlarmThat</code>, <code>OfficeBuildingWithAlarmThat</code>.</li>
+<li>It allows combining the words from the vocabulary. These combinations have meaning, which is based solely on the meaning of used words and the way they are combined. For example: <code>Both(Calls(Police), Calls(Guards))</code> has the meaning of “calls both police and guards when triggered” – thus, what this thing we invented really does is allowing us to combine words into <em>sentences</em>.</li>
 <li>Although we are quite liberal in defining behaviors for alarms, there are some rules as what can be composed with what (for example, we cannot compose guards building with an office, but each of them can only be composed with alarms). Thus, we can say that the <em>sentences</em> we write have to obey certain rules that look a lot like <em>a grammar</em>.</li>
 <li>The vocabulary is <em>constrained to the domain</em> of alarms. On the other hand, it <em>is more powerful and expressive</em> as a description of this domain than a combination of <code>if</code> statements, <code>for</code> loops, variable assignments and other elements of a general-purpose language. It is tuned towards describing rules of a domain on a <em>higher level of abstraction</em>.</li>
-<li>The sentences written define a behavior of the application - so by writing sentences like this, we still write software! Thus, what we do by combining <em>words</em> into <em>sentences</em> constrained by a <em>grammar</em> is still <em>programming</em>!</li>
+<li>The sentences written define a behavior of the application – so by writing sentences like this, we still write software! Thus, what we do by combining <em>words</em> into <em>sentences</em> constrained by a <em>grammar</em> is still <em>programming</em>!</li>
 </ol>
 <p>All of these points suggest that we have created a <em>Domain-Specific Language</em><a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>, which, by the way, is a <em>higher-level language</em>, meaning we describe our software on a higher level of abstraction.</p>
 <h2 id="the-significance-of-higher-level-language">The significance of higher-level language</h2>
@@ -5308,9 +5308,9 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <p>My main answer is: to deal with with complexity more effectively.</p>
 <p>What’t complexity? For our purpose we can approximate it as a number of different decisions our application needs to make. As we add new features and fix errors or implement missed requirements, the complexity of our software grows. What can we do when it grows so larger than we are able to manage? We have the following choices:</p>
 <ol style="list-style-type: decimal">
-<li>Remove some decisions - i.e. remove features from our application. This is very cool when we actually <em>can</em> do this, but there are times when this might be unacceptable from the business perspective.</li>
-<li>Optimize away redundant decisions - this is about making sure that each decision is made once in the code base - I already showed you some examples how polymorphism can help with that.<br /></li>
-<li>Use 3rd party component or a library to handle some of the decisions for us - while this is quite easy for “infrastructure” code and utilities, it is very, very hard (impossible?) to find a library that will describe our “domain rules” for us. So if these rules are where the real complexity lies (and often they are), we are still left alone with our problem.</li>
+<li>Remove some decisions – i.e. remove features from our application. This is very cool when we actually <em>can</em> do this, but there are times when this might be unacceptable from the business perspective.</li>
+<li>Optimize away redundant decisions – this is about making sure that each decision is made once in the code base – I already showed you some examples how polymorphism can help with that.<br /></li>
+<li>Use 3rd party component or a library to handle some of the decisions for us – while this is quite easy for “infrastructure” code and utilities, it is very, very hard (impossible?) to find a library that will describe our “domain rules” for us. So if these rules are where the real complexity lies (and often they are), we are still left alone with our problem.</li>
 <li>Hide the decisions by programming on higher level of abstraction – this is what we did in this chapter so far. The advantage is that it allows us to reduce complexity of our domain, by creating a bigger building blocks from which a behavior description can be created.</li>
 </ol>
 <p>So, as you see, only the last of the above points really helps in reducing domain complexity. This is where the idea of domain-specific languages falls in. If we carefully craft our object composition into a set of domain-specific languages (one is often too little in all but simplest cases), one day we may find that we are adding new features by writing new sentences in these languages in a declarative way rather than adding new imperative code. Thus, if we have a good language and a firm understanding of its vocabulary and grammar, we can program on a higher level of abstraction which is more expressive and less complex.</p>
@@ -5347,7 +5347,7 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <p>In creating internal DSLs, one can use a lot of neat tricks, some of them being very “hacky” and twisting the general-purpose language in many eays to achieve “flluent” syntax. But remember that the composition code is to be maintained by your team. Unless each and every member of your team is an expert on creating such DSLs, do not show off with too many, too sophisticated tricks. Stick with a few of the proven ones that are simple to use and work, like the ones I have used in the alarm example.</p>
 <p>Martin Fowler<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> describes a lot of tricks for creating such DSLs and at the same time warns against using too many of them in the same language.</p>
 <h3 id="factory-method-nesting-is-your-best-friend">Factory method nesting is your best friend</h3>
-<p>One of the DSL techniques, the one I have used the most, is factory method nesting. Basically, it means wrapping a constructor (or constructors - no one said each factory method must wrap exactly one <code>new</code>) invocation with a method that has a name more fitting for a context it is used in (and which hides the obscurity of the <code>new</code> keyword). This technique is what makes this:</p>
+<p>One of the DSL techniques, the one I have used the most, is factory method nesting. Basically, it means wrapping a constructor (or constructors – no one said each factory method must wrap exactly one <code>new</code>) invocation with a method that has a name more fitting for a context it is used in (and which hides the obscurity of the <code>new</code> keyword). This technique is what makes this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">HybridAlarm</span>(
   <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;222-333-444&quot;</span>),
   <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
@@ -5374,8 +5374,8 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <p>If so, where do we put such methods?</p>
 <p>There are two options[^staticimports]: 1. Put the methods in the class that performs the composition. 1. Put the methods in superclass.</p>
 <p>Apart from that, we can choose between: 1. Making the factory methods static. 1. Making the factory methods non-static.</p>
-<p>First, let’s consider the dilemma of putting in composing class vs having a superclass to inherit from. This choice is mainly determined by reuse needs. The methods that we use in one composition only and do not want to reuse are mostly better off as private methods in the composing class. On the other hand, the methods that we want to reuse (e.g. in other applications or services belonging to the same system), are better put in a superclass which we can inherit from. Also, a combination of the two approaches is possible, where superclass contains a more general method, while composing class wraps it with another method that adjusts the creation to the current context. By the way, remember that in most languages, we can inherit from a single class only - thus, putting methods for each language in a separate superclass forces us to distribute compositiion code across several classes, each inheriting its own set of methods and returning an object or several objects. This is not bad at all - quite the contrary, this is something we’d like to have, because it enables us to evolve a language and sentences written in this language in an isolated context.</p>
-<p>The second choice between static and non-static is one of having access to instance fields - instance methods have this access, while static methods do not. Thus, if the following is an instance method of a class called <code>AlarmComposition</code>:</p>
+<p>First, let’s consider the dilemma of putting in composing class vs having a superclass to inherit from. This choice is mainly determined by reuse needs. The methods that we use in one composition only and do not want to reuse are mostly better off as private methods in the composing class. On the other hand, the methods that we want to reuse (e.g. in other applications or services belonging to the same system), are better put in a superclass which we can inherit from. Also, a combination of the two approaches is possible, where superclass contains a more general method, while composing class wraps it with another method that adjusts the creation to the current context. By the way, remember that in most languages, we can inherit from a single class only – thus, putting methods for each language in a separate superclass forces us to distribute compositiion code across several classes, each inheriting its own set of methods and returning an object or several objects. This is not bad at all – quite the contrary, this is something we’d like to have, because it enables us to evolve a language and sentences written in this language in an isolated context.</p>
+<p>The second choice between static and non-static is one of having access to instance fields – instance methods have this access, while static methods do not. Thus, if the following is an instance method of a class called <code>AlarmComposition</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> AlarmComposition
 {
   <span class="co">//...</span>
@@ -5440,7 +5440,7 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
     <span class="kw">new</span> <span class="fu">MyAppConfigurationUpdates</span>(updates)
   );
 }</code></pre>
-<p>Note that the <code>TracedConfigurationUpdates</code> is not important from the point of view of composition - it is pure infrastructure code, not a new domain rule. Because of that, it may be a good idea to hide it inside the factory method.</p>
+<p>Note that the <code>TracedConfigurationUpdates</code> is not important from the point of view of composition – it is pure infrastructure code, not a new domain rule. Because of that, it may be a good idea to hide it inside the factory method.</p>
 <h2 id="summary-9">Summary</h2>
 <p>In this chapter, I tried to convey to you a vision of object composition as a language, with its own vocabulary, its own grammar, keywords and arguments. We can compose the words from the vocabulary in different sentences to create new behaviors on higher level of abstraction.</p>
 <p>This area of object oriented design is something I am still experimenting with, trying to catch up with what authorities on this topic share. Thus, I am not as fluent in it as in other topics covered in this book. Expect this chapter to grow (maybe into several chapters) or to be clarified in the future. For now, if you feel you need more information, please take a look at the video by Steve Freeman and Nat Pryce called <a href="https://vimeo.com/105785565">“Building on SOLID foundations”</a>.</p>
