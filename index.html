@@ -5317,7 +5317,7 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <p>The second reason is because even if you can safely refactor all the code because you have an executable Specification protecting you from making mistakes, it’s just too many decisions to handle at once (plus it takes a lot of time and your colleagues keep adding new code, don’t they?). Good language grows and matures organically rather than being created in a big bang effort. Some decisions take time and a lot of thought to be made.</p>
 <h3 id="composition-is-not-a-single-dsl-but-a-series-of-mini-dsls">Composition is not a single DSL, but a series of mini DSLs</h3>
 <p>I already briefly noted this. While it may be tempting to invent a single DSL to describe whole application, in practice it is hardly possible, because our applications have different subdomains that often use different sets of terms. Rather, it pays off to hunt for such subdomains and create smaller languages for them. The alarm example shown above would probably be just a small part of a real composition. Not all parts would lend themselves to shape this way, at least not instantly. What starts off as a single class might become a subdomain with its own vocabulary at some point. We need to pay attention. Hence, we still want to apply some of the DSL techniques even to those parts of the composition that are not easily turned into DSLs and hunt for an occasion when we are be able to do so.</p>
-<p>As <a href="http://www.natpryce.com/articles/000783.html">Nat Pryce beautifully puts it</a>, it’s all about:</p>
+<p>As <a href="http://www.natpryce.com/articles/000783.html">Nat Pryce puts it</a>, it’s all about:</p>
 <blockquote>
 <p>(…) clearly expressing the dependencies between objects in the code that composes them, so that the system structure can easily be refactored, and aggressively refactoring that compositional code to remove duplication and express intent, and thereby raising the abstraction level at which we can program (…). The end goal is to need less and less code to write more and more functionality as the system grows.</p>
 </blockquote>
@@ -5327,13 +5327,13 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
   <span class="fu">Of</span>(localSettings),
   <span class="fu">OfResource</span>(<span class="fu">Departments</span>()),
   <span class="fu">OfResource</span>(<span class="fu">Projects</span>()));</code></pre>
-<p>Reading this code should not be difficult, especially when we know what each term in the composition means. This code returns an object handling configuration updates of four things: application log, local settings, and two resources (in this subdomain, resources mean things that can be added, deleted and modified). These two resources are: departments and projects (e.g. we can add a new project or delete an existing one).</p>
-<p>Note that the constructs in this language make sense only in context of creating configuration update handlers. Thus, they should be restricted to this part of composition. Other parts that have nothing to do with configuration updates, should not need to know these constructs.</p>
+<p>Reading this code should not be difficult, especially when we know what each term in the sentence means. This code returns an object handling configuration updates of four things: application log, local settings, and two resources (in this subdomain, resources mean things that can be added, deleted and modified). These two resources are: departments and projects (e.g. we can add a new project or delete an existing one).</p>
+<p>Note that the constructs of this language make sense only in a context of creating configuration update handlers. Thus, they should be restricted to this part of composition. Other parts that have nothing to do with configuration updates, should not need to know these constructs.</p>
 <h3 id="do-not-use-an-extensive-amount-of-dsl-tricks">Do not use an extensive amount of DSL tricks</h3>
-<p>In creating internal DSLs, one can use a lot of neat tricks, some of them being very “hacky”. But remember that the composition code is to be maintained by your team. Unless each and every member of your team is an expert on creating internal DSLs, do not show off with too sophisticated tricks. Keep to few of the proven ones that are simple to use and work, like the ones I have used in the alarm example.</p>
-<p>Martin Fowler<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> describes a lot of tricks for creating such DSLs and at the same time warns against using too many of them.</p>
+<p>In creating internal DSLs, one can use a lot of neat tricks, some of them being very “hacky” and twisting the general-purpose language in many eays to achieve “flluent” syntax. But remember that the composition code is to be maintained by your team. Unless each and every member of your team is an expert on creating such DSLs, do not show off with too many, too sophisticated tricks. Stick with a few of the proven ones that are simple to use and work, like the ones I have used in the alarm example.</p>
+<p>Martin Fowler<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> describes a lot of tricks for creating such DSLs and at the same time warns against using too many of them in the same language.</p>
 <h3 id="factory-method-nesting-is-your-best-friend">Factory method nesting is your best friend</h3>
-<p>One of the DSL techniques, the one I have used the most, is factory method nesting. Basically, it means wrapping a constructor invocation with a method that has a name more fitting a context it is used in (and which hides the obscurity of the <code>new</code> keyword). This technique is what makes this:</p>
+<p>One of the DSL techniques, the one I have used the most, is factory method nesting. Basically, it means wrapping a constructor (or constructors - no one said each factory method must wrap exactly one <code>new</code>) invocation with a method that has a name more fitting for a context it is used in (and which hides the obscurity of the <code>new</code> keyword). This technique is what makes this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">HybridAlarm</span>(
   <span class="kw">new</span> <span class="fu">SilentAlarm</span>(<span class="st">&quot;222-333-444&quot;</span>),
   <span class="kw">new</span> <span class="fu">LoudAlarm</span>()
@@ -5343,7 +5343,7 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
   <span class="fu">Calls</span>(<span class="st">&quot;222-333-444&quot;</span>),
   <span class="fu">MakesLoudNoise</span>()
 )</code></pre>
-<p>As you probably remember, each method wraps a constructor, e.g. <code>Calls()</code> is defined as:</p>
+<p>As you probably remember, in this case each method wraps a constructor, e.g. <code>Calls()</code> is defined as:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">Calls</span>(string number)
 {
   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(number);
@@ -5354,13 +5354,13 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
   <span class="fu">NestedMethod2</span>()
 );       <span class="co">//end of scope</span></code></pre>
 <p>Thus, it is a natural fit for object composition, which <em>is</em> a graph-like structure.</p>
-<p>This approach looks great on paper but it’s not like everything just fits all the time. There are two issues with factory methods that need some kind of solution.</p>
+<p>This approach looks great on paper but it’s not like everything just fits in all the time. There are two issues with factory methods that we need to address.</p>
 <h4 id="where-to-put-these-methods">Where to put these methods?</h4>
 <p>In the usual case, we want to be able to invoke these methods without any qualifier before them, i.e. we want to call <code>MakesLoudNoise()</code> instead of <code>alarmsFactory.MakesLoudNoise()</code> or <code>this.MakesLoudNoise()</code> or anything.</p>
 <p>If so, where do we put such methods?</p>
-<p>There are two options[^staticimports]: 1. Put the methods in the class that performs the composition 1. Put the methods in superclass</p>
-<p>Apart from that, we can choose between: 1. Making the factory methods static 1. Making the factory methods non-static</p>
-<p>First, let’s consider the first dillema of putting in composing class vs having a superclass. This choice is mainly determined by reuse. The methods that we use in one composition only and do not want to reuse are better off as private methods in the composing class. On the other hand, the methods that we want to reuse (e.g. in other applications or services belonging to the same system), are better put in a superclass which we can inherit from. Also, a combination of the two approaches is possible, where superclass contains a more general method, while composing class wraps it with another method that adjusts the creation to the current context.</p>
+<p>There are two options[^staticimports]: 1. Put the methods in the class that performs the composition. 1. Put the methods in superclass.</p>
+<p>Apart from that, we can choose between: 1. Making the factory methods static. 1. Making the factory methods non-static.</p>
+<p>First, let’s consider the dilemma of putting in composing class vs having a superclass to inherit from. This choice is mainly determined by reuse needs. The methods that we use in one composition only and do not want to reuse are mostly better off as private methods in the composing class. On the other hand, the methods that we want to reuse (e.g. in other applications or services belonging to the same system), are better put in a superclass which we can inherit from. Also, a combination of the two approaches is possible, where superclass contains a more general method, while composing class wraps it with another method that adjusts the creation to the current context. By the way, remember that in most languages, we can inherit from a single class only - thus, putting methods for each language in a separate superclass forces us to distribute compositiion code across several classes, each inheriting its own set of methods and returning an object or several objects. This is not bad at all - quite the contrary, this is something we’d like to have, because it enables us to evolve a language and sentences written in this language in an isolated context.</p>
 <p>The second choice between static and non-static is one of having access to instance fields - instance methods have this access, while static methods do not. Thus, if the following is an instance method of a class called <code>AlarmComposition</code>:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> AlarmComposition
 {
@@ -5376,39 +5376,40 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <p>and I need to pass an additional dependency to <code>SilentAlarm</code> that I do not want to show in the main composition code, I am free to change the <code>Calls</code> method to:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> Alarm <span class="fu">Calls</span>(string number)
 {
-  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(number, 
-    <span class="kw">this</span>.<span class="fu">_irrelevantDependency</span>)
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SilentAlarm</span>(
+    number, 
+    _hiddenDependency) <span class="co">//field</span>
 }</code></pre>
-<p>and this new dependency may be passed to the composing object via constructor:</p>
+<p>and this new dependency may be passed to the <code>AlarmComposition</code> via constructor:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="fu">AlarmComposition</span>(
-  IrrelevantDependency irrelevantDependency)
+  HiddenDependency hiddenDependency)
 {
-  _irrelevantDependency = irrelevantDependency;
+  _hiddenDependency = hiddenDependency;
 } </code></pre>
 <p>This way, I can hide it from the main composition code. This is freedom I do not have with static methods.</p>
 <h4 id="use-implicit-collections-instead-of-explicit-ones">Use implicit collections instead of explicit ones</h4>
-<p>Most object-oriented languages support passing variable arguments (e.g. in C# this is achieved with <code>params</code> keyword, while Java has <code>...</code> operator). This is valuable in composition, because we often want to be able to pass arbitrary number of objects. Again, coming back to this composition:</p>
+<p>Most object-oriented languages support passing variable argument lists (e.g. in C# this is achieved with <code>params</code> keyword, while Java has <code>...</code> operator). This is valuable in composition, because we often want to be able to pass arbitrary number of objects to some places. Again, coming back to this composition:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="fu">ConfigurationUpdates</span>(
   <span class="fu">Of</span>(log),
   <span class="fu">Of</span>(localSettings),
   <span class="fu">OfResource</span>(<span class="fu">Departments</span>()),
   <span class="fu">OfResource</span>(<span class="fu">Projects</span>()));</code></pre>
-<p>the <code>ConfigurationUpdates()</code> method is using variable argument passing:</p>
+<p>the <code>ConfigurationUpdates()</code> method is using variable argument list:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> ConfigurationUpdates <span class="fu">ConfigurationUpdates</span>(
   params ConfigurationUpdate[] updates)
 {
   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">MyAppConfigurationUpdates</span>(updates);
 }</code></pre>
-<p>Note that we could, of course, pass the array of <code>ConfigurationUpdate</code> instances as literal array, but that would greatly hinder readabiliyty and flow of this composition. See for yourself:</p>
+<p>Note that we could, of course, pass the array of <code>ConfigurationUpdate</code> instances using explicit definition: <code>new ConfigurationUpdate[] {...}</code>, but that would greatly hinder readabiliyty and flow of this composition. See for yourself:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">return</span> <span class="fu">ConfigurationUpdates</span>(
-  <span class="kw">new</span> [] {
+  <span class="kw">new</span> [] { <span class="co">//explicit definition brings noise</span>
     <span class="fu">Of</span>(log),
     <span class="fu">Of</span>(localSettings),
     <span class="fu">OfResource</span>(<span class="fu">Departments</span>()),
     <span class="fu">OfResource</span>(<span class="fu">Projects</span>())
   }
 );</code></pre>
-<p>Not so pretty, huh?</p>
+<p>Not so pretty, huh? This is why we like the ability to pass variable argument lists as it enhances readability.</p>
 <h4 id="a-single-method-can-create-more-than-one-object">A single method can create more than one object</h4>
 <p>No one said each factory method must create one and only one object. For example, take a look again at this method creating configuration updates:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> ConfigurationUpdates <span class="fu">ConfigurationUpdates</span>(
@@ -5416,18 +5417,19 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 {
   <span class="kw">return</span> <span class="kw">new</span> <span class="fu">MyAppConfigurationUpdates</span>(updates);
 }</code></pre>
-<p>Now, let’s assume we need to synchronize to the instance of <code>ConfigurationUpdates</code> class and we want to achieve this by wrapping the <code>MyAppConfigurationUpdates</code> instance with a synchronizing proxy. For this purpose, we can reuse the method we already have, just adding the additional object creation there:</p>
+<p>Now, let’s assume we need to trace each invocation on the instance of <code>ConfigurationUpdates</code> class and we want to achieve this by wrapping the <code>MyAppConfigurationUpdates</code> instance with a tracing proxy (a wrapping object that passes the calls along to a real object, but writes some trace messages before and after it does). For this purpose, we can reuse the method we already have, just adding the additional object creation there:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> ConfigurationUpdates <span class="fu">ConfigurationUpdates</span>(
   params ConfigurationUpdate[] updates)
 {
   <span class="co">//now two objects created instead of one:</span>
-  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">SynchronizedConfigurationUpdates</span>(
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fu">TracedConfigurationUpdates</span>(
     <span class="kw">new</span> <span class="fu">MyAppConfigurationUpdates</span>(updates)
   );
 }</code></pre>
+<p>Note that the <code>TracedConfigurationUpdates</code> is not important from the point of view of composition - it is pure infrastructure code, not a new domain rule. Because of that, it may be a good idea to hide it inside the factory method.</p>
 <h2 id="summary-9">Summary</h2>
-<p>While most of the earlier chapters talked a lot about viewing object composition as a web, this one took a different view - one of a language. These two views are remarkably similar in nature and complement each other in guiding design.</p>
-<p>This area of treating composition as a language is something I am experimenting with lately and am not as fluent as with other aspects of this book. Expect this chapter to grow or to be clarified in the future. For now, if you feel you need more information, please take a look at the video by Steve Freeman and Nat Pryce called <a href="https://vimeo.com/105785565">“Building on SOLID foundations”</a>.</p>
+<p>In this chapter, I tried to convey to you a vision of object composition as a language, with its own vocabulary, its own grammar, keywords and arguments. We can compose the words from the vocabulary in different sentences to create new behaviors on higher level of abstraction.</p>
+<p>This area of object oriented design is something I am still experimenting with, trying to catch up with what authorities on this topic share. Thus, I am not as fluent in it as in other topics covered in this book. Expect this chapter to grow (maybe into several chapters) or to be clarified in the future. For now, if you feel you need more information, please take a look at the video by Steve Freeman and Nat Pryce called <a href="https://vimeo.com/105785565">“Building on SOLID foundations”</a>.</p>
 <p>%% ### Hide irrelevant parts of composition - few levels of composition code is enough %% 1. Factory method &amp; method composition %% - not necessarily one method per each constructor %% - hide ambient context in fields (logger, configuration) e.g. method ConfiguredLength() %% 1. Literal Collections (variadic covering method) – creating collection using %% variadic parameter method or variadic constructors %% 1. Method chaining - expression builders build up context %% 1. variable as terminator ??? Explaining variables - for sharing %% 1. constants - can be useful like Police, but sometimes can be less useful - introducing constant not always leads to more readable code - but do we have another choice? If not, just not name it like pentium2.cores(numberOfCoresInPentium2) %% 1. Explaining method (i.e. returns its argument. Use with care)</p>
 <p>[^staticimports] In some languages, there is a third way: Java lets us use static imports which are part of C# as well starting with version 6.0. C++ has always supported bare functions, so it’s not a topic there. .</p>
 <h1 id="value-objects">Value Objects</h1>
