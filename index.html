@@ -4942,10 +4942,24 @@ var messageFactory
 <p>Before I do this, however, we need to get one important question answered…</p>
 <h3 id="why-bother">Why bother?</h3>
 <p>By now you have to be sick and tired of how I stress the importance of composability. I do so, however, because I believe it is one of the most important aspect of well-designed classes. Also, I said that in order to reach high composability of a class, it has to be context-independent. To explain how to reach this independence, I introduced the principle of separating object use from construction, pushing the construction part away into specialized places in code. I also said that a lot can be contributed to this quality by making the interfaces and protocols abstract and having them expose as small amount of implementation details as possible.</p>
-<p>All of this has its cost, however. Striving for high context-independence takes away from us the ability to look at a single class and determine its context just by reading its code. Such class is “dumb” about the context it operates in.</p>
-<p>TODO example!!</p>
+<p>All of this has its cost, however. Striving for high context-independence takes away from us the ability to look at a single class and determine its context just by reading its code. Such class knows very little about the context it operates in. For example, few chapters back we dealt with dumping sessions and I showed you that such dump method may be implemented like this:</p>
+<pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> RealSession : Session
+{
+  <span class="co">//...</span>
+
+  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">DumpInto</span>(Destination destination)
+  {
+    destination.<span class="fu">AcceptOwner</span>(<span class="kw">this</span>.<span class="fu">owner</span>);
+    destination.<span class="fu">AcceptTarget</span>(<span class="kw">this</span>.<span class="fu">target</span>);
+    destination.<span class="fu">AcceptExpiryTime</span>(<span class="kw">this</span>.<span class="fu">expiryTime</span>);
+    destination.<span class="fu">Done</span>();
+  }
+
+  <span class="co">//...</span>
+}</code></pre>
+<p>Here, the session knows that whatever the destination is, <code>Destination</code> it accepts owner, target and expiry time and needs to be told when all information is passed to it. Still, reading this code, we cannot tell where the destination leads to, since <code>Destination</code> is an interface that abstracts away the details. It is a role that can be played by a file, a network connection, a console screen or a GUI widget. Context-independence enables composability.</p>
 <p>On the other hand, as much as context-independent classes and interfaces are important, the behavior of the application as a whole is important as well. Didn’t I say that the goal of composability is to be able to change the behavior of application more easily? But how can we consciously make decision about changing application behavior when we do not understand it? And no longer than a paragraph ago we came to conclusion that just reading a class after class is not enough. We have to have a view of how these classes work together as a system. So, where is the overall context that defines the behavior of the application?</p>
-<p>The context is in the composition code - the code that connects objects together, passing a real context to each object and showing how the overall context looks like.</p>
+<p>The context is in the composition code - the code that connects objects together, passing a real collaborators to each object and showing the connected parts make a whole.</p>
 <h3 id="example-5">Example</h3>
 <p>I assume you barely remember the alarms example I gave you in one of the first chapters of this part of the book to explain changing behavior by changing object composition. Anyway, just to remind you, we ended with a code that looked like this:</p>
 <pre class="sourceCode java"><code class="sourceCode java"><span class="kw">new</span> <span class="fu">SecureArea</span>(
@@ -5430,7 +5444,6 @@ Alarm alarm = firstPart.<span class="fu">AtNight</span>(nightAlarm);</code></pre
 <h2 id="summary-9">Summary</h2>
 <p>In this chapter, I tried to convey to you a vision of object composition as a language, with its own vocabulary, its own grammar, keywords and arguments. We can compose the words from the vocabulary in different sentences to create new behaviors on higher level of abstraction.</p>
 <p>This area of object oriented design is something I am still experimenting with, trying to catch up with what authorities on this topic share. Thus, I am not as fluent in it as in other topics covered in this book. Expect this chapter to grow (maybe into several chapters) or to be clarified in the future. For now, if you feel you need more information, please take a look at the video by Steve Freeman and Nat Pryce called <a href="https://vimeo.com/105785565">“Building on SOLID foundations”</a>.</p>
-<p>%% ### Hide irrelevant parts of composition - few levels of composition code is enough %% 1. Factory method &amp; method composition %% 1. Method chaining - expression builders build up context %% 1. variable as terminator ??? Explaining variables - for sharing %% 1. Explaining method (i.e. returns its argument. Use with care)</p>
 <p>[^staticimports] In some languages, there is a third way: Java lets us use static imports which are part of C# as well starting with version 6.0. C++ has always supported bare functions, so it’s not a topic there. .</p>
 <h1 id="value-objects">Value Objects</h1>
 <p>Hi, today I’m gonna tell a bit about value objects, why they’re so useful and what rules apply to creating and using them. This post is inspired by some work by Kent Beck, Steve Freeman and Nat Pryce.</p>
